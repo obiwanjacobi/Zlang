@@ -12,4 +12,10 @@ The number of keywords have been kept to a minimum. Much of the language is expr
 - else
 - return
 
-> These keywords are reserved and cannot be used as names (identifiers) in the code.
+> These keywords are reserved and cannot be used as names ([identifiers](identifiers.md)) in the code.
+
+## Operators
+
+- and
+- or
+- not

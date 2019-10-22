@@ -4,11 +4,13 @@ Z# (Zee-Sharp) is a simple language with modern features for restricted instruct
 
 ## 1. Lexical
 
-[1.1 Whitespace](./lexical/whitespace.md)
+[1.1 Identifiers](./lexical/identifiers.md)
 
-[1.2 Comments](./lexical/comments.md)
+[1.2 Whitespace](./lexical/whitespace.md)
 
 [1.3 Keywords](./lexical/keywords.md)
+
+[1.4 Comments](./lexical/comments.md)
 
 ## 2. Modules
 

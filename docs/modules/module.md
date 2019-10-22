@@ -13,4 +13,6 @@ This is a valid module name:
 module myproject.Custom_String1
 ```
 
-In a sense, the module name is also the name-space of the code in the file.
+In a sense, the module name is also the namespace of the code in the file.
+
+> Packaging is not part of the language but a function of the compiler.
