@@ -9,6 +9,8 @@ The following types of identifiers can be exported:
 - Types
 - Functions
 
+> Variables cannot be exported! They need an accessor function.
+
 Here is an example of exporting a function:
 
 ```C#

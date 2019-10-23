@@ -27,6 +27,16 @@ d = 0d7_654_321     // 7,654,321
 h = 0xFF_FF
 ```
 
+### Floating Point
+
+Floating point literals can be specified in different ways. Mainly the use of the decimal separator `.` is an indication that the value is a floating point value. Only a decimal format is suported (no prefix).
+
+```C#
+1.0  1.  .42
+```
+
+> Use of exponents -like `1.42e-3`- is currently not defined.
+
 ## Strings
 
 A string literal is enclosed with double quotes. Here are some examples:
@@ -55,6 +65,8 @@ s = "Some text
         spread over
         multiple lines"
 ```
+
+These indents on the beginning of the new lines do not become part of the resulting string: `"Some text spread over multiple lines"`
 
 Basic formatting of dynamic values into a string is done in thr following way:
 

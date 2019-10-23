@@ -1,6 +1,6 @@
 # Z#
 
-Z# (Zee-Sharp) is a simple language with modern features for restricted instruction sets, like the old 8-bit CPUs or small micro controllers.
+Z# (Zee-Sharp) is a simple language with modern features for restricted instruction sets, like the old 8-bit CPUs -like the Z80-  or small micro controllers.
 
 ## 1. Lexical
 
@@ -25,3 +25,4 @@ Z# (Zee-Sharp) is a simple language with modern features for restricted instruct
 - [3.5 Type Conversion](./lang/conversion.md)
 - [3.6 Loops](./lang/loops.md)
 - [3.7 Flow Control](./lang/flow.md)
+- [3.7 Range](./lang/range.md)
