@@ -1,6 +1,6 @@
 # Whitespace
 
-Unlike most languages, whitespace matters with Z#. Similar to Python and F#.
+Unlike most languages, whitespace matters in Z#. Similar to Python and F#.
 
 ## Spaces and Tabs
 
