@@ -12,4 +12,4 @@ The supported expressions are divided in these categories:
 - [Logical](logical.md)
 - [Comparison](comparison.md)
 - [Bitwise](bitwise.md)
-- [Assignmen](assignemt.md)
+- [Assignment](assignment.md)
