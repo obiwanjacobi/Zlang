@@ -23,6 +23,16 @@ Z# (Zee-Sharp) is a simple language with modern features for restricted instruct
 - [3.3 Enums](./lang/enums.md)
 - [3.4 Interfaces](./lang/interfaces.md)
 - [3.5 Type Conversion](./lang/conversion.md)
-- [3.6 Loops](./lang/loops.md)
-- [3.7 Flow Control](./lang/flow.md)
-- [3.7 Range](./lang/range.md)
+- [3.6 Array](./types/array.md)
+- [3.7 Range](./types/range.md)
+- [3.8 Loops](./lang/loops.md)
+- [3.9 Flow Control](./lang/flow.md)
+
+## 4. Expressions
+
+- [4.1 General](./lang/expression.md)
+- [4.2 Arithmetic](./lang/arithmetic.md)
+- [4.3 Logical](./lang/logical.md)
+- [4.4 Comparison](./lang/comparison.md)
+- [4.5 Bitwise](./lang/bitwise.md)
+- [4.6 Assignement](./lang/assignment.md)

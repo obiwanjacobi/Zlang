@@ -64,3 +64,5 @@ Here the example declares a `Bit` type that contains 4 bits (nibble):
 ```
 Bit<4>
 ```
+
+When `Bit`s are stored, the closest fitting data type is used. So a `Bit<6>` would take up a single byte `U8`, while a `Bit<12>` would take up two bytes `U16`. `Bit`s are always interpreted as unsigned and stored in the lower bits of the storage type. The upper unused bits are reset to zero.

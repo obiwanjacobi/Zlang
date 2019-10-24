@@ -1,0 +1,27 @@
+# Logical Expressions
+
+Logical expressions evaluate boolean values. They are implemented lazily and only access the right operand when the left operand not already determines the result. This is pretty typical optimization for the `and` and `or` operators.
+
+| Operator | Function
+|-------|------
+| and | And
+| or | Or
+| not | Not
+
+```C#
+true and true       // true
+false or true       // true
+not true and true   // false
+```
+
+The next example demonstrates the lazy evaluation of a logical expression. `funTwo` will never be called because `funOne` returned `true` which satisfied the `or` operator.
+
+```C#
+funOne(): Bool
+    return true
+funTwo(): Bool
+    return false
+
+if funOne() or funTwo()
+    code_is_executed
+```
