@@ -30,9 +30,9 @@ Z# (Zee-Sharp) is a simple language with modern features for restricted instruct
 
 ## 4. Expressions
 
-- [4.1 General](./lang/expression.md)
-- [4.2 Arithmetic](./lang/arithmetic.md)
-- [4.3 Logical](./lang/logical.md)
-- [4.4 Comparison](./lang/comparison.md)
-- [4.5 Bitwise](./lang/bitwise.md)
-- [4.6 Assignement](./lang/assignment.md)
+- [4.1 General](./expressions/expression.md)
+- [4.2 Arithmetic](./expressions/arithmetic.md)
+- [4.3 Logical](./expressions/logical.md)
+- [4.4 Comparison](./expressions/comparison.md)
+- [4.5 Bitwise](./expressions/bitwise.md)
+- [4.6 Assignement](./expressions/assignment.md)
