@@ -15,8 +15,12 @@ A special operator is used to access them: `!`
 | bits | The number of bits for the type.
 | count | The number of elements.
 | size | The size in bytes the type takes up in memory.
+| def | Default value for the type.
 | ptr | A ptr to the instance of the type.
-| dup | A deep copy (duplicate) of the instance.
+| imm | An immutable reference to the instance.
+| `dup` | A deep copy (duplicate) of the instance.
+
+Not all types support all attributes. The compiler will give an error when the code accesses an attribute that is not supported by the type in question.
 
 ```C#
 a = 42      // U8
@@ -26,6 +30,18 @@ a!min       // 0
 a!max       // 255
 p = a!ptr   // p points to a
 q = p!dup   // q points to a
+
+U8!size     // 1
+U8!bits     // 8
+U8!min      // 0
+U8!max      // 255
+U8!ptr      // error! not on type
+U8!dup      // error! not on type
+
+Bit<3>!size // 1
+Bit<3>!bits // 3
+Bit<3>!min  // 0
+Bit<3>!max  // 7
 ```
 
 ## Pragmas
