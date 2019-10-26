@@ -1,5 +1,7 @@
 # Structures
 
+> TODO: Structuring/destructuring(spread operator)
+
 Structures are data records of fields.
 
 A name and a set of fields is required in order to define a structure. Structures cannot be empty - have no fields.

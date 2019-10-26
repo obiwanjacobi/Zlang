@@ -34,7 +34,7 @@ a: U8 = "zlang" // error! Str cannot be converted to U8
 
 A pointer variable contains a memory location of the thing it points to.
 
-A specific parameterized type is use to express pointers: `Ptr<T>`:
+A specific parameterized type is used to express pointers: `Ptr<T>`:
 
 ```C#
 a = 42      // U8

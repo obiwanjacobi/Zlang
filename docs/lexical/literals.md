@@ -72,8 +72,16 @@ Basic formatting of dynamic values into a string is done in thr following way:
 
 ```C#
 v = 42
-s = "Answer to everthing is '{v}'"
+s = "Answer to everything is '{v}'"
 // Anser to everything is '42'
 ```
 
 Using the `{}` characters as is in a string literal, requires the escape sequence `\\`.
+
+## Arrays
+
+There is a syntax for specifying literal arrays of basic types:
+
+```C#
+arr = [1, 2, 3, 4, 5]           // 5 elements of U8
+```

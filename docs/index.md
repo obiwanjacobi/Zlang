@@ -10,8 +10,9 @@ Z# (Zee-Sharp) is a simple language with modern features for restricted instruct
 - [1.1 Identifiers](./lexical/identifiers.md)
 - [1.2 Whitespace](./lexical/whitespace.md)
 - [1.3 Keywords](./lexical/keywords.md)
-- [1.4 Literals](./lexical/literals.md)
-- [1.5 Comments](./lexical/comments.md)
+- [1.4 Operators](./lexical/operators.md)
+- [1.5 Literals](./lexical/literals.md)
+- [1.6 Comments](./lexical/comments.md)
 
 ## 2. Modules
 
@@ -38,9 +39,11 @@ Z# (Zee-Sharp) is a simple language with modern features for restricted instruct
 - [4.3 Logical](./expressions/logical.md)
 - [4.4 Comparison](./expressions/comparison.md)
 - [4.5 Bitwise](./expressions/bitwise.md)
-- [4.6 Assignement](./expressions/assignment.md)
+- [4.6 Assignment](./expressions/assignment.md)
 
 ## 5. Types
 
 - [5.1 Array](./types/array.md)
-- [5.2 Range](./types/range.md)
+- [5.2 List](./types/list.md)
+- [5.2 Map](./types/map.md)
+- [5.3 Range](./types/range.md)

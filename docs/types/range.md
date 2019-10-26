@@ -1,5 +1,20 @@
 # Range
 
+> TODO range inclusive or exclusive?
+
+```C#
+[1..4]      // closed range
+[..4]       // from start
+[4..]       // till end
+[..]        // all
+[0]         // first
+[-1]        // last
+```
+
+```C#
+rng = Rng(1, 6)     // ??
+```
+
 ## Static
 
 ```C#
@@ -12,3 +27,7 @@
 i = 42
 [0..i]
 ```
+
+iterators
+
+slices
