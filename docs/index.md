@@ -47,3 +47,12 @@ Z# (Zee-Sharp) is a simple language with modern features for restricted instruct
 - [5.2 List](./types/list.md)
 - [5.2 Map](./types/map.md)
 - [5.3 Range](./types/range.md)
+
+## 6. Compiler
+
+- [6.1 General](./compiler/compiler.md)
+- [6.1 Meta Programming](./compiler/meta.md)
+- [6.2 Checked Functions](./compiler/checked.md)
+- [6.1 Conditional Compilation](./compiler/conditional.md)
+- [6.1 Libraries](./compiler/libraries.md)
+- [6.1 Packages](./compiler/packages.md)
