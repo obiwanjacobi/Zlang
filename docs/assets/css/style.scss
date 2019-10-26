@@ -4,10 +4,11 @@
 @import "{{ site.theme }}";
 
 #main_content {
-    margin-left: 320px;
+    margin-left: 240px;
+    width: auto;
 }
 
 #navigation {
-    width: 320px;
+    width: 240px;
     float: left;
 }
