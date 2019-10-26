@@ -14,6 +14,7 @@ The number of keywords have been kept to a minimum. Much of the language is expr
 | else | Opposite of conditional branch
 | return | Exit a Function
 | in | Iterating over a Range
+| self | Indicates bound type.
 
 > These keywords are reserved and cannot be used as names ([identifiers](identifiers.md)) in the code.
 

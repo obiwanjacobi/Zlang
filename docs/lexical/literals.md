@@ -78,6 +78,16 @@ s = "Answer to everything is '{v}'"
 
 Using the `{}` characters as is in a string literal, requires the escape sequence `\\`.
 
+## Character
+
+Related to strings are character literals. A single character can be specified using single quotes:
+
+```C#
+c = 'X'                 // U8
+```
+
+Characters are interpreted as a single unsigned byte, assuming ASCII.
+
 ## Arrays
 
 There is a syntax for specifying literal arrays of basic types:

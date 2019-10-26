@@ -1,0 +1,15 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+        {
+            "name": "Antlr Debug",
+            "type": "antlr-debug",
+            "request": "launch",
+            "input": "./zsharp/grammar/_test/antlr.debug.zs",
+            "grammar": "./zsharp/grammar/zsharp.g4",
+            "startRule": "file",
+            "printParseTree": true,
+            "visualParseTree": true
+        }
+    ]
+}
