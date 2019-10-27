@@ -4,16 +4,23 @@ grammar zsharp_parser;
 file : code* EOF;
 code: (statement | comment) EOL*;
 
-statement: statement_module | statement_import | statement_export | statement_if | statement_else;
+statement: module_statement | flow_statement | declaration;
 
 // modules
+module_statement : statement_module | statement_import | statement_export;
 module_name: identifier_module | module_name DOT identifier_module;
 statement_module: keyword_module module_name;
 statement_import: keyword_import module_name;
-statement_export: keyword_export (identifier_func | identifier_type | function_decl);
+statement_export: keyword_export (identifier_func | identifier_type);
 
+// flow control
+flow_statement: statement_if | statement_else 
+    | keyword_break | keyword_continue | keyword_return;
 statement_if: keyword_if expression_logic;
 statement_else: keyword_else statement_if?;
+
+// declaration
+declaration: function_decl;
 
 // expressions
 expression_logic: 
