@@ -1,14 +1,16 @@
-grammar zsharp;
+grammar zsharp_parser;
 
 // entry point
-file : comment EOF;
+file : code* EOF;
+code: (statement | comment) EOL*;
 
+statement: statement_module | statement_import | statement_export | statement_if | statement_else;
 
 // modules
-module_name: module_name_part | module_name DOT module_name_part;
-module_name_part: ALPHA ALPHANUMex*;
-import_statement: keyword_import module_name;
-export_statement: keyword_export (identifier_func | identifier_type | function_decl);
+module_name: identifier_module | module_name DOT identifier_module;
+statement_module: keyword_module module_name;
+statement_import: keyword_import module_name;
+statement_export: keyword_export (identifier_func | identifier_type | function_decl);
 
 statement_if: keyword_if expression_logic;
 statement_else: keyword_else statement_if?;
@@ -16,8 +18,8 @@ statement_else: keyword_else statement_if?;
 // expressions
 expression_logic: 
       (logic_operand operator_logic logic_operand) 
-    | (operator_logic_unary logic_operand);
-logic_operand: expression_comparison;
+    | (operator_logic_unary? logic_operand);
+logic_operand: expression_comparison | expression_bool;
 
 expression_comparison: comparison_operand operator_comparison comparison_operand;
 comparison_operand: expression_bitwise | function_call | variable_ref | literal;
@@ -26,6 +28,8 @@ expression_bitwise:
       (bitwise_operand operator_bits bitwise_operand) 
     | (operator_bits_unary bitwise_operand);
 bitwise_operand: function_call | variable_ref | number;
+
+expression_bool: literal_bool;
 
 // functions
 function_call: identifier_func PARENopen function_parameters? PARENclose;
@@ -59,11 +63,12 @@ type_Bool: BOOL;
 type_Bit: BIT;
 
 // identifiers
-identifier_type: ALPHAupper ALPHANUMex*;
-identifier_var: ALPHAlower ALPHANUMex*;
-identifier_param: ALPHAlower ALPHANUMex*;
-identifier_func: ALPHAex ALPHANUMex*;
-identifier_field: ALPHAex ALPHANUMex*;
+identifier_type: IDENTIFIERupper;
+identifier_var: IDENTIFIERlower;
+identifier_param: IDENTIFIERlower;
+identifier_func: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
+identifier_field: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
+identifier_module: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
 identifier_unused: UNUSED;
 
 // keywords
@@ -79,6 +84,7 @@ keyword_return: RETURN;
 keyword_in: IN;
 keyword_self: SELF;
 
+literal_bool: TRUE | FALSE;
 literal: number | string;
 
 // numbers
@@ -86,7 +92,7 @@ number: number_unsigned;
 number_unsigned: number_bin | number_oct | number_dec | number_hex | number_char;
 number_bin: NUMBERbin;
 number_oct: NUMBERoct;
-number_dec: NUMBERdec;
+number_dec: NUMBERdec | NUMBERdec_prefix;
 number_hex: NUMBERhex;
 number_char: character;
 
@@ -163,31 +169,35 @@ ELSE: 'else';
 RETURN: 'return';
 IN: 'in';
 SELF: 'self';
+TRUE: 'true';
+FALSE: 'false';
+
+// identifiers
+IDENTIFIERupper: ALPHAupper IDENTIFIERpart*;
+IDENTIFIERlower: ALPHAlower IDENTIFIERpart*;
+IDENTIFIERmixed: (ALPHAlower | ALPHAupper | UNUSED) IDENTIFIERpart*;
+fragment IDENTIFIERpart: ALPHAlower | ALPHAupper | DIGIT10 | UNUSED;
 
 COMMENT: COMMENTstart .*? ~[\r\n]+;
 
-ALPHAlower: [a-z];
-ALPHAupper: [A-Z];
-ALPHA: [a-zA-Z];
-ALPHAex: ALPHA | UNUSED;
-ALPHANUM: [a-zA-Z0-9];
-ALPHANUMex: ALPHANUM | UNUSED;
-
-DIGIT2: [0-1];
-DIGIT8: [0-7];
-DIGIT10: [0-9];
-DIGIT16: [0-9a-zA-Z];
-
-// literals
-PREFIXbin: '0b';
-PREFIXoct: '0c';
-PREFIXdec: '0d';
-PREFIXhex: '0x';
-
 NUMBERbin: PREFIXbin (DIGIT2 | UNUSED)+;
 NUMBERoct: PREFIXoct (DIGIT8 | UNUSED)+;
-NUMBERdec: (PREFIXdec (DIGIT10 | UNUSED)+) | DIGIT10+;
-NUMBERhex: PREFIXhex (DIGIT16 | UNUSED)+;
+NUMBERdec: DIGIT10+;
+NUMBERdec_prefix: PREFIXdec (DIGIT10 | UNUSED)+;
+NUMBERhex: PREFIXhex (DIGIT16 UNUSED)+;
+
+fragment ALPHAlower: [a-z];
+fragment ALPHAupper: [A-Z];
+fragment DIGIT2: [0-1];
+fragment DIGIT8: [0-7];
+fragment DIGIT10: [0-9];
+fragment DIGIT16: [0-9a-fA-F];
+
+// literals
+fragment PREFIXbin: '0b';
+fragment PREFIXoct: '0c';
+fragment PREFIXdec: '0d';
+fragment PREFIXhex: '0x';
 
 CHARACTER: CHAR_QUOTE . CHAR_QUOTE;
 STRING: STR_QUOTE .*? STR_QUOTE;

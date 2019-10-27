@@ -2,12 +2,22 @@
 	"version": "0.2.0",
 	"configurations": [
         {
-            "name": "Antlr Debug",
+            "name": "zsharp parser",
             "type": "antlr-debug",
             "request": "launch",
             "input": "./zsharp/grammar/_test/antlr.debug.zs",
-            "grammar": "./zsharp/grammar/zsharp.g4",
+            "grammar": "./zsharp/grammar/zsharp_parser.g4",
             "startRule": "file",
+            "printParseTree": true,
+            "visualParseTree": true
+        },
+        {
+            "name": "zsharp lexer",
+            "type": "antlr-debug",
+            "request": "launch",
+            "input": "./zsharp/grammar/_test/antlr.debug.zs",
+            "grammar": "./zsharp/grammar/_test/lexer_boot.g4",
+            "startRule": "test",
             "printParseTree": true,
             "visualParseTree": true
         }
