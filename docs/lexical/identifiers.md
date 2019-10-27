@@ -25,9 +25,3 @@ Here are examples of _invalid_ identifiers:
 some variable
 my-type
 ```
-
-## Operators
-
-```
-+ - * / % ** >> << >| |< ~ & | ^
-```

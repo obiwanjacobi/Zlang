@@ -41,6 +41,7 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 
 | Symbol | Description
 |---|---
+| _ | Unused
 | . | Members Access
 | ! | Meta Attribute
 | #! | Pragma

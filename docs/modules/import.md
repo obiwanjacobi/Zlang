@@ -14,3 +14,7 @@ Only one name can be specified at a time. Importing multiple dependencies requir
 import std.io
 import std.math
 ```
+
+---
+
+> How to deal with ambiguity/collisions of names. Aliases?
