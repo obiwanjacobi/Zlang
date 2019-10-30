@@ -30,6 +30,17 @@ a: U8 = true    // error! Bool cannot be converted to U8
 a: U8 = "zlang" // error! Str cannot be converted to U8
 ```
 
+The names of a variable must be unique inside the root scope they're used in:
+
+```C#
+myFunc()            // root scope
+    a: U8           // ok, a
+    if true
+        a: U8       // error! a is shadowed
+```
+
+Root scopes are usually function-scope or for 'global' variables it is file-scope.
+
 ## Pointers
 
 A pointer variable contains a memory location of the thing it points to.
@@ -42,3 +53,19 @@ p = a#ptr   // p of type Ptr<U8> points to a
 ```
 
 A pointer of any variable can be obtained by using the `ptr` compiler attribute and the `#` operator.
+
+---
+
+## Type Static, Constants and Globals
+
+> TODO
+
+- Constant, Readonly, Immutable. Whats the difference? When to use what term?
+
+- Type Static
+Are constants declared on a struct.
+How to declare a const/static on a type?
+
+- Globals
+Do not exist in a sense that you cannot export variables. The lifetime of a variable can be global but the access is always limited to the file it is defined in.
+

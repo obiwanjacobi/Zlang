@@ -9,10 +9,16 @@
 
 ---
 
-> TBD: compiler extensions.
+> TBD: compiler extensions. plugins that supplier code. Do we allow language extension?
+
 > Compiler as static analyzer / linter
-> Compiler language Server (LSP)
+
+> Compiler as language Server (LSP)
+
 > Compiler as Assembler
+
 > Compiler as linker
+
 > Compiler as REPL (because we support Meta)
+
 > Compiler as Language VM? (used by REPL)

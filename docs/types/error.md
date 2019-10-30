@@ -45,7 +45,7 @@ couldErr(p: U8): U8!
     return Error("Failed.", err)    // overrides the Error type
 ```
 
-Wrap this construction code into a function for easy of use:
+Wrap this construction code into a function for ease of use:
 
 ```C#
 MyError(msg: Str, p: U8): MyError
