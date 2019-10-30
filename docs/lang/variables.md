@@ -38,7 +38,7 @@ A specific parameterized type is used to express pointers: `Ptr<T>`:
 
 ```C#
 a = 42      // U8
-p = a!ptr   // p of type Ptr<U8> points to a
+p = a#ptr   // p of type Ptr<U8> points to a
 ```
 
-A pointer of any variable can be obtained by using the `ptr` compiler attribute and the `!` operator.
+A pointer of any variable can be obtained by using the `ptr` compiler attribute and the `#` operator.

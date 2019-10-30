@@ -2,6 +2,7 @@
 
 Modern Language features (Range).
 Strong Typed - but easy syntax.
+But nothing radically new. Should look familiar.
 
 No hidden memory allocation.
 No hidden function calls.

@@ -36,9 +36,6 @@ Operators never allocate memory!
 | \|< | Bitwise Rotate Left
 | = | Value Assignment
 | [ ] | Slice / Range
-| ! | Possible Error (on return type)
-| ? | Optional variable or parameter/return value
-| || | Optional fallback
 
 ## Other Symbols
 
@@ -46,8 +43,13 @@ Operators never allocate memory!
 |---|---
 | _ | Unused
 | . | Members Access
-| # | Attribute Access
-| #! | Pragma
+| : | (Sub)Type Specifier
+| < > | Type Parameter
 | ( ) | Function
 | " " | String
 | ' ' | Character
+| ! | Possible Error (on return type)
+| ? | Optional variable or parameter/return value
+| \| \| | Optional fallback
+| # | Attribute Access
+| #! | Pragma

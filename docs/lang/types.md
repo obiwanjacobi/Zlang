@@ -66,3 +66,57 @@ Bit<4>
 ```
 
 When `Bit`s are stored, the closest fitting data type is used. So a `Bit<6>` would take up a single byte `U8`, while a `Bit<12>` would take up two bytes `U16`. `Bit`s are always interpreted as unsigned and stored in the lower bits of the storage type. The upper unused bits are reset to zero.
+
+
+## Generics
+
+> TODO
+
+Can generic be resolved at compile time? What scenarios are not possible if we do?
+
+Structs
+
+```C#
+MyStruct<T>
+    f: T
+
+s = MyStruct<U8>
+```
+
+functions
+
+```C#
+typedFn<T>(p: T)
+    ...
+
+s = typedFn(42)         // type inferred and checked
+s = typedFn<U8>(42)     // type explicit
+```
+
+restriction
+
+```C#
+typedFn<T: >(p: T)
+    ...
+
+s = typedFn(42)         // type inferred and checked
+s = typedFn<U8>(42)     // type explicit
+```
+
+---
+
+> Not implemented yet
+
+Ideas...
+
+## Unions
+
+```
+MyStruct: Struct1 | Struct2
+```
+
+## Multiple Inheritance
+
+```
+MyStruct: Struct1 & Struct2
+```

@@ -34,7 +34,7 @@ Here is an example of how to construct a pointer to a function. It is the same a
 MyFunction(magic: U8)        // declaration
     ...
 
-p = MyFunction!ptr  // p is of type Ptr<MyFunction>
+p = MyFunction#ptr  // p is of type Ptr<MyFunction>
 takePtr(p, 42)          // call function with ptr to function
 
 takePtr(ptr: Ptr<MyFunction>, p: U8)

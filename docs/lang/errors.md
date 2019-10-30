@@ -14,18 +14,11 @@ How to access standard errors (make a list of standard errors?)?
 
 How to make errors custom or add extra data? Have a custom struct type derive from Error...?
 
-How to return an error from a void function?
-
-```
-voidError(): Error?
-voidError(): Void!
-// you can't?
-```
+Cannot return an error from a void function.
 
 ---
 
 ```C#
-// error
 couldWork(): U8!
     return Error("Sorry, I can't do that Dave.")
 

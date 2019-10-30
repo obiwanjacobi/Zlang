@@ -1,9 +1,58 @@
 # Error
 
-The error type is a virtual struct that can be used to derive from to create custom errors with extra data fields.
+The `Error` type is a virtual struct that is managed by the compiler. Its use is identified by the `!` symbol.
+
+```C#
+couldErr(p: U8): U8!
+    ...
+```
+
+The `couldErr` function returns a `U8` but could also return an `Error`. In this sense the `Error` type looks to be transparent, but in fact it is implemented as an union between `Error` and the specified type.
 
 The Error type has a creator function that takes a string of text describing the error.
 
 ```C#
-failedFunc(): 
+Error(msg: Str): Error
+Error<T: Error>(msg: Str, err: T): T
+```
+
+So to return an `Error` from a function:
+
+```C#
+couldErr(p: U8): U8!
+    return Error("Failed for value {p}.");
+```
+
+As the example shows, a formatted string can be used to reveal extra information about the context where the error occurred in.
+
+See [Errors](../lang/errors.md) for more information on how to handle errors in code and the keywords that can be used.
+
+---
+
+The `Error` type can be used to derive from to create custom errors with extra data fields.
+
+```C#
+MyError: Error          // derive from Error
+    f1: U8
+```
+
+To use this custom Error instead of the default one:
+
+```C#
+couldErr(p: U8): U8!
+    err = MyError       // just like any struct
+        err.f1 = p
+    return Error("Failed.", err)    // overrides the Error type
+```
+
+Wrap this construction code into a function for easy of use:
+
+```C#
+MyError(msg: Str, p: U8): MyError
+    err = MyError
+        err.f1 = p
+    return Error(msg, err);
+
+couldErr(p: U8): U8!
+    return MyError("Failed.", p)    // custom fn
 ```
