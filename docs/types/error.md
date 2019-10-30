@@ -1,6 +1,22 @@
 # Error
 
-The `Error` type is a virtual struct that is managed by the compiler. Its use is identified by the `!` symbol.
+The `Error` type is a virtual struct that is managed by the compiler. Conceptually the Error type can be thought of as follows:
+
+```C#
+Error
+    msg: Str        // the error message text
+    err: Error?     // an optional nested error
+```
+
+However these fields are not accessible directly, but have accessor functions:
+
+```C#
+errorFn() catch(err)
+    txt = err.message()       // access error message text
+    nerr = err.nested()       // inner error object
+```
+
+Its use is identified by the `!` symbol.
 
 ```C#
 couldErr(p: U8): U8!
@@ -40,9 +56,12 @@ To use this custom Error instead of the default one:
 
 ```C#
 couldErr(p: U8): U8!
-    err = MyError       // just like any struct
+    err = MyError                   // just like any struct
         err.f1 = p
     return Error("Failed.", err)    // overrides the Error type
+
+v = couldErr() catch(err)
+    err.f1                          // access custom field
 ```
 
 Wrap this construction code into a function for ease of use:
@@ -55,4 +74,17 @@ MyError(msg: Str, p: U8): MyError
 
 couldErr(p: U8): U8!
     return MyError("Failed.", p)    // custom fn
+```
+
+Using custom Error types, it is possible to make hierarchies and test on the actual Error type in the handler code - using `#typeid`.
+
+## Nesting Errors
+
+```C#
+errorFn(): U8!
+    return Error("Failed")
+
+couldWork(): U8!
+v = errorFn() catch(err)
+    return Error("New Error", err)
 ```

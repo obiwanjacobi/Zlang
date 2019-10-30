@@ -55,6 +55,7 @@ parameters (in/out/ref) and return values (structs/tupples?)
 support recursion?
 
 type-bonded (extension) / creators and pure functions
+`func(self p: obj)` `obj.func()` is same as `func(obj)`.
 
 resolving overloads (only type bonded?)
 

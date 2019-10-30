@@ -10,6 +10,7 @@ A special operator is used to access them: `#`
 
 | Attribute | Description
 |----|-----
+| typeid | A unique numerical type identifier.
 | min | The minimum value possible.
 | max | The maximum value possible.
 | bits | The number of bits for the type.

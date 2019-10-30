@@ -23,10 +23,10 @@ The calling code needs to have a way to deal with either a good return value fro
 couldWork(): U8!
     return Error("Sorry, I can't do that Dave.")
 
-var = couldWork() catch(err)
-    print(err)
-    return          // exit control flow
-use(var)
+v = couldWork() catch(err)
+    print(err.message())    // access error message
+    return                  // exit control flow
+use(v)
 ```
 
 The catch keyword is specified after the function that could return the error, and it introduces a scope. This scope is where the handler code goes in case there is an error. The variable name that is used to hand the code the `Error` is specified inside the parentheses.
@@ -36,7 +36,7 @@ A (predicted) common pattern is that a function will call many functions itself 
 ```C#
 MyFunc(): Bool!
     // propagate error from function
-    try b = couldWork()  // try == catch(err) return err
+    try b = couldWork()  // try => catch(err) return err
     use(b)
 ```
 
@@ -69,3 +69,22 @@ This diagnostic information can be useful for tracking down problems.
 ---
 
 > How to access standard errors (make a list of standard errors?)?
+
+Use catch with a handler function instead of an inline handler?
+
+Function Interface needed for the error-handler function.
+
+How can the handler-function direct control-flow?
+
+```C#
+errorHandler(err: Error): Bool!
+    return err          // try functionality, same as...
+    return false        // could not handle, propagate err
+    return true         // error is handled, continue
+    return Error("New Error", err)
+
+errorFn(): U8!
+    return Error("Failed")
+
+v = errorFn() catch(errorHandler)
+```

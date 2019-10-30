@@ -14,3 +14,4 @@ I am slowly transferring the notes I had written down in a private document, int
 ## TODO
 
 - Optionals: how to test for existence of a value? (Pattern) Matching? Don't want to use a `switch`.
+- Compile-time contracts: allow rules to be specified to check input and output of a function.
