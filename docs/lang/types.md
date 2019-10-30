@@ -6,13 +6,13 @@ The built-in data type form the basic building blocks for creating structures.
 
 > **_All type names start with a capital letter_**
 
-There are builkt-in types for integers, floating point, string and boolean.
+There are built-in types for integers, floating point, string and boolean.
 
 ### Integers
 
 The type names have been shortened to an absolute minimum. First:
 
-- U - unsigened integer
+- U - unsigned integer
 - I - signed integer
 
 followed by the width in the number of bits.

@@ -15,6 +15,7 @@ How to access standard errors (make a list of standard errors?)?
 How to make errors custom or add extra data? Have a custom struct type derive from Error...?
 
 How to return an error from a void function?
+
 ```
 voidError(): Error?
 voidError(): Void!
@@ -30,11 +31,11 @@ couldWork(): U8!
 
 var = couldWork() catch(err)
     print(err)
+    return          // exit control flow
 use(var)
 
-MyFunc(): Bool!     // ! for error, ? for option ??
+MyFunc(): Bool!
     // return error from function if there is one
     try var = couldWork()  // try == catch(err) return err
     use(var)
 ```
-

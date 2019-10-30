@@ -46,7 +46,7 @@ Operators never allocate memory!
 |---|---
 | _ | Unused
 | . | Members Access
-| ! | Attribute Access (clash with error !)
+| # | Attribute Access
 | #! | Pragma
 | ( ) | Function
 | " " | String

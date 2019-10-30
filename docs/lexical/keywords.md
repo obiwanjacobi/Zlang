@@ -13,7 +13,7 @@ The number of keywords have been kept to a minimum. Much of the language is expr
 | if | Conditional branch
 | else | Opposite of conditional branch
 | return | Exit a Function
-| in | Iterating over a Range
+| in | Iterating values
 | self | Indicates bound type
 | try | Propagate if Error
 | catch | Handle Error

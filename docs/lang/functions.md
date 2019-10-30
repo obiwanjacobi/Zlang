@@ -52,11 +52,13 @@ When the code has a pointer to a function, it can be call by specifying the `()`
 
 parameters (in/out/ref) and return values (structs/tupples?)
 
-type-bonded (extension) / creators
+support recursion?
 
-overloads
+type-bonded (extension) / creators and pure functions
 
-coroutines (yield/return)
+resolving overloads (only type bonded?)
+
+coroutines (yield/return) (impl. detail of the fn)
 
 anonymous functions/lambda/in-place (no capture)
 
