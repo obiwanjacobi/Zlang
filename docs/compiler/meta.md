@@ -55,3 +55,9 @@ A pragma is prefixed with: `#!`.
 #! ignore: CE3091    // describe the error
 code_that_causes_CE3091
 ```
+
+---
+
+> Use Z# to do meta programming.
+> Pragma's are calls to compiler implemented Z# API: #! Ignore("CE3091")
+> We need a meta block - or tag every line with `!` or `#!`?? Or just the top-level line?

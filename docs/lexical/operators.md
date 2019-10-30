@@ -4,6 +4,8 @@ Most operators are syntactic sugar over a set of wellknown functions.
 
 Of these wellknown functions there are two flavors: unchecked and checked implementations. The unchecked flavor is used in the final program and its implementation is optimized to the fullest extend. The checked version implements extra validation and 'checking' to help make sure the code is correct.
 
+Operators never allocate memory!
+
 ## Operator Symbols
 
 | Operator | Description
@@ -33,9 +35,10 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 | >\| | Bitwise Rotate Right
 | \|< | Bitwise Rotate Left
 | = | Value Assignment
-| := | Copy Assignment
 | [ ] | Slice / Range
-| && | Concatenation (Arrays)
+| ! | Possible Error (on return type)
+| ? | Optional variable or parameter/return value
+| || | Optional fallback
 
 ## Other Symbols
 
@@ -43,7 +46,7 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 |---|---
 | _ | Unused
 | . | Members Access
-| ! | Meta Attribute
+| ! | Attribute Access (clash with error !)
 | #! | Pragma
 | ( ) | Function
 | " " | String

@@ -15,7 +15,8 @@ statement_export: keyword_export (identifier_func | identifier_type);
 
 // flow control
 flow_statement: statement_if | statement_else 
-    | keyword_break | keyword_continue | keyword_return;
+    | keyword_break | keyword_continue | statement_return;
+statement_return: keyword_return expression_value;
 statement_if: keyword_if expression_logic;
 statement_else: keyword_else statement_if?;
 
@@ -23,6 +24,8 @@ statement_else: keyword_else statement_if?;
 declaration: function_decl;
 
 // expressions
+expression_value: expression_bool | expression_logic | expression_bitwise;
+
 expression_logic: 
       (logic_operand operator_logic logic_operand) 
     | (operator_logic_unary? logic_operand);

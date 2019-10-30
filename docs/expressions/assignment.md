@@ -28,13 +28,3 @@ s.field1 = 42
 if a = myFunc()      // error!
     ...
 ```
-
-Some complex types like the `Array` cannot be assigned to. For this case the copy assignment operator `:=` can be used to produce a copy of the complex type.
-
-```C#
-arr1 = [1, 2, 3, 4, 5, 6]
-arr2 = arr1         // error! cannot assign an array
-arr2 := arr1        // ok, arr2 is a duplicate of arr1
-```
-
-The copy assignment has been made explicit to inform the reader that a copy is taking place.

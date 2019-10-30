@@ -1,10 +1,10 @@
 # Keywords
 
-The number of keywords have been kept to a minimum. Much of the language is expressed through context.
+The number of keywords have been kept to a minimum. Much of the language is expressed through context. Keywords are always lower case.
 
 | Keyword | Description
 |---|----
-| module | Assigning code to a module.
+| module | Assigning code to a module
 | import | Importing code from a module
 | export | Making code public
 | loop | Loop statement
@@ -14,7 +14,9 @@ The number of keywords have been kept to a minimum. Much of the language is expr
 | else | Opposite of conditional branch
 | return | Exit a Function
 | in | Iterating over a Range
-| self | Indicates bound type.
+| self | Indicates bound type
+| try | Propagate if Error
+| catch | Handle Error
 
 > These keywords are reserved and cannot be used as names ([identifiers](identifiers.md)) in the code.
 

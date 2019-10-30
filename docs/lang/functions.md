@@ -50,13 +50,15 @@ When the code has a pointer to a function, it can be call by specifying the `()`
 
 ---
 
+parameters (in/out/ref) and return values (structs/tupples?)
+
 type-bonded (extension) / creators
 
 overloads
 
-coroutines
+coroutines (yield/return)
 
-lambda/in-place (no capture)
+anonymous functions/lambda/in-place (no capture)
 
 intrinsic functions (operator implementations)
 
