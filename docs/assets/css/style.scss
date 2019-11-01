@@ -1,6 +1,10 @@
 ---
 ---
 
+.highlighter-rouge {
+    color: #b5e853
+}
+
 @import "{{ site.theme }}";
 
 #main_content {
@@ -13,6 +17,3 @@
     float: left;
 }
 
-.highlighter-rouge {
-    color: #b5e853
-}
