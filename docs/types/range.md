@@ -1,6 +1,6 @@
 # Range
 
-> Note: range's stop or end term is exclusive!
+> Note: Range's stop or end term is exclusive!
 
 ```C#
 [1..4]      // closed range
@@ -12,7 +12,7 @@
 ```
 
 ```C#
-rng = Rng(1, 6)     // ??
+rng = Range(1, 6)     // ??
 ```
 
 ## Static
