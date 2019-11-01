@@ -39,6 +39,7 @@ MyStruct
 MyInterface
     interfunc(self, p: U8) _
 
+// function must match exactly
 interfunc(self s: MyStruct, p: U8)
     ...
 
@@ -53,3 +54,5 @@ a: MyInterface = s
 a.interfunc(42)         // because 'self'
 interfunc(a, 42)
 ```
+
+> override / 'virtual' ?? call 'super' ??
