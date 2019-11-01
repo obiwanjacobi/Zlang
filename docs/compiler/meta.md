@@ -1,6 +1,6 @@
 # Meta Programming
 
-> TBD allow to write code and logic that executes at compile time in order to shift the workload as much as possible to compiler.
+> TBD allow to write Z# code that executes at compile time in order to shift the workload as much as possible to compiler.
 
 ## Intrinsic Attributes
 
@@ -16,7 +16,7 @@ A special operator is used to access them: `#`
 | bits | The number of bits for the type.
 | count | The number of elements.
 | size | The size in bytes the type takes up in memory.
-| def | Default value for the type.
+| default | Default value for the type.
 | imm | An immutable reference to the instance.
 
 Not all types support all attributes. The compiler will give an error when the code accesses an attribute that is not supported by the type in question.
@@ -45,26 +45,29 @@ Bit<3>#max  // 7
 
 ## Pragmas
 
-A pragma is a directive that instructs the compiler to take some action.
-For instance turn off a compiler warning temporarily.
+A pragma is a directive that instructs the compiler to take some action. For instance turn off a compiler warning temporarily.
 
-A pragma is prefixed with: `#!`.
+A pragma is prefixed with: `#` that starts at the indent level of the current scope. It also starts a new scope.
 
 ```C#
-#! ignore("CE3091")    // compiler fn call
-code_that_causes_CE3091
+# ignore("CE3091")    // compiler fn call - starts a scope!
+    code_that_causes_CE3091
+    more_code_that_causes_CE3091
+well_behaved_code
 ```
 
-## Compile-time Reflection
+> A `#` symbol not at the current scope indent position, does not start a new scope.
 
-All type information is available at compile time.
+## Compile-time Code
+
+Any Z# code can be executed at compile-time by placing a `#!` in front of it. The use of this symbol does not introduce and extra scope.
 
 ```C#
 m = MyStruct
     ...
 
 // this code is run at compile time
-#! compTime(m: MyStruct)
+#! compTime<T>(m: T)
     t = m#type
     t.name                      // 'MyStruct'
     loop f in t.fields

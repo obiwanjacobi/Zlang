@@ -42,7 +42,7 @@ Here's an example writing values to a mutable array:
 ```C#
 arr = Array<U8>(10)         // 10 x U8
 arr[3] = 42                 // set 4th element
-arr[0..2] = 42              // slice: 1st, 2nd and 3rd
+arr[0..3] = 42              // slice: 1st, 2nd and 3rd
 arr[..] = 0                 // slice: all set to zero
 ```
 
@@ -52,6 +52,6 @@ Reading values from an array is similar:
 arr = [1, 2, 3, 4, 5]       // 5 x U8
 x = arr[3]                  // x = 4
 l = arr[-1]                 // l = 5
-s = arr[0..2]               // s = 1st, 2nd and 3rd
+s = arr[0..3]               // s = 1st, 2nd and 3rd
 arr2 = arr[..]              // arr2 = all elements (not a copy!)
 ```

@@ -18,7 +18,7 @@ loop false
 A 'for' or 'for-each' loop is constructed using a `Range`.
 
 ```
-loop n in [0..9]
+loop n in [0..10]
     foreach_n_1_to_9
 ```
 

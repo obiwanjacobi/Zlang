@@ -69,34 +69,50 @@ When `Bit`s are stored, the closest fitting data type is used. So a `Bit<6>` wou
 
 ## Pointer Types
 
-> Call them 'pointers' or 'references'?
-
 The template type `Ptr<T>` is used to represent a pointer.
 
 ```C#
 ptr: Ptr<U8>        // pointer to an U8
-ptr: Ptr<U8>?       // an optional pointer to U8
-ptr: Ptr<U8?>       // pointer to an optional U8
 ```
 
 Create a pointer:
 
 ```C#
 v = 42;
-ptr = v.ref()       // explicit call
+ptr = v.Ptr()       // explicit call
 ```
 
-Dereference a pointer:
+Dereferencing a pointer is done by using [Conversion](./conversion.md) functions. The pointer will be dereferenced implicitly.
 
 ```C#
 ptr: Ptr<U8>
-v = ptr.deref()     // explicit call
+v = ptr.U8()        // conversion call
+```
+
+[Conversion](./conversion.md) to other types is only allowed it the target type has the exact same number of bits as the `T` of the pointer.
+
+```C#
+ptr: Ptr<U8>
+v = ptr.I8()        // ok, unsigned to signed conversion
+v = ptr.U16()       // error! U16 is too big
+b = ptr.Bit<4>([4..8])  // error! Bit<4> is too small
+```
+
+This also works with structures:
+
+```C#
+MyStruct: OtherStruct
+    ....
+
+ptr: Ptr<MyStruct>
+s = ptr.OtherStruct()   // can convert to base type
 ```
 
 ### Optional
 
 ```C#
-p: Ptr<U8?>     // ptr to optional U8
+ptr: Ptr<U8>?       // an optional pointer to U8
+ptr: Ptr<U8?>       // pointer to an optional U8
 ```
 
 ### Pointer to Pointer

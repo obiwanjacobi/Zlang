@@ -22,3 +22,7 @@
 > Compiler as REPL (because we support Meta)
 
 > Compiler as Language VM? (used by REPL)
+
+---
+
+> Literal strings can add up. How to optimize? (interning?, string-builder for efficient construction?)

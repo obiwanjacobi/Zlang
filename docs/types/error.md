@@ -4,16 +4,16 @@ The `Error` type is a virtual struct that is managed by the compiler. Conceptual
 
 ```C#
 Error
-    msg: Str        // the error message text
-    err: Error?     // an optional nested error
+    message: Str        // the error message text
+    nested: Error?      // an optional nested error
 ```
 
 However these fields are not accessible directly, but have accessor functions:
 
 ```C#
 errorFn() catch(err)
-    txt = err.message()       // access error message text
-    nerr = err.nested()       // inner error object
+    txt = err.message()             // access error message text
+    nestedErr = err.nested()        // nested/inner error object
 ```
 
 Its use is identified by the `!` symbol.

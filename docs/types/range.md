@@ -1,6 +1,6 @@
 # Range
 
-> TODO range inclusive or exclusive?
+> Note: range's stop or end term is exclusive!
 
 ```C#
 [1..4]      // closed range
