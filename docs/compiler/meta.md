@@ -17,9 +17,7 @@ A special operator is used to access them: `#`
 | count | The number of elements.
 | size | The size in bytes the type takes up in memory.
 | def | Default value for the type.
-| ptr | A ptr to the instance of the type.
 | imm | An immutable reference to the instance.
-| `dup` | A deep copy (duplicate) of the instance. (??)
 
 Not all types support all attributes. The compiler will give an error when the code accesses an attribute that is not supported by the type in question.
 

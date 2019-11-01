@@ -69,48 +69,28 @@ When `Bit`s are stored, the closest fitting data type is used. So a `Bit<6>` wou
 
 ## Pointer Types
 
-> For something to be used quite often, should we not choose a symbol to make it shorter (like C/C++)?
+> Call them 'pointers' or 'references'?
+
+The template type `Ptr<T>` is used to represent a pointer.
 
 ```C#
-// I like this best
-ptr: Ptr<U8>        // typed
-ptr: Ptr<U8>?       // typed, optional
-
-ptr: *U8            // C/C++
-ptr: *U8?           // C/C++, optional
-ptr: U8*?
-
-ptr: &U8            // alternative
-ptr: &U8?           // alternative, optional
-ptr: U8&?
+ptr: Ptr<U8>        // pointer to an U8
+ptr: Ptr<U8>?       // an optional pointer to U8
+ptr: Ptr<U8?>       // pointer to an optional U8
 ```
 
-> How to create a pointer
+Create a pointer:
 
 ```C#
 v = 42;
-
-ptr = v#ptr         // meta attribute
-ptr = &v            // C/C++
-ptr = *v            // alternative
-// I like this best
-ptr = v.Ptr()       // conversion syntax
-ptr = v.ref()       // explicit (Ref<T>)
+ptr = v.ref()       // explicit call
 ```
 
-> How to dereference a pointer?
+Dereference a pointer:
 
 ```C#
 ptr: Ptr<U8>
-
-v: U8 = ptr         // auto unwrapping
-v = ptr#val         // meta attribute
-v = *ptr            // C/C++
-v = ptr.U8()        // conversion syntax
-v = U8.From(ptr)    // alt conversion syntax
-// this is not symmetrical
-v = ptr.deref()     // explicit
-
+v = ptr.deref()     // explicit call
 ```
 
 ### Optional
