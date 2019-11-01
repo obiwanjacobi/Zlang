@@ -2,7 +2,7 @@
 
 There are only line comments. Block comments like `/* block comment */` as seen in other languages like C, C++, Java and C#, are not supported.
 
-This choice eleminates the problem of nested block comments and keeps parsing simple and fast.
+This choice eliminates the problem of nested block comments and keeps parsing simple and fast.
 
 _A comment starts when `//` is encountered and continues for the rest of the line until a new-line character is seen._
 
@@ -42,3 +42,11 @@ A comment can be used to temporarily disable code:
 ```C#
 // some code was here
 ```
+
+## Documentation Comments
+
+```C#
+/// Three is magic
+```
+
+> doxygen like @param and @return docs etc?

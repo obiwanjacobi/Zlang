@@ -54,6 +54,14 @@ p = a#ptr   // p of type Ptr<U8> points to a
 
 A pointer of any variable can be obtained by using the `ptr` compiler attribute and the `#` operator.
 
+> How to dereference a pointer?
+
+```C#
+a = 42      // U8
+p = a#ptr   // p of type Ptr<U8> points to a
+b = p#val   // b = 42       ??
+```
+
 ---
 
 ## Type Static, Constants and Globals
@@ -62,10 +70,8 @@ A pointer of any variable can be obtained by using the `ptr` compiler attribute 
 
 - Constant, Readonly, Immutable. Whats the difference? When to use what term?
 
-- Type Static
-Are constants declared on a struct.
+- Type Static are constants declared on a struct.
 How to declare a const/static on a type?
 
 - Globals
 Do not exist in a sense that you cannot export variables. The lifetime of a variable can be global but the access is always limited to the file it is defined in.
-

@@ -88,3 +88,17 @@ couldWork(): U8!
 v = errorFn() catch(err)
     return Error("New Error", err)
 ```
+
+## Standard Errors
+
+```C#
+Error.OptionalEmpty
+Error.InvalidParam
+Error.Failed
+Error.NotSupported
+Error.NotImplemented
+Error.NotExpected
+
+errFun(): Bool!
+    return Error(Error.Failed)
+```

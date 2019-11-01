@@ -25,4 +25,3 @@ else if false         // or is it false?
 else                  // or is it neither?
     other_code
 ```
-

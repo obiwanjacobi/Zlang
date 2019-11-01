@@ -62,15 +62,3 @@ s = MyStruct
 
 o = s.f1?.f1?.f2  // first non-value optional will stop navigation of path, result in _
 ```
-
----
-
-> This too?
-
-```
-OneOrTheOther: Struct1 || Struct2
-```
-
-How do you know what type is active?
-(hidden id?)
-Pattern matching?

@@ -44,3 +44,19 @@ MyFuncion()
 ```
 
 The 'conditional code' is only executed if the `if` branch is taken. The 'implementation' is always executed.
+
+## Scope Names
+
+Names for the indentation levels that create scopes:
+
+```
+global-scope
+<File>
+    top-level (file-scope)
+
+    <Function>
+        function-scope
+
+    <Type>
+        type-scope
+```
