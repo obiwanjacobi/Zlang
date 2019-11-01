@@ -24,7 +24,7 @@ statement_else: keyword_else statement_if?;
 declaration: function_decl;
 
 // expressions
-expression_value: expression_bool | expression_logic | expression_bitwise;
+expression_value: number | expression_bool | expression_logic | expression_bitwise;
 
 expression_logic: 
       (logic_operand operator_logic logic_operand) 
