@@ -5,6 +5,7 @@
 - [Conditional Compilation](conditional.md)
 - [Libraries](libraries.md)
 - [Packages](packages.md)
+- [Extensions](extensions.md)
 - [Compiler Options](options.md)
 
 ---

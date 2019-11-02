@@ -54,8 +54,6 @@ When the code has a pointer to a function, it can be called by specifying the `(
 
 ## Parameters
 
-There is a bit more to tell about function parameters and return values.
-
 There is no other way of passing parameters to functions than by value. That means, that the parameter value is copied from the caller site into the context of the function.
 
 That also means that if a parameter is to be passed by reference, an explicit pointer to that value has to be constructed and passed to the function.
@@ -65,7 +63,7 @@ byref(ptr: Ptr<U8>)     // pointer as by-ref parameter
     ...
 
 v = 42
-byref(v#ptr)            // call with ptr to value
+byref(v.Ptr())            // call with ptr to value
 ```
 
 Optional function parameters can be specified using the optional symbol `?`.
