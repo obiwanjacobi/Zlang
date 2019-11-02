@@ -89,7 +89,7 @@ ptr: Ptr<U8>
 v = ptr.U8()        // conversion call
 ```
 
-[Conversion](./conversion.md) to other types is only allowed it the target type has the exact same number of bits as the `T` of the pointer.
+[Conversion](./conversion.md) to other types is only allowed if the target type has the exact same number of bits as the `T` of the pointer.
 
 ```C#
 ptr: Ptr<U8>
@@ -125,9 +125,31 @@ opp: Ptr<Ptr<U8>>?      // optional ptr to a ptr to U8
 pop: Ptr<Ptr<U8>?>      // ptr to optional ptr to U8
 ```
 
-> unique and shared/borrowed pointers?
+### Casting
 
-Do we want to go the C++ way?
+To change the type of a pointer:
+
+```C#
+MyStruct : OtherStruct
+    ...
+
+ptr = Ptr<MyStruct>
+cast = ptr.Ptr<OtherStruct>()   // ok, cast to derived type
+p = cast.Ptr<MyStruct>()        // ok, is original type
+```
+
+```C#
+MyStruct : OtherStruct
+    ...
+MyStruct2: OtherStruct
+    ...
+ptr = Ptr<MyStruct>
+cast = ptr.Ptr<OtherStruct>()
+p2 = cast.Ptr<MyStruct2>()        // error, is not original type
+
+```
+
+If the original type is lost, casting up the inheritance hierarchy will always fail.
 
 ## Aliases
 

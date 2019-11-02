@@ -26,3 +26,21 @@ The `export` keyword can also be applied directly to the code identifier to be m
 export MyFunction()
     implementation_here
 ```
+
+## Aliasing
+
+By using an alias the name of the exported item can be renamed to something new. It can also be a way to simulate namespaces.
+
+```C#
+module alias_example
+export MyNamespace.MyFunc = MyFunc
+
+MyFunc()
+    ...
+```
+
+```C#
+import alias_example
+
+MyNamespace.MyFunc()
+```

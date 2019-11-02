@@ -15,4 +15,7 @@ Z80.Halt()                  // execute the halt instruction
 Z80.InterruptMode(Interrupt.Mode2)  // set interrupt mode
 Z80.SetInterruptVector(myISR, 0)    // set interrupt handler
 Z80.SetNonMaskableInterruptHandler(myNMI)  // NMI handler
+Z80.Restart(Rst28)
+Z80.Input()
+Z80.Output()
 ```

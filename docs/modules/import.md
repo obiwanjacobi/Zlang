@@ -15,6 +15,35 @@ import std.io
 import std.math
 ```
 
----
+## Aliasing
 
-> How to deal with ambiguity/collisions of names. Aliases?
+By using an alias the name of the imported item can be renamed to something new. This can help to resolve conflicts or make long names shorter.
+
+```C#
+module alias_example
+export MyFunc
+
+MyFunc()
+    ...
+```
+
+Using the dot-notation the items inside the module can be accessed.
+
+```C#
+import NewName = alias_example.MyFunc
+
+NewName()       // calls MyFunc
+```
+
+When module names look the same:
+
+```C#
+module MyModule                 // module #1
+export MyFunc
+
+module MyModule.MyFunc          // module #2
+
+module UsingModule              // module #3
+import MyModule.MyFunc          // imports module #2
+import Alias = MyModule.MyFunc  // imports module #1
+```
