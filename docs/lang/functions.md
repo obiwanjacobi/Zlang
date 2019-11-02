@@ -52,11 +52,11 @@ See also [Function Interfaces](interfaces.md).
 
 When the code has a pointer to a function, it can be called by specifying the `()` straight after it. Any parameters the function that is pointed to requires, must be passed in at that time. The return value -if any- will be available when the function returns.
 
-## Parameters and Return values
+## Parameters
 
 There is a bit more to tell about function parameters and return values.
 
-There are no implicit way of passing parameters to functions any other way than by value. That means, that the parameter value is copied from the caller site into the context of the function.
+There is no other way of passing parameters to functions than by value. That means, that the parameter value is copied from the caller site into the context of the function.
 
 That also means that if a parameter is to be passed by reference, an explicit pointer to that value has to be constructed and passed to the function.
 
@@ -68,20 +68,87 @@ v = 42
 byref(v#ptr)            // call with ptr to value
 ```
 
----
+Optional function parameters can be specified using the optional symbol `?`.
 
-parameters (in/out/ref) / optional/default value and return values (structs/tupples?)
+```C#
+hasParam(p: U8?): Bool
+    return p ? true : false
+```
+
+Default value for a function parameter:
+
+```C#
+defFunc(p: U8 = 0)
+    ...
+
+defFunc();          // ok, default value is used
+defFunc(42);        // ok, default value overridden
+
+defFunc(p: U8 = 0, p2: U16)     // error! default must be last
+    ...
+```
+
+Named Parameter use:
+
+```C#
+namedFn(p: U8, p2: U16)
+    ...
+
+namedFn(p = 42, p2 = 0x4242)    // ok, both name
+namedFn(p2 = 0x4242, p = 42)    // ok, out oif order, but named
+namedFn(42, p2 = 0x4242)        // ok, p in order, rest named
+namedFn(0x4242, p = 42)         // error! cannot convert 1st to U8
+
+```
+
+## Return values
+
+Returning multiple values from a function is only possible using a (custom) structure type. There are no out parameters and no tuples.
+
+```C#
+MyStruct
+    field1: U8
+    field2: U16
+
+MyFunc(p: U8, p2: U16): MyStruct
+    return Mystruct
+        field1 = p
+        field2 = p2
+```
+
+Return values are also passed by value, so in the example above, two values (U8 and U16) would be copied to the caller.
+
+## Type Bonded (Self)
+
+Using the `self` keyword on the first parameter, a function can be bonded to a type. In this example the function is bonded to the MyStruct type.
+
+```C#
+jamesBond(self s: MyStruct)
+    ...
+
+s = MyStruct
+    ...
+
+s.jamesBond()
+jamesBond(s)
+```
+
+When calling a bonded function, the 'self' parameter can be used as an 'object' using a dot-notation or simply passed as a first parameter.
+
+---
 
 support recursion?
 
-type-bonded (extension) / creators and pure functions
-`func(self p: obj)` `obj.func()` is same as `func(obj)`.
-
 resolving overloads (only type bonded?)
+
+pure functions (functional) / higher order functions?
 
 coroutines (yield/return) (impl. detail of the fn)
 
 anonymous functions/lambda/in-place (no capture)
+
+simulate properties? thru type-bound functions?
+Get\<T>/Set\<T>/Notify\<T>/Watch\<T[]>
 
 intrinsic functions (operator implementations)
 

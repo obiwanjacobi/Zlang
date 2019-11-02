@@ -135,11 +135,9 @@ Do we want to go the C++ way?
 MyType = OtherType<Complex<U8>, Str>
 ```
 
-## Generics / Templates
+## Templates
 
-> TODO
-
-Can generic be resolved at compile time? What scenarios are not possible if we do? Are those templates (as in C++)?
+Templates are resolved at compile time.
 
 Structs
 
@@ -156,8 +154,8 @@ functions
 typedFn<T>(p: T)
     ...
 
-s = typedFn(42)         // type inferred and checked
-s = typedFn<U8>(42)     // type explicit
+typedFn(42)         // type inferred and checked
+typedFn<U8>(42)     // type explicit
 ```
 
 restriction
@@ -166,8 +164,20 @@ restriction
 typedFn<T: >(p: T)
     ...
 
-s = typedFn(42)         // type inferred and checked
-s = typedFn<U8>(42)     // type explicit
+typedFn(42)         // type inferred and checked
+typedFn<U8>(42)     // type explicit
+```
+
+specialization
+
+```C#
+typedFn<T>(p: T)
+    ...
+typedFn<Bool>(p: Bool)
+    ...
+
+typedFn(42)         // generic typedFn<T> called
+typedFn(true)       // specialization typedFn<Bool> called
 ```
 
 ---

@@ -25,3 +25,9 @@ Here are examples of _invalid_ identifiers:
 some variable
 my-type
 ```
+
+## Fully Qualified Names
+
+```
+MyModule.v2.MyFunction
+```

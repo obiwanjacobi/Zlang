@@ -19,6 +19,8 @@ A special operator is used to access them: `#`
 | default | Default value for the type.
 | imm | An immutable reference to the instance.
 
+> `typeid` is a U16 hash value over the module name and type name.
+
 Not all types support all attributes. The compiler will give an error when the code accesses an attribute that is not supported by the type in question.
 
 ```C#
@@ -28,7 +30,6 @@ a#bits      // 8
 a#min       // 0
 a#max       // 255
 p = a#ptr   // p points to a
-q = p#dup   // q points to a
 
 U8#size     // 1
 U8#bits     // 8

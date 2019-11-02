@@ -88,3 +88,36 @@ errorFn(): U8!
 
 v = errorFn() catch(errorHandler)
 ```
+
+> Test for error type
+
+How to test for the type of error or if a field is available.
+Cannot use compile-time extensions because type of error is determined at runtime.
+
+```C#
+errorFn(p: U8) U8!
+    if p = 42
+        err42 = MyError     // custom error type
+            ...
+        return Error("Custom Error Type", err42)
+    else
+        return Error("Standard Error")
+
+v = errorFn(42) catch(err)
+    if (err.typeId = MyError.typeId)
+        ...
+```
+
+> Fatal Errors
+
+What some call 'panic' also known as exit()
+
+For some type of errors you want to crash and have diagnostics.
+
+```C#
+// exits program
+FatalError("panic!")
+FatalError("panic!", err)
+```
+
+What errors are fatal? DivideByZero, StackOverflow, OutOfMemory, ... ??
