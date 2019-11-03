@@ -10,7 +10,7 @@
 
 ---
 
-> TBD: compiler extensions. plugins that supplier code. Do we allow language extension?
+> TBD: compiler extensions. plugins that supplies code. Do we allow language extension?
 
 > Compiler as static analyzer / linter
 

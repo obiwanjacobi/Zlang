@@ -15,6 +15,8 @@ import std.io
 import std.math
 ```
 
+Importing a module that does not exist is not an error (perhaps only a warning) as long as no types from that missing module are used. This will make dealing with dependencies of conditional compiled code easier.
+
 ## Aliasing
 
 By using an alias the name of the imported item can be renamed to something new. This can help to resolve conflicts or make long names shorter.

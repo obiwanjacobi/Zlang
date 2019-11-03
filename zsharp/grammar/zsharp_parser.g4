@@ -9,19 +9,19 @@ statement: module_statement | flow_statement | declaration;
 // modules
 module_statement : statement_module | statement_import | statement_export;
 module_name: identifier_module | module_name DOT identifier_module;
-statement_module: keyword_module SP module_name EOL;
-statement_import: keyword_import SP module_name EOL;
-statement_export: keyword_export SP (identifier_func | identifier_type) EOL;
+statement_module: keyword_module SP module_name newline;
+statement_import: keyword_import SP module_name newline;
+statement_export: keyword_export SP (identifier_func | identifier_type) newline;
 
 // flow control
 flow_statement: statement_if | statement_else 
     | keyword_break | keyword_continue | statement_return;
-statement_return: indent keyword_return (SP expression_value)? EOL;
-statement_if: indent keyword_if SP expression_logic EOL;
-statement_else: indent keyword_else (keyword_if SP expression_logic)? EOL;
+statement_return: indent keyword_return (SP expression_value)? newline;
+statement_if: indent keyword_if SP expression_logic newline;
+statement_else: indent keyword_else (keyword_if SP expression_logic)? newline;
 
 // declaration
-declaration: function_decl | enum_decl;
+declaration: function_decl | enum_decl | struct_decl;
 
 // expressions
 expression_value: number | string | expression_bool 
@@ -57,9 +57,15 @@ function_param_use: expression_value | (COMMA SP expression_value)+;
 variable_ref: identifier_var;
 parameter_ref: identifier_param;
 
+// structs
+struct_decl: identifier_type (COLON SP type_any)? newline struct_field_decl_list;
+struct_field_decl_list: struct_field_decl+;
+struct_field_decl: indent identifier_field COLON SP type_any newline;
+
 // enums
-enum_decl: identifier_type (COLON SP enum_base_types)? EOL enum_option_decl+;
-enum_option_decl: indent identifier_enumoption (SP EQ_ASSIGN SP comptime_expression_value)? COMMA? EOL;
+enum_decl: identifier_type (COLON SP enum_base_types)? newline enum_option_decl_list;
+enum_option_decl_list: enum_option_decl+;
+enum_option_decl: indent identifier_enumoption (SP EQ_ASSIGN SP comptime_expression_value)? COMMA? newline;
 enum_base_types:       
       type_Bit | type_Str
     | type_F16 | type_F32 
@@ -163,6 +169,7 @@ op_bit_roll: BIT_ROLL;
 op_bit_rolr: BIT_ROLR;
 op_concat: CONCAT;
 
+newline: (indent? COMMENT)? EOL;
 comment: indent? COMMENT EOL;
 string: STRING;
 character: CHARACTER;

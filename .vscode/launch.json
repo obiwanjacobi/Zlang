@@ -9,7 +9,8 @@
             "grammar": "./zsharp/grammar/zsharp_parser.g4",
             "startRule": "file",
             "printParseTree": true,
-            "visualParseTree": true
+            "visualParseTree": true,
+            "internalConsoleOptions": "neverOpen"
         },
         {
             "name": "test lexer",
@@ -19,7 +20,8 @@
             "grammar": "./zsharp/grammar/_test/testparser.g4",
             "startRule": "test",
             "printParseTree": true,
-            "visualParseTree": true
+            "visualParseTree": true,
+            "internalConsoleOptions": "neverOpen"
         }
     ]
 }
