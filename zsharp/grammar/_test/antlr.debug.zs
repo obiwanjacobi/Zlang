@@ -3,6 +3,10 @@ module test1
 import mymodule.v1      // TODO: `module` is an error
 export funcDecl
 
+// functions
+voidFunc()
+    return
+
 funcDecl(p: U8?): Bool!
     if p
         return p = 42

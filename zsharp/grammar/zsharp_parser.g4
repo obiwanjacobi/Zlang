@@ -2,7 +2,9 @@ grammar zsharp_parser;
 
 // entry point
 file : code* EOF;
-code: (statement | comment) EOL*;
+code: statement | comment | empty_line;
+
+empty_line: INDENT? EOL+;
 
 statement: module_statement | flow_statement | declaration;
 
