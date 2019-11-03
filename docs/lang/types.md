@@ -47,6 +47,12 @@ Str
 
 A string is an `Array` of characters. But there is no character data type, so `U8` is used as a byte. Assumed here is that characters are ASCII based.
 
+> `Array`s are fixed length, are `Str`'s also fixed length?
+
+> Make a `Ptr<U8>` to point to fixed (null-terminated) strings? And use `Str` for dynamic string?
+
+> What if `Str` is part of structure? Can the entire structure still be allocated on the stack?
+
 ### Boolean
 
 The boolean data type is defined as:
@@ -183,11 +189,19 @@ typedFn<U8>(42)     // type explicit
 restriction
 
 ```C#
-typedFn<T: >(p: T)
+MyStruct
+    ...
+OtherStruct: MyStruct       // derive from MyStruct
     ...
 
-typedFn(42)         // type inferred and checked
-typedFn<U8>(42)     // type explicit
+typedFn<T: MyStruct>(p: T)  // accept type (derived from) MyStruct
+    ...
+
+o = OtherStruct             // instantiate
+    ...
+
+typedFn(o)                  // type inferred and checked
+typedFn<OtherStruct>(o)     // type explicit
 ```
 
 specialization
