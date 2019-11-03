@@ -9,26 +9,26 @@ statement: module_statement | flow_statement | declaration;
 // modules
 module_statement : statement_module | statement_import | statement_export;
 module_name: identifier_module | module_name DOT identifier_module;
-statement_module: keyword_module module_name;
-statement_import: keyword_import module_name;
-statement_export: keyword_export (identifier_func | identifier_type);
+statement_module: keyword_module SP module_name EOL;
+statement_import: keyword_import SP module_name EOL;
+statement_export: keyword_export SP (identifier_func | identifier_type) EOL;
 
 // flow control
 flow_statement: statement_if | statement_else 
     | keyword_break | keyword_continue | statement_return;
-statement_return: keyword_return expression_value;
-statement_if: keyword_if expression_logic;
-statement_else: keyword_else statement_if?;
+statement_return: indent keyword_return (SP expression_value)? EOL;
+statement_if: indent keyword_if SP expression_logic EOL;
+statement_else: indent keyword_else (keyword_if SP expression_logic)? EOL;
 
 // declaration
 declaration: function_decl;
 
 // expressions
-expression_value: number | expression_bool | expression_logic | expression_bitwise;
+expression_value: number | string | expression_bool | expression_logic | expression_bitwise | function_call;
 
 expression_logic: 
-      (logic_operand operator_logic logic_operand) 
-    | (operator_logic_unary? logic_operand);
+      (logic_operand SP operator_logic SP logic_operand) 
+    | ((operator_logic_unary SP)? logic_operand);
 logic_operand: expression_comparison | expression_bool;
 
 expression_comparison: comparison_operand operator_comparison comparison_operand;
@@ -39,18 +39,28 @@ expression_bitwise:
     | (operator_bits_unary bitwise_operand);
 bitwise_operand: function_call | variable_ref | number;
 
-expression_bool: literal_bool;
+expression_bool: literal_bool | identifier_bool;
+identifier_bool: variable_ref | parameter_ref;
 
 // functions
-function_call: identifier_func PARENopen function_parameters? PARENclose;
-function_decl: identifier_func PARENopen function_parameters? PARENclose function_return?;
-function_parameters: identifier_param COLON type_name;
-function_return: COLON type_name;
+function_call: identifier_func PARENopen function_parameter_uselist? PARENclose;
+function_decl: indent? identifier_func PARENopen function_parameter_list? PARENclose function_type? EOL;
+function_parameter_list: function_parameter | (COMMA SP function_parameter)+;
+function_parameter: identifier_param function_type;
+function_type: COLON SP type_any;
+function_parameter_uselist: function_param_use | (COMMA SP function_param_use)+;
+function_param_use: expression_value | (COMMA SP expression_value)+;
 
 // variables
 variable_ref: identifier_var;
+parameter_ref: identifier_param;
 
 // types
+type_any: type_name | optional_type | error_type | optional_error_type;
+optional_type: type_name QUESTION;
+error_type: type_name ERROR;
+optional_error_type: type_name ERROR QUESTION;
+
 type_name: known_types | identifier_type;
 known_types: 
       type_Bit | type_Bool | type_Str
@@ -142,11 +152,11 @@ op_bit_rolr: BIT_ROLR;
 op_cpy_assign: CPY_ASSIGN;
 op_concat: CONCAT;
 
-comment: COMMENT;
+comment: indent? COMMENT EOL;
 string: STRING;
 character: CHARACTER;
 
-indent: TAB;
+indent: INDENT;
 
 //
 // Tokens
@@ -249,13 +259,15 @@ DOT: '.';
 RANGE: '..';
 SPREAD: '...';
 COMMA: ',';
-META: '!';
-PRAGMA: '#!';
+META : '#';
+COMPTIME: '#!';
+ERROR: '!';
 STR_QUOTE: '"';
 CHAR_QUOTE: '\'';
 COMMENTstart: '//';
 
 // whitespace
-SP: ' ' -> skip;
+SP: ' ';
 TAB: '\t';
+INDENT: SP+ | TAB+;
 EOL: '\r'? '\n' | '\r';
