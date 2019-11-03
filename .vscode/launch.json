@@ -15,7 +15,7 @@
             "name": "test lexer",
             "type": "antlr-debug",
             "request": "launch",
-            "input": "./zsharp/grammar/_test/antlr.debug.zs",
+            "input": "./zsharp/grammar/_test/testdata.txt",
             "grammar": "./zsharp/grammar/_test/testparser.g4",
             "startRule": "test",
             "printParseTree": true,
