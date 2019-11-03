@@ -159,8 +159,10 @@ If the original type is lost, casting up the inheritance hierarchy will always f
 
 ## Aliases
 
+Same as declaring a new type, just without any additions.
+
 ```
-MyType = OtherType<Complex<U8>, Str>
+MyType: OtherType<Complex<U8>, Str>
 ```
 
 ## Templates
@@ -222,26 +224,35 @@ typedFn(true)       // specialization typedFn<Bool> called
 
 Ideas...
 
-## Unions
+Unions
 
 ```
 MyStruct: Struct1 | Struct2
 ```
 
-## Multiple Inheritance
+Multiple Inheritance (type addition)
 
 ```
 MyStruct: Struct1 & Struct2
+```
+
+Type difference (inverse union)
+
+```
+Difference: Struct1 ^ Struct2
 ```
 
 ---
 
 > This too?
 
-```
-OneOrTheOther: Struct1 or Struct2
-```
-
 How do you know what type is active?
 (hidden id?)
 Pattern matching?
+
+Variant
+
+```
+OneOrTheOther: Struct1 or Struct2
+OneOfThese: Struct1 or Struct2 or Struct3 or Struct4
+```

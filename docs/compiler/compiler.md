@@ -24,6 +24,8 @@
 
 > Compiler as Language VM? (used by REPL)
 
+> Semantic rules as functions available to code.
+
 ---
 
 > Literal strings can add up. How to optimize? (interning?, string-builder for efficient construction?)

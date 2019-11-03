@@ -99,6 +99,18 @@ namedFn(0x4242, p = 42)         // error! cannot convert 1st to U8
 
 ```
 
+Variable number of parameters:
+
+Not really supported but can fake with Array: all of same type.
+
+```C#
+varFunc<T>(p: U8, varP: Array<T>)
+    ...
+
+// requires easy syntax for specifying
+varFunc(42, [1, 2, 3, 4, 5, 6])
+```
+
 ## Return values
 
 Returning multiple values from a function is only possible using a (custom) structure type. There are no out parameters and no tuples.
