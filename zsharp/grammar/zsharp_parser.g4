@@ -33,11 +33,11 @@ expression_logic:
     | ((operator_logic_unary SP)? logic_operand);
 logic_operand: expression_comparison | expression_bool;
 
-expression_comparison: comparison_operand operator_comparison comparison_operand;
+expression_comparison: comparison_operand SP operator_comparison SP comparison_operand;
 comparison_operand: expression_bitwise | function_call | variable_ref | literal;
 
 expression_bitwise: 
-      (bitwise_operand operator_bits bitwise_operand) 
+      (bitwise_operand SP operator_bits SP bitwise_operand) 
     | (operator_bits_unary bitwise_operand);
 bitwise_operand: function_call | variable_ref | number;
 

@@ -3,7 +3,7 @@ module test1
 
 funcDecl(p: U8?): Bool!
     if p
-        return true
+        return p = 42
     else
         return Error("Parameter not specified")
 

@@ -128,6 +128,18 @@ MyFunc(p: U8, p2: U16): MyStruct
 
 Return values are also passed by value, so in the example above, two values (U8 and U16) would be copied to the caller.
 
+> Force caller to handle return value (just like with Error)?
+
+```C#
+retFunc(): Bool
+    ...
+
+b = retFunc()       // ok, retval caught
+retFunc()           // warning? uncaught retval
+
+_ = retFunc()       // ok, explicitly not interested in retval
+```
+
 ## Type Bonded (Self)
 
 Using the `self` keyword on the first parameter, a function can be bonded to a type. In this example the function is bonded to the MyStruct type.
