@@ -24,7 +24,8 @@ statement_else: indent keyword_else (keyword_if SP expression_logic)? EOL;
 declaration: function_decl | enum_decl | enum_option_decl;
 
 // expressions
-expression_value: number | string | expression_bool | expression_logic | expression_bitwise | function_call;
+expression_value: number | string | expression_bool 
+    | expression_logic | expression_bitwise | function_call;
 comptime_expression_value: number | string | expression_bool;
 
 expression_logic: 
@@ -135,7 +136,7 @@ operator_logic_unary: op_not;
 operator_comparison: op_eq_assign | op_neq | op_great | op_small | op_greq | op_smeq;
 operator_bits: op_bit_and | op_bit_or | op_bit_xor | op_bit_shl | op_bit_shr | op_bit_roll | op_bit_rolr;
 operator_bits_unary: op_bit_not;
-operator_assignment: op_eq_assign | op_cpy_assign;
+operator_assignment: op_eq_assign;
 
 op_plus: PLUS;
 op_minus_neg: MINUS_NEG;
