@@ -21,7 +21,7 @@ statement_if: indent keyword_if SP expression_logic EOL;
 statement_else: indent keyword_else (keyword_if SP expression_logic)? EOL;
 
 // declaration
-declaration: function_decl | enum_decl | enum_option_decl;
+declaration: function_decl | enum_decl;
 
 // expressions
 expression_value: number | string | expression_bool 
@@ -58,7 +58,7 @@ variable_ref: identifier_var;
 parameter_ref: identifier_param;
 
 // enums
-enum_decl: identifier_type (COLON SP enum_base_types)? EOL;
+enum_decl: identifier_type (COLON SP enum_base_types)? EOL enum_option_decl+;
 enum_option_decl: indent identifier_enumoption (SP EQ_ASSIGN SP comptime_expression_value)? COMMA? EOL;
 enum_base_types:       
       type_Bit | type_Str
@@ -91,7 +91,7 @@ type_F16: F16;
 type_F32: F32;
 type_Str: STR;
 type_Bool: BOOL;
-type_Bit: BIT;
+type_Bit: BIT; // TODO type parameter
 
 // identifiers
 identifier_type: IDENTIFIERupper;
