@@ -6,3 +6,7 @@ funcDecl(p: U8?): Bool!
         return true
     else
         return Error("Parameter not specified")
+
+MyEnum
+    opt1 = 1,
+    opt2 = 2,

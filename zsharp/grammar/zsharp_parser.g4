@@ -21,10 +21,11 @@ statement_if: indent keyword_if SP expression_logic EOL;
 statement_else: indent keyword_else (keyword_if SP expression_logic)? EOL;
 
 // declaration
-declaration: function_decl;
+declaration: function_decl | enum_decl | enum_option_decl;
 
 // expressions
 expression_value: number | string | expression_bool | expression_logic | expression_bitwise | function_call;
+comptime_expression_value: number | string | expression_bool;
 
 expression_logic: 
       (logic_operand SP operator_logic SP logic_operand) 
@@ -54,6 +55,15 @@ function_param_use: expression_value | (COMMA SP expression_value)+;
 // variables
 variable_ref: identifier_var;
 parameter_ref: identifier_param;
+
+// enums
+enum_decl: identifier_type (COLON SP enum_base_types)? EOL;
+enum_option_decl: indent identifier_enumoption (SP EQ_ASSIGN SP comptime_expression_value)? COMMA? EOL;
+enum_base_types:       
+      type_Bit | type_Str
+    | type_F16 | type_F32 
+    | type_I16 | type_I24 | type_I32 | type_I8  
+    | type_U16 | type_U24 | type_U32 | type_U8;
 
 // types
 type_any: type_name | optional_type | error_type | optional_error_type;
@@ -88,6 +98,7 @@ identifier_var: IDENTIFIERlower;
 identifier_param: IDENTIFIERlower;
 identifier_func: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
 identifier_field: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
+identifier_enumoption: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
 identifier_module: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
 identifier_unused: UNUSED;
 
@@ -149,7 +160,6 @@ op_bit_shl: BIT_SHL;
 op_bit_shr: BIT_SHR;
 op_bit_roll: BIT_ROLL;
 op_bit_rolr: BIT_ROLR;
-op_cpy_assign: CPY_ASSIGN;
 op_concat: CONCAT;
 
 comment: indent? COMMENT EOL;
@@ -247,7 +257,6 @@ BIT_SHL: '<<';
 BIT_SHR: '>>';
 BIT_ROLL: '|,';
 BIT_ROLR: '>|';
-CPY_ASSIGN: ':=';
 CONCAT: '&&';
 SUBopen: '[';
 SUBclose: ']';
