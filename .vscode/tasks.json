@@ -4,8 +4,8 @@
       {
         "label": "msvc build",
         "type": "shell",
-        "command": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Tools/MSVC/14.23.28105/bin/Hostx64/x64/cl.exe",
-        "args": ["/EHsc", "/Zi", "/Fe:", "zlang.exe", "./src/main.cpp"],
+        "command": "cl.exe",
+        "args": ["/EHsc", "/Zi", "/Fo.\\obj\\", "/Fe:", "./bin/zlang.exe", "./src/main.cpp"],
         "group": {
           "kind": "build",
           "isDefault": true

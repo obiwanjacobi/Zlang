@@ -1,7 +1,8 @@
 .antlr
 
 # cpp
+obj
+bin
 *.obj
 *.pdb
-
-.exe
+*.exe
