@@ -1,1 +1,7 @@
 .antlr
+
+# cpp
+*.obj
+*.pdb
+
+.exe
