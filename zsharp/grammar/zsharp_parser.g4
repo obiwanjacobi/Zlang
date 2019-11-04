@@ -1,10 +1,8 @@
 grammar zsharp_parser;
 
 // entry point
-file : code* EOF;
-code: statement | comment | empty_line;
-
-empty_line: INDENT? EOL+;
+file : (code | empty_line)* EOF;
+code: statement | comment;
 
 statement: module_statement | flow_statement | declaration;
 
@@ -48,7 +46,7 @@ identifier_bool: variable_ref | parameter_ref;
 
 // functions
 function_call: identifier_func PARENopen function_parameter_uselist? PARENclose;
-function_decl: indent? identifier_func PARENopen function_parameter_list? PARENclose function_type? EOL;
+function_decl: indent? identifier_func PARENopen function_parameter_list? PARENclose function_type? EOL code;
 function_parameter_list: function_parameter | (COMMA SP function_parameter)+;
 function_parameter: identifier_param function_type;
 function_type: COLON SP type_any;
@@ -171,6 +169,7 @@ op_bit_roll: BIT_ROLL;
 op_bit_rolr: BIT_ROLR;
 op_concat: CONCAT;
 
+empty_line: INDENT? EOL+;
 newline: (indent? COMMENT)? EOL;
 comment: indent? COMMENT EOL;
 string: STRING;

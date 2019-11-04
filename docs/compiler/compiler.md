@@ -10,21 +10,25 @@
 
 ---
 
-> TBD: compiler extensions. plugins that supplies code. Do we allow language extension?
+> TBD: compiler extensions. plugins that supply code. Don't allow language extension, but do allow compile-time function extensions.
 
 > Compiler as static analyzer / linter
 
 > Compiler as language Server (LSP)
 
-> Compiler as Assembler
+> Compiler as Assembler (byte-code?)
 
-> Compiler as linker
+> Compiler as linker (late optimizations)
 
 > Compiler as REPL (because we support Meta)
 
-> Compiler as Language VM? (used by REPL)
+> Compiler as Language VM? (used by REPL) - zs-script
 
-> Semantic rules as functions available to code.
+> Compiler as profiler?
+
+> Compiler as build-system? Use REPL/VM to execute zs-script using build-task lib...?
+
+> Semantic rules as functions available to code (traits?).
 
 ---
 

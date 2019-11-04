@@ -13,9 +13,12 @@ funcDecl(p: U8?): Bool!
     else
         return Error("Parameter not specified")
 
+funcErr(p: U16): U8
+    return Error()
+    
 // enums
 MyEnum1
-    opt1,           // TODO: parse options on one line
+    opt1,           // TODO: enum options on one line
     opt2
 
 MyEnum2
