@@ -61,7 +61,8 @@ couldErr(p: U8): U8!
     return Error("Failed.", err)    // overrides the Error type
 
 v = couldErr() catch(err)
-    err.f1                          // access custom field
+    match err                       // use pattern matching
+        myErr: MyError => myErr.f1  // access custom field
 ```
 
 Wrap this construction code into a function for ease of use:
