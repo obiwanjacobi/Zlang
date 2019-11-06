@@ -55,6 +55,6 @@ The two patterns for `MyStruct` differ in filter. That is why this works.
 
 > The compiler checks if later patterns are still reachable.
 
-Patterns for values and patterns for types can be used at the same time.
+Patterns for values and patterns for types can be used at the same time. Type matching is done base on the underlying `#typeid`.
 
 > TBD: How will the compiler be able to assess if a pattern will be reachable?
