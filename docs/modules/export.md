@@ -8,8 +8,9 @@ The following types of identifiers can be exported:
 
 - Types
 - Functions
+- Immutable Variables
 
-> Variables cannot be exported! They need an accessor function.
+> Mutable variables cannot be exported! They need an accessor function.
 
 Here is an example of exporting a function:
 
@@ -20,7 +21,7 @@ MyFunction()
     implementation_here
 ```
 
-The `export` keyword can also be applied directly to the code identifier to be made publically available:
+The `export` keyword can also be applied directly to the code identifier to be made publicly available:
 
 ```C#
 export MyFunction()

@@ -14,6 +14,8 @@ Function interfaces are syntactically different from Object interfaces - so an o
 
 A function interface declares only one function and does _not_ use the `self` keyword.
 
+> Do we need the 'FunctionInterface' name? How to declare a variable of type FunctionInterface if there is no 'FunctionInterface' name?
+
 ```C#
 FunctionInterface
     lowByte(p1: U16): U8    // can we detect this?
@@ -56,3 +58,7 @@ interfunc(a, 42)
 ```
 
 > override / 'virtual' ?? call 'super' ??
+
+---
+
+> TBD: Matching interfaces onto type bound functions.

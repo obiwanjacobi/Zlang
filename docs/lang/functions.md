@@ -48,6 +48,8 @@ takePtr(ptr: Ptr<MyFunction>, p: U8)
 
 Any function that takes parameters that represent pointer to functions must specify its (function) type up front. This function type definition contains the signature of the number of parameters and their types as well as the return type - if any.
 
+`#ptr` is different from taking a pointer from a variable with `.Ptr()` in that `#ptr` only works on a function type that is known at compile time, while `.Ptr()` take the runtime address of a variable. See also [Pointer Types](./types.md).
+
 See also [Function Interfaces](interfaces.md).
 
 When the code has a pointer to a function, it can be called by specifying the `()` straight after it. Any parameters the function that is pointed to requires, must be passed in at that time. The return value -if any- will be available when the function returns.

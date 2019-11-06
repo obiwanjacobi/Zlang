@@ -157,6 +157,10 @@ p2 = cast.Ptr<MyStruct2>()        // error, is not original type
 
 If the original type is lost, casting up the inheritance hierarchy will always fail.
 
+### Pointer Arithmetic
+
+> TBD
+
 ## Aliases
 
 Same as declaring a new type, just without any additions.
@@ -167,9 +171,9 @@ MyType: OtherType<Complex<U8>, Str>
 
 ## Templates
 
-Templates are resolved at compile time.
+Templates are processed at compile time.
 
-Structs
+### Template Structures
 
 ```C#
 MyStruct<T>
@@ -178,7 +182,16 @@ MyStruct<T>
 s = MyStruct<U8>
 ```
 
-functions
+> This should also work:
+
+```C#
+MyStruct<T>: T
+    ...
+
+s = MyStruct<OtherStruct>
+```
+
+### Template Functions
 
 ```C#
 typedFn<T>(p: T)
@@ -188,7 +201,7 @@ typedFn(42)         // type inferred and checked
 typedFn<U8>(42)     // type explicit
 ```
 
-restriction
+### Restricting Template Type Parameters
 
 ```C#
 MyStruct
@@ -206,7 +219,14 @@ typedFn(o)                  // type inferred and checked
 typedFn<OtherStruct>(o)     // type explicit
 ```
 
-specialization
+> This too??
+
+```C#
+FixedArray<T, count: U8>
+    arr: Array<T>(count)
+```
+
+### Template Specialization
 
 ```C#
 typedFn<T>(p: T)

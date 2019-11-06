@@ -48,30 +48,43 @@ A pointer variable contains a memory location of the thing it points to.
 A specific parameterized type is used to express pointers: `Ptr<T>`:
 
 ```C#
-a = 42      // U8
-p = a#ptr   // p of type Ptr<U8> points to a
+a = 42          // U8
+p = a.Ptr()     // p of type Ptr<U8> points to a
 ```
 
-A pointer of any variable can be obtained by using the `ptr` compiler attribute and the `#` operator.
-
-> How to dereference a pointer?
+A pointer of any variable can be obtained by using the `Ptr()` conversion function.
 
 ```C#
-a = 42      // U8
-p = a#ptr   // p of type Ptr<U8> points to a
-b = p#val   // b = 42       ??
+a = 42          // U8
+p = a.Ptr()     // p of type Ptr<U8> points to a
+b = p.U8()      // b = 42
 ```
+
+See also [Pointer Types](./types.md).
 
 ---
 
-## Type Static, Constants and Globals
+## Immutable Variables
 
-> TODO
+When variables are immutable they cannot be changed during the execution of the program.
 
-- Constant, Readonly, Immutable. Whats the difference? When to use what term?
+```C#
+c = 10#imm  // c has value 10 and cannot be changed
 
-- Type Static are constants declared on a struct.
-How to declare a const/static on a type?
+c = 42      // error! cannot change value
+a = c       // now a is immutable as well
 
-- Globals
-Do not exist in a sense that you cannot export variables. The lifetime of a variable can be global but the access is always limited to the file it is defined in.
+v = 42      // mutable U8
+c = v#imm   // ok, immutable copy of v
+
+x: U8       // mutable U8 (value is 0)
+x = v#imm   // error, immutable values cannot be assigned
+```
+
+An immutable variable is initialized when declared (not assigned to later).
+
+## Global Variables
+
+Because only immutable variables can be exported, only immutable variable can be thought of as being accessible globally.
+
+The lifetime of any variable can be global, in the sense that the variable maintains its state, but always within the scope of the file it is defined in.

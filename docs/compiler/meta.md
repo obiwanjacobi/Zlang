@@ -17,7 +17,7 @@ A special operator is used to access them: `#`
 | count | The number of elements.
 | size | The size in bytes the type takes up in memory.
 | default | Default value for the type.
-| imm | An immutable reference to the instance.
+| ptr | Pointer to a (function) type.
 
 > `typeid` is a U16 hash value over the module name and type name.
 
@@ -29,19 +29,22 @@ a#size      // 1
 a#bits      // 8
 a#min       // 0
 a#max       // 255
-p = a#ptr   // p points to a
+a#ptr       // error! use .Ptr() on instances
 
 U8#size     // 1
 U8#bits     // 8
 U8#min      // 0
 U8#max      // 255
-U8#ptr      // error! not on type
-U8#dup      // error! not on type
+U8#ptr      // error! not on this type
 
 Bit<3>#size // 1
 Bit<3>#bits // 3
 Bit<3>#min  // 0
 Bit<3>#max  // 7
+
+MyFunction()
+    ...
+MyFunction#ptr  // ok, ptr to function
 ```
 
 ## Pragmas

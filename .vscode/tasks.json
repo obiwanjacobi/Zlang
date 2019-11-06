@@ -2,6 +2,15 @@
     "version": "2.0.0",
     "tasks": [
       {
+        "label": "setup msvc",
+        "type": "shell",
+        "command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\Tools\\VsDevCmd.bat\"",
+        "group": "none",
+        "presentation": {
+          "reveal": "always"
+        }
+      },
+      {
         "label": "msvc build",
         "type": "shell",
         "command": "cl.exe",
