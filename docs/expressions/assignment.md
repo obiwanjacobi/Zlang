@@ -3,7 +3,6 @@
 | Operator | Function
 |-------|------
 | = | Assign value
-| := | Assign copy
 
 > The left operand of an assignment expression can not be a literal value.
 

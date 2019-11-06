@@ -14,8 +14,11 @@ The supported expressions are divided in these categories:
 - [Bitwise](bitwise.md)
 - [Assignment](assignment.md)
 
+See also the [Match Expression](../lang/match.md)
+
 ## Precedence
 
 When using more than one operator in a single expression, some operators are processed before others: precedence.
 
 The use of `()` indicates that everything inside the parentheses is processed before interacting with other parts of the expression.
+
