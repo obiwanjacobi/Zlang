@@ -10,8 +10,6 @@
 
 ---
 
-> TBD: compiler extensions. plugins that supply code. Don't allow language extension, but do allow compile-time function extensions.
-
 > Compiler as static analyzer / linter
 
 > Compiler as language Server (LSP)

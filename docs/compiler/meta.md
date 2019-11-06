@@ -10,16 +10,22 @@ A special operator is used to access them: `#`
 
 | Attribute | Description
 |----|-----
-| typeid | A unique numerical type identifier.
-| min | The minimum value possible.
-| max | The maximum value possible.
-| bits | The number of bits for the type.
-| count | The number of elements.
-| size | The size in bytes the type takes up in memory.
-| default | Default value for the type.
-| ptr | Pointer to a (function) type.
+| `#type` | Full type info.
+| `#typeid` | A unique numerical type identifier.
+| `#min` | The minimum value possible.
+| `#max` | The maximum value possible.
+| `#bits` | The number of bits for the type.
+| `#count` | The number of elements.
+| `#size` | The size in bytes the type takes up in memory.
+| `#default` | Default value for the type.
+| `#ptr` | Pointer to a (function) type.
+| `#imm` | Make immutable.
 
-> `typeid` is a U16 hash value over the module name and type name.
+> `#typeid` is a U16 hash value over the module name and type name.
+
+> `#type` is only available in a compile-time function that is tagged with a `#!`.
+
+_`#imm` is still under debate. Another option would be to use a template type `Imm<T>`._
 
 Not all types support all attributes. The compiler will give an error when the code accesses an attribute that is not supported by the type in question.
 
@@ -64,7 +70,7 @@ well_behaved_code
 
 ## Compile-time Code
 
-Any Z# code can be executed at compile-time by placing a `#!` in front of it. The use of this symbol does not introduce and extra scope.
+Any Z# code can be executed at compile-time by placing a `#!` in front of it. The use of this symbol does not introduce an extra scope.
 
 ```C#
 m = MyStruct
@@ -80,3 +86,5 @@ m = MyStruct
 #! compTime(m)
 compTime(m)     // error! `type` attr is not available
 ```
+
+> TBD: Do both function decl and call need to be tagged with the `#!` symbol?

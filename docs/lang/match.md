@@ -58,3 +58,5 @@ The two patterns for `MyStruct` differ in filter. That is why this works.
 Patterns for values and patterns for types can be used at the same time. Type matching is done base on the underlying `#typeid`.
 
 > TBD: How will the compiler be able to assess if a pattern will be reachable?
+
+> TBD: more support for expressions? Like returning an expression from a scope (no return statement needed)? A loop that results in a value (break 42)??

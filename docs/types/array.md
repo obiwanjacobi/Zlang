@@ -6,6 +6,8 @@ An array has a fixed size, determined at compile time that cannot be changed: th
 
 An immutable array is initialized once and its contents cannot be changed after that:
 
+> TBD: the immutable array is inconsistent with the use of the `#imm` compiler attribute. `arr = [1, 2]` would be mutable and `arr = [1, 2]#imm` would be immutable...
+
 ```C#
 // immutable
 arr = [1, 2, 3, 4, 5]               // 5 x U8
