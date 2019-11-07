@@ -19,4 +19,6 @@ In a sense, the module name is also the namespace of the code in the file.
 
 ---
 
-Should the module statements `module` and `import` only be used at the top of the file, or can they appear anywhere?
+> Should the module statements `module` and `import` only be used at the top of the file, or can they appear anywhere?
+
+> Should the module statements (module, import and export) be prefixed with a `#` like a pragma, because they represent a meta/compile-time operation that is not really output in the binary...?

@@ -48,11 +48,11 @@ takePtr(ptr: Ptr<MyFunction>, p: U8)
 
 Any function that takes parameters that represent pointer to functions must specify its (function) type up front. This function type definition contains the signature of the number of parameters and their types as well as the return type - if any.
 
-`#ptr` is different from taking a pointer from a variable with `.Ptr()` in that `#ptr` only works on a function type that is known at compile time, while `.Ptr()` take the runtime address of a variable. See also [Pointer Types](./types.md).
-
-See also [Function Interfaces](interfaces.md).
+`#ptr` is different from taking a pointer from a variable with `.Ptr()` in that `#ptr` only works on a function type that is known at compile time, while `.Ptr()` takes the runtime address of a variable. See also [Pointer Types](./types.md).
 
 When the code has a pointer to a function, it can be called by specifying the `()` straight after it. Any parameters the function that is pointed to requires, must be passed in at that time. The return value -if any- will be available when the function returns.
+
+See also [Function Interfaces](interfaces.md).
 
 ## Parameters
 
@@ -94,7 +94,7 @@ Named Parameter use:
 namedFn(p: U8, p2: U16)
     ...
 
-namedFn(p = 42, p2 = 0x4242)    // ok, both name
+namedFn(p = 42, p2 = 0x4242)    // ok, both named
 namedFn(p2 = 0x4242, p = 42)    // ok, out oif order, but named
 namedFn(42, p2 = 0x4242)        // ok, p in order, rest named
 namedFn(0x4242, p = 42)         // error! cannot convert 1st to U8
@@ -109,7 +109,7 @@ Not really supported but can fake with Array: all of same type.
 varFunc<T>(p: U8, varP: Array<T>)
     ...
 
-// requires easy syntax for specifying
+// requires (easy) syntax for specifying
 varFunc(42, [1, 2, 3, 4, 5, 6])
 ```
 
@@ -130,7 +130,7 @@ MyFunc(p: U8, p2: U16): MyStruct
 
 Return values are also passed by value, so in the example above, two values (U8 and U16) would be copied to the caller.
 
-> Force caller to handle return value (just like with Error)?
+> TBD: Force caller to handle return value (just like with Error)?
 
 ```C#
 retFunc(): Bool
@@ -142,9 +142,9 @@ retFunc()           // warning? uncaught retval
 _ = retFunc()       // ok, explicitly not interested in retval
 ```
 
-## Type Bonded (Self)
+## Type Bound (Self)
 
-Using the `self` keyword on the first parameter, a function can be bonded to a type. In this example the function is bonded to the MyStruct type.
+Using the `self` keyword on the first parameter, a function can be bound to a type. In this example the function is bound to the MyStruct type.
 
 ```C#
 jamesBond(self s: MyStruct)
@@ -157,19 +157,23 @@ s.jamesBond()
 jamesBond(s)
 ```
 
-When calling a bonded function, the 'self' parameter can be used as an 'object' using a dot-notation or simply passed as a first parameter.
+When calling a bound function, the 'self' parameter can be used as an 'object' using a dot-notation or simply passed as a first parameter.
+
+> TBD: `self` could be the (reserved) name of the first parameter.
 
 ---
 
+> TDB:
+
 support recursion?
 
-resolving overloads (only type bonded?)
+resolving overloads (only type bound?)
 
 pure functions (functional) / higher order functions?
 
 coroutines (yield/return) (impl. detail of the fn)
 
-anonymous functions/lambda/in-place (no capture)
+anonymous functions/lambda/in-place syntax (no capture)
 
 simulate properties? thru type-bound functions?
 Get\<T>/Set\<T>/Notify\<T>/Watch\<T[]>

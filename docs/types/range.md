@@ -31,3 +31,5 @@ i = 42
 iterators
 
 slices
+
+> a pointer and a length

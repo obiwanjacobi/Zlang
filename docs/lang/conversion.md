@@ -9,6 +9,8 @@ b = 42        // U8
 s = b.Str()   // to string "42"
 ```
 
+> TBD: remove implicit string allocation in `.Str()`. Use explicit allocator object?
+
 Type conversion from larger to smaller types need some extra help:
 
 ```C#

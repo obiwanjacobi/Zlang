@@ -6,11 +6,13 @@
 
 > A 'code attribute' extension. (no code attributes yet.) Annotated code that gets in the loop for generating the code for that scope. This, for instance, allows implementation of detailed entry and exit tracing etc.
 
-Code attributes syntax??
+Code attributes syntax?? Are Code Attributes Types or a (single?) function?
 
 ```C#
 // function code attributes
 {CodeAttr}                  // {} not used for anything else
+#CodeAttr                   // # - conflict with pragma
+#! CodeAttr                 // #! as in compile time (scope?)
 myFunction(p: U8) Bool
 
 // multiple code attributes

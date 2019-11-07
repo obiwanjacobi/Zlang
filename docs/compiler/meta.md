@@ -70,7 +70,7 @@ well_behaved_code
 
 ## Compile-time Code
 
-Any Z# code can be executed at compile-time by placing a `#!` in front of it. The use of this symbol does not introduce an extra scope.
+_Any_ Z# code can be executed at compile-time. By placing a `#!` in front of it, the compiler knows it is not to be included in the binary. The use of this symbol does not introduce an extra scope.
 
 ```C#
 m = MyStruct
@@ -84,7 +84,15 @@ m = MyStruct
         "field: {f.name} of type {f.type.name}"
 
 #! compTime(m)
-compTime(m)     // error! `type` attr is not available
+compTime(m)     // error! `#type` attr is not available
 ```
 
-> TBD: Do both function decl and call need to be tagged with the `#!` symbol?
+Some `#` compiler attributes may require the code to be `#!` compile time code.
+
+```C#
+anyFunc<T>(m: T)    // normal function
+    ...
+
+#! anyFunc(m)       // called/run at compile time
+anyFunc(m)          // called/run at run time
+```
