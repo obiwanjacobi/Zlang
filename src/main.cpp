@@ -1,3 +1,5 @@
+#include "zsharp/grammar/ZsharpParser.h"
+
 #include <iostream>
 
 int main(int argc, char **argv)
@@ -7,7 +9,8 @@ int main(int argc, char **argv)
         return 0;
     }
 
-
+    ZsharpParser parser;
+    auto tree = parser.parse(argv[1]);
 
     return 0;
 }
