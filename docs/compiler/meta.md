@@ -12,6 +12,7 @@ A special operator is used to access them: `#`
 |----|-----
 | `#type` | Full type info.
 | `#typeid` | A unique numerical type identifier.
+| `#name` | The identifier (name).
 | `#min` | The minimum value possible.
 | `#max` | The maximum value possible.
 | `#bits` | The number of bits for the type.
@@ -36,17 +37,20 @@ a#bits      // 8
 a#min       // 0
 a#max       // 255
 a#ptr       // error! use .Ptr() on instances
+a#name      // 'a'
 
 U8#size     // 1
 U8#bits     // 8
 U8#min      // 0
 U8#max      // 255
 U8#ptr      // error! not on this type
+U8#name     // 'U8'
 
 Bit<3>#size // 1
 Bit<3>#bits // 3
 Bit<3>#min  // 0
 Bit<3>#max  // 7
+Bit<3>#name // 'Bit3'
 
 MyFunction()
     ...
