@@ -20,9 +20,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserBaseListener.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserBaseVisitor.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserLexer.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserListener.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserParser.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserVisitor.cpp" />
+    <ClCompile Include="zsharp\grammar\ZsharpParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="zsharp\grammar\parser\zsharp_parser.tokens" />
+    <None Include="zsharp\grammar\parser\zsharp_parserLexer.tokens" />
+    <None Include="zsharp\grammar\zsharp_parser.g4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserBaseListener.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserBaseVisitor.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserLexer.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserListener.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserParser.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserVisitor.h" />
+    <ClInclude Include="zsharp\grammar\ZsharpParser.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -81,8 +100,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\marc\Documents\MyProjects\Zalt\Zlang\lib\antlr\include;C:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp;C:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp\grammar\parser;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\marc\Documents\MyProjects\Zalt\Zlang\lib\antlr\debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\lib\antlr\include;$(ProjectDir)\zsharp;$(ProjectDir)\zsharp\grammar\parser;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\lib\antlr\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -118,6 +137,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>antlr4-runtime.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

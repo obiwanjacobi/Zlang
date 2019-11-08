@@ -2,8 +2,27 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="zsharp\grammar\ZsharpParser.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserBaseListener.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserBaseVisitor.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserLexer.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserListener.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserParser.cpp" />
+    <ClCompile Include="zsharp\grammar\parser\zsharp_parserVisitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="zsharp\grammar\parser\zsharp_parser.tokens" />
+    <None Include="zsharp\grammar\parser\zsharp_parserLexer.tokens" />
+    <None Include="zsharp\grammar\zsharp_parser.g4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="zsharp\grammar\ZsharpParser.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserBaseListener.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserBaseVisitor.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserLexer.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserListener.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserParser.h" />
+    <ClInclude Include="zsharp\grammar\parser\zsharp_parserVisitor.h" />
   </ItemGroup>
 </Project>
