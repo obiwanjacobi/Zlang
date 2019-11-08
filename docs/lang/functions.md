@@ -178,6 +178,8 @@ anonymous functions/lambda/in-place syntax (no capture)
 simulate properties? thru type-bound functions?
 Get\<T>/Set\<T>/Notify\<T>/Watch\<T[]>
 
+tag interrupt service routines (for analysis - volatile) as a simplified interface?
+
 intrinsic functions (operator implementations)
 
 inlining (compiler)

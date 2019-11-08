@@ -7,6 +7,7 @@
 - [Packages](packages.md)
 - [Extensions](extensions.md)
 - [Compiler Options](options.md)
+- [Assembly](assembly.md)
 
 ---
 

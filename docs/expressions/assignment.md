@@ -7,6 +7,7 @@
 > The left operand of an assignment expression can not be a literal value.
 
 Here 42 is assigned to the variable `a`.
+
 ```C#
 a = 42
 ```
@@ -27,3 +28,16 @@ s.field1 = 42
 if a = myFunc()      // error!
     ...
 ```
+
+---
+
+## Atomic Assignment
+
+protect from (non-maskable) interrupts.
+
+> TBD: A way to ensure an assignment operation is uninterrupted.
+
+- unconditional
+- conditional (exchange-if)
+
+> volatile / locking...
