@@ -2,16 +2,7 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "setup msvc",
-        "type": "shell",
-        "command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\Tools\\VsDevCmd.bat\"",
-        "group": "none",
-        "presentation": {
-          "reveal": "always"
-        }
-      },
-      {
-        "label": "msvc build",
+        "label": "msvc build (Debug)",
         "type": "shell",
         "command": "cl.exe",
         "args": ["/EHsc", "/Zi", "/Fo.\\obj\\", "/Fe:", "./bin/zlang.exe", "./src/main.cpp"],
