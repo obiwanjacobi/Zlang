@@ -167,7 +167,7 @@ When calling a bound function, the 'self' parameter can be used as an 'object' u
 
 support recursion?
 
-resolving overloads (only type bound?)
+resolving overloads (only type bound?) (pattern) match on self-type (fn's with same name diff self param)? visitor pattern/double dispatch?
 
 pure functions (functional) / higher order functions?
 

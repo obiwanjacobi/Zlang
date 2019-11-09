@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="zsharp\grammar\IndentChecker.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="zsharp\grammar\parser\zsharp_parserBaseListener.cpp" />
     <ClCompile Include="zsharp\grammar\parser\zsharp_parserBaseVisitor.cpp" />
@@ -33,8 +34,12 @@
     <None Include="zsharp\grammar\parser\zsharp_parser.tokens" />
     <None Include="zsharp\grammar\parser\zsharp_parserLexer.tokens" />
     <None Include="zsharp\grammar\zsharp_parser.g4" />
+    <None Include="zsharp\grammar\_test\antlr.debug.zs" />
+    <None Include="zsharp\grammar\_test\testlexer.g4" />
+    <None Include="zsharp\grammar\_test\testparser.g4" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="zsharp\grammar\IndentChecker.h" />
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserBaseListener.h" />
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserBaseVisitor.h" />
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserLexer.h" />
@@ -42,6 +47,9 @@
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserParser.h" />
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserVisitor.h" />
     <ClInclude Include="zsharp\grammar\ZsharpParser.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="zsharp\grammar\_test\testdata.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
