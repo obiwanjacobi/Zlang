@@ -85,11 +85,6 @@ antlrcpp::Any IndentChecker::visitEnum_option_decl(zsharp_parserParser::Enum_opt
 }
 
 // indent: relative
-antlrcpp::Any IndentChecker::visitFunction_call(zsharp_parserParser::Function_callContext* ctx)
-{
-    return visitChildren(ctx);
-}
-
 antlrcpp::Any IndentChecker::visitStatement_return(zsharp_parserParser::Statement_returnContext* ctx)
 {
     _indent++;

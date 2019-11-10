@@ -33,7 +33,6 @@ private:
     virtual antlrcpp::Any visitEnum_option_decl(zsharp_parserParser::Enum_option_declContext* ctx) override;
 
     // indent: relative
-    virtual antlrcpp::Any visitFunction_call(zsharp_parserParser::Function_callContext* ctx) override;
     virtual antlrcpp::Any visitStatement_return(zsharp_parserParser::Statement_returnContext* ctx) override;
     virtual antlrcpp::Any visitStatement_if(zsharp_parserParser::Statement_ifContext* ctx) override;
     virtual antlrcpp::Any visitStatement_else(zsharp_parserParser::Statement_elseContext* ctx) override;
