@@ -45,6 +45,8 @@ s = a.Str(alloc)                // function that needs memory
 - Debug: fill memory with patterns and track calls. How to catch double-frees and use-after-free?
 - OutOfMemory: simulates out-of-memory after a number of allocations or reached size.
 
+> TBD: Is it possible to write heap management code with the current language definition? Are there features we need that are now impossible? How do we claim a block of RAM?
+
 ---
 
 ## Memory Banks
