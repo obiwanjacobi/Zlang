@@ -131,6 +131,20 @@ opp: Ptr<Ptr<U8>>?      // optional ptr to a ptr to U8
 pop: Ptr<Ptr<U8>?>      // ptr to optional ptr to U8
 ```
 
+### Pointer to Arrays
+
+The pointer to an Array is not expressed with the `Ptr<T>` type. Instead the `Slice<T>` type is used for this.
+
+> TODO: `Slice<T>`
+
+### Pointer Arithmetic
+
+> There is no pointer arithmetic.
+
+Typically a `Slice<T>` should be used to index into a pointer.
+
+> TBD: Syntax for pointing to members of structures?
+
 ### Casting
 
 To change the type of a pointer:
@@ -152,14 +166,9 @@ MyStruct2: OtherStruct
 ptr = Ptr<MyStruct>
 cast = ptr.Ptr<OtherStruct>()
 p2 = cast.Ptr<MyStruct2>()        // error, is not original type
-
 ```
 
 If the original type is lost, casting up the inheritance hierarchy will always fail.
-
-### Pointer Arithmetic
-
-> TBD
 
 ## Aliases
 
