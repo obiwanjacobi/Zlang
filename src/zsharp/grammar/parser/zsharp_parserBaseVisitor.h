@@ -1,5 +1,5 @@
 
-// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
+// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -19,11 +19,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitCode(zsharp_parserParser::CodeContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitStatement(zsharp_parserParser::StatementContext *ctx) override {
+  virtual antlrcpp::Any visitCodeblock(zsharp_parserParser::CodeblockContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -60,6 +56,10 @@ public:
   }
 
   virtual antlrcpp::Any visitStatement_else(zsharp_parserParser::Statement_elseContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitDeclaration_top(zsharp_parserParser::Declaration_topContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -140,6 +140,22 @@ public:
   }
 
   virtual antlrcpp::Any visitParameter_ref(zsharp_parserParser::Parameter_refContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitVariable_decl(zsharp_parserParser::Variable_declContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitVariable_init(zsharp_parserParser::Variable_initContext *ctx) override {
     return visitChildren(ctx);
   }
 

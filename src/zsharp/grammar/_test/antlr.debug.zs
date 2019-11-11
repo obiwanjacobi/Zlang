@@ -3,8 +3,12 @@ module test1
 import mymodule.v1      // TODO: `module` is an error
 export funcDecl
 
+// global vars
+g: U8 = 42
+
 // functions
 voidFunc()
+    l = 42
     return
 
 funcDecl(p: U8?): Bool!

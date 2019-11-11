@@ -1,5 +1,5 @@
 
-// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
+// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -21,9 +21,7 @@ public:
    */
     virtual antlrcpp::Any visitFile(zsharp_parserParser::FileContext *context) = 0;
 
-    virtual antlrcpp::Any visitCode(zsharp_parserParser::CodeContext *context) = 0;
-
-    virtual antlrcpp::Any visitStatement(zsharp_parserParser::StatementContext *context) = 0;
+    virtual antlrcpp::Any visitCodeblock(zsharp_parserParser::CodeblockContext *context) = 0;
 
     virtual antlrcpp::Any visitModule_statement(zsharp_parserParser::Module_statementContext *context) = 0;
 
@@ -42,6 +40,8 @@ public:
     virtual antlrcpp::Any visitStatement_if(zsharp_parserParser::Statement_ifContext *context) = 0;
 
     virtual antlrcpp::Any visitStatement_else(zsharp_parserParser::Statement_elseContext *context) = 0;
+
+    virtual antlrcpp::Any visitDeclaration_top(zsharp_parserParser::Declaration_topContext *context) = 0;
 
     virtual antlrcpp::Any visitDeclaration(zsharp_parserParser::DeclarationContext *context) = 0;
 
@@ -82,6 +82,14 @@ public:
     virtual antlrcpp::Any visitVariable_ref(zsharp_parserParser::Variable_refContext *context) = 0;
 
     virtual antlrcpp::Any visitParameter_ref(zsharp_parserParser::Parameter_refContext *context) = 0;
+
+    virtual antlrcpp::Any visitVariable_decl(zsharp_parserParser::Variable_declContext *context) = 0;
+
+    virtual antlrcpp::Any visitVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext *context) = 0;
+
+    virtual antlrcpp::Any visitVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext *context) = 0;
+
+    virtual antlrcpp::Any visitVariable_init(zsharp_parserParser::Variable_initContext *context) = 0;
 
     virtual antlrcpp::Any visitStruct_decl(zsharp_parserParser::Struct_declContext *context) = 0;
 

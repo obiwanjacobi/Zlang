@@ -1,10 +1,9 @@
 grammar zsharp_parser;
 
 // entry point
-file : (code | empty_line)* EOF;
-code: statement | comment;
+file : (module_statement | declaration_top | comment | empty_line)* EOF;
 
-statement: module_statement | flow_statement | declaration;
+codeblock: (flow_statement | declaration | comment | empty_line)+;
 
 // modules
 module_statement : statement_module | statement_import | statement_export;
@@ -21,7 +20,8 @@ statement_if: indent keyword_if SP expression_logic newline;
 statement_else: indent keyword_else (keyword_if SP expression_logic)? newline;
 
 // declaration
-declaration: function_decl | enum_decl | struct_decl;
+declaration_top: function_decl | enum_decl | struct_decl | variable_decl;
+declaration: variable_decl;
 
 // expressions
 expression_value: number | string | expression_bool 
@@ -46,7 +46,7 @@ identifier_bool: variable_ref | parameter_ref;
 
 // functions
 function_call: identifier_func PARENopen function_parameter_uselist? PARENclose;
-function_decl: indent? identifier_func PARENopen function_parameter_list? PARENclose function_type? EOL code;
+function_decl: indent? identifier_func PARENopen function_parameter_list? PARENclose function_type? newline codeblock;
 function_parameter_list: function_parameter | (COMMA SP function_parameter)+;
 function_parameter: identifier_param function_type;
 function_type: COLON SP type_any;
@@ -56,6 +56,10 @@ function_param_use: expression_value | (COMMA SP expression_value)+;
 // variables
 variable_ref: identifier_var;
 parameter_ref: identifier_param;
+variable_decl: indent? (variable_decl_typed | variable_decl_auto) newline;
+variable_decl_typed: identifier_var COLON SP type_any (SP variable_init)?;
+variable_decl_auto: identifier_var SP variable_init;
+variable_init: EQ_ASSIGN SP expression_value;
 
 // structs
 struct_decl: identifier_type (COLON SP type_any)? newline struct_field_decl_list;

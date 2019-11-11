@@ -1,5 +1,5 @@
 
-// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
+// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -17,11 +17,8 @@ public:
   virtual void enterFile(zsharp_parserParser::FileContext *ctx) = 0;
   virtual void exitFile(zsharp_parserParser::FileContext *ctx) = 0;
 
-  virtual void enterCode(zsharp_parserParser::CodeContext *ctx) = 0;
-  virtual void exitCode(zsharp_parserParser::CodeContext *ctx) = 0;
-
-  virtual void enterStatement(zsharp_parserParser::StatementContext *ctx) = 0;
-  virtual void exitStatement(zsharp_parserParser::StatementContext *ctx) = 0;
+  virtual void enterCodeblock(zsharp_parserParser::CodeblockContext *ctx) = 0;
+  virtual void exitCodeblock(zsharp_parserParser::CodeblockContext *ctx) = 0;
 
   virtual void enterModule_statement(zsharp_parserParser::Module_statementContext *ctx) = 0;
   virtual void exitModule_statement(zsharp_parserParser::Module_statementContext *ctx) = 0;
@@ -49,6 +46,9 @@ public:
 
   virtual void enterStatement_else(zsharp_parserParser::Statement_elseContext *ctx) = 0;
   virtual void exitStatement_else(zsharp_parserParser::Statement_elseContext *ctx) = 0;
+
+  virtual void enterDeclaration_top(zsharp_parserParser::Declaration_topContext *ctx) = 0;
+  virtual void exitDeclaration_top(zsharp_parserParser::Declaration_topContext *ctx) = 0;
 
   virtual void enterDeclaration(zsharp_parserParser::DeclarationContext *ctx) = 0;
   virtual void exitDeclaration(zsharp_parserParser::DeclarationContext *ctx) = 0;
@@ -109,6 +109,18 @@ public:
 
   virtual void enterParameter_ref(zsharp_parserParser::Parameter_refContext *ctx) = 0;
   virtual void exitParameter_ref(zsharp_parserParser::Parameter_refContext *ctx) = 0;
+
+  virtual void enterVariable_decl(zsharp_parserParser::Variable_declContext *ctx) = 0;
+  virtual void exitVariable_decl(zsharp_parserParser::Variable_declContext *ctx) = 0;
+
+  virtual void enterVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext *ctx) = 0;
+  virtual void exitVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext *ctx) = 0;
+
+  virtual void enterVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext *ctx) = 0;
+  virtual void exitVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext *ctx) = 0;
+
+  virtual void enterVariable_init(zsharp_parserParser::Variable_initContext *ctx) = 0;
+  virtual void exitVariable_init(zsharp_parserParser::Variable_initContext *ctx) = 0;
 
   virtual void enterStruct_decl(zsharp_parserParser::Struct_declContext *ctx) = 0;
   virtual void exitStruct_decl(zsharp_parserParser::Struct_declContext *ctx) = 0;

@@ -1,5 +1,5 @@
 
-// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
+// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -19,11 +19,8 @@ public:
   virtual void enterFile(zsharp_parserParser::FileContext * /*ctx*/) override { }
   virtual void exitFile(zsharp_parserParser::FileContext * /*ctx*/) override { }
 
-  virtual void enterCode(zsharp_parserParser::CodeContext * /*ctx*/) override { }
-  virtual void exitCode(zsharp_parserParser::CodeContext * /*ctx*/) override { }
-
-  virtual void enterStatement(zsharp_parserParser::StatementContext * /*ctx*/) override { }
-  virtual void exitStatement(zsharp_parserParser::StatementContext * /*ctx*/) override { }
+  virtual void enterCodeblock(zsharp_parserParser::CodeblockContext * /*ctx*/) override { }
+  virtual void exitCodeblock(zsharp_parserParser::CodeblockContext * /*ctx*/) override { }
 
   virtual void enterModule_statement(zsharp_parserParser::Module_statementContext * /*ctx*/) override { }
   virtual void exitModule_statement(zsharp_parserParser::Module_statementContext * /*ctx*/) override { }
@@ -51,6 +48,9 @@ public:
 
   virtual void enterStatement_else(zsharp_parserParser::Statement_elseContext * /*ctx*/) override { }
   virtual void exitStatement_else(zsharp_parserParser::Statement_elseContext * /*ctx*/) override { }
+
+  virtual void enterDeclaration_top(zsharp_parserParser::Declaration_topContext * /*ctx*/) override { }
+  virtual void exitDeclaration_top(zsharp_parserParser::Declaration_topContext * /*ctx*/) override { }
 
   virtual void enterDeclaration(zsharp_parserParser::DeclarationContext * /*ctx*/) override { }
   virtual void exitDeclaration(zsharp_parserParser::DeclarationContext * /*ctx*/) override { }
@@ -111,6 +111,18 @@ public:
 
   virtual void enterParameter_ref(zsharp_parserParser::Parameter_refContext * /*ctx*/) override { }
   virtual void exitParameter_ref(zsharp_parserParser::Parameter_refContext * /*ctx*/) override { }
+
+  virtual void enterVariable_decl(zsharp_parserParser::Variable_declContext * /*ctx*/) override { }
+  virtual void exitVariable_decl(zsharp_parserParser::Variable_declContext * /*ctx*/) override { }
+
+  virtual void enterVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext * /*ctx*/) override { }
+  virtual void exitVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext * /*ctx*/) override { }
+
+  virtual void enterVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext * /*ctx*/) override { }
+  virtual void exitVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext * /*ctx*/) override { }
+
+  virtual void enterVariable_init(zsharp_parserParser::Variable_initContext * /*ctx*/) override { }
+  virtual void exitVariable_init(zsharp_parserParser::Variable_initContext * /*ctx*/) override { }
 
   virtual void enterStruct_decl(zsharp_parserParser::Struct_declContext * /*ctx*/) override { }
   virtual void exitStruct_decl(zsharp_parserParser::Struct_declContext * /*ctx*/) override { }

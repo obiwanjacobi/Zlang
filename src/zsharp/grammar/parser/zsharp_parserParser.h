@@ -1,5 +1,5 @@
 
-// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
+// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -30,43 +30,44 @@ public:
   };
 
   enum {
-    RuleFile = 0, RuleCode = 1, RuleStatement = 2, RuleModule_statement = 3, 
-    RuleModule_name = 4, RuleStatement_module = 5, RuleStatement_import = 6, 
-    RuleStatement_export = 7, RuleFlow_statement = 8, RuleStatement_return = 9, 
-    RuleStatement_if = 10, RuleStatement_else = 11, RuleDeclaration = 12, 
+    RuleFile = 0, RuleCodeblock = 1, RuleModule_statement = 2, RuleModule_name = 3, 
+    RuleStatement_module = 4, RuleStatement_import = 5, RuleStatement_export = 6, 
+    RuleFlow_statement = 7, RuleStatement_return = 8, RuleStatement_if = 9, 
+    RuleStatement_else = 10, RuleDeclaration_top = 11, RuleDeclaration = 12, 
     RuleExpression_value = 13, RuleComptime_expression_value = 14, RuleExpression_logic = 15, 
     RuleLogic_operand = 16, RuleExpression_comparison = 17, RuleComparison_operand = 18, 
     RuleExpression_bitwise = 19, RuleBitwise_operand = 20, RuleExpression_bool = 21, 
     RuleIdentifier_bool = 22, RuleFunction_call = 23, RuleFunction_decl = 24, 
     RuleFunction_parameter_list = 25, RuleFunction_parameter = 26, RuleFunction_type = 27, 
     RuleFunction_parameter_uselist = 28, RuleFunction_param_use = 29, RuleVariable_ref = 30, 
-    RuleParameter_ref = 31, RuleStruct_decl = 32, RuleStruct_field_decl_list = 33, 
-    RuleStruct_field_decl = 34, RuleEnum_decl = 35, RuleEnum_option_decl_list = 36, 
-    RuleEnum_option_decl = 37, RuleEnum_base_types = 38, RuleType_any = 39, 
-    RuleOptional_type = 40, RuleError_type = 41, RuleOptional_error_type = 42, 
-    RuleType_name = 43, RuleKnown_types = 44, RuleType_U8 = 45, RuleType_U16 = 46, 
-    RuleType_U24 = 47, RuleType_U32 = 48, RuleType_I8 = 49, RuleType_I16 = 50, 
-    RuleType_I24 = 51, RuleType_I32 = 52, RuleType_F16 = 53, RuleType_F32 = 54, 
-    RuleType_Str = 55, RuleType_Bool = 56, RuleType_Bit = 57, RuleIdentifier_type = 58, 
-    RuleIdentifier_var = 59, RuleIdentifier_param = 60, RuleIdentifier_func = 61, 
-    RuleIdentifier_field = 62, RuleIdentifier_enumoption = 63, RuleIdentifier_module = 64, 
-    RuleIdentifier_unused = 65, RuleKeyword_module = 66, RuleKeyword_import = 67, 
-    RuleKeyword_export = 68, RuleKeyword_loop = 69, RuleKeyword_break = 70, 
-    RuleKeyword_continue = 71, RuleKeyword_if = 72, RuleKeyword_else = 73, 
-    RuleKeyword_return = 74, RuleKeyword_in = 75, RuleKeyword_self = 76, 
-    RuleLiteral_bool = 77, RuleLiteral = 78, RuleNumber = 79, RuleNumber_unsigned = 80, 
-    RuleNumber_bin = 81, RuleNumber_oct = 82, RuleNumber_dec = 83, RuleNumber_hex = 84, 
-    RuleNumber_char = 85, RuleOperator_arithmetic = 86, RuleOperator_arithmetic_unary = 87, 
-    RuleOperator_logic = 88, RuleOperator_logic_unary = 89, RuleOperator_comparison = 90, 
-    RuleOperator_bits = 91, RuleOperator_bits_unary = 92, RuleOperator_assignment = 93, 
-    RuleOp_plus = 94, RuleOp_minus_neg = 95, RuleOp_mult = 96, RuleOp_div = 97, 
-    RuleOp_mod = 98, RuleOp_pow = 99, RuleOp_eq_assign = 100, RuleOp_neq = 101, 
-    RuleOp_great = 102, RuleOp_small = 103, RuleOp_greq = 104, RuleOp_smeq = 105, 
-    RuleOp_and = 106, RuleOp_or = 107, RuleOp_not = 108, RuleOp_bit_and = 109, 
-    RuleOp_bit_or = 110, RuleOp_bit_xor = 111, RuleOp_bit_not = 112, RuleOp_bit_shl = 113, 
-    RuleOp_bit_shr = 114, RuleOp_bit_roll = 115, RuleOp_bit_rolr = 116, 
-    RuleOp_concat = 117, RuleEmpty_line = 118, RuleNewline = 119, RuleComment = 120, 
-    RuleString = 121, RuleCharacter = 122, RuleIndent = 123
+    RuleParameter_ref = 31, RuleVariable_decl = 32, RuleVariable_decl_typed = 33, 
+    RuleVariable_decl_auto = 34, RuleVariable_init = 35, RuleStruct_decl = 36, 
+    RuleStruct_field_decl_list = 37, RuleStruct_field_decl = 38, RuleEnum_decl = 39, 
+    RuleEnum_option_decl_list = 40, RuleEnum_option_decl = 41, RuleEnum_base_types = 42, 
+    RuleType_any = 43, RuleOptional_type = 44, RuleError_type = 45, RuleOptional_error_type = 46, 
+    RuleType_name = 47, RuleKnown_types = 48, RuleType_U8 = 49, RuleType_U16 = 50, 
+    RuleType_U24 = 51, RuleType_U32 = 52, RuleType_I8 = 53, RuleType_I16 = 54, 
+    RuleType_I24 = 55, RuleType_I32 = 56, RuleType_F16 = 57, RuleType_F32 = 58, 
+    RuleType_Str = 59, RuleType_Bool = 60, RuleType_Bit = 61, RuleIdentifier_type = 62, 
+    RuleIdentifier_var = 63, RuleIdentifier_param = 64, RuleIdentifier_func = 65, 
+    RuleIdentifier_field = 66, RuleIdentifier_enumoption = 67, RuleIdentifier_module = 68, 
+    RuleIdentifier_unused = 69, RuleKeyword_module = 70, RuleKeyword_import = 71, 
+    RuleKeyword_export = 72, RuleKeyword_loop = 73, RuleKeyword_break = 74, 
+    RuleKeyword_continue = 75, RuleKeyword_if = 76, RuleKeyword_else = 77, 
+    RuleKeyword_return = 78, RuleKeyword_in = 79, RuleKeyword_self = 80, 
+    RuleLiteral_bool = 81, RuleLiteral = 82, RuleNumber = 83, RuleNumber_unsigned = 84, 
+    RuleNumber_bin = 85, RuleNumber_oct = 86, RuleNumber_dec = 87, RuleNumber_hex = 88, 
+    RuleNumber_char = 89, RuleOperator_arithmetic = 90, RuleOperator_arithmetic_unary = 91, 
+    RuleOperator_logic = 92, RuleOperator_logic_unary = 93, RuleOperator_comparison = 94, 
+    RuleOperator_bits = 95, RuleOperator_bits_unary = 96, RuleOperator_assignment = 97, 
+    RuleOp_plus = 98, RuleOp_minus_neg = 99, RuleOp_mult = 100, RuleOp_div = 101, 
+    RuleOp_mod = 102, RuleOp_pow = 103, RuleOp_eq_assign = 104, RuleOp_neq = 105, 
+    RuleOp_great = 106, RuleOp_small = 107, RuleOp_greq = 108, RuleOp_smeq = 109, 
+    RuleOp_and = 110, RuleOp_or = 111, RuleOp_not = 112, RuleOp_bit_and = 113, 
+    RuleOp_bit_or = 114, RuleOp_bit_xor = 115, RuleOp_bit_not = 116, RuleOp_bit_shl = 117, 
+    RuleOp_bit_shr = 118, RuleOp_bit_roll = 119, RuleOp_bit_rolr = 120, 
+    RuleOp_concat = 121, RuleEmpty_line = 122, RuleNewline = 123, RuleComment = 124, 
+    RuleString = 125, RuleCharacter = 126, RuleIndent = 127
   };
 
   zsharp_parserParser(antlr4::TokenStream *input);
@@ -80,8 +81,7 @@ public:
 
 
   class FileContext;
-  class CodeContext;
-  class StatementContext;
+  class CodeblockContext;
   class Module_statementContext;
   class Module_nameContext;
   class Statement_moduleContext;
@@ -91,6 +91,7 @@ public:
   class Statement_returnContext;
   class Statement_ifContext;
   class Statement_elseContext;
+  class Declaration_topContext;
   class DeclarationContext;
   class Expression_valueContext;
   class Comptime_expression_valueContext;
@@ -111,6 +112,10 @@ public:
   class Function_param_useContext;
   class Variable_refContext;
   class Parameter_refContext;
+  class Variable_declContext;
+  class Variable_decl_typedContext;
+  class Variable_decl_autoContext;
+  class Variable_initContext;
   class Struct_declContext;
   class Struct_field_decl_listContext;
   class Struct_field_declContext;
@@ -209,8 +214,12 @@ public:
     FileContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *EOF();
-    std::vector<CodeContext *> code();
-    CodeContext* code(size_t i);
+    std::vector<Module_statementContext *> module_statement();
+    Module_statementContext* module_statement(size_t i);
+    std::vector<Declaration_topContext *> declaration_top();
+    Declaration_topContext* declaration_top(size_t i);
+    std::vector<CommentContext *> comment();
+    CommentContext* comment(size_t i);
     std::vector<Empty_lineContext *> empty_line();
     Empty_lineContext* empty_line(size_t i);
 
@@ -223,12 +232,18 @@ public:
 
   FileContext* file();
 
-  class  CodeContext : public antlr4::ParserRuleContext {
+  class  CodeblockContext : public antlr4::ParserRuleContext {
   public:
-    CodeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    CodeblockContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    StatementContext *statement();
-    CommentContext *comment();
+    std::vector<Flow_statementContext *> flow_statement();
+    Flow_statementContext* flow_statement(size_t i);
+    std::vector<DeclarationContext *> declaration();
+    DeclarationContext* declaration(size_t i);
+    std::vector<CommentContext *> comment();
+    CommentContext* comment(size_t i);
+    std::vector<Empty_lineContext *> empty_line();
+    Empty_lineContext* empty_line(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -237,24 +252,7 @@ public:
    
   };
 
-  CodeContext* code();
-
-  class  StatementContext : public antlr4::ParserRuleContext {
-  public:
-    StatementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Module_statementContext *module_statement();
-    Flow_statementContext *flow_statement();
-    DeclarationContext *declaration();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  StatementContext* statement();
+  CodeblockContext* codeblock();
 
   class  Module_statementContext : public antlr4::ParserRuleContext {
   public:
@@ -422,13 +420,29 @@ public:
 
   Statement_elseContext* statement_else();
 
-  class  DeclarationContext : public antlr4::ParserRuleContext {
+  class  Declaration_topContext : public antlr4::ParserRuleContext {
   public:
-    DeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Declaration_topContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     Function_declContext *function_decl();
     Enum_declContext *enum_decl();
     Struct_declContext *struct_decl();
+    Variable_declContext *variable_decl();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Declaration_topContext* declaration_top();
+
+  class  DeclarationContext : public antlr4::ParserRuleContext {
+  public:
+    DeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    Variable_declContext *variable_decl();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -643,8 +657,8 @@ public:
     Identifier_funcContext *identifier_func();
     antlr4::tree::TerminalNode *PARENopen();
     antlr4::tree::TerminalNode *PARENclose();
-    antlr4::tree::TerminalNode *EOL();
-    CodeContext *code();
+    NewlineContext *newline();
+    CodeblockContext *codeblock();
     IndentContext *indent();
     Function_parameter_listContext *function_parameter_list();
     Function_typeContext *function_type();
@@ -780,6 +794,78 @@ public:
   };
 
   Parameter_refContext* parameter_ref();
+
+  class  Variable_declContext : public antlr4::ParserRuleContext {
+  public:
+    Variable_declContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    NewlineContext *newline();
+    Variable_decl_typedContext *variable_decl_typed();
+    Variable_decl_autoContext *variable_decl_auto();
+    IndentContext *indent();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Variable_declContext* variable_decl();
+
+  class  Variable_decl_typedContext : public antlr4::ParserRuleContext {
+  public:
+    Variable_decl_typedContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    Identifier_varContext *identifier_var();
+    antlr4::tree::TerminalNode *COLON();
+    std::vector<antlr4::tree::TerminalNode *> SP();
+    antlr4::tree::TerminalNode* SP(size_t i);
+    Type_anyContext *type_any();
+    Variable_initContext *variable_init();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Variable_decl_typedContext* variable_decl_typed();
+
+  class  Variable_decl_autoContext : public antlr4::ParserRuleContext {
+  public:
+    Variable_decl_autoContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    Identifier_varContext *identifier_var();
+    antlr4::tree::TerminalNode *SP();
+    Variable_initContext *variable_init();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Variable_decl_autoContext* variable_decl_auto();
+
+  class  Variable_initContext : public antlr4::ParserRuleContext {
+  public:
+    Variable_initContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *EQ_ASSIGN();
+    antlr4::tree::TerminalNode *SP();
+    Expression_valueContext *expression_value();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Variable_initContext* variable_init();
 
   class  Struct_declContext : public antlr4::ParserRuleContext {
   public:
