@@ -128,6 +128,8 @@ MyFunc(p: U8, p2: U16): MyStruct
         field2 = p2
 ```
 
+> Compiler will check if a ptr is returned, it is not pointing at a stack variable.
+
 Return values are also passed by value, so in the example above, two values (U8 and U16) would be copied to the caller.
 
 > TBD: Force caller to handle return value (just like with Error)?
@@ -188,6 +190,8 @@ anonymous functions/lambda/in-place syntax (no capture)
 
 simulate properties? thru type-bound functions?
 Get\<T>/Set\<T>/Notify\<T>/Watch\<T[]>
+
+fluent functions are possible with type-bound functions that return self or another type where another set of bound function is available for.
 
 tag interrupt service routines (for analysis - volatile) as a simplified interface?
 

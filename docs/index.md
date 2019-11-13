@@ -17,5 +17,6 @@ I have created a [group on Facebook](https://www.facebook.com/groups/72427575142
 
 ## TODO
 
-- Compile-time contracts: allow rules to be specified to check input and output of a function.
-- FSM syntax?
+- FSM syntax? (will match do?)
+- RingBuffer type?
+- Set type (set-theory)?

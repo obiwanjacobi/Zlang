@@ -57,3 +57,7 @@ l = arr[-1]                 // l = 5
 s = arr[0..3]               // s = 1st, 2nd and 3rd
 arr2 = arr[..]              // arr2 = all elements (not a copy!)
 ```
+
+---
+
+> Array8, Array16 could be used to indicate the number of bits used for the max count.

@@ -231,7 +231,7 @@ typedFn<OtherStruct>(o)     // type explicit
 > This too??
 
 ```C#
-FixedArray<T, count: U8>
+FixedArray<T, count: U8>    // non-type template params?
     arr: Array<T>(count)
 ```
 

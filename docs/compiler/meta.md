@@ -72,6 +72,16 @@ well_behaved_code
 
 > A `#` symbol not at the current scope indent position, does not start a new scope.
 
+> TBD: A file level scope 'options' pragma that executes all pragmas for that file.
+
+```C#
+# options()
+    enable(Checks.Bounds)
+    enable(Checks.Overflow)
+
+...     // rest of code file
+```
+
 ## Compile-time Code
 
 _Any_ Z# code can be executed at compile-time. By placing a `#!` in front of it, the compiler knows it is not to be included in the binary. The use of this symbol does not introduce an extra scope.
