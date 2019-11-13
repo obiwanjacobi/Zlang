@@ -161,6 +161,17 @@ When calling a bound function, the 'self' parameter can be used as an 'object' u
 
 > TBD: `self` could be the (reserved) name of the first parameter.
 
+This even works for Enum types:
+
+```C#
+isMagicValue(self MyEnum): Bool
+    return self = 42
+
+e = MyEnum.MagicValue
+
+e.IsMagicValue()
+```
+
 ---
 
 > TDB:

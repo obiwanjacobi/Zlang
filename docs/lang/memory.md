@@ -49,6 +49,10 @@ s = a.Str(alloc)                // function that needs memory
 
 ---
 
+> Differentiate between code and data addresses? A pointer to a function is a code address. A pointer to an allocated array is a data address. You cannot write to code addresses. You cannot execute data addresses (possible issue when rom-images are copied to ram for fast execution in old hardware).
+
+---
+
 ## Memory Banks
 
 Every system has its own way of extending memory. Wide range of mechanisms and different rules.

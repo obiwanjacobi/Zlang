@@ -49,6 +49,10 @@ public:
 
     virtual antlrcpp::Any visitComptime_expression_value(zsharp_parserParser::Comptime_expression_valueContext *context) = 0;
 
+    virtual antlrcpp::Any visitExpression_arithmetic(zsharp_parserParser::Expression_arithmeticContext *context) = 0;
+
+    virtual antlrcpp::Any visitArithmetic_operand(zsharp_parserParser::Arithmetic_operandContext *context) = 0;
+
     virtual antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext *context) = 0;
 
     virtual antlrcpp::Any visitLogic_operand(zsharp_parserParser::Logic_operandContext *context) = 0;

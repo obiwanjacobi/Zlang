@@ -8,7 +8,7 @@ g: U8 = 42
 
 // functions
 voidFunc()
-    l = 42
+    l = 42 / 3
     return
 
 funcDecl(p: U8?): Bool!

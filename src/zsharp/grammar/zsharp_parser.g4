@@ -24,9 +24,14 @@ declaration_top: function_decl | enum_decl | struct_decl | variable_decl;
 declaration: variable_decl;
 
 // expressions
-expression_value: number | string | expression_bool 
+expression_value: number | string | expression_bool | expression_arithmetic
     | expression_logic | expression_bitwise | function_call;
 comptime_expression_value: number | string | expression_bool;
+
+expression_arithmetic: 
+      (arithmetic_operand SP operator_arithmetic SP expression_arithmetic)
+    | (operator_arithmetic_unary? arithmetic_operand);
+arithmetic_operand: expression_bitwise | number;
 
 expression_logic: 
       (logic_operand SP operator_logic SP logic_operand) 

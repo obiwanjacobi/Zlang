@@ -75,6 +75,14 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitExpression_arithmetic(zsharp_parserParser::Expression_arithmeticContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitArithmetic_operand(zsharp_parserParser::Arithmetic_operandContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext *ctx) override {
     return visitChildren(ctx);
   }

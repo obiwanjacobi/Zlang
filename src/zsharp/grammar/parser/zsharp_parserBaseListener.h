@@ -61,6 +61,12 @@ public:
   virtual void enterComptime_expression_value(zsharp_parserParser::Comptime_expression_valueContext * /*ctx*/) override { }
   virtual void exitComptime_expression_value(zsharp_parserParser::Comptime_expression_valueContext * /*ctx*/) override { }
 
+  virtual void enterExpression_arithmetic(zsharp_parserParser::Expression_arithmeticContext * /*ctx*/) override { }
+  virtual void exitExpression_arithmetic(zsharp_parserParser::Expression_arithmeticContext * /*ctx*/) override { }
+
+  virtual void enterArithmetic_operand(zsharp_parserParser::Arithmetic_operandContext * /*ctx*/) override { }
+  virtual void exitArithmetic_operand(zsharp_parserParser::Arithmetic_operandContext * /*ctx*/) override { }
+
   virtual void enterExpression_logic(zsharp_parserParser::Expression_logicContext * /*ctx*/) override { }
   virtual void exitExpression_logic(zsharp_parserParser::Expression_logicContext * /*ctx*/) override { }
 
