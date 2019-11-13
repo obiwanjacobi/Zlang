@@ -15,18 +15,18 @@ public:
     U8 = 1, U16 = 2, U24 = 3, U32 = 4, I8 = 5, I16 = 6, I24 = 7, I32 = 8, 
     F16 = 9, F32 = 10, STR = 11, BOOL = 12, BIT = 13, MODULE = 14, IMPORT = 15, 
     EXPORT = 16, LOOP = 17, BREAK = 18, CONTINUE = 19, IF = 20, ELSE = 21, 
-    RETURN = 22, IN = 23, SELF = 24, TRUE = 25, FALSE = 26, IDENTIFIERupper = 27, 
-    IDENTIFIERlower = 28, IDENTIFIERmixed = 29, COMMENT = 30, NUMBERbin = 31, 
-    NUMBERoct = 32, NUMBERdec = 33, NUMBERdec_prefix = 34, NUMBERhex = 35, 
-    CHARACTER = 36, STRING = 37, UNUSED = 38, PLUS = 39, MINUS_NEG = 40, 
-    MULT = 41, DIV = 42, MOD = 43, POW = 44, EQ_ASSIGN = 45, NEQ = 46, GREAT_ANGLEclose = 47, 
-    SMALL_ANGLEopen = 48, GREQ = 49, SMEQ = 50, AND = 51, OR = 52, NOT = 53, 
-    BIT_AND = 54, BIT_OR = 55, BIT_XOR = 56, BIT_NOT = 57, BIT_SHL = 58, 
-    BIT_SHR = 59, BIT_ROLL = 60, BIT_ROLR = 61, CONCAT = 62, SUBopen = 63, 
-    SUBclose = 64, PARENopen = 65, PARENclose = 66, QUESTION = 67, COLON = 68, 
-    DOT = 69, RANGE = 70, SPREAD = 71, COMMA = 72, META = 73, COMPTIME = 74, 
-    ERROR = 75, STR_QUOTE = 76, CHAR_QUOTE = 77, COMMENTstart = 78, SP = 79, 
-    TAB = 80, INDENT = 81, EOL = 82
+    RETURN = 22, IN = 23, SELF = 24, TRUE = 25, FALSE = 26, COMMENT = 27, 
+    NUMBERbin = 28, NUMBERoct = 29, NUMBERdec = 30, NUMBERdec_prefix = 31, 
+    NUMBERhex = 32, CHARACTER = 33, STRING = 34, UNUSED = 35, PLUS = 36, 
+    MINUS_NEG = 37, MULT = 38, DIV = 39, MOD = 40, POW = 41, EQ_ASSIGN = 42, 
+    NEQ = 43, GREAT_ANGLEclose = 44, SMALL_ANGLEopen = 45, GREQ = 46, SMEQ = 47, 
+    AND = 48, OR = 49, NOT = 50, BIT_AND = 51, BIT_OR = 52, BIT_XOR = 53, 
+    BIT_NOT = 54, BIT_SHL = 55, BIT_SHR = 56, BIT_ROLL = 57, BIT_ROLR = 58, 
+    CONCAT = 59, SUBopen = 60, SUBclose = 61, PARENopen = 62, PARENclose = 63, 
+    QUESTION = 64, COLON = 65, DOT = 66, RANGE = 67, SPREAD = 68, COMMA = 69, 
+    META = 70, COMPTIME = 71, ERROR = 72, STR_QUOTE = 73, CHAR_QUOTE = 74, 
+    COMMENTstart = 75, IDENTIFIERupper = 76, IDENTIFIERlower = 77, IDENTIFIERmixed = 78, 
+    SP = 79, TAB = 80, INDENT = 81, EOL = 82
   };
 
   enum {
@@ -502,8 +502,8 @@ public:
     std::vector<Expression_arithmeticContext *> expression_arithmetic();
     Expression_arithmeticContext* expression_arithmetic(size_t i);
     antlr4::tree::TerminalNode *PARENclose();
-    Arithmetic_operandContext *arithmetic_operand();
     Operator_arithmetic_unaryContext *operator_arithmetic_unary();
+    Arithmetic_operandContext *arithmetic_operand();
     std::vector<antlr4::tree::TerminalNode *> SP();
     antlr4::tree::TerminalNode* SP(size_t i);
     Operator_arithmeticContext *operator_arithmetic();
@@ -537,12 +537,13 @@ public:
   public:
     Expression_logicContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<Logic_operandContext *> logic_operand();
-    Logic_operandContext* logic_operand(size_t i);
+    Operator_logic_unaryContext *operator_logic_unary();
     std::vector<antlr4::tree::TerminalNode *> SP();
     antlr4::tree::TerminalNode* SP(size_t i);
+    std::vector<Expression_logicContext *> expression_logic();
+    Expression_logicContext* expression_logic(size_t i);
+    Logic_operandContext *logic_operand();
     Operator_logicContext *operator_logic();
-    Operator_logic_unaryContext *operator_logic_unary();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -552,7 +553,7 @@ public:
   };
 
   Expression_logicContext* expression_logic();
-
+  Expression_logicContext* expression_logic(int precedence);
   class  Logic_operandContext : public antlr4::ParserRuleContext {
   public:
     Logic_operandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -578,6 +579,9 @@ public:
     std::vector<antlr4::tree::TerminalNode *> SP();
     antlr4::tree::TerminalNode* SP(size_t i);
     Operator_comparisonContext *operator_comparison();
+    antlr4::tree::TerminalNode *PARENopen();
+    Expression_comparisonContext *expression_comparison();
+    antlr4::tree::TerminalNode *PARENclose();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -2388,6 +2392,7 @@ public:
   virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
   bool module_nameSempred(Module_nameContext *_localctx, size_t predicateIndex);
   bool expression_arithmeticSempred(Expression_arithmeticContext *_localctx, size_t predicateIndex);
+  bool expression_logicSempred(Expression_logicContext *_localctx, size_t predicateIndex);
 
 private:
   static std::vector<antlr4::dfa::DFA> _decisionToDFA;

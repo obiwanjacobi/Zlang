@@ -9,8 +9,9 @@ g: U8 = 42
 // expressions
 e1 = 2 + 7 / 8 % 3
 e2 = (2 + 7) / 8
+l1 = (2 > 4) and (5 < 3)
 b1 = ((2 + 7) / 8) > 4
-//b2 = not ((2 + 7) / 8) > 4
+b2 = not ((2 + 7) / 8) > 4
 
 // functions
 voidFunc()

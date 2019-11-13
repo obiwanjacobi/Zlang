@@ -24,23 +24,28 @@ declaration_top: function_decl | enum_decl | struct_decl | variable_decl;
 declaration: variable_decl;
 
 // expressions
-expression_value: number | string | expression_bool | expression_arithmetic
-    | expression_logic | expression_bitwise | function_call;
+expression_value: number | string | expression_bool
+    | expression_arithmetic | expression_logic | expression_bitwise 
+    | function_call;
 comptime_expression_value: number | string | expression_bool;
 
 expression_arithmetic: 
       expression_arithmetic SP operator_arithmetic SP expression_arithmetic
-    | PARENopen expression_arithmetic PARENclose 
-    | operator_arithmetic_unary? arithmetic_operand
+    | PARENopen expression_arithmetic PARENclose
+    | operator_arithmetic_unary expression_arithmetic
+    | arithmetic_operand
     ;
 arithmetic_operand: expression_bitwise | number;
 
 expression_logic: 
-      logic_operand SP operator_logic SP logic_operand
-    | (operator_logic_unary SP)? logic_operand;
-logic_operand: expression_logic | expression_comparison | expression_bool;
+      expression_logic SP operator_logic SP expression_logic
+    | operator_logic_unary SP expression_logic
+    | logic_operand;
+logic_operand: expression_comparison | expression_bool;
 
-expression_comparison: comparison_operand SP operator_comparison SP comparison_operand;
+expression_comparison: 
+      comparison_operand SP operator_comparison SP comparison_operand
+    | PARENopen expression_comparison PARENclose;
 comparison_operand: expression_arithmetic | expression_bitwise | function_call | variable_ref | literal;
 
 expression_bitwise: 
@@ -222,12 +227,6 @@ SELF: 'self';
 TRUE: 'true';
 FALSE: 'false';
 
-// identifiers
-IDENTIFIERupper: ALPHAupper IDENTIFIERpart*;
-IDENTIFIERlower: ALPHAlower IDENTIFIERpart*;
-IDENTIFIERmixed: (ALPHAlower | ALPHAupper | UNUSED) IDENTIFIERpart*;
-fragment IDENTIFIERpart: ALPHAlower | ALPHAupper | DIGIT10 | UNUSED;
-
 COMMENT: COMMENTstart .*? ~[\r\n]+;
 
 NUMBERbin: PREFIXbin (DIGIT2 | UNUSED)+;
@@ -294,6 +293,12 @@ ERROR: '!';
 STR_QUOTE: '"';
 CHAR_QUOTE: '\'';
 COMMENTstart: '//';
+
+// identifiers
+IDENTIFIERupper: ALPHAupper IDENTIFIERpart*;
+IDENTIFIERlower: ALPHAlower IDENTIFIERpart*;
+IDENTIFIERmixed: (ALPHAlower | ALPHAupper | UNUSED) IDENTIFIERpart*;
+fragment IDENTIFIERpart: ALPHAlower | ALPHAupper | DIGIT10 | UNUSED;
 
 // whitespace
 SP: ' ';
