@@ -16,6 +16,31 @@ Note that the name of the structure has to start with a capital letter, because 
 
 Also note the absence of any specific keywords like 'struct'.
 
+Here is how to create an instance of a structure and assign its fields with values.
+
+```C#
+MyStruct
+    field1: U8
+
+s = MyStruct            // instantiate an instance
+    field1 = 42         // assigning values
+```
+
+A structure can have default values. If no value is explicitly specified each type is initialized with its `#default` value:
+
+```C#
+MyStruct
+    field1: U8 = 42
+    field2: U8 = 42
+
+s = MyStruct
+    field2 = 101        // overwrites any value
+
+// s.field1 = 42
+// s.field2 = 101
+```
+
+
 ## Composition
 
 New structure types can be made from other structure types by the following methods:

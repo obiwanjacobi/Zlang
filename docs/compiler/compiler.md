@@ -15,6 +15,10 @@
 
 > Compiler as language Server (LSP)
 
+> Compiler as (remote) debugger. How to interface with the hardware? See also Z80 In-Circuit-Emulation
+
+> Compiler as (remote) console. Coded/hashed errors are transmitted (Serial) to the compiler that can translate it into readable diagnostic text. This way the debug binary does not explode.
+
 > Compiler as Assembler (byte-code?)
 
 > Compiler as linker (late optimizations)
@@ -27,7 +31,7 @@
 
 > Compiler as build-system? Use REPL/VM to execute zs-script using build-task lib...?
 
-> Semantic rules as functions available to code (traits?).
+> Semantic compiler rules as functions available to code (traits?).
 
 ---
 

@@ -49,3 +49,5 @@ module UsingModule              // module #3
 import MyModule.MyFunc          // imports module #2
 import Alias = MyModule.MyFunc  // imports module #1
 ```
+
+> TBD: how does the import find the module?

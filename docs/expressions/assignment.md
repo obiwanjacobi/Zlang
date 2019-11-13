@@ -41,3 +41,58 @@ protect from (non-maskable) interrupts.
 - conditional (exchange-if)
 
 > volatile / locking...
+
+---
+
+## Deconstructing
+
+deconstructing an array
+
+```C#
+[a, b, ...rest] = [1, 2, 3, 4, 5]
+
+// a: U8 = 1
+// b: U8 = 2
+// rest: Array<U8> = [3, 4, 5]
+```
+
+Deconstructing function parameters
+
+```C#
+func(p: U8)
+    ...
+
+arr = [1, 2, 3, 4, 5]
+
+func(...arr)    // called 5 times
+```
+
+Deconstructing a structure:
+
+```C#
+MyStruct
+    field1: U8
+    field2: U8
+    field3: U8
+
+s = MyStruct
+    ...
+
+[field1, field2] = s
+// field1: U8 = <value of s.field1>
+// field2: U8 = <value of s.field2>
+
+[a, b] = s      // error! field names must match
+```
+
+Swap variables (unlike structs)
+
+```C#
+x = 42
+y = 101
+
+[x, y] = [y, x]
+
+// x = 101
+// y = 42
+```

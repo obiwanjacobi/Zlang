@@ -18,8 +18,12 @@ auto packing code into fixed size banks
 
 bank switching thunks
 
-binary format for late linking with optional optimization.
+binary (byte code) format for late linking with optional optimization.
 
 ---
 
-package manager?
+module locator? How are modules located? After the code is build for a module a module-info file is generated that advertises the module and allows it to be referenced during linking.
+
+packager: bundle multiple modules and their support files into a package (probably a zip file). Packager is a function in the build library. A package has a version.
+
+package manager? Retrieve 3rd party packages and register packages for distribution (typical).
