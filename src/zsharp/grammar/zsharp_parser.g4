@@ -29,21 +29,23 @@ expression_value: number | string | expression_bool | expression_arithmetic
 comptime_expression_value: number | string | expression_bool;
 
 expression_arithmetic: 
-      (arithmetic_operand SP operator_arithmetic SP expression_arithmetic)
-    | (operator_arithmetic_unary? arithmetic_operand);
+      expression_arithmetic SP operator_arithmetic SP expression_arithmetic
+    | PARENopen expression_arithmetic PARENclose 
+    | operator_arithmetic_unary? arithmetic_operand
+    ;
 arithmetic_operand: expression_bitwise | number;
 
 expression_logic: 
-      (logic_operand SP operator_logic SP logic_operand) 
-    | ((operator_logic_unary SP)? logic_operand);
-logic_operand: expression_comparison | expression_bool;
+      logic_operand SP operator_logic SP logic_operand
+    | (operator_logic_unary SP)? logic_operand;
+logic_operand: expression_logic | expression_comparison | expression_bool;
 
 expression_comparison: comparison_operand SP operator_comparison SP comparison_operand;
-comparison_operand: expression_bitwise | function_call | variable_ref | literal;
+comparison_operand: expression_arithmetic | expression_bitwise | function_call | variable_ref | literal;
 
 expression_bitwise: 
-      (bitwise_operand SP operator_bits SP bitwise_operand) 
-    | (operator_bits_unary bitwise_operand);
+      bitwise_operand SP operator_bits SP bitwise_operand
+    | operator_bits_unary bitwise_operand;
 bitwise_operand: function_call | variable_ref | number;
 
 expression_bool: literal_bool | identifier_bool;

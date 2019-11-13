@@ -498,12 +498,15 @@ public:
   public:
     Expression_arithmeticContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *PARENopen();
+    std::vector<Expression_arithmeticContext *> expression_arithmetic();
+    Expression_arithmeticContext* expression_arithmetic(size_t i);
+    antlr4::tree::TerminalNode *PARENclose();
     Arithmetic_operandContext *arithmetic_operand();
+    Operator_arithmetic_unaryContext *operator_arithmetic_unary();
     std::vector<antlr4::tree::TerminalNode *> SP();
     antlr4::tree::TerminalNode* SP(size_t i);
     Operator_arithmeticContext *operator_arithmetic();
-    Expression_arithmeticContext *expression_arithmetic();
-    Operator_arithmetic_unaryContext *operator_arithmetic_unary();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -513,7 +516,7 @@ public:
   };
 
   Expression_arithmeticContext* expression_arithmetic();
-
+  Expression_arithmeticContext* expression_arithmetic(int precedence);
   class  Arithmetic_operandContext : public antlr4::ParserRuleContext {
   public:
     Arithmetic_operandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -589,6 +592,7 @@ public:
   public:
     Comparison_operandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    Expression_arithmeticContext *expression_arithmetic();
     Expression_bitwiseContext *expression_bitwise();
     Function_callContext *function_call();
     Variable_refContext *variable_ref();
@@ -2383,6 +2387,7 @@ public:
 
   virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
   bool module_nameSempred(Module_nameContext *_localctx, size_t predicateIndex);
+  bool expression_arithmeticSempred(Expression_arithmeticContext *_localctx, size_t predicateIndex);
 
 private:
   static std::vector<antlr4::dfa::DFA> _decisionToDFA;

@@ -6,6 +6,12 @@ export funcDecl
 // global vars
 g: U8 = 42
 
+// expressions
+e1 = 2 + 7 / 8 % 3
+e2 = (2 + 7) / 8
+b1 = ((2 + 7) / 8) > 4
+//b2 = not ((2 + 7) / 8) > 4
+
 // functions
 voidFunc()
     l = 42 / 3

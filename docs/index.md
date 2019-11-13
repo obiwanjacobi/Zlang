@@ -17,6 +17,5 @@ I have created a [group on Facebook](https://www.facebook.com/groups/72427575142
 
 ## TODO
 
-- Optionals: how to test for existence of a value? (Pattern) Matching? Don't want to use a `switch`.
 - Compile-time contracts: allow rules to be specified to check input and output of a function.
 - FSM syntax?

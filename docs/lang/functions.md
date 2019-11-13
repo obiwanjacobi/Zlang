@@ -164,7 +164,7 @@ When calling a bound function, the 'self' parameter can be used as an 'object' u
 This even works for Enum types:
 
 ```C#
-isMagicValue(self MyEnum): Bool
+isMagicValue(self: MyEnum): Bool
     return self = 42
 
 e = MyEnum.MagicValue
