@@ -4,9 +4,9 @@ Use functions that do extra checking like bounds and overflow checking using a c
 
 User should also be able to write a checked and unchecked version of function.
 
-## Function Contracts
+## Code Contracts
 
-Provide a way to be explicit about the expectations of the function (or any other piece of code?).
+Provide a way to be explicit about the expectations of the code (functions).
 
 > Detailed diagnostics information is available when a check fails.
 

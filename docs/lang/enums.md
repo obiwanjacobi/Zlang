@@ -5,9 +5,9 @@ An enum is basically a value type that has its possible values predefined.
 
 > These values all have to be available at compile time, so the cannot be calculated at runtime.
 
-As with all type names, the name of the enum type has to start with a capital letter. The enum declaration looks very much like the declaration of a structure, but the use of comma's (and the absense of data types) make it an enum.
+As with all type names, the name of the enum type has to start with a capital letter. The enum declaration looks very much like the declaration of a structure, but the use of comma's (and the absence of data types) make it an enum.
 
-Here is an intuative declaration of an enum type.
+Here is an intuitive declaration of an enum type.
 
 ```C#
 MyEnum
@@ -93,14 +93,15 @@ Or if you set a value on one option:
 
 ```C#
 MyEnum: F16
-    opt1 = 3.14, 
-    op2, 
+    opt1 = 3.14,
+    op2,
     opt3
 ```
 
 `opt1` would be 3.14, `opt2` would be 4.14 and `opt3` would be 5.14.
 
-There is one type that you cannot use:
+There is one type that cannot be used:
+
 ```C#
 MyEnum: Bool        // error!
 ```

@@ -10,3 +10,14 @@ Need to publish required dependencies of the library itself. Libraries can depen
 ## Versioning
 
 Libraries have a specific version. Use semantic versioning (semver) and a naming mechanism to find correct files.
+
+---
+
+Standard Library
+
+- Stream IO (console)
+- File IO?
+
+Build Library
+
+Units Library

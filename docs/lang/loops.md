@@ -3,21 +3,22 @@
 A loop is an essential control mechanism in directing the execution flow of the code. There is only one keyword for making a loop: `loop`.
 
 The simplest form is an endless loop:
-```
+
+```C#
 loop
     endless_loop
 ```
 
 A 'while loop' just adds a condition to the statement:
 
-```
+```C#
 loop false
     never_get_here
 ```
 
 A 'for' or 'for-each' loop is constructed using a `Range`.
 
-```
+```C#
 loop n in [0..10]
     foreach_n_1_to_9
 ```
@@ -27,6 +28,7 @@ loop n in [0..10]
 It is possible to break out of the execution of a loop at any time with the `break` keyword.
 
 Here's an example of an endless loop that uses a conditional branch `if` to break out of the loop:
+
 ```C#
 loop
     do_stuff_here
@@ -47,7 +49,7 @@ loop                  // loop #1
 
 ## Continue
 
-The oposite of `break`, the `continue` keyword will allow you to skip one iteration of the loop:
+The opposite of `break`, the `continue` keyword will allow you to skip one iteration of the loop:
 
 ```C#
 loop

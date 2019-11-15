@@ -6,7 +6,7 @@ Structures are data records of fields.
 
 A name and a set of fields is required in order to define a structure. Structures cannot be empty - have no fields.
 
-```
+```C#
 MyStruct
     field1: U8
     field2: Str
@@ -39,7 +39,6 @@ s = MyStruct
 // s.field1 = 42
 // s.field2 = 101
 ```
-
 
 ## Composition
 

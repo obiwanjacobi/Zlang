@@ -15,13 +15,13 @@
 
 > Compiler as language Server (LSP)
 
-> Compiler as (remote) debugger. How to interface with the hardware? See also Z80 In-Circuit-Emulation
+> Compiler as (remote) debugger. How to interface with the hardware? See also Z80 In-Circuit-Emulation (ICE).
 
-> Compiler as (remote) console. Coded/hashed errors are transmitted (Serial) to the compiler that can translate it into readable diagnostic text. This way the debug binary does not explode.
+> Compiler as (remote) console. Coded/hashed errors are transmitted (Serial) to the compiler that can translate it into readable diagnostic text. This way the debug binary does not explode with debugging strings.
 
-> Compiler as Assembler (byte-code?)
+> Compiler as Assembler (byte-code?) Cross CPU Abstract Assembler Language?
 
-> Compiler as linker (late optimizations)
+> Compiler as linker (linker map file, late optimizations)
 
 > Compiler as REPL (because we support Meta)
 
@@ -31,8 +31,10 @@
 
 > Compiler as build-system? Use REPL/VM to execute zs-script using build-task lib...?
 
-> Semantic compiler rules as functions available to code (traits?).
+> Semantic compiler rules available as functions to code (traits?).
 
 ---
 
 > Literal strings can add up. How to optimize? (interning?, string-builder for efficient construction?)
+
+> entry function (main?)? no command line parameters? => CP/M? Code Attribute? Environment/commandline etc. as singleton object?

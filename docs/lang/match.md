@@ -25,15 +25,13 @@ This example results in `"The Answer"` based on the string `"42"`:
 s = "42"
 
 a = match s
-    "" => "Empty",
-    "0" => "Zero",
-    "42" => "The Answer",   // this pattern will be chosen
+    "" => "Empty"
+    "0" => "Zero"
+    "42" => "The Answer"    // this pattern will be chosen
     _ => ""
 
 // a = "The Answer
 ```
-
-Each new pattern is separated from it predecessor by a comma. This is not strictly necessary for parsing, but is a good deliminator when the expression may get more complex in future versions of the language.
 
 When more comprehensive logic is required to compute the result a function can be called to yield that result.
 
@@ -44,7 +42,7 @@ s = MyStruct
     field1 = 12
 
 a = match s
-    n: U8 => make42(n),
+    n: U8 => make42(n)
     x: MyStruct ? x.field1 = 12 => 42
     x: MyStruct => 0
 

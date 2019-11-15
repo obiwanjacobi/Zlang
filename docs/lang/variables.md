@@ -2,7 +2,7 @@
 
 Variables store values of a specific type by name. The name is the [Identifier](../lexical/identifier.md) of the variable.
 
-Here is an example of a literal value being assigned to the variable `a`:
+Here is an example of a literal value being used to initialize the variable `a`:
 
 ```C#
 a = 42
@@ -72,7 +72,7 @@ When variables are immutable they cannot be changed during the execution of the 
 c = 10#imm  // c has value 10 and cannot be changed
 
 c = 42      // error! cannot change value
-a = c       // now a is immutable as well
+a = c       // now a is immutable as well (??)
 
 v = 42      // mutable U8
 c = v#imm   // ok, immutable copy of v

@@ -26,4 +26,4 @@ A rotate shift takes the bit that is shifted out and puts that into the bit posi
 0b00110011 >| 1            // 0b10011001
 ```
 
-Note that the negate `~` operator is a unary operator and take only one operand - the value it acts upon.
+Note that the negate `~` operator is a unary operator and takes only one operand - the value it acts upon.

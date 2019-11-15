@@ -41,7 +41,7 @@ Operators never allocate memory!
 
 | Symbol | Description
 |---|---
-| _ | Unused
+| _ | Unused / Discard
 | . | Members Access
 | : | (Sub)Type Specifier
 | < > | Type Parameter
@@ -50,6 +50,6 @@ Operators never allocate memory!
 | ' ' | Character
 | ! | Possible Error (on return type)
 | ? | Optional variable or parameter/return value
-| \| \| | Optional fallback
-| # | Attribute Access
-| #! | Pragma
+| \| \| | Optional fallback (or ??)
+| # | Pragma / Attribute Access
+| #! | Compile-Time Code

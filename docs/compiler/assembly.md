@@ -1,6 +1,6 @@
 # Assembly
 
-It is possible to include literal Z80 assembly in the compiler output. 
+It is possible to include literal Z80 assembly in the compiler output.
 
 The compiler will parse the assembly, incorporate it in its machine representation and perform any optimizations on it as it were its own code. That means that there is a distinct possibility that the assembly code from the source file will not be present as a whole. Of course the resulting code is guarenteed to perform that same function.
 

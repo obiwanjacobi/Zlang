@@ -40,6 +40,7 @@ s = a.Str(alloc)                // function that needs memory
 - Heap: traditional global memory allocation.
 - Pool: A pool (of a fixed number) of fixed sized chunks. Usually the size of a specific type.
 - Scoped: A container for allocation made within a certain scope. When going out-of-scope, memory is freed/container is destroyed.
+- Object: allocated objects are on a stack. When an object is freed, all other object on top of it are freed also.
 - Banks: Some sort of strategy concerning bank switching.
 - Stack: implicit by using language constructs (params/local vars).
 - Debug: fill memory with patterns and track calls. How to catch double-frees and use-after-free?
@@ -52,6 +53,11 @@ s = a.Str(alloc)                // function that needs memory
 > Differentiate between code and data addresses? A pointer to a function is a code address. A pointer to an allocated array is a data address. You cannot write to code addresses. You cannot execute data addresses (possible issue when rom-images are copied to ram for fast execution in old hardware).
 
 ---
+
+## Code Layout
+
+Assign code to memory sections (Page0) to fit hardware targets.
+Hardware description language?
 
 ## Memory Banks
 

@@ -6,7 +6,7 @@ Unlike most languages, whitespace matters in Z#. Similar to Python and F#.
 
 Spaces are used to separate code elements in order to make them distinct.
 
-`iftrue` does not mean anything, while `if true` represents an `if` statement with a condition (`true`). The space separates the parts and makes them meaingful.
+`iftrue` does not mean anything, while `if true` represents an `if` statement with a condition (`true`). The space separates the parts and makes them meaningful.
 
 Tabs are used to indent code and signal scope (see Indentation).
 
@@ -49,7 +49,7 @@ The 'conditional code' is only executed if the `if` branch is taken. The 'implem
 
 Names for the indentation levels that create scopes:
 
-```
+```C#
 global-scope
 <File>
     top-level (file-scope)

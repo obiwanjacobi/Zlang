@@ -8,5 +8,5 @@
 ## Syntax Options
 
 - no auto vars / always typed vars
-- explicit operator precedence.
-- no bool literal comparisons: `if myBoolVar = true` will not be allowed, `if myBoolVar` is ok.
+- explicit operator precedence: use `()`.
+- no bool literal comparisons: `if myBoolVar = true` will not be allowed, `if myBoolVar` or `if not myBoolVar` is ok.

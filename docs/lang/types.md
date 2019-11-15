@@ -57,7 +57,7 @@ A string is an `Array` of characters. But there is no character data type, so `U
 
 The boolean data type is defined as:
 
-```
+```C#
 Bool
 ```
 
@@ -67,7 +67,7 @@ The `Bit` type is parameterized to specify the number of bits the value contains
 
 Here the example declares a `Bit` type that contains 4 bits (nibble):
 
-```
+```C#
 Bit<4>
 ```
 
@@ -174,7 +174,7 @@ If the original type is lost, casting up the inheritance hierarchy will always f
 
 Same as declaring a new type, just without any additions.
 
-```
+```C#
 MyType: OtherType<Complex<U8>, Str>
 ```
 
@@ -255,19 +255,19 @@ Ideas...
 
 Unions
 
-```
+```C#
 MyStruct: Struct1 | Struct2
 ```
 
 Multiple Inheritance (type addition)
 
-```
+```C#
 MyStruct: Struct1 & Struct2
 ```
 
 Type difference (inverse union)
 
-```
+```C#
 Difference: Struct1 ^ Struct2
 ```
 
@@ -281,7 +281,11 @@ Pattern matching?
 
 Variant
 
-```
+```C#
 OneOrTheOther: Struct1 or Struct2
 OneOfThese: Struct1 or Struct2 or Struct3 or Struct4
 ```
+
+---
+
+> Look into data types like C++ implementations of (physical) units. Make it impossible to assign kg to length - that sort of thing.

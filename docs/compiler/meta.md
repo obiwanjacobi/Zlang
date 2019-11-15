@@ -82,7 +82,7 @@ well_behaved_code
 ...     // rest of code file
 ```
 
-## Compile-time Code
+## Compile-Time Code
 
 _Any_ Z# code can be executed at compile-time. By placing a `#!` in front of it, the compiler knows it is not to be included in the binary. The use of this symbol does not introduce an extra scope.
 

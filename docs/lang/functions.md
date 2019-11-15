@@ -171,14 +171,14 @@ isMagicValue(self: MyEnum): Bool
 
 e = MyEnum.MagicValue
 
-e.IsMagicValue()
+b = e.IsMagicValue()        // true
 ```
 
 ---
 
 > TDB:
 
-support recursion?
+support recursion? Let compiler check for exit condition.
 
 resolving overloads (only type bound?) (pattern) match on self-type (fn's with same name diff self param)? visitor pattern/double dispatch?
 
@@ -186,7 +186,56 @@ pure functions (functional) / higher order functions?
 
 coroutines (yield/return) (impl. detail of the fn)
 
+```C#
+// What is the difference between multiple times a single result
+coroutine(p: U8): U16
+    yield p
+    yield p << 4
+    yield p << 8
+    yield p << 12
+// ... and a single time, multiple results ??
+coroutine(p: U8): Iter<U16>
+    yield p
+    yield p << 4
+    yield p << 8
+    yield p << 12
+
+// last yield or return will reset state.
+// Next call will begin at start of fn.
+
+// can return result at end with optional
+coroutine(p: U8): U16?
+    yield _
+    return p
+```
+
+Coroutine state is kept in hidden param? (has to be caller context specific)
+
+```C#
+coroutine(p: U8) // hidden coroutine state param?
+coroutine(state, p: U8) // explicit coroutine state param?
+coroutine(self, state, p: U8) // with self?
+
+i = 42
+s1 = 0           // (hidden) coroutine call state at root-scope
+loop [0..3]
+    coroutine(i, s1.Ptr())     // ref, yield/return updates state
+    i = i + 2
+
+// multiple coroutines
+s1 = 0
+s2 = 0
+loop [0..3]
+    coroutine(42, s1.Ptr())
+    otherCoroutine(42, s2.Ptr())
+```
+
 anonymous functions/lambda/in-place syntax (no capture)
+
+```C#
+arr.ForEach(callback)             // fn ptr
+arr.ForEach(i => action(i, 42))   // like match, but different
+```
 
 simulate properties? thru type-bound functions?
 Get\<T>/Set\<T>/Notify\<T>/Watch\<T[]>

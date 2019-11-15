@@ -6,7 +6,7 @@ Identifiers name program entities such as variable, functions and types. These n
 - Cannot contain spaces.
 - Cannot contain operator characters (+-/*).
 - Cannot start with a digit.
-- 
+-
 - Can start with `_` (but this has special meaning).
 - Can contain alpha-numeric characters.
 
@@ -20,7 +20,7 @@ _unused
 
 Here are examples of _invalid_ identifiers:
 
-```js
+```C#
 1Function
 some variable
 my-type
@@ -28,6 +28,6 @@ my-type
 
 ## Fully Qualified Names
 
-```
+```C#
 MyModule.v2.MyFunction
 ```

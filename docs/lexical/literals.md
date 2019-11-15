@@ -29,7 +29,7 @@ h = 0xFF_FF
 
 ### Floating Point
 
-Floating point literals can be specified in different ways. Mainly the use of the decimal separator `.` is an indication that the value is a floating point value. Only a decimal format is suported (no prefix).
+Floating point literals can be specified in different ways. Mainly the use of the decimal separator `.` is an indication that the value is a floating point value. Only a decimal format is supported (no prefix).
 
 ```C#
 1.0  1.  .42
@@ -73,7 +73,7 @@ Basic formatting of dynamic values into a string is done in thr following way:
 ```C#
 v = 42
 s = "Answer to everything is '{v}'"
-// Anser to everything is '42'
+// Answer to everything is '42'
 ```
 
 Using the `{}` characters as is in a string literal, requires the escape sequence `\\`.

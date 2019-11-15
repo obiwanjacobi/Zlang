@@ -111,6 +111,7 @@
     <IncludePath>$(ProjectDir)..\lib\antlr\include;$(ProjectDir)\zsharp;$(ProjectDir)\zsharp\grammar\parser;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\lib\antlr\debug;$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

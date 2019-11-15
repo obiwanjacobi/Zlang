@@ -4,7 +4,7 @@
 
 > A meta extension: implement a custom # tag. Register C++ code with the compiler to be called when the `#` tag is encountered. The extension either manipulates the Abstract Syntax Tree or emits Machine Code Representation.
 
-> A 'code attribute' extension. (no code attributes yet.) Annotated code that gets in the loop for generating the code for that scope. This, for instance, allows implementation of detailed entry and exit tracing etc.
+> A 'code attribute' extension. Annotated code that gets in the loop for generating the code for that scope. This, for instance, allows implementation of detailed entry and exit tracing etc.
 
 Code attributes syntax?? Are Code Attributes Types or a function? Are code attributes only 'used' at compile time?
 

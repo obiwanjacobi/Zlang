@@ -23,12 +23,28 @@ FunctionInterface
     lowByte(p1: U16): U8 _  // no impl, but shorter
 ```
 
+Would a function declaration (without implementation) be better?
+
+```C#
+lowByte(p1: U16): U8 _      // no impl
+```
+
 An object interface can declare one or more functions. It must have the `self` keyword as a first parameter.
 
 ```C#
 ObjectInterface
     lowByte(self, p1: U16): U8 _
     hiByte(self, p1: U16): U8 _
+```
+
+```C#
+TemplateInterface<T>
+    lowByte(self: T, p1: U16): U8 _
+    hiByte(self: T, p1: U16): U8 _
+
+TemplateInterface<T, R>
+    lowByte(self: T, p1: U16): R _
+    hiByte(self: T, p1: U16): R _
 ```
 
 > How to implement an interface
@@ -42,7 +58,7 @@ MyInterface
     interfunc(self, p: U8) _
 
 // function must match exactly
-interfunc(self s: MyStruct, p: U8)
+interfunc(self: MyStruct, p: U8)
     ...
 
 // make struct instance

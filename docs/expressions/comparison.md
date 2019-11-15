@@ -10,7 +10,7 @@ These operators are used to compare to values in different ways. The result is a
 | < | Smaller than
 | >= | Greater or Equal
 | <= | Smaller Equal
-| ? : | Unary Comparison
+| ? : | Ternary Comparison
 
 Here is an example of using several comparison expressions combined into a logical expression to build the condition of an `if` statement.
 
@@ -34,4 +34,3 @@ b = a <> 42 ? true : false
 if a = myFunc()      // error!
     ...
 ```
-
