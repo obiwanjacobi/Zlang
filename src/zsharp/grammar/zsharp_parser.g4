@@ -14,10 +14,10 @@ statement_export: keyword_export SP (identifier_func | identifier_type) newline;
 
 // flow control
 flow_statement: statement_if | statement_else 
-    | keyword_break | keyword_continue | statement_return;
+    | statement_return| keyword_break | keyword_continue;
 statement_return: indent keyword_return (SP expression_value)? newline;
-statement_if: indent keyword_if SP expression_logic newline;
-statement_else: indent keyword_else (keyword_if SP expression_logic)? newline;
+statement_if: indent keyword_if SP expression_logic newline codeblock;
+statement_else: indent keyword_else (keyword_if SP expression_logic)? newline codeblock;
 
 // declaration
 declaration_top: function_decl | enum_decl | struct_decl | variable_decl;
@@ -186,8 +186,8 @@ op_bit_rolr: BIT_ROLR;
 op_concat: CONCAT;
 
 empty_line: INDENT? EOL+;
-newline: (indent? COMMENT)? EOL;
-comment: indent? COMMENT EOL;
+newline: INDENT? COMMENT? EOL;
+comment: INDENT? COMMENT EOL;
 string: STRING;
 character: CHARACTER;
 

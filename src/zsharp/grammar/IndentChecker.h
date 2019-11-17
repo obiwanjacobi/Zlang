@@ -7,14 +7,28 @@
 class IndentChecker : private zsharp_parserBaseVisitor
 {
 public:
-    IndentChecker() : _indent(0), _indentSize(0), _ignore(0) { }
+    IndentChecker() : _indentSize(0)
+    {
+        _indent.push(0);
+    }
 
     void walk (zsharp_parserParser::FileContext* file);
 
 private:
     uint32_t _indentSize;
-    uint32_t _indent;
-    uint32_t _ignore;
+    std::stack<int> _indent;
+
+    void clearIndent()
+    {
+        while (_indent.size() > 1)
+        {
+            _indent.pop();
+        }
+    }
+    void nextIndent()
+    {
+        _indent.push(_indent.top() + 1);
+    }
 
     virtual antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult) override;
 
@@ -33,9 +47,12 @@ private:
     virtual antlrcpp::Any visitEnum_option_decl(zsharp_parserParser::Enum_option_declContext* ctx) override;
 
     // indent: relative
+    virtual antlrcpp::Any visitCodeblock(zsharp_parserParser::CodeblockContext* ctx) override;
     virtual antlrcpp::Any visitStatement_return(zsharp_parserParser::Statement_returnContext* ctx) override;
     virtual antlrcpp::Any visitStatement_if(zsharp_parserParser::Statement_ifContext* ctx) override;
     virtual antlrcpp::Any visitStatement_else(zsharp_parserParser::Statement_elseContext* ctx) override;
+    virtual antlrcpp::Any visitVariable_decl(zsharp_parserParser::Variable_declContext* ctx) override;
+
 
     // ignore
     virtual antlrcpp::Any visitNewline(zsharp_parserParser::NewlineContext* ctx) override;
