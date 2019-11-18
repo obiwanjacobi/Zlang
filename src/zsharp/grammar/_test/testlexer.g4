@@ -1,2 +1,2 @@
 lexer grammar testlexer;
-TOKEN: 'toks';
+TOKEN: 'tok';

@@ -84,6 +84,40 @@ s = MyContainer
 
 > Unions in structures are not supported at this moment.
 
+## Bit Fields
+
+A structure can contain bit fields using the `Bit<T>` type.
+All fields using the bit data type will be grouped together.
+
+So the following example will only take up 1 byte:
+
+```C#
+MyStruct
+    field1: Bit<2>      // bit 0-1
+    field2: Bit<3>      // bit 2-4
+    field3: Bit<3>      // bit 5-7
+```
+
+When the total number of bits exceed a byte the rest of the bits is packed into a new byte. Bit fields never cross byte boundaries.
+
+> Do we want this? =>
+
+If the bit fields need to span more than a single byte, the structure can be derived from the unsigned data type.
+
+```C#
+MyStruct: U16
+    field1: Bit<2>      // bit 0-1
+    field2: Bit<4>      // bit 2-5
+    field3: Bit<4>      // bit 6-9
+    field4: Bit<4>      // bit 10-13
+    field5: Bit<4>      // error! cannot overflow
+    other: U8           // error! only bit fields
+```
+
+Deriving a structure from an unsigned datatype is only valid when the structure contains only bit fields.
+
 ## Memory Layout
 
 The fields of a structure are layed out in the order of their definition starting at the base structure type. No alignment or filler bytes are added.
+
+The exception are fields with the `Bit<T>` type. Those are grouped together and laid out as sequential bytes at the start of the structure (or at the location where the first field is defined?).

@@ -42,6 +42,22 @@ MyFunc(): Bool!
 
 It takes away some of the noise of simple error handling.
 
+> Or do we want `try` to be default behavior and have `catch` for when the error is handled manually? Control flow is less obvious without `try`.
+
+```C#
+MyFunc(): Bool!
+    // auto propagate error from function
+    b = couldWork()  // => catch(err) return err
+    use(b)
+
+MyFunc(): Bool      // no error return
+    // handle error manually from function
+    b = couldWork() catch(err)  // have to catch
+        log(err)
+        return false
+    use(b)
+```
+
 The `catch` and `try` keywords can only be used on functions that actually return errors.
 
 ```C#

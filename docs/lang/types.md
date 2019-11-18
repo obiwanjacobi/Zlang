@@ -97,6 +97,28 @@ v = ptr.U8()        // conversion call
 
 [Conversion](./conversion.md) to other types is only allowed if the target type has the exact same number of bits as the `T` of the pointer.
 
+Assigning a new value to the pointed-to-storage:
+
+```C#
+changeByRef(Ptr<U8> ptr)
+    ptr.U8(42)          // conversion with new value
+
+    v = ptr.U8()        // how is the link maintained?
+    v = 42
+```
+
+Template Access
+
+```C#
+changeByRef<T>(Ptr<T> ptr)
+    x = ptr.T()     // don't know the type
+                    // error at runtime
+    x = ptr.get<T>()    // ptr.U8() is simply: ptr.get<U8>()
+    ptr.set<T>(42)  // error when no conversion from U8 to T
+```
+
+Casting
+
 ```C#
 ptr: Ptr<U8>
 v = ptr.I8()        // ok, unsigned to signed conversion

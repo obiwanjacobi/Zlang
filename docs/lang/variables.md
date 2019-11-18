@@ -58,6 +58,8 @@ A pointer of any variable can be obtained by using the `Ptr()` conversion functi
 a = 42          // U8
 p = a.Ptr()     // p of type Ptr<U8> points to a
 b = p.U8()      // b = 42
+
+p.U8(101)       // a = 101, b = 42
 ```
 
 See also [Pointer Types](./types.md).
