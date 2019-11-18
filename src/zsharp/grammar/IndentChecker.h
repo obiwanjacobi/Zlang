@@ -7,29 +7,28 @@
 class IndentChecker : private zsharp_parserBaseVisitor
 {
 public:
-    IndentChecker() : _indentSize(0)
+    IndentChecker() : _indentSize(0), _indent(0)
     {
-        _indent.push(0);
     }
 
     void walk (zsharp_parserParser::FileContext* file);
 
 private:
     uint32_t _indentSize;
-    std::stack<int> _indent;
+    int _indent;
 
     void clearIndent()
     {
-        while (_indent.size() > 1)
-        {
-            _indent.pop();
-        }
+        _indent = 0;
     }
     void nextIndent()
     {
-        _indent.push(_indent.top() + 1);
+        _indent += 1;
     }
-
+    void prevIndent()
+    {
+        _indent -= 1;
+    }
     virtual antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult) override;
 
     virtual antlrcpp::Any visitIndent(zsharp_parserParser::IndentContext* ctx) override;

@@ -24,7 +24,7 @@ antlrcpp::Any IndentChecker::visitIndent(zsharp_parserParser::IndentContext* ctx
         std::cout << "Irregular indentation at line: " << ctx->getStart()->getLine() << "\r\n";
     }*/
 
-    if (_indent.top() != l / _indentSize)
+    if (_indent != l / _indentSize)
     {
         std::cout << "Invalid indentation at line: " << ctx->getStart()->getLine() << "\r\n";
     }
@@ -74,7 +74,7 @@ antlrcpp::Any IndentChecker::visitStruct_field_decl(zsharp_parserParser::Struct_
 {
     nextIndent();
     auto retval = visitChildren(ctx);
-    _indent.pop();
+    prevIndent();
     return retval;
 }
 
@@ -82,7 +82,7 @@ antlrcpp::Any IndentChecker::visitEnum_option_decl(zsharp_parserParser::Enum_opt
 {
     nextIndent();
     auto retval = visitChildren(ctx);
-    _indent.pop();
+    prevIndent();
     return retval;
 }
 
@@ -101,7 +101,7 @@ antlrcpp::Any IndentChecker::visitCodeblock(zsharp_parserParser::CodeblockContex
     auto retval = visitChildren(ctx);
     if (ifstmt || elsestmt)
     {
-        _indent.pop();
+        prevIndent();
     }
     if (fn)
     {
@@ -128,17 +128,16 @@ antlrcpp::Any IndentChecker::visitStatement_else(zsharp_parserParser::Statement_
 {
     // `else` is a child of `if` in the parse tree.
     // juggle the indent to re-align `else` with its parent `if`.
-    int indent = _indent.top();
-    _indent.pop();
+    prevIndent();
     auto retval = visitChildren(ctx);
-    _indent.push(indent);
+    nextIndent();
     return retval;
 }
 
 antlrcpp::Any IndentChecker::visitVariable_decl(zsharp_parserParser::Variable_declContext* ctx)
 {
     // `variable_decl` has optional indent
-    if (ctx->indent() == nullptr && _indent.top() > 0)
+    if (ctx->indent() == nullptr && _indent > 0)
     {
         std::cout << "Missing indentation at line: " << ctx->getStart()->getLine() << "\r\n";
     }
