@@ -27,8 +27,7 @@ funcDecl(p: U8?): Bool!
         return Error("Parameter not specified")
 
 funcErr(p: U16): U8
-    loop p > 42
-        p = p - 1
+    loop p > 14
     return Error()
     
 // enums

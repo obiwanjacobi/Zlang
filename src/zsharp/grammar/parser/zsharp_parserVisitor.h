@@ -47,6 +47,8 @@ public:
 
     virtual antlrcpp::Any visitStatement_continue(zsharp_parserParser::Statement_continueContext *context) = 0;
 
+    virtual antlrcpp::Any visitStatement_loop(zsharp_parserParser::Statement_loopContext *context) = 0;
+
     virtual antlrcpp::Any visitDefinition_top(zsharp_parserParser::Definition_topContext *context) = 0;
 
     virtual antlrcpp::Any visitDefinition(zsharp_parserParser::DefinitionContext *context) = 0;

@@ -58,6 +58,9 @@ public:
   virtual void enterStatement_continue(zsharp_parserParser::Statement_continueContext * /*ctx*/) override { }
   virtual void exitStatement_continue(zsharp_parserParser::Statement_continueContext * /*ctx*/) override { }
 
+  virtual void enterStatement_loop(zsharp_parserParser::Statement_loopContext * /*ctx*/) override { }
+  virtual void exitStatement_loop(zsharp_parserParser::Statement_loopContext * /*ctx*/) override { }
+
   virtual void enterDefinition_top(zsharp_parserParser::Definition_topContext * /*ctx*/) override { }
   virtual void exitDefinition_top(zsharp_parserParser::Definition_topContext * /*ctx*/) override { }
 

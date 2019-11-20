@@ -71,6 +71,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitStatement_loop(zsharp_parserParser::Statement_loopContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitDefinition_top(zsharp_parserParser::Definition_topContext *ctx) override {
     return visitChildren(ctx);
   }

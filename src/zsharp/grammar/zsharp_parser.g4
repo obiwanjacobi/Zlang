@@ -14,13 +14,14 @@ statement_export: keyword_export SP (identifier_func | identifier_type) newline;
 
 // flow control
 flow_statement: statement_if | statement_else | statement_elseif
-    | statement_return| statement_break | statement_continue;
+    | statement_loop | statement_return | statement_break | statement_continue;
 statement_return: indent keyword_return (SP expression_value)? newline;
 statement_if: indent keyword_if SP expression_logic newline codeblock;
 statement_else: indent keyword_else newline codeblock;
 statement_elseif: indent keyword_else SP keyword_if SP expression_logic newline codeblock;
 statement_break: indent keyword_break;
 statement_continue: indent keyword_continue;
+statement_loop: indent keyword_loop (SP expression_logic)? newline codeblock;
 
 // definition
 definition_top: function_def | enum_def | struct_def | variable_def;
