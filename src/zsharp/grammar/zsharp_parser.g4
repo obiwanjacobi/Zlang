@@ -146,39 +146,14 @@ number_hex: NUMBERhex;
 number_char: character;
 
 // operators
-operator_arithmetic: op_plus | op_minus_neg | op_div | op_mod | op_mult | op_pow;
-operator_arithmetic_unary: op_minus_neg;
-operator_logic: op_and | op_or;
-operator_logic_unary: op_not;
-operator_comparison: op_eq_assign | op_neq | op_great | op_small | op_greq | op_smeq;
-operator_bits: op_bit_and | op_bit_or | op_bit_xor | op_bit_shl | op_bit_shr | op_bit_roll | op_bit_rolr;
-operator_bits_unary: op_bit_not;
-operator_assignment: op_eq_assign;
-
-op_plus: PLUS;
-op_minus_neg: MINUS_NEG;
-op_mult: MULT;
-op_div: DIV;
-op_mod: MOD;
-op_pow: POW;
-op_eq_assign: EQ_ASSIGN;
-op_neq: NEQ;
-op_great: GREAT_ANGLEclose;
-op_small: SMALL_ANGLEopen;
-op_greq: GREQ;
-op_smeq: SMEQ;
-op_and: AND;
-op_or: OR;
-op_not: NOT;
-op_bit_and: BIT_AND;
-op_bit_or: BIT_OR;
-op_bit_xor: BIT_XOR;
-op_bit_not: BIT_NOT;
-op_bit_shl: BIT_SHL;
-op_bit_shr: BIT_SHR;
-op_bit_roll: BIT_ROLL;
-op_bit_rolr: BIT_ROLR;
-op_concat: CONCAT;
+operator_arithmetic: PLUS | MINUS_NEG | DIV | MOD | MULT | POW;
+operator_arithmetic_unary: MINUS_NEG;
+operator_logic: AND | OR;
+operator_logic_unary: NOT;
+operator_comparison: EQ_ASSIGN | NEQ | GREAT_ANGLEclose | SMALL_ANGLEopen | GREQ | SMEQ;
+operator_bits: BIT_AND | BIT_OR | BIT_XOR | BIT_SHL | BIT_SHR | BIT_ROLL | BIT_ROLR;
+operator_bits_unary: BIT_NOT;
+operator_assignment: EQ_ASSIGN;
 
 empty_line: INDENT? EOL+;
 newline: INDENT? COMMENT? EOL;

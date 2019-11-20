@@ -60,14 +60,8 @@ public:
     RuleNumber_char = 88, RuleOperator_arithmetic = 89, RuleOperator_arithmetic_unary = 90, 
     RuleOperator_logic = 91, RuleOperator_logic_unary = 92, RuleOperator_comparison = 93, 
     RuleOperator_bits = 94, RuleOperator_bits_unary = 95, RuleOperator_assignment = 96, 
-    RuleOp_plus = 97, RuleOp_minus_neg = 98, RuleOp_mult = 99, RuleOp_div = 100, 
-    RuleOp_mod = 101, RuleOp_pow = 102, RuleOp_eq_assign = 103, RuleOp_neq = 104, 
-    RuleOp_great = 105, RuleOp_small = 106, RuleOp_greq = 107, RuleOp_smeq = 108, 
-    RuleOp_and = 109, RuleOp_or = 110, RuleOp_not = 111, RuleOp_bit_and = 112, 
-    RuleOp_bit_or = 113, RuleOp_bit_xor = 114, RuleOp_bit_not = 115, RuleOp_bit_shl = 116, 
-    RuleOp_bit_shr = 117, RuleOp_bit_roll = 118, RuleOp_bit_rolr = 119, 
-    RuleOp_concat = 120, RuleEmpty_line = 121, RuleNewline = 122, RuleComment = 123, 
-    RuleString = 124, RuleCharacter = 125, RuleIndent = 126
+    RuleEmpty_line = 97, RuleNewline = 98, RuleComment = 99, RuleString = 100, 
+    RuleCharacter = 101, RuleIndent = 102
   };
 
   zsharp_parserParser(antlr4::TokenStream *input);
@@ -177,30 +171,6 @@ public:
   class Operator_bitsContext;
   class Operator_bits_unaryContext;
   class Operator_assignmentContext;
-  class Op_plusContext;
-  class Op_minus_negContext;
-  class Op_multContext;
-  class Op_divContext;
-  class Op_modContext;
-  class Op_powContext;
-  class Op_eq_assignContext;
-  class Op_neqContext;
-  class Op_greatContext;
-  class Op_smallContext;
-  class Op_greqContext;
-  class Op_smeqContext;
-  class Op_andContext;
-  class Op_orContext;
-  class Op_notContext;
-  class Op_bit_andContext;
-  class Op_bit_orContext;
-  class Op_bit_xorContext;
-  class Op_bit_notContext;
-  class Op_bit_shlContext;
-  class Op_bit_shrContext;
-  class Op_bit_rollContext;
-  class Op_bit_rolrContext;
-  class Op_concatContext;
   class Empty_lineContext;
   class NewlineContext;
   class CommentContext;
@@ -1782,12 +1752,12 @@ public:
   public:
     Operator_arithmeticContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Op_plusContext *op_plus();
-    Op_minus_negContext *op_minus_neg();
-    Op_divContext *op_div();
-    Op_modContext *op_mod();
-    Op_multContext *op_mult();
-    Op_powContext *op_pow();
+    antlr4::tree::TerminalNode *PLUS();
+    antlr4::tree::TerminalNode *MINUS_NEG();
+    antlr4::tree::TerminalNode *DIV();
+    antlr4::tree::TerminalNode *MOD();
+    antlr4::tree::TerminalNode *MULT();
+    antlr4::tree::TerminalNode *POW();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1802,7 +1772,7 @@ public:
   public:
     Operator_arithmetic_unaryContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Op_minus_negContext *op_minus_neg();
+    antlr4::tree::TerminalNode *MINUS_NEG();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1817,8 +1787,8 @@ public:
   public:
     Operator_logicContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Op_andContext *op_and();
-    Op_orContext *op_or();
+    antlr4::tree::TerminalNode *AND();
+    antlr4::tree::TerminalNode *OR();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1833,7 +1803,7 @@ public:
   public:
     Operator_logic_unaryContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Op_notContext *op_not();
+    antlr4::tree::TerminalNode *NOT();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1848,12 +1818,12 @@ public:
   public:
     Operator_comparisonContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Op_eq_assignContext *op_eq_assign();
-    Op_neqContext *op_neq();
-    Op_greatContext *op_great();
-    Op_smallContext *op_small();
-    Op_greqContext *op_greq();
-    Op_smeqContext *op_smeq();
+    antlr4::tree::TerminalNode *EQ_ASSIGN();
+    antlr4::tree::TerminalNode *NEQ();
+    antlr4::tree::TerminalNode *GREAT_ANGLEclose();
+    antlr4::tree::TerminalNode *SMALL_ANGLEopen();
+    antlr4::tree::TerminalNode *GREQ();
+    antlr4::tree::TerminalNode *SMEQ();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1868,13 +1838,13 @@ public:
   public:
     Operator_bitsContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Op_bit_andContext *op_bit_and();
-    Op_bit_orContext *op_bit_or();
-    Op_bit_xorContext *op_bit_xor();
-    Op_bit_shlContext *op_bit_shl();
-    Op_bit_shrContext *op_bit_shr();
-    Op_bit_rollContext *op_bit_roll();
-    Op_bit_rolrContext *op_bit_rolr();
+    antlr4::tree::TerminalNode *BIT_AND();
+    antlr4::tree::TerminalNode *BIT_OR();
+    antlr4::tree::TerminalNode *BIT_XOR();
+    antlr4::tree::TerminalNode *BIT_SHL();
+    antlr4::tree::TerminalNode *BIT_SHR();
+    antlr4::tree::TerminalNode *BIT_ROLL();
+    antlr4::tree::TerminalNode *BIT_ROLR();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1889,7 +1859,7 @@ public:
   public:
     Operator_bits_unaryContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Op_bit_notContext *op_bit_not();
+    antlr4::tree::TerminalNode *BIT_NOT();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1904,111 +1874,6 @@ public:
   public:
     Operator_assignmentContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Op_eq_assignContext *op_eq_assign();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Operator_assignmentContext* operator_assignment();
-
-  class  Op_plusContext : public antlr4::ParserRuleContext {
-  public:
-    Op_plusContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *PLUS();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_plusContext* op_plus();
-
-  class  Op_minus_negContext : public antlr4::ParserRuleContext {
-  public:
-    Op_minus_negContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *MINUS_NEG();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_minus_negContext* op_minus_neg();
-
-  class  Op_multContext : public antlr4::ParserRuleContext {
-  public:
-    Op_multContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *MULT();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_multContext* op_mult();
-
-  class  Op_divContext : public antlr4::ParserRuleContext {
-  public:
-    Op_divContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *DIV();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_divContext* op_div();
-
-  class  Op_modContext : public antlr4::ParserRuleContext {
-  public:
-    Op_modContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *MOD();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_modContext* op_mod();
-
-  class  Op_powContext : public antlr4::ParserRuleContext {
-  public:
-    Op_powContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *POW();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_powContext* op_pow();
-
-  class  Op_eq_assignContext : public antlr4::ParserRuleContext {
-  public:
-    Op_eq_assignContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *EQ_ASSIGN();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -2018,262 +1883,7 @@ public:
    
   };
 
-  Op_eq_assignContext* op_eq_assign();
-
-  class  Op_neqContext : public antlr4::ParserRuleContext {
-  public:
-    Op_neqContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *NEQ();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_neqContext* op_neq();
-
-  class  Op_greatContext : public antlr4::ParserRuleContext {
-  public:
-    Op_greatContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *GREAT_ANGLEclose();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_greatContext* op_great();
-
-  class  Op_smallContext : public antlr4::ParserRuleContext {
-  public:
-    Op_smallContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *SMALL_ANGLEopen();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_smallContext* op_small();
-
-  class  Op_greqContext : public antlr4::ParserRuleContext {
-  public:
-    Op_greqContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *GREQ();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_greqContext* op_greq();
-
-  class  Op_smeqContext : public antlr4::ParserRuleContext {
-  public:
-    Op_smeqContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *SMEQ();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_smeqContext* op_smeq();
-
-  class  Op_andContext : public antlr4::ParserRuleContext {
-  public:
-    Op_andContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *AND();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_andContext* op_and();
-
-  class  Op_orContext : public antlr4::ParserRuleContext {
-  public:
-    Op_orContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *OR();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_orContext* op_or();
-
-  class  Op_notContext : public antlr4::ParserRuleContext {
-  public:
-    Op_notContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *NOT();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_notContext* op_not();
-
-  class  Op_bit_andContext : public antlr4::ParserRuleContext {
-  public:
-    Op_bit_andContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *BIT_AND();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_bit_andContext* op_bit_and();
-
-  class  Op_bit_orContext : public antlr4::ParserRuleContext {
-  public:
-    Op_bit_orContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *BIT_OR();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_bit_orContext* op_bit_or();
-
-  class  Op_bit_xorContext : public antlr4::ParserRuleContext {
-  public:
-    Op_bit_xorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *BIT_XOR();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_bit_xorContext* op_bit_xor();
-
-  class  Op_bit_notContext : public antlr4::ParserRuleContext {
-  public:
-    Op_bit_notContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *BIT_NOT();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_bit_notContext* op_bit_not();
-
-  class  Op_bit_shlContext : public antlr4::ParserRuleContext {
-  public:
-    Op_bit_shlContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *BIT_SHL();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_bit_shlContext* op_bit_shl();
-
-  class  Op_bit_shrContext : public antlr4::ParserRuleContext {
-  public:
-    Op_bit_shrContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *BIT_SHR();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_bit_shrContext* op_bit_shr();
-
-  class  Op_bit_rollContext : public antlr4::ParserRuleContext {
-  public:
-    Op_bit_rollContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *BIT_ROLL();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_bit_rollContext* op_bit_roll();
-
-  class  Op_bit_rolrContext : public antlr4::ParserRuleContext {
-  public:
-    Op_bit_rolrContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *BIT_ROLR();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_bit_rolrContext* op_bit_rolr();
-
-  class  Op_concatContext : public antlr4::ParserRuleContext {
-  public:
-    Op_concatContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *CONCAT();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Op_concatContext* op_concat();
+  Operator_assignmentContext* operator_assignment();
 
   class  Empty_lineContext : public antlr4::ParserRuleContext {
   public:

@@ -213,54 +213,6 @@ public:
 
     virtual antlrcpp::Any visitOperator_assignment(zsharp_parserParser::Operator_assignmentContext *context) = 0;
 
-    virtual antlrcpp::Any visitOp_plus(zsharp_parserParser::Op_plusContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_minus_neg(zsharp_parserParser::Op_minus_negContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_mult(zsharp_parserParser::Op_multContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_div(zsharp_parserParser::Op_divContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_mod(zsharp_parserParser::Op_modContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_pow(zsharp_parserParser::Op_powContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_eq_assign(zsharp_parserParser::Op_eq_assignContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_neq(zsharp_parserParser::Op_neqContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_great(zsharp_parserParser::Op_greatContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_small(zsharp_parserParser::Op_smallContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_greq(zsharp_parserParser::Op_greqContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_smeq(zsharp_parserParser::Op_smeqContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_and(zsharp_parserParser::Op_andContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_or(zsharp_parserParser::Op_orContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_not(zsharp_parserParser::Op_notContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_bit_and(zsharp_parserParser::Op_bit_andContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_bit_or(zsharp_parserParser::Op_bit_orContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_bit_xor(zsharp_parserParser::Op_bit_xorContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_bit_not(zsharp_parserParser::Op_bit_notContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_bit_shl(zsharp_parserParser::Op_bit_shlContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_bit_shr(zsharp_parserParser::Op_bit_shrContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_bit_roll(zsharp_parserParser::Op_bit_rollContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_bit_rolr(zsharp_parserParser::Op_bit_rolrContext *context) = 0;
-
-    virtual antlrcpp::Any visitOp_concat(zsharp_parserParser::Op_concatContext *context) = 0;
-
     virtual antlrcpp::Any visitEmpty_line(zsharp_parserParser::Empty_lineContext *context) = 0;
 
     virtual antlrcpp::Any visitNewline(zsharp_parserParser::NewlineContext *context) = 0;
