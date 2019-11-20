@@ -41,7 +41,7 @@ expression_arithmetic:
     | operator_arithmetic_unary expression_arithmetic
     | arithmetic_operand
     ;
-arithmetic_operand: expression_bitwise | number;
+arithmetic_operand: expression_bitwise | number | variable_ref | parameter_ref;
 
 expression_logic: 
       expression_logic SP operator_logic SP expression_logic

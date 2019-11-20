@@ -641,6 +641,8 @@ public:
     virtual size_t getRuleIndex() const override;
     Expression_bitwiseContext *expression_bitwise();
     NumberContext *number();
+    Variable_refContext *variable_ref();
+    Parameter_refContext *parameter_ref();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
