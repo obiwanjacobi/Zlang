@@ -50,12 +50,12 @@ zsharp_parserParser::Module_statementContext* zsharp_parserParser::FileContext::
   return getRuleContext<zsharp_parserParser::Module_statementContext>(i);
 }
 
-std::vector<zsharp_parserParser::Declaration_topContext *> zsharp_parserParser::FileContext::declaration_top() {
-  return getRuleContexts<zsharp_parserParser::Declaration_topContext>();
+std::vector<zsharp_parserParser::Definition_topContext *> zsharp_parserParser::FileContext::definition_top() {
+  return getRuleContexts<zsharp_parserParser::Definition_topContext>();
 }
 
-zsharp_parserParser::Declaration_topContext* zsharp_parserParser::FileContext::declaration_top(size_t i) {
-  return getRuleContext<zsharp_parserParser::Declaration_topContext>(i);
+zsharp_parserParser::Definition_topContext* zsharp_parserParser::FileContext::definition_top(size_t i) {
+  return getRuleContext<zsharp_parserParser::Definition_topContext>(i);
 }
 
 std::vector<zsharp_parserParser::CommentContext *> zsharp_parserParser::FileContext::comment() {
@@ -133,7 +133,7 @@ zsharp_parserParser::FileContext* zsharp_parserParser::file() {
 
       case 2: {
         setState(267);
-        declaration_top();
+        definition_top();
         break;
       }
 
@@ -181,12 +181,12 @@ zsharp_parserParser::Flow_statementContext* zsharp_parserParser::CodeblockContex
   return getRuleContext<zsharp_parserParser::Flow_statementContext>(i);
 }
 
-std::vector<zsharp_parserParser::DeclarationContext *> zsharp_parserParser::CodeblockContext::declaration() {
-  return getRuleContexts<zsharp_parserParser::DeclarationContext>();
+std::vector<zsharp_parserParser::DefinitionContext *> zsharp_parserParser::CodeblockContext::definition() {
+  return getRuleContexts<zsharp_parserParser::DefinitionContext>();
 }
 
-zsharp_parserParser::DeclarationContext* zsharp_parserParser::CodeblockContext::declaration(size_t i) {
-  return getRuleContext<zsharp_parserParser::DeclarationContext>(i);
+zsharp_parserParser::DefinitionContext* zsharp_parserParser::CodeblockContext::definition(size_t i) {
+  return getRuleContext<zsharp_parserParser::DefinitionContext>(i);
 }
 
 std::vector<zsharp_parserParser::CommentContext *> zsharp_parserParser::CodeblockContext::comment() {
@@ -257,7 +257,7 @@ zsharp_parserParser::CodeblockContext* zsharp_parserParser::codeblock() {
 
               case 2: {
                 setState(278);
-                declaration();
+                definition();
                 break;
               }
 
@@ -1320,56 +1320,56 @@ zsharp_parserParser::Statement_continueContext* zsharp_parserParser::statement_c
   return _localctx;
 }
 
-//----------------- Declaration_topContext ------------------------------------------------------------------
+//----------------- Definition_topContext ------------------------------------------------------------------
 
-zsharp_parserParser::Declaration_topContext::Declaration_topContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Definition_topContext::Definition_topContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-zsharp_parserParser::Function_declContext* zsharp_parserParser::Declaration_topContext::function_decl() {
-  return getRuleContext<zsharp_parserParser::Function_declContext>(0);
+zsharp_parserParser::Function_defContext* zsharp_parserParser::Definition_topContext::function_def() {
+  return getRuleContext<zsharp_parserParser::Function_defContext>(0);
 }
 
-zsharp_parserParser::Enum_declContext* zsharp_parserParser::Declaration_topContext::enum_decl() {
-  return getRuleContext<zsharp_parserParser::Enum_declContext>(0);
+zsharp_parserParser::Enum_defContext* zsharp_parserParser::Definition_topContext::enum_def() {
+  return getRuleContext<zsharp_parserParser::Enum_defContext>(0);
 }
 
-zsharp_parserParser::Struct_declContext* zsharp_parserParser::Declaration_topContext::struct_decl() {
-  return getRuleContext<zsharp_parserParser::Struct_declContext>(0);
+zsharp_parserParser::Struct_defContext* zsharp_parserParser::Definition_topContext::struct_def() {
+  return getRuleContext<zsharp_parserParser::Struct_defContext>(0);
 }
 
-zsharp_parserParser::Variable_declContext* zsharp_parserParser::Declaration_topContext::variable_decl() {
-  return getRuleContext<zsharp_parserParser::Variable_declContext>(0);
+zsharp_parserParser::Variable_defContext* zsharp_parserParser::Definition_topContext::variable_def() {
+  return getRuleContext<zsharp_parserParser::Variable_defContext>(0);
 }
 
 
-size_t zsharp_parserParser::Declaration_topContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleDeclaration_top;
+size_t zsharp_parserParser::Definition_topContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleDefinition_top;
 }
 
-void zsharp_parserParser::Declaration_topContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Definition_topContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterDeclaration_top(this);
+    parserListener->enterDefinition_top(this);
 }
 
-void zsharp_parserParser::Declaration_topContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Definition_topContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitDeclaration_top(this);
+    parserListener->exitDefinition_top(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Declaration_topContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Definition_topContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitDeclaration_top(this);
+    return parserVisitor->visitDefinition_top(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Declaration_topContext* zsharp_parserParser::declaration_top() {
-  Declaration_topContext *_localctx = _tracker.createInstance<Declaration_topContext>(_ctx, getState());
-  enterRule(_localctx, 28, zsharp_parserParser::RuleDeclaration_top);
+zsharp_parserParser::Definition_topContext* zsharp_parserParser::definition_top() {
+  Definition_topContext *_localctx = _tracker.createInstance<Definition_topContext>(_ctx, getState());
+  enterRule(_localctx, 28, zsharp_parserParser::RuleDefinition_top);
 
   auto onExit = finally([=] {
     exitRule();
@@ -1381,28 +1381,28 @@ zsharp_parserParser::Declaration_topContext* zsharp_parserParser::declaration_to
     case 1: {
       enterOuterAlt(_localctx, 1);
       setState(362);
-      function_decl();
+      function_def();
       break;
     }
 
     case 2: {
       enterOuterAlt(_localctx, 2);
       setState(363);
-      enum_decl();
+      enum_def();
       break;
     }
 
     case 3: {
       enterOuterAlt(_localctx, 3);
       setState(364);
-      struct_decl();
+      struct_def();
       break;
     }
 
     case 4: {
       enterOuterAlt(_localctx, 4);
       setState(365);
-      variable_decl();
+      variable_def();
       break;
     }
 
@@ -1418,44 +1418,44 @@ zsharp_parserParser::Declaration_topContext* zsharp_parserParser::declaration_to
   return _localctx;
 }
 
-//----------------- DeclarationContext ------------------------------------------------------------------
+//----------------- DefinitionContext ------------------------------------------------------------------
 
-zsharp_parserParser::DeclarationContext::DeclarationContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::DefinitionContext::DefinitionContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-zsharp_parserParser::Variable_declContext* zsharp_parserParser::DeclarationContext::variable_decl() {
-  return getRuleContext<zsharp_parserParser::Variable_declContext>(0);
+zsharp_parserParser::Variable_defContext* zsharp_parserParser::DefinitionContext::variable_def() {
+  return getRuleContext<zsharp_parserParser::Variable_defContext>(0);
 }
 
 
-size_t zsharp_parserParser::DeclarationContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleDeclaration;
+size_t zsharp_parserParser::DefinitionContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleDefinition;
 }
 
-void zsharp_parserParser::DeclarationContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::DefinitionContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterDeclaration(this);
+    parserListener->enterDefinition(this);
 }
 
-void zsharp_parserParser::DeclarationContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::DefinitionContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitDeclaration(this);
+    parserListener->exitDefinition(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::DeclarationContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::DefinitionContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitDeclaration(this);
+    return parserVisitor->visitDefinition(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::DeclarationContext* zsharp_parserParser::declaration() {
-  DeclarationContext *_localctx = _tracker.createInstance<DeclarationContext>(_ctx, getState());
-  enterRule(_localctx, 30, zsharp_parserParser::RuleDeclaration);
+zsharp_parserParser::DefinitionContext* zsharp_parserParser::definition() {
+  DefinitionContext *_localctx = _tracker.createInstance<DefinitionContext>(_ctx, getState());
+  enterRule(_localctx, 30, zsharp_parserParser::RuleDefinition);
 
   auto onExit = finally([=] {
     exitRule();
@@ -1463,7 +1463,7 @@ zsharp_parserParser::DeclarationContext* zsharp_parserParser::declaration() {
   try {
     enterOuterAlt(_localctx, 1);
     setState(368);
-    variable_decl();
+    variable_def();
    
   }
   catch (RecognitionException &e) {
@@ -2843,72 +2843,72 @@ zsharp_parserParser::Function_callContext* zsharp_parserParser::function_call() 
   return _localctx;
 }
 
-//----------------- Function_declContext ------------------------------------------------------------------
+//----------------- Function_defContext ------------------------------------------------------------------
 
-zsharp_parserParser::Function_declContext::Function_declContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Function_defContext::Function_defContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-zsharp_parserParser::Identifier_funcContext* zsharp_parserParser::Function_declContext::identifier_func() {
+zsharp_parserParser::Identifier_funcContext* zsharp_parserParser::Function_defContext::identifier_func() {
   return getRuleContext<zsharp_parserParser::Identifier_funcContext>(0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Function_declContext::PARENopen() {
+tree::TerminalNode* zsharp_parserParser::Function_defContext::PARENopen() {
   return getToken(zsharp_parserParser::PARENopen, 0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Function_declContext::PARENclose() {
+tree::TerminalNode* zsharp_parserParser::Function_defContext::PARENclose() {
   return getToken(zsharp_parserParser::PARENclose, 0);
 }
 
-zsharp_parserParser::NewlineContext* zsharp_parserParser::Function_declContext::newline() {
+zsharp_parserParser::NewlineContext* zsharp_parserParser::Function_defContext::newline() {
   return getRuleContext<zsharp_parserParser::NewlineContext>(0);
 }
 
-zsharp_parserParser::CodeblockContext* zsharp_parserParser::Function_declContext::codeblock() {
+zsharp_parserParser::CodeblockContext* zsharp_parserParser::Function_defContext::codeblock() {
   return getRuleContext<zsharp_parserParser::CodeblockContext>(0);
 }
 
-zsharp_parserParser::IndentContext* zsharp_parserParser::Function_declContext::indent() {
+zsharp_parserParser::IndentContext* zsharp_parserParser::Function_defContext::indent() {
   return getRuleContext<zsharp_parserParser::IndentContext>(0);
 }
 
-zsharp_parserParser::Function_parameter_listContext* zsharp_parserParser::Function_declContext::function_parameter_list() {
+zsharp_parserParser::Function_parameter_listContext* zsharp_parserParser::Function_defContext::function_parameter_list() {
   return getRuleContext<zsharp_parserParser::Function_parameter_listContext>(0);
 }
 
-zsharp_parserParser::Function_typeContext* zsharp_parserParser::Function_declContext::function_type() {
+zsharp_parserParser::Function_typeContext* zsharp_parserParser::Function_defContext::function_type() {
   return getRuleContext<zsharp_parserParser::Function_typeContext>(0);
 }
 
 
-size_t zsharp_parserParser::Function_declContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleFunction_decl;
+size_t zsharp_parserParser::Function_defContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleFunction_def;
 }
 
-void zsharp_parserParser::Function_declContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Function_defContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterFunction_decl(this);
+    parserListener->enterFunction_def(this);
 }
 
-void zsharp_parserParser::Function_declContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Function_defContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitFunction_decl(this);
+    parserListener->exitFunction_def(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Function_declContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Function_defContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitFunction_decl(this);
+    return parserVisitor->visitFunction_def(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Function_declContext* zsharp_parserParser::function_decl() {
-  Function_declContext *_localctx = _tracker.createInstance<Function_declContext>(_ctx, getState());
-  enterRule(_localctx, 58, zsharp_parserParser::RuleFunction_decl);
+zsharp_parserParser::Function_defContext* zsharp_parserParser::function_def() {
+  Function_defContext *_localctx = _tracker.createInstance<Function_defContext>(_ctx, getState());
+  enterRule(_localctx, 58, zsharp_parserParser::RuleFunction_def);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -3551,56 +3551,56 @@ zsharp_parserParser::Parameter_refContext* zsharp_parserParser::parameter_ref() 
   return _localctx;
 }
 
-//----------------- Variable_declContext ------------------------------------------------------------------
+//----------------- Variable_defContext ------------------------------------------------------------------
 
-zsharp_parserParser::Variable_declContext::Variable_declContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Variable_defContext::Variable_defContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-zsharp_parserParser::NewlineContext* zsharp_parserParser::Variable_declContext::newline() {
+zsharp_parserParser::NewlineContext* zsharp_parserParser::Variable_defContext::newline() {
   return getRuleContext<zsharp_parserParser::NewlineContext>(0);
 }
 
-zsharp_parserParser::Variable_decl_typedContext* zsharp_parserParser::Variable_declContext::variable_decl_typed() {
-  return getRuleContext<zsharp_parserParser::Variable_decl_typedContext>(0);
+zsharp_parserParser::Variable_def_typedContext* zsharp_parserParser::Variable_defContext::variable_def_typed() {
+  return getRuleContext<zsharp_parserParser::Variable_def_typedContext>(0);
 }
 
-zsharp_parserParser::Variable_decl_autoContext* zsharp_parserParser::Variable_declContext::variable_decl_auto() {
-  return getRuleContext<zsharp_parserParser::Variable_decl_autoContext>(0);
+zsharp_parserParser::Variable_def_autoContext* zsharp_parserParser::Variable_defContext::variable_def_auto() {
+  return getRuleContext<zsharp_parserParser::Variable_def_autoContext>(0);
 }
 
-zsharp_parserParser::IndentContext* zsharp_parserParser::Variable_declContext::indent() {
+zsharp_parserParser::IndentContext* zsharp_parserParser::Variable_defContext::indent() {
   return getRuleContext<zsharp_parserParser::IndentContext>(0);
 }
 
 
-size_t zsharp_parserParser::Variable_declContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleVariable_decl;
+size_t zsharp_parserParser::Variable_defContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleVariable_def;
 }
 
-void zsharp_parserParser::Variable_declContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Variable_defContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterVariable_decl(this);
+    parserListener->enterVariable_def(this);
 }
 
-void zsharp_parserParser::Variable_declContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Variable_defContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitVariable_decl(this);
+    parserListener->exitVariable_def(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Variable_declContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Variable_defContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitVariable_decl(this);
+    return parserVisitor->visitVariable_def(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Variable_declContext* zsharp_parserParser::variable_decl() {
-  Variable_declContext *_localctx = _tracker.createInstance<Variable_declContext>(_ctx, getState());
-  enterRule(_localctx, 74, zsharp_parserParser::RuleVariable_decl);
+zsharp_parserParser::Variable_defContext* zsharp_parserParser::variable_def() {
+  Variable_defContext *_localctx = _tracker.createInstance<Variable_defContext>(_ctx, getState());
+  enterRule(_localctx, 74, zsharp_parserParser::RuleVariable_def);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -3621,13 +3621,13 @@ zsharp_parserParser::Variable_declContext* zsharp_parserParser::variable_decl() 
     switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 35, _ctx)) {
     case 1: {
       setState(542);
-      variable_decl_typed();
+      variable_def_typed();
       break;
     }
 
     case 2: {
       setState(543);
-      variable_decl_auto();
+      variable_def_auto();
       break;
     }
 
@@ -3645,64 +3645,64 @@ zsharp_parserParser::Variable_declContext* zsharp_parserParser::variable_decl() 
   return _localctx;
 }
 
-//----------------- Variable_decl_typedContext ------------------------------------------------------------------
+//----------------- Variable_def_typedContext ------------------------------------------------------------------
 
-zsharp_parserParser::Variable_decl_typedContext::Variable_decl_typedContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Variable_def_typedContext::Variable_def_typedContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-zsharp_parserParser::Identifier_varContext* zsharp_parserParser::Variable_decl_typedContext::identifier_var() {
+zsharp_parserParser::Identifier_varContext* zsharp_parserParser::Variable_def_typedContext::identifier_var() {
   return getRuleContext<zsharp_parserParser::Identifier_varContext>(0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Variable_decl_typedContext::COLON() {
+tree::TerminalNode* zsharp_parserParser::Variable_def_typedContext::COLON() {
   return getToken(zsharp_parserParser::COLON, 0);
 }
 
-std::vector<tree::TerminalNode *> zsharp_parserParser::Variable_decl_typedContext::SP() {
+std::vector<tree::TerminalNode *> zsharp_parserParser::Variable_def_typedContext::SP() {
   return getTokens(zsharp_parserParser::SP);
 }
 
-tree::TerminalNode* zsharp_parserParser::Variable_decl_typedContext::SP(size_t i) {
+tree::TerminalNode* zsharp_parserParser::Variable_def_typedContext::SP(size_t i) {
   return getToken(zsharp_parserParser::SP, i);
 }
 
-zsharp_parserParser::Type_anyContext* zsharp_parserParser::Variable_decl_typedContext::type_any() {
+zsharp_parserParser::Type_anyContext* zsharp_parserParser::Variable_def_typedContext::type_any() {
   return getRuleContext<zsharp_parserParser::Type_anyContext>(0);
 }
 
-zsharp_parserParser::Variable_initContext* zsharp_parserParser::Variable_decl_typedContext::variable_init() {
+zsharp_parserParser::Variable_initContext* zsharp_parserParser::Variable_def_typedContext::variable_init() {
   return getRuleContext<zsharp_parserParser::Variable_initContext>(0);
 }
 
 
-size_t zsharp_parserParser::Variable_decl_typedContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleVariable_decl_typed;
+size_t zsharp_parserParser::Variable_def_typedContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleVariable_def_typed;
 }
 
-void zsharp_parserParser::Variable_decl_typedContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Variable_def_typedContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterVariable_decl_typed(this);
+    parserListener->enterVariable_def_typed(this);
 }
 
-void zsharp_parserParser::Variable_decl_typedContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Variable_def_typedContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitVariable_decl_typed(this);
+    parserListener->exitVariable_def_typed(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Variable_decl_typedContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Variable_def_typedContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitVariable_decl_typed(this);
+    return parserVisitor->visitVariable_def_typed(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Variable_decl_typedContext* zsharp_parserParser::variable_decl_typed() {
-  Variable_decl_typedContext *_localctx = _tracker.createInstance<Variable_decl_typedContext>(_ctx, getState());
-  enterRule(_localctx, 76, zsharp_parserParser::RuleVariable_decl_typed);
+zsharp_parserParser::Variable_def_typedContext* zsharp_parserParser::variable_def_typed() {
+  Variable_def_typedContext *_localctx = _tracker.createInstance<Variable_def_typedContext>(_ctx, getState());
+  enterRule(_localctx, 76, zsharp_parserParser::RuleVariable_def_typed);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -3739,52 +3739,52 @@ zsharp_parserParser::Variable_decl_typedContext* zsharp_parserParser::variable_d
   return _localctx;
 }
 
-//----------------- Variable_decl_autoContext ------------------------------------------------------------------
+//----------------- Variable_def_autoContext ------------------------------------------------------------------
 
-zsharp_parserParser::Variable_decl_autoContext::Variable_decl_autoContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Variable_def_autoContext::Variable_def_autoContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-zsharp_parserParser::Identifier_varContext* zsharp_parserParser::Variable_decl_autoContext::identifier_var() {
+zsharp_parserParser::Identifier_varContext* zsharp_parserParser::Variable_def_autoContext::identifier_var() {
   return getRuleContext<zsharp_parserParser::Identifier_varContext>(0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Variable_decl_autoContext::SP() {
+tree::TerminalNode* zsharp_parserParser::Variable_def_autoContext::SP() {
   return getToken(zsharp_parserParser::SP, 0);
 }
 
-zsharp_parserParser::Variable_initContext* zsharp_parserParser::Variable_decl_autoContext::variable_init() {
+zsharp_parserParser::Variable_initContext* zsharp_parserParser::Variable_def_autoContext::variable_init() {
   return getRuleContext<zsharp_parserParser::Variable_initContext>(0);
 }
 
 
-size_t zsharp_parserParser::Variable_decl_autoContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleVariable_decl_auto;
+size_t zsharp_parserParser::Variable_def_autoContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleVariable_def_auto;
 }
 
-void zsharp_parserParser::Variable_decl_autoContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Variable_def_autoContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterVariable_decl_auto(this);
+    parserListener->enterVariable_def_auto(this);
 }
 
-void zsharp_parserParser::Variable_decl_autoContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Variable_def_autoContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitVariable_decl_auto(this);
+    parserListener->exitVariable_def_auto(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Variable_decl_autoContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Variable_def_autoContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitVariable_decl_auto(this);
+    return parserVisitor->visitVariable_def_auto(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Variable_decl_autoContext* zsharp_parserParser::variable_decl_auto() {
-  Variable_decl_autoContext *_localctx = _tracker.createInstance<Variable_decl_autoContext>(_ctx, getState());
-  enterRule(_localctx, 78, zsharp_parserParser::RuleVariable_decl_auto);
+zsharp_parserParser::Variable_def_autoContext* zsharp_parserParser::variable_def_auto() {
+  Variable_def_autoContext *_localctx = _tracker.createInstance<Variable_def_autoContext>(_ctx, getState());
+  enterRule(_localctx, 78, zsharp_parserParser::RuleVariable_def_auto);
 
   auto onExit = finally([=] {
     exitRule();
@@ -3877,64 +3877,64 @@ zsharp_parserParser::Variable_initContext* zsharp_parserParser::variable_init() 
   return _localctx;
 }
 
-//----------------- Struct_declContext ------------------------------------------------------------------
+//----------------- Struct_defContext ------------------------------------------------------------------
 
-zsharp_parserParser::Struct_declContext::Struct_declContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Struct_defContext::Struct_defContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-zsharp_parserParser::Identifier_typeContext* zsharp_parserParser::Struct_declContext::identifier_type() {
+zsharp_parserParser::Identifier_typeContext* zsharp_parserParser::Struct_defContext::identifier_type() {
   return getRuleContext<zsharp_parserParser::Identifier_typeContext>(0);
 }
 
-zsharp_parserParser::NewlineContext* zsharp_parserParser::Struct_declContext::newline() {
+zsharp_parserParser::NewlineContext* zsharp_parserParser::Struct_defContext::newline() {
   return getRuleContext<zsharp_parserParser::NewlineContext>(0);
 }
 
-zsharp_parserParser::Struct_field_decl_listContext* zsharp_parserParser::Struct_declContext::struct_field_decl_list() {
-  return getRuleContext<zsharp_parserParser::Struct_field_decl_listContext>(0);
+zsharp_parserParser::Struct_field_def_listContext* zsharp_parserParser::Struct_defContext::struct_field_def_list() {
+  return getRuleContext<zsharp_parserParser::Struct_field_def_listContext>(0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Struct_declContext::COLON() {
+tree::TerminalNode* zsharp_parserParser::Struct_defContext::COLON() {
   return getToken(zsharp_parserParser::COLON, 0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Struct_declContext::SP() {
+tree::TerminalNode* zsharp_parserParser::Struct_defContext::SP() {
   return getToken(zsharp_parserParser::SP, 0);
 }
 
-zsharp_parserParser::Type_anyContext* zsharp_parserParser::Struct_declContext::type_any() {
+zsharp_parserParser::Type_anyContext* zsharp_parserParser::Struct_defContext::type_any() {
   return getRuleContext<zsharp_parserParser::Type_anyContext>(0);
 }
 
 
-size_t zsharp_parserParser::Struct_declContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleStruct_decl;
+size_t zsharp_parserParser::Struct_defContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleStruct_def;
 }
 
-void zsharp_parserParser::Struct_declContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Struct_defContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterStruct_decl(this);
+    parserListener->enterStruct_def(this);
 }
 
-void zsharp_parserParser::Struct_declContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Struct_defContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitStruct_decl(this);
+    parserListener->exitStruct_def(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Struct_declContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Struct_defContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitStruct_decl(this);
+    return parserVisitor->visitStruct_def(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Struct_declContext* zsharp_parserParser::struct_decl() {
-  Struct_declContext *_localctx = _tracker.createInstance<Struct_declContext>(_ctx, getState());
-  enterRule(_localctx, 82, zsharp_parserParser::RuleStruct_decl);
+zsharp_parserParser::Struct_defContext* zsharp_parserParser::struct_def() {
+  Struct_defContext *_localctx = _tracker.createInstance<Struct_defContext>(_ctx, getState());
+  enterRule(_localctx, 82, zsharp_parserParser::RuleStruct_def);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -3959,7 +3959,7 @@ zsharp_parserParser::Struct_declContext* zsharp_parserParser::struct_decl() {
     setState(570);
     newline();
     setState(571);
-    struct_field_decl_list();
+    struct_field_def_list();
    
   }
   catch (RecognitionException &e) {
@@ -3971,48 +3971,48 @@ zsharp_parserParser::Struct_declContext* zsharp_parserParser::struct_decl() {
   return _localctx;
 }
 
-//----------------- Struct_field_decl_listContext ------------------------------------------------------------------
+//----------------- Struct_field_def_listContext ------------------------------------------------------------------
 
-zsharp_parserParser::Struct_field_decl_listContext::Struct_field_decl_listContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Struct_field_def_listContext::Struct_field_def_listContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<zsharp_parserParser::Struct_field_declContext *> zsharp_parserParser::Struct_field_decl_listContext::struct_field_decl() {
-  return getRuleContexts<zsharp_parserParser::Struct_field_declContext>();
+std::vector<zsharp_parserParser::Struct_field_defContext *> zsharp_parserParser::Struct_field_def_listContext::struct_field_def() {
+  return getRuleContexts<zsharp_parserParser::Struct_field_defContext>();
 }
 
-zsharp_parserParser::Struct_field_declContext* zsharp_parserParser::Struct_field_decl_listContext::struct_field_decl(size_t i) {
-  return getRuleContext<zsharp_parserParser::Struct_field_declContext>(i);
+zsharp_parserParser::Struct_field_defContext* zsharp_parserParser::Struct_field_def_listContext::struct_field_def(size_t i) {
+  return getRuleContext<zsharp_parserParser::Struct_field_defContext>(i);
 }
 
 
-size_t zsharp_parserParser::Struct_field_decl_listContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleStruct_field_decl_list;
+size_t zsharp_parserParser::Struct_field_def_listContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleStruct_field_def_list;
 }
 
-void zsharp_parserParser::Struct_field_decl_listContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Struct_field_def_listContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterStruct_field_decl_list(this);
+    parserListener->enterStruct_field_def_list(this);
 }
 
-void zsharp_parserParser::Struct_field_decl_listContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Struct_field_def_listContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitStruct_field_decl_list(this);
+    parserListener->exitStruct_field_def_list(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Struct_field_decl_listContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Struct_field_def_listContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitStruct_field_decl_list(this);
+    return parserVisitor->visitStruct_field_def_list(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Struct_field_decl_listContext* zsharp_parserParser::struct_field_decl_list() {
-  Struct_field_decl_listContext *_localctx = _tracker.createInstance<Struct_field_decl_listContext>(_ctx, getState());
-  enterRule(_localctx, 84, zsharp_parserParser::RuleStruct_field_decl_list);
+zsharp_parserParser::Struct_field_def_listContext* zsharp_parserParser::struct_field_def_list() {
+  Struct_field_def_listContext *_localctx = _tracker.createInstance<Struct_field_def_listContext>(_ctx, getState());
+  enterRule(_localctx, 84, zsharp_parserParser::RuleStruct_field_def_list);
 
   auto onExit = finally([=] {
     exitRule();
@@ -4027,7 +4027,7 @@ zsharp_parserParser::Struct_field_decl_listContext* zsharp_parserParser::struct_
       switch (alt) {
         case 1: {
               setState(573);
-              struct_field_decl();
+              struct_field_def();
               break;
             }
 
@@ -4049,64 +4049,64 @@ zsharp_parserParser::Struct_field_decl_listContext* zsharp_parserParser::struct_
   return _localctx;
 }
 
-//----------------- Struct_field_declContext ------------------------------------------------------------------
+//----------------- Struct_field_defContext ------------------------------------------------------------------
 
-zsharp_parserParser::Struct_field_declContext::Struct_field_declContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Struct_field_defContext::Struct_field_defContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-zsharp_parserParser::IndentContext* zsharp_parserParser::Struct_field_declContext::indent() {
+zsharp_parserParser::IndentContext* zsharp_parserParser::Struct_field_defContext::indent() {
   return getRuleContext<zsharp_parserParser::IndentContext>(0);
 }
 
-zsharp_parserParser::Identifier_fieldContext* zsharp_parserParser::Struct_field_declContext::identifier_field() {
+zsharp_parserParser::Identifier_fieldContext* zsharp_parserParser::Struct_field_defContext::identifier_field() {
   return getRuleContext<zsharp_parserParser::Identifier_fieldContext>(0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Struct_field_declContext::COLON() {
+tree::TerminalNode* zsharp_parserParser::Struct_field_defContext::COLON() {
   return getToken(zsharp_parserParser::COLON, 0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Struct_field_declContext::SP() {
+tree::TerminalNode* zsharp_parserParser::Struct_field_defContext::SP() {
   return getToken(zsharp_parserParser::SP, 0);
 }
 
-zsharp_parserParser::Type_anyContext* zsharp_parserParser::Struct_field_declContext::type_any() {
+zsharp_parserParser::Type_anyContext* zsharp_parserParser::Struct_field_defContext::type_any() {
   return getRuleContext<zsharp_parserParser::Type_anyContext>(0);
 }
 
-zsharp_parserParser::NewlineContext* zsharp_parserParser::Struct_field_declContext::newline() {
+zsharp_parserParser::NewlineContext* zsharp_parserParser::Struct_field_defContext::newline() {
   return getRuleContext<zsharp_parserParser::NewlineContext>(0);
 }
 
 
-size_t zsharp_parserParser::Struct_field_declContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleStruct_field_decl;
+size_t zsharp_parserParser::Struct_field_defContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleStruct_field_def;
 }
 
-void zsharp_parserParser::Struct_field_declContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Struct_field_defContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterStruct_field_decl(this);
+    parserListener->enterStruct_field_def(this);
 }
 
-void zsharp_parserParser::Struct_field_declContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Struct_field_defContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitStruct_field_decl(this);
+    parserListener->exitStruct_field_def(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Struct_field_declContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Struct_field_defContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitStruct_field_decl(this);
+    return parserVisitor->visitStruct_field_def(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Struct_field_declContext* zsharp_parserParser::struct_field_decl() {
-  Struct_field_declContext *_localctx = _tracker.createInstance<Struct_field_declContext>(_ctx, getState());
-  enterRule(_localctx, 86, zsharp_parserParser::RuleStruct_field_decl);
+zsharp_parserParser::Struct_field_defContext* zsharp_parserParser::struct_field_def() {
+  Struct_field_defContext *_localctx = _tracker.createInstance<Struct_field_defContext>(_ctx, getState());
+  enterRule(_localctx, 86, zsharp_parserParser::RuleStruct_field_def);
 
   auto onExit = finally([=] {
     exitRule();
@@ -4136,64 +4136,64 @@ zsharp_parserParser::Struct_field_declContext* zsharp_parserParser::struct_field
   return _localctx;
 }
 
-//----------------- Enum_declContext ------------------------------------------------------------------
+//----------------- Enum_defContext ------------------------------------------------------------------
 
-zsharp_parserParser::Enum_declContext::Enum_declContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Enum_defContext::Enum_defContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-zsharp_parserParser::Identifier_typeContext* zsharp_parserParser::Enum_declContext::identifier_type() {
+zsharp_parserParser::Identifier_typeContext* zsharp_parserParser::Enum_defContext::identifier_type() {
   return getRuleContext<zsharp_parserParser::Identifier_typeContext>(0);
 }
 
-zsharp_parserParser::NewlineContext* zsharp_parserParser::Enum_declContext::newline() {
+zsharp_parserParser::NewlineContext* zsharp_parserParser::Enum_defContext::newline() {
   return getRuleContext<zsharp_parserParser::NewlineContext>(0);
 }
 
-zsharp_parserParser::Enum_option_decl_listContext* zsharp_parserParser::Enum_declContext::enum_option_decl_list() {
-  return getRuleContext<zsharp_parserParser::Enum_option_decl_listContext>(0);
+zsharp_parserParser::Enum_option_def_listContext* zsharp_parserParser::Enum_defContext::enum_option_def_list() {
+  return getRuleContext<zsharp_parserParser::Enum_option_def_listContext>(0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Enum_declContext::COLON() {
+tree::TerminalNode* zsharp_parserParser::Enum_defContext::COLON() {
   return getToken(zsharp_parserParser::COLON, 0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Enum_declContext::SP() {
+tree::TerminalNode* zsharp_parserParser::Enum_defContext::SP() {
   return getToken(zsharp_parserParser::SP, 0);
 }
 
-zsharp_parserParser::Enum_base_typesContext* zsharp_parserParser::Enum_declContext::enum_base_types() {
+zsharp_parserParser::Enum_base_typesContext* zsharp_parserParser::Enum_defContext::enum_base_types() {
   return getRuleContext<zsharp_parserParser::Enum_base_typesContext>(0);
 }
 
 
-size_t zsharp_parserParser::Enum_declContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleEnum_decl;
+size_t zsharp_parserParser::Enum_defContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleEnum_def;
 }
 
-void zsharp_parserParser::Enum_declContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Enum_defContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterEnum_decl(this);
+    parserListener->enterEnum_def(this);
 }
 
-void zsharp_parserParser::Enum_declContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Enum_defContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitEnum_decl(this);
+    parserListener->exitEnum_def(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Enum_declContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Enum_defContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitEnum_decl(this);
+    return parserVisitor->visitEnum_def(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Enum_declContext* zsharp_parserParser::enum_decl() {
-  Enum_declContext *_localctx = _tracker.createInstance<Enum_declContext>(_ctx, getState());
-  enterRule(_localctx, 88, zsharp_parserParser::RuleEnum_decl);
+zsharp_parserParser::Enum_defContext* zsharp_parserParser::enum_def() {
+  Enum_defContext *_localctx = _tracker.createInstance<Enum_defContext>(_ctx, getState());
+  enterRule(_localctx, 88, zsharp_parserParser::RuleEnum_def);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -4218,7 +4218,7 @@ zsharp_parserParser::Enum_declContext* zsharp_parserParser::enum_decl() {
     setState(591);
     newline();
     setState(592);
-    enum_option_decl_list();
+    enum_option_def_list();
    
   }
   catch (RecognitionException &e) {
@@ -4230,48 +4230,48 @@ zsharp_parserParser::Enum_declContext* zsharp_parserParser::enum_decl() {
   return _localctx;
 }
 
-//----------------- Enum_option_decl_listContext ------------------------------------------------------------------
+//----------------- Enum_option_def_listContext ------------------------------------------------------------------
 
-zsharp_parserParser::Enum_option_decl_listContext::Enum_option_decl_listContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Enum_option_def_listContext::Enum_option_def_listContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-std::vector<zsharp_parserParser::Enum_option_declContext *> zsharp_parserParser::Enum_option_decl_listContext::enum_option_decl() {
-  return getRuleContexts<zsharp_parserParser::Enum_option_declContext>();
+std::vector<zsharp_parserParser::Enum_option_defContext *> zsharp_parserParser::Enum_option_def_listContext::enum_option_def() {
+  return getRuleContexts<zsharp_parserParser::Enum_option_defContext>();
 }
 
-zsharp_parserParser::Enum_option_declContext* zsharp_parserParser::Enum_option_decl_listContext::enum_option_decl(size_t i) {
-  return getRuleContext<zsharp_parserParser::Enum_option_declContext>(i);
+zsharp_parserParser::Enum_option_defContext* zsharp_parserParser::Enum_option_def_listContext::enum_option_def(size_t i) {
+  return getRuleContext<zsharp_parserParser::Enum_option_defContext>(i);
 }
 
 
-size_t zsharp_parserParser::Enum_option_decl_listContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleEnum_option_decl_list;
+size_t zsharp_parserParser::Enum_option_def_listContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleEnum_option_def_list;
 }
 
-void zsharp_parserParser::Enum_option_decl_listContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Enum_option_def_listContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterEnum_option_decl_list(this);
+    parserListener->enterEnum_option_def_list(this);
 }
 
-void zsharp_parserParser::Enum_option_decl_listContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Enum_option_def_listContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitEnum_option_decl_list(this);
+    parserListener->exitEnum_option_def_list(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Enum_option_decl_listContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Enum_option_def_listContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitEnum_option_decl_list(this);
+    return parserVisitor->visitEnum_option_def_list(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Enum_option_decl_listContext* zsharp_parserParser::enum_option_decl_list() {
-  Enum_option_decl_listContext *_localctx = _tracker.createInstance<Enum_option_decl_listContext>(_ctx, getState());
-  enterRule(_localctx, 90, zsharp_parserParser::RuleEnum_option_decl_list);
+zsharp_parserParser::Enum_option_def_listContext* zsharp_parserParser::enum_option_def_list() {
+  Enum_option_def_listContext *_localctx = _tracker.createInstance<Enum_option_def_listContext>(_ctx, getState());
+  enterRule(_localctx, 90, zsharp_parserParser::RuleEnum_option_def_list);
 
   auto onExit = finally([=] {
     exitRule();
@@ -4286,7 +4286,7 @@ zsharp_parserParser::Enum_option_decl_listContext* zsharp_parserParser::enum_opt
       switch (alt) {
         case 1: {
               setState(594);
-              enum_option_decl();
+              enum_option_def();
               break;
             }
 
@@ -4308,72 +4308,72 @@ zsharp_parserParser::Enum_option_decl_listContext* zsharp_parserParser::enum_opt
   return _localctx;
 }
 
-//----------------- Enum_option_declContext ------------------------------------------------------------------
+//----------------- Enum_option_defContext ------------------------------------------------------------------
 
-zsharp_parserParser::Enum_option_declContext::Enum_option_declContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Enum_option_defContext::Enum_option_defContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-zsharp_parserParser::IndentContext* zsharp_parserParser::Enum_option_declContext::indent() {
+zsharp_parserParser::IndentContext* zsharp_parserParser::Enum_option_defContext::indent() {
   return getRuleContext<zsharp_parserParser::IndentContext>(0);
 }
 
-zsharp_parserParser::Identifier_enumoptionContext* zsharp_parserParser::Enum_option_declContext::identifier_enumoption() {
+zsharp_parserParser::Identifier_enumoptionContext* zsharp_parserParser::Enum_option_defContext::identifier_enumoption() {
   return getRuleContext<zsharp_parserParser::Identifier_enumoptionContext>(0);
 }
 
-zsharp_parserParser::NewlineContext* zsharp_parserParser::Enum_option_declContext::newline() {
+zsharp_parserParser::NewlineContext* zsharp_parserParser::Enum_option_defContext::newline() {
   return getRuleContext<zsharp_parserParser::NewlineContext>(0);
 }
 
-std::vector<tree::TerminalNode *> zsharp_parserParser::Enum_option_declContext::SP() {
+std::vector<tree::TerminalNode *> zsharp_parserParser::Enum_option_defContext::SP() {
   return getTokens(zsharp_parserParser::SP);
 }
 
-tree::TerminalNode* zsharp_parserParser::Enum_option_declContext::SP(size_t i) {
+tree::TerminalNode* zsharp_parserParser::Enum_option_defContext::SP(size_t i) {
   return getToken(zsharp_parserParser::SP, i);
 }
 
-tree::TerminalNode* zsharp_parserParser::Enum_option_declContext::EQ_ASSIGN() {
+tree::TerminalNode* zsharp_parserParser::Enum_option_defContext::EQ_ASSIGN() {
   return getToken(zsharp_parserParser::EQ_ASSIGN, 0);
 }
 
-zsharp_parserParser::Comptime_expression_valueContext* zsharp_parserParser::Enum_option_declContext::comptime_expression_value() {
+zsharp_parserParser::Comptime_expression_valueContext* zsharp_parserParser::Enum_option_defContext::comptime_expression_value() {
   return getRuleContext<zsharp_parserParser::Comptime_expression_valueContext>(0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Enum_option_declContext::COMMA() {
+tree::TerminalNode* zsharp_parserParser::Enum_option_defContext::COMMA() {
   return getToken(zsharp_parserParser::COMMA, 0);
 }
 
 
-size_t zsharp_parserParser::Enum_option_declContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleEnum_option_decl;
+size_t zsharp_parserParser::Enum_option_defContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleEnum_option_def;
 }
 
-void zsharp_parserParser::Enum_option_declContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Enum_option_defContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterEnum_option_decl(this);
+    parserListener->enterEnum_option_def(this);
 }
 
-void zsharp_parserParser::Enum_option_declContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Enum_option_defContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitEnum_option_decl(this);
+    parserListener->exitEnum_option_def(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Enum_option_declContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Enum_option_defContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitEnum_option_decl(this);
+    return parserVisitor->visitEnum_option_def(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Enum_option_declContext* zsharp_parserParser::enum_option_decl() {
-  Enum_option_declContext *_localctx = _tracker.createInstance<Enum_option_declContext>(_ctx, getState());
-  enterRule(_localctx, 92, zsharp_parserParser::RuleEnum_option_decl);
+zsharp_parserParser::Enum_option_defContext* zsharp_parserParser::enum_option_def() {
+  Enum_option_defContext *_localctx = _tracker.createInstance<Enum_option_defContext>(_ctx, getState());
+  enterRule(_localctx, 92, zsharp_parserParser::RuleEnum_option_def);
   size_t _la = 0;
 
   auto onExit = finally([=] {
@@ -10237,15 +10237,15 @@ std::vector<std::string> zsharp_parserParser::_ruleNames = {
   "file", "codeblock", "module_statement", "module_name", "statement_module", 
   "statement_import", "statement_export", "flow_statement", "statement_return", 
   "statement_if", "statement_else", "statement_elseif", "statement_break", 
-  "statement_continue", "declaration_top", "declaration", "expression_value", 
+  "statement_continue", "definition_top", "definition", "expression_value", 
   "comptime_expression_value", "expression_arithmetic", "arithmetic_operand", 
   "expression_logic", "logic_operand", "expression_comparison", "comparison_operand", 
   "expression_bitwise", "bitwise_operand", "expression_bool", "identifier_bool", 
-  "function_call", "function_decl", "function_parameter_list", "function_parameter", 
+  "function_call", "function_def", "function_parameter_list", "function_parameter", 
   "function_type", "function_parameter_uselist", "function_param_use", "variable_ref", 
-  "parameter_ref", "variable_decl", "variable_decl_typed", "variable_decl_auto", 
-  "variable_init", "struct_decl", "struct_field_decl_list", "struct_field_decl", 
-  "enum_decl", "enum_option_decl_list", "enum_option_decl", "enum_base_types", 
+  "parameter_ref", "variable_def", "variable_def_typed", "variable_def_auto", 
+  "variable_init", "struct_def", "struct_field_def_list", "struct_field_def", 
+  "enum_def", "enum_option_def_list", "enum_option_def", "enum_base_types", 
   "type_any", "optional_type", "error_type", "optional_error_type", "type_name", 
   "known_types", "type_U8", "type_U16", "type_U24", "type_U32", "type_I8", 
   "type_I16", "type_I24", "type_I32", "type_F16", "type_F32", "type_Str", 

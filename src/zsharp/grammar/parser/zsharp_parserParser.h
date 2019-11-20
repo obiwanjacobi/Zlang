@@ -34,18 +34,18 @@ public:
     RuleStatement_module = 4, RuleStatement_import = 5, RuleStatement_export = 6, 
     RuleFlow_statement = 7, RuleStatement_return = 8, RuleStatement_if = 9, 
     RuleStatement_else = 10, RuleStatement_elseif = 11, RuleStatement_break = 12, 
-    RuleStatement_continue = 13, RuleDeclaration_top = 14, RuleDeclaration = 15, 
+    RuleStatement_continue = 13, RuleDefinition_top = 14, RuleDefinition = 15, 
     RuleExpression_value = 16, RuleComptime_expression_value = 17, RuleExpression_arithmetic = 18, 
     RuleArithmetic_operand = 19, RuleExpression_logic = 20, RuleLogic_operand = 21, 
     RuleExpression_comparison = 22, RuleComparison_operand = 23, RuleExpression_bitwise = 24, 
     RuleBitwise_operand = 25, RuleExpression_bool = 26, RuleIdentifier_bool = 27, 
-    RuleFunction_call = 28, RuleFunction_decl = 29, RuleFunction_parameter_list = 30, 
+    RuleFunction_call = 28, RuleFunction_def = 29, RuleFunction_parameter_list = 30, 
     RuleFunction_parameter = 31, RuleFunction_type = 32, RuleFunction_parameter_uselist = 33, 
     RuleFunction_param_use = 34, RuleVariable_ref = 35, RuleParameter_ref = 36, 
-    RuleVariable_decl = 37, RuleVariable_decl_typed = 38, RuleVariable_decl_auto = 39, 
-    RuleVariable_init = 40, RuleStruct_decl = 41, RuleStruct_field_decl_list = 42, 
-    RuleStruct_field_decl = 43, RuleEnum_decl = 44, RuleEnum_option_decl_list = 45, 
-    RuleEnum_option_decl = 46, RuleEnum_base_types = 47, RuleType_any = 48, 
+    RuleVariable_def = 37, RuleVariable_def_typed = 38, RuleVariable_def_auto = 39, 
+    RuleVariable_init = 40, RuleStruct_def = 41, RuleStruct_field_def_list = 42, 
+    RuleStruct_field_def = 43, RuleEnum_def = 44, RuleEnum_option_def_list = 45, 
+    RuleEnum_option_def = 46, RuleEnum_base_types = 47, RuleType_any = 48, 
     RuleOptional_type = 49, RuleError_type = 50, RuleOptional_error_type = 51, 
     RuleType_name = 52, RuleKnown_types = 53, RuleType_U8 = 54, RuleType_U16 = 55, 
     RuleType_U24 = 56, RuleType_U32 = 57, RuleType_I8 = 58, RuleType_I16 = 59, 
@@ -96,8 +96,8 @@ public:
   class Statement_elseifContext;
   class Statement_breakContext;
   class Statement_continueContext;
-  class Declaration_topContext;
-  class DeclarationContext;
+  class Definition_topContext;
+  class DefinitionContext;
   class Expression_valueContext;
   class Comptime_expression_valueContext;
   class Expression_arithmeticContext;
@@ -111,7 +111,7 @@ public:
   class Expression_boolContext;
   class Identifier_boolContext;
   class Function_callContext;
-  class Function_declContext;
+  class Function_defContext;
   class Function_parameter_listContext;
   class Function_parameterContext;
   class Function_typeContext;
@@ -119,16 +119,16 @@ public:
   class Function_param_useContext;
   class Variable_refContext;
   class Parameter_refContext;
-  class Variable_declContext;
-  class Variable_decl_typedContext;
-  class Variable_decl_autoContext;
+  class Variable_defContext;
+  class Variable_def_typedContext;
+  class Variable_def_autoContext;
   class Variable_initContext;
-  class Struct_declContext;
-  class Struct_field_decl_listContext;
-  class Struct_field_declContext;
-  class Enum_declContext;
-  class Enum_option_decl_listContext;
-  class Enum_option_declContext;
+  class Struct_defContext;
+  class Struct_field_def_listContext;
+  class Struct_field_defContext;
+  class Enum_defContext;
+  class Enum_option_def_listContext;
+  class Enum_option_defContext;
   class Enum_base_typesContext;
   class Type_anyContext;
   class Optional_typeContext;
@@ -223,8 +223,8 @@ public:
     antlr4::tree::TerminalNode *EOF();
     std::vector<Module_statementContext *> module_statement();
     Module_statementContext* module_statement(size_t i);
-    std::vector<Declaration_topContext *> declaration_top();
-    Declaration_topContext* declaration_top(size_t i);
+    std::vector<Definition_topContext *> definition_top();
+    Definition_topContext* definition_top(size_t i);
     std::vector<CommentContext *> comment();
     CommentContext* comment(size_t i);
     std::vector<Empty_lineContext *> empty_line();
@@ -245,8 +245,8 @@ public:
     virtual size_t getRuleIndex() const override;
     std::vector<Flow_statementContext *> flow_statement();
     Flow_statementContext* flow_statement(size_t i);
-    std::vector<DeclarationContext *> declaration();
-    DeclarationContext* declaration(size_t i);
+    std::vector<DefinitionContext *> definition();
+    DefinitionContext* definition(size_t i);
     std::vector<CommentContext *> comment();
     CommentContext* comment(size_t i);
     std::vector<Empty_lineContext *> empty_line();
@@ -481,14 +481,14 @@ public:
 
   Statement_continueContext* statement_continue();
 
-  class  Declaration_topContext : public antlr4::ParserRuleContext {
+  class  Definition_topContext : public antlr4::ParserRuleContext {
   public:
-    Declaration_topContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Definition_topContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Function_declContext *function_decl();
-    Enum_declContext *enum_decl();
-    Struct_declContext *struct_decl();
-    Variable_declContext *variable_decl();
+    Function_defContext *function_def();
+    Enum_defContext *enum_def();
+    Struct_defContext *struct_def();
+    Variable_defContext *variable_def();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -497,13 +497,13 @@ public:
    
   };
 
-  Declaration_topContext* declaration_top();
+  Definition_topContext* definition_top();
 
-  class  DeclarationContext : public antlr4::ParserRuleContext {
+  class  DefinitionContext : public antlr4::ParserRuleContext {
   public:
-    DeclarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    DefinitionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Variable_declContext *variable_decl();
+    Variable_defContext *variable_def();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -512,7 +512,7 @@ public:
    
   };
 
-  DeclarationContext* declaration();
+  DefinitionContext* definition();
 
   class  Expression_valueContext : public antlr4::ParserRuleContext {
   public:
@@ -756,9 +756,9 @@ public:
 
   Function_callContext* function_call();
 
-  class  Function_declContext : public antlr4::ParserRuleContext {
+  class  Function_defContext : public antlr4::ParserRuleContext {
   public:
-    Function_declContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Function_defContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     Identifier_funcContext *identifier_func();
     antlr4::tree::TerminalNode *PARENopen();
@@ -776,7 +776,7 @@ public:
    
   };
 
-  Function_declContext* function_decl();
+  Function_defContext* function_def();
 
   class  Function_parameter_listContext : public antlr4::ParserRuleContext {
   public:
@@ -901,13 +901,13 @@ public:
 
   Parameter_refContext* parameter_ref();
 
-  class  Variable_declContext : public antlr4::ParserRuleContext {
+  class  Variable_defContext : public antlr4::ParserRuleContext {
   public:
-    Variable_declContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Variable_defContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     NewlineContext *newline();
-    Variable_decl_typedContext *variable_decl_typed();
-    Variable_decl_autoContext *variable_decl_auto();
+    Variable_def_typedContext *variable_def_typed();
+    Variable_def_autoContext *variable_def_auto();
     IndentContext *indent();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -917,11 +917,11 @@ public:
    
   };
 
-  Variable_declContext* variable_decl();
+  Variable_defContext* variable_def();
 
-  class  Variable_decl_typedContext : public antlr4::ParserRuleContext {
+  class  Variable_def_typedContext : public antlr4::ParserRuleContext {
   public:
-    Variable_decl_typedContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Variable_def_typedContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     Identifier_varContext *identifier_var();
     antlr4::tree::TerminalNode *COLON();
@@ -937,11 +937,11 @@ public:
    
   };
 
-  Variable_decl_typedContext* variable_decl_typed();
+  Variable_def_typedContext* variable_def_typed();
 
-  class  Variable_decl_autoContext : public antlr4::ParserRuleContext {
+  class  Variable_def_autoContext : public antlr4::ParserRuleContext {
   public:
-    Variable_decl_autoContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Variable_def_autoContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     Identifier_varContext *identifier_var();
     antlr4::tree::TerminalNode *SP();
@@ -954,7 +954,7 @@ public:
    
   };
 
-  Variable_decl_autoContext* variable_decl_auto();
+  Variable_def_autoContext* variable_def_auto();
 
   class  Variable_initContext : public antlr4::ParserRuleContext {
   public:
@@ -973,13 +973,13 @@ public:
 
   Variable_initContext* variable_init();
 
-  class  Struct_declContext : public antlr4::ParserRuleContext {
+  class  Struct_defContext : public antlr4::ParserRuleContext {
   public:
-    Struct_declContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Struct_defContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     Identifier_typeContext *identifier_type();
     NewlineContext *newline();
-    Struct_field_decl_listContext *struct_field_decl_list();
+    Struct_field_def_listContext *struct_field_def_list();
     antlr4::tree::TerminalNode *COLON();
     antlr4::tree::TerminalNode *SP();
     Type_anyContext *type_any();
@@ -991,14 +991,14 @@ public:
    
   };
 
-  Struct_declContext* struct_decl();
+  Struct_defContext* struct_def();
 
-  class  Struct_field_decl_listContext : public antlr4::ParserRuleContext {
+  class  Struct_field_def_listContext : public antlr4::ParserRuleContext {
   public:
-    Struct_field_decl_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Struct_field_def_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<Struct_field_declContext *> struct_field_decl();
-    Struct_field_declContext* struct_field_decl(size_t i);
+    std::vector<Struct_field_defContext *> struct_field_def();
+    Struct_field_defContext* struct_field_def(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1007,11 +1007,11 @@ public:
    
   };
 
-  Struct_field_decl_listContext* struct_field_decl_list();
+  Struct_field_def_listContext* struct_field_def_list();
 
-  class  Struct_field_declContext : public antlr4::ParserRuleContext {
+  class  Struct_field_defContext : public antlr4::ParserRuleContext {
   public:
-    Struct_field_declContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Struct_field_defContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     IndentContext *indent();
     Identifier_fieldContext *identifier_field();
@@ -1027,15 +1027,15 @@ public:
    
   };
 
-  Struct_field_declContext* struct_field_decl();
+  Struct_field_defContext* struct_field_def();
 
-  class  Enum_declContext : public antlr4::ParserRuleContext {
+  class  Enum_defContext : public antlr4::ParserRuleContext {
   public:
-    Enum_declContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Enum_defContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     Identifier_typeContext *identifier_type();
     NewlineContext *newline();
-    Enum_option_decl_listContext *enum_option_decl_list();
+    Enum_option_def_listContext *enum_option_def_list();
     antlr4::tree::TerminalNode *COLON();
     antlr4::tree::TerminalNode *SP();
     Enum_base_typesContext *enum_base_types();
@@ -1047,14 +1047,14 @@ public:
    
   };
 
-  Enum_declContext* enum_decl();
+  Enum_defContext* enum_def();
 
-  class  Enum_option_decl_listContext : public antlr4::ParserRuleContext {
+  class  Enum_option_def_listContext : public antlr4::ParserRuleContext {
   public:
-    Enum_option_decl_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Enum_option_def_listContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<Enum_option_declContext *> enum_option_decl();
-    Enum_option_declContext* enum_option_decl(size_t i);
+    std::vector<Enum_option_defContext *> enum_option_def();
+    Enum_option_defContext* enum_option_def(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1063,11 +1063,11 @@ public:
    
   };
 
-  Enum_option_decl_listContext* enum_option_decl_list();
+  Enum_option_def_listContext* enum_option_def_list();
 
-  class  Enum_option_declContext : public antlr4::ParserRuleContext {
+  class  Enum_option_defContext : public antlr4::ParserRuleContext {
   public:
-    Enum_option_declContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Enum_option_defContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     IndentContext *indent();
     Identifier_enumoptionContext *identifier_enumoption();
@@ -1085,7 +1085,7 @@ public:
    
   };
 
-  Enum_option_declContext* enum_option_decl();
+  Enum_option_defContext* enum_option_def();
 
   class  Enum_base_typesContext : public antlr4::ParserRuleContext {
   public:

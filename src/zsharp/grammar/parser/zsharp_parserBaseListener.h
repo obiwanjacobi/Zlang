@@ -58,11 +58,11 @@ public:
   virtual void enterStatement_continue(zsharp_parserParser::Statement_continueContext * /*ctx*/) override { }
   virtual void exitStatement_continue(zsharp_parserParser::Statement_continueContext * /*ctx*/) override { }
 
-  virtual void enterDeclaration_top(zsharp_parserParser::Declaration_topContext * /*ctx*/) override { }
-  virtual void exitDeclaration_top(zsharp_parserParser::Declaration_topContext * /*ctx*/) override { }
+  virtual void enterDefinition_top(zsharp_parserParser::Definition_topContext * /*ctx*/) override { }
+  virtual void exitDefinition_top(zsharp_parserParser::Definition_topContext * /*ctx*/) override { }
 
-  virtual void enterDeclaration(zsharp_parserParser::DeclarationContext * /*ctx*/) override { }
-  virtual void exitDeclaration(zsharp_parserParser::DeclarationContext * /*ctx*/) override { }
+  virtual void enterDefinition(zsharp_parserParser::DefinitionContext * /*ctx*/) override { }
+  virtual void exitDefinition(zsharp_parserParser::DefinitionContext * /*ctx*/) override { }
 
   virtual void enterExpression_value(zsharp_parserParser::Expression_valueContext * /*ctx*/) override { }
   virtual void exitExpression_value(zsharp_parserParser::Expression_valueContext * /*ctx*/) override { }
@@ -103,8 +103,8 @@ public:
   virtual void enterFunction_call(zsharp_parserParser::Function_callContext * /*ctx*/) override { }
   virtual void exitFunction_call(zsharp_parserParser::Function_callContext * /*ctx*/) override { }
 
-  virtual void enterFunction_decl(zsharp_parserParser::Function_declContext * /*ctx*/) override { }
-  virtual void exitFunction_decl(zsharp_parserParser::Function_declContext * /*ctx*/) override { }
+  virtual void enterFunction_def(zsharp_parserParser::Function_defContext * /*ctx*/) override { }
+  virtual void exitFunction_def(zsharp_parserParser::Function_defContext * /*ctx*/) override { }
 
   virtual void enterFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext * /*ctx*/) override { }
   virtual void exitFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext * /*ctx*/) override { }
@@ -127,35 +127,35 @@ public:
   virtual void enterParameter_ref(zsharp_parserParser::Parameter_refContext * /*ctx*/) override { }
   virtual void exitParameter_ref(zsharp_parserParser::Parameter_refContext * /*ctx*/) override { }
 
-  virtual void enterVariable_decl(zsharp_parserParser::Variable_declContext * /*ctx*/) override { }
-  virtual void exitVariable_decl(zsharp_parserParser::Variable_declContext * /*ctx*/) override { }
+  virtual void enterVariable_def(zsharp_parserParser::Variable_defContext * /*ctx*/) override { }
+  virtual void exitVariable_def(zsharp_parserParser::Variable_defContext * /*ctx*/) override { }
 
-  virtual void enterVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext * /*ctx*/) override { }
-  virtual void exitVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext * /*ctx*/) override { }
+  virtual void enterVariable_def_typed(zsharp_parserParser::Variable_def_typedContext * /*ctx*/) override { }
+  virtual void exitVariable_def_typed(zsharp_parserParser::Variable_def_typedContext * /*ctx*/) override { }
 
-  virtual void enterVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext * /*ctx*/) override { }
-  virtual void exitVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext * /*ctx*/) override { }
+  virtual void enterVariable_def_auto(zsharp_parserParser::Variable_def_autoContext * /*ctx*/) override { }
+  virtual void exitVariable_def_auto(zsharp_parserParser::Variable_def_autoContext * /*ctx*/) override { }
 
   virtual void enterVariable_init(zsharp_parserParser::Variable_initContext * /*ctx*/) override { }
   virtual void exitVariable_init(zsharp_parserParser::Variable_initContext * /*ctx*/) override { }
 
-  virtual void enterStruct_decl(zsharp_parserParser::Struct_declContext * /*ctx*/) override { }
-  virtual void exitStruct_decl(zsharp_parserParser::Struct_declContext * /*ctx*/) override { }
+  virtual void enterStruct_def(zsharp_parserParser::Struct_defContext * /*ctx*/) override { }
+  virtual void exitStruct_def(zsharp_parserParser::Struct_defContext * /*ctx*/) override { }
 
-  virtual void enterStruct_field_decl_list(zsharp_parserParser::Struct_field_decl_listContext * /*ctx*/) override { }
-  virtual void exitStruct_field_decl_list(zsharp_parserParser::Struct_field_decl_listContext * /*ctx*/) override { }
+  virtual void enterStruct_field_def_list(zsharp_parserParser::Struct_field_def_listContext * /*ctx*/) override { }
+  virtual void exitStruct_field_def_list(zsharp_parserParser::Struct_field_def_listContext * /*ctx*/) override { }
 
-  virtual void enterStruct_field_decl(zsharp_parserParser::Struct_field_declContext * /*ctx*/) override { }
-  virtual void exitStruct_field_decl(zsharp_parserParser::Struct_field_declContext * /*ctx*/) override { }
+  virtual void enterStruct_field_def(zsharp_parserParser::Struct_field_defContext * /*ctx*/) override { }
+  virtual void exitStruct_field_def(zsharp_parserParser::Struct_field_defContext * /*ctx*/) override { }
 
-  virtual void enterEnum_decl(zsharp_parserParser::Enum_declContext * /*ctx*/) override { }
-  virtual void exitEnum_decl(zsharp_parserParser::Enum_declContext * /*ctx*/) override { }
+  virtual void enterEnum_def(zsharp_parserParser::Enum_defContext * /*ctx*/) override { }
+  virtual void exitEnum_def(zsharp_parserParser::Enum_defContext * /*ctx*/) override { }
 
-  virtual void enterEnum_option_decl_list(zsharp_parserParser::Enum_option_decl_listContext * /*ctx*/) override { }
-  virtual void exitEnum_option_decl_list(zsharp_parserParser::Enum_option_decl_listContext * /*ctx*/) override { }
+  virtual void enterEnum_option_def_list(zsharp_parserParser::Enum_option_def_listContext * /*ctx*/) override { }
+  virtual void exitEnum_option_def_list(zsharp_parserParser::Enum_option_def_listContext * /*ctx*/) override { }
 
-  virtual void enterEnum_option_decl(zsharp_parserParser::Enum_option_declContext * /*ctx*/) override { }
-  virtual void exitEnum_option_decl(zsharp_parserParser::Enum_option_declContext * /*ctx*/) override { }
+  virtual void enterEnum_option_def(zsharp_parserParser::Enum_option_defContext * /*ctx*/) override { }
+  virtual void exitEnum_option_def(zsharp_parserParser::Enum_option_defContext * /*ctx*/) override { }
 
   virtual void enterEnum_base_types(zsharp_parserParser::Enum_base_typesContext * /*ctx*/) override { }
   virtual void exitEnum_base_types(zsharp_parserParser::Enum_base_typesContext * /*ctx*/) override { }

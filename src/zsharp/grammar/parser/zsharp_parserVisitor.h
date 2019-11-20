@@ -47,9 +47,9 @@ public:
 
     virtual antlrcpp::Any visitStatement_continue(zsharp_parserParser::Statement_continueContext *context) = 0;
 
-    virtual antlrcpp::Any visitDeclaration_top(zsharp_parserParser::Declaration_topContext *context) = 0;
+    virtual antlrcpp::Any visitDefinition_top(zsharp_parserParser::Definition_topContext *context) = 0;
 
-    virtual antlrcpp::Any visitDeclaration(zsharp_parserParser::DeclarationContext *context) = 0;
+    virtual antlrcpp::Any visitDefinition(zsharp_parserParser::DefinitionContext *context) = 0;
 
     virtual antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext *context) = 0;
 
@@ -77,7 +77,7 @@ public:
 
     virtual antlrcpp::Any visitFunction_call(zsharp_parserParser::Function_callContext *context) = 0;
 
-    virtual antlrcpp::Any visitFunction_decl(zsharp_parserParser::Function_declContext *context) = 0;
+    virtual antlrcpp::Any visitFunction_def(zsharp_parserParser::Function_defContext *context) = 0;
 
     virtual antlrcpp::Any visitFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext *context) = 0;
 
@@ -93,25 +93,25 @@ public:
 
     virtual antlrcpp::Any visitParameter_ref(zsharp_parserParser::Parameter_refContext *context) = 0;
 
-    virtual antlrcpp::Any visitVariable_decl(zsharp_parserParser::Variable_declContext *context) = 0;
+    virtual antlrcpp::Any visitVariable_def(zsharp_parserParser::Variable_defContext *context) = 0;
 
-    virtual antlrcpp::Any visitVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext *context) = 0;
+    virtual antlrcpp::Any visitVariable_def_typed(zsharp_parserParser::Variable_def_typedContext *context) = 0;
 
-    virtual antlrcpp::Any visitVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext *context) = 0;
+    virtual antlrcpp::Any visitVariable_def_auto(zsharp_parserParser::Variable_def_autoContext *context) = 0;
 
     virtual antlrcpp::Any visitVariable_init(zsharp_parserParser::Variable_initContext *context) = 0;
 
-    virtual antlrcpp::Any visitStruct_decl(zsharp_parserParser::Struct_declContext *context) = 0;
+    virtual antlrcpp::Any visitStruct_def(zsharp_parserParser::Struct_defContext *context) = 0;
 
-    virtual antlrcpp::Any visitStruct_field_decl_list(zsharp_parserParser::Struct_field_decl_listContext *context) = 0;
+    virtual antlrcpp::Any visitStruct_field_def_list(zsharp_parserParser::Struct_field_def_listContext *context) = 0;
 
-    virtual antlrcpp::Any visitStruct_field_decl(zsharp_parserParser::Struct_field_declContext *context) = 0;
+    virtual antlrcpp::Any visitStruct_field_def(zsharp_parserParser::Struct_field_defContext *context) = 0;
 
-    virtual antlrcpp::Any visitEnum_decl(zsharp_parserParser::Enum_declContext *context) = 0;
+    virtual antlrcpp::Any visitEnum_def(zsharp_parserParser::Enum_defContext *context) = 0;
 
-    virtual antlrcpp::Any visitEnum_option_decl_list(zsharp_parserParser::Enum_option_decl_listContext *context) = 0;
+    virtual antlrcpp::Any visitEnum_option_def_list(zsharp_parserParser::Enum_option_def_listContext *context) = 0;
 
-    virtual antlrcpp::Any visitEnum_option_decl(zsharp_parserParser::Enum_option_declContext *context) = 0;
+    virtual antlrcpp::Any visitEnum_option_def(zsharp_parserParser::Enum_option_defContext *context) = 0;
 
     virtual antlrcpp::Any visitEnum_base_types(zsharp_parserParser::Enum_base_typesContext *context) = 0;
 

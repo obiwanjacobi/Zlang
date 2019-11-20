@@ -56,11 +56,11 @@ public:
   virtual void enterStatement_continue(zsharp_parserParser::Statement_continueContext *ctx) = 0;
   virtual void exitStatement_continue(zsharp_parserParser::Statement_continueContext *ctx) = 0;
 
-  virtual void enterDeclaration_top(zsharp_parserParser::Declaration_topContext *ctx) = 0;
-  virtual void exitDeclaration_top(zsharp_parserParser::Declaration_topContext *ctx) = 0;
+  virtual void enterDefinition_top(zsharp_parserParser::Definition_topContext *ctx) = 0;
+  virtual void exitDefinition_top(zsharp_parserParser::Definition_topContext *ctx) = 0;
 
-  virtual void enterDeclaration(zsharp_parserParser::DeclarationContext *ctx) = 0;
-  virtual void exitDeclaration(zsharp_parserParser::DeclarationContext *ctx) = 0;
+  virtual void enterDefinition(zsharp_parserParser::DefinitionContext *ctx) = 0;
+  virtual void exitDefinition(zsharp_parserParser::DefinitionContext *ctx) = 0;
 
   virtual void enterExpression_value(zsharp_parserParser::Expression_valueContext *ctx) = 0;
   virtual void exitExpression_value(zsharp_parserParser::Expression_valueContext *ctx) = 0;
@@ -101,8 +101,8 @@ public:
   virtual void enterFunction_call(zsharp_parserParser::Function_callContext *ctx) = 0;
   virtual void exitFunction_call(zsharp_parserParser::Function_callContext *ctx) = 0;
 
-  virtual void enterFunction_decl(zsharp_parserParser::Function_declContext *ctx) = 0;
-  virtual void exitFunction_decl(zsharp_parserParser::Function_declContext *ctx) = 0;
+  virtual void enterFunction_def(zsharp_parserParser::Function_defContext *ctx) = 0;
+  virtual void exitFunction_def(zsharp_parserParser::Function_defContext *ctx) = 0;
 
   virtual void enterFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext *ctx) = 0;
   virtual void exitFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext *ctx) = 0;
@@ -125,35 +125,35 @@ public:
   virtual void enterParameter_ref(zsharp_parserParser::Parameter_refContext *ctx) = 0;
   virtual void exitParameter_ref(zsharp_parserParser::Parameter_refContext *ctx) = 0;
 
-  virtual void enterVariable_decl(zsharp_parserParser::Variable_declContext *ctx) = 0;
-  virtual void exitVariable_decl(zsharp_parserParser::Variable_declContext *ctx) = 0;
+  virtual void enterVariable_def(zsharp_parserParser::Variable_defContext *ctx) = 0;
+  virtual void exitVariable_def(zsharp_parserParser::Variable_defContext *ctx) = 0;
 
-  virtual void enterVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext *ctx) = 0;
-  virtual void exitVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext *ctx) = 0;
+  virtual void enterVariable_def_typed(zsharp_parserParser::Variable_def_typedContext *ctx) = 0;
+  virtual void exitVariable_def_typed(zsharp_parserParser::Variable_def_typedContext *ctx) = 0;
 
-  virtual void enterVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext *ctx) = 0;
-  virtual void exitVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext *ctx) = 0;
+  virtual void enterVariable_def_auto(zsharp_parserParser::Variable_def_autoContext *ctx) = 0;
+  virtual void exitVariable_def_auto(zsharp_parserParser::Variable_def_autoContext *ctx) = 0;
 
   virtual void enterVariable_init(zsharp_parserParser::Variable_initContext *ctx) = 0;
   virtual void exitVariable_init(zsharp_parserParser::Variable_initContext *ctx) = 0;
 
-  virtual void enterStruct_decl(zsharp_parserParser::Struct_declContext *ctx) = 0;
-  virtual void exitStruct_decl(zsharp_parserParser::Struct_declContext *ctx) = 0;
+  virtual void enterStruct_def(zsharp_parserParser::Struct_defContext *ctx) = 0;
+  virtual void exitStruct_def(zsharp_parserParser::Struct_defContext *ctx) = 0;
 
-  virtual void enterStruct_field_decl_list(zsharp_parserParser::Struct_field_decl_listContext *ctx) = 0;
-  virtual void exitStruct_field_decl_list(zsharp_parserParser::Struct_field_decl_listContext *ctx) = 0;
+  virtual void enterStruct_field_def_list(zsharp_parserParser::Struct_field_def_listContext *ctx) = 0;
+  virtual void exitStruct_field_def_list(zsharp_parserParser::Struct_field_def_listContext *ctx) = 0;
 
-  virtual void enterStruct_field_decl(zsharp_parserParser::Struct_field_declContext *ctx) = 0;
-  virtual void exitStruct_field_decl(zsharp_parserParser::Struct_field_declContext *ctx) = 0;
+  virtual void enterStruct_field_def(zsharp_parserParser::Struct_field_defContext *ctx) = 0;
+  virtual void exitStruct_field_def(zsharp_parserParser::Struct_field_defContext *ctx) = 0;
 
-  virtual void enterEnum_decl(zsharp_parserParser::Enum_declContext *ctx) = 0;
-  virtual void exitEnum_decl(zsharp_parserParser::Enum_declContext *ctx) = 0;
+  virtual void enterEnum_def(zsharp_parserParser::Enum_defContext *ctx) = 0;
+  virtual void exitEnum_def(zsharp_parserParser::Enum_defContext *ctx) = 0;
 
-  virtual void enterEnum_option_decl_list(zsharp_parserParser::Enum_option_decl_listContext *ctx) = 0;
-  virtual void exitEnum_option_decl_list(zsharp_parserParser::Enum_option_decl_listContext *ctx) = 0;
+  virtual void enterEnum_option_def_list(zsharp_parserParser::Enum_option_def_listContext *ctx) = 0;
+  virtual void exitEnum_option_def_list(zsharp_parserParser::Enum_option_def_listContext *ctx) = 0;
 
-  virtual void enterEnum_option_decl(zsharp_parserParser::Enum_option_declContext *ctx) = 0;
-  virtual void exitEnum_option_decl(zsharp_parserParser::Enum_option_declContext *ctx) = 0;
+  virtual void enterEnum_option_def(zsharp_parserParser::Enum_option_defContext *ctx) = 0;
+  virtual void exitEnum_option_def(zsharp_parserParser::Enum_option_defContext *ctx) = 0;
 
   virtual void enterEnum_base_types(zsharp_parserParser::Enum_base_typesContext *ctx) = 0;
   virtual void exitEnum_base_types(zsharp_parserParser::Enum_base_typesContext *ctx) = 0;

@@ -1,9 +1,9 @@
 grammar zsharp_parser;
 
 // entry point
-file : (module_statement | declaration_top | comment | empty_line)* EOF;
+file : (module_statement | definition_top | comment | empty_line)* EOF;
 
-codeblock: (flow_statement | declaration | comment | empty_line)+;
+codeblock: (flow_statement | definition | comment | empty_line)+;
 
 // modules
 module_statement : statement_module | statement_import | statement_export;
@@ -22,9 +22,9 @@ statement_elseif: indent keyword_else SP keyword_if SP expression_logic newline 
 statement_break: indent keyword_break;
 statement_continue: indent keyword_continue;
 
-// declaration
-declaration_top: function_decl | enum_decl | struct_decl | variable_decl;
-declaration: variable_decl;
+// definition
+definition_top: function_def | enum_def | struct_def | variable_def;
+definition: variable_def;
 
 // expressions
 expression_value: number | string | expression_bool
@@ -61,7 +61,7 @@ identifier_bool: variable_ref | parameter_ref;
 
 // functions
 function_call: identifier_func PARENopen function_parameter_uselist? PARENclose;
-function_decl: indent? identifier_func PARENopen function_parameter_list? PARENclose function_type? newline codeblock;
+function_def: indent? identifier_func PARENopen function_parameter_list? PARENclose function_type? newline codeblock;
 function_parameter_list: function_parameter | (COMMA SP function_parameter)+;
 function_parameter: identifier_param function_type;
 function_type: COLON SP type_any;
@@ -71,20 +71,20 @@ function_param_use: expression_value | (COMMA SP expression_value)+;
 // variables
 variable_ref: identifier_var;
 parameter_ref: identifier_param;
-variable_decl: indent? (variable_decl_typed | variable_decl_auto) newline;
-variable_decl_typed: identifier_var COLON SP type_any (SP variable_init)?;
-variable_decl_auto: identifier_var SP variable_init;
+variable_def: indent? (variable_def_typed | variable_def_auto) newline;
+variable_def_typed: identifier_var COLON SP type_any (SP variable_init)?;
+variable_def_auto: identifier_var SP variable_init;
 variable_init: EQ_ASSIGN SP expression_value;
 
 // structs
-struct_decl: identifier_type (COLON SP type_any)? newline struct_field_decl_list;
-struct_field_decl_list: struct_field_decl+;
-struct_field_decl: indent identifier_field COLON SP type_any newline;
+struct_def: identifier_type (COLON SP type_any)? newline struct_field_def_list;
+struct_field_def_list: struct_field_def+;
+struct_field_def: indent identifier_field COLON SP type_any newline;
 
 // enums
-enum_decl: identifier_type (COLON SP enum_base_types)? newline enum_option_decl_list;
-enum_option_decl_list: enum_option_decl+;
-enum_option_decl: indent identifier_enumoption (SP EQ_ASSIGN SP comptime_expression_value)? COMMA? newline;
+enum_def: identifier_type (COLON SP enum_base_types)? newline enum_option_def_list;
+enum_option_def_list: enum_option_def+;
+enum_option_def: indent identifier_enumoption (SP EQ_ASSIGN SP comptime_expression_value)? COMMA? newline;
 enum_base_types:       
       type_Bit | type_Str
     | type_F16 | type_F32 

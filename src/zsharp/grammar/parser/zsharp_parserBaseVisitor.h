@@ -71,11 +71,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitDeclaration_top(zsharp_parserParser::Declaration_topContext *ctx) override {
+  virtual antlrcpp::Any visitDefinition_top(zsharp_parserParser::Definition_topContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitDeclaration(zsharp_parserParser::DeclarationContext *ctx) override {
+  virtual antlrcpp::Any visitDefinition(zsharp_parserParser::DefinitionContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -131,7 +131,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitFunction_decl(zsharp_parserParser::Function_declContext *ctx) override {
+  virtual antlrcpp::Any visitFunction_def(zsharp_parserParser::Function_defContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -163,15 +163,15 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitVariable_decl(zsharp_parserParser::Variable_declContext *ctx) override {
+  virtual antlrcpp::Any visitVariable_def(zsharp_parserParser::Variable_defContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitVariable_decl_typed(zsharp_parserParser::Variable_decl_typedContext *ctx) override {
+  virtual antlrcpp::Any visitVariable_def_typed(zsharp_parserParser::Variable_def_typedContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitVariable_decl_auto(zsharp_parserParser::Variable_decl_autoContext *ctx) override {
+  virtual antlrcpp::Any visitVariable_def_auto(zsharp_parserParser::Variable_def_autoContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -179,27 +179,27 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitStruct_decl(zsharp_parserParser::Struct_declContext *ctx) override {
+  virtual antlrcpp::Any visitStruct_def(zsharp_parserParser::Struct_defContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitStruct_field_decl_list(zsharp_parserParser::Struct_field_decl_listContext *ctx) override {
+  virtual antlrcpp::Any visitStruct_field_def_list(zsharp_parserParser::Struct_field_def_listContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitStruct_field_decl(zsharp_parserParser::Struct_field_declContext *ctx) override {
+  virtual antlrcpp::Any visitStruct_field_def(zsharp_parserParser::Struct_field_defContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitEnum_decl(zsharp_parserParser::Enum_declContext *ctx) override {
+  virtual antlrcpp::Any visitEnum_def(zsharp_parserParser::Enum_defContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitEnum_option_decl_list(zsharp_parserParser::Enum_option_decl_listContext *ctx) override {
+  virtual antlrcpp::Any visitEnum_option_def_list(zsharp_parserParser::Enum_option_def_listContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitEnum_option_decl(zsharp_parserParser::Enum_option_declContext *ctx) override {
+  virtual antlrcpp::Any visitEnum_option_def(zsharp_parserParser::Enum_option_defContext *ctx) override {
     return visitChildren(ctx);
   }
 
