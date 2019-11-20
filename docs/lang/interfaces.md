@@ -1,33 +1,28 @@
 # Interfaces
 
-Interfaces are the means to polymorphism.
+Interfaces are the means to polymorphism without using objects (in an OOP sense).
 
-only functions.
+## Function Interface
 
-Function interfaces - a template for a singe function. Usually used as a callback or delegate. When used compatibility of candidate function is determined by type comparison. The function name is irrelevant.
-
-Object interfaces - a template for one or more functions. Usually used as a means to polymorphism.
-
-Function interfaces are syntactically different from Object interfaces - so an object interface with one function cannot be mixed up/interchanged with a function interface.
-
----
+Function interfaces are a template for a singe function. Usually used as a callback or delegate.
 
 A function interface declares only one function and does _not_ use the `self` keyword.
 
-> Do we need the 'FunctionInterface' name? How to declare a variable of type FunctionInterface if there is no 'FunctionInterface' name?
-
 ```C#
 FunctionInterface
-    lowByte(p1: U16): U8    // can we detect this?
-        _                   // or need no impl
-    lowByte(p1: U16): U8 _  // no impl, but shorter
+    (p1: U16): U8
+
+callFn(ptrFn: Ptr<FunctionInterface>): U8
+    return ptrFn(0x4242)
 ```
 
-Would a function declaration (without implementation) be better?
+Also, there is no function name. The name of the interface is used as a type.
 
-```C#
-lowByte(p1: U16): U8 _      // no impl
-```
+Function interfaces are syntactically different from Object interfaces - so an object interface with one function cannot be mixed up/interchanged with a function interface.
+
+## Object Interface
+
+Object interfaces are a template for one or more functions. Usually used as a means to polymorphism.
 
 An object interface can declare one or more functions. It must have the `self` keyword as a first parameter.
 
@@ -36,6 +31,8 @@ ObjectInterface
     lowByte(self, p1: U16): U8 _
     hiByte(self, p1: U16): U8 _
 ```
+
+An object interface template:
 
 ```C#
 TemplateInterface<T>
@@ -47,7 +44,7 @@ TemplateInterface<T, R>
     hiByte(self: T, p1: U16): R _
 ```
 
-> How to implement an interface
+How to implement an interface:
 
 ```C#
 // declare
@@ -73,8 +70,4 @@ a.interfunc(42)         // because 'self'
 interfunc(a, 42)
 ```
 
-> override / 'virtual' ?? call 'super' ??
-
----
-
-> TBD: Matching interfaces onto type bound functions.
+The interface implementation functions are matched based on the function name, parameter types and its return type. The `self` parameter may be derived other types must match exactly.
