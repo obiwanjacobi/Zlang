@@ -59,6 +59,18 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitStatement_elseif(zsharp_parserParser::Statement_elseifContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitStatement_break(zsharp_parserParser::Statement_breakContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitStatement_continue(zsharp_parserParser::Statement_continueContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitDeclaration_top(zsharp_parserParser::Declaration_topContext *ctx) override {
     return visitChildren(ctx);
   }

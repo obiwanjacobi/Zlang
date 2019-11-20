@@ -13,11 +13,14 @@ statement_import: keyword_import SP module_name newline;
 statement_export: keyword_export SP (identifier_func | identifier_type) newline;
 
 // flow control
-flow_statement: statement_if | statement_else 
-    | statement_return| keyword_break | keyword_continue;
+flow_statement: statement_if | statement_else | statement_elseif
+    | statement_return| statement_break | statement_continue;
 statement_return: indent keyword_return (SP expression_value)? newline;
 statement_if: indent keyword_if SP expression_logic newline codeblock;
-statement_else: indent keyword_else (keyword_if SP expression_logic)? newline codeblock;
+statement_else: indent keyword_else newline codeblock;
+statement_elseif: indent keyword_else SP keyword_if SP expression_logic newline codeblock;
+statement_break: indent keyword_break;
+statement_continue: indent keyword_continue;
 
 // declaration
 declaration_top: function_decl | enum_decl | struct_decl | variable_decl;

@@ -21,6 +21,8 @@ voidFunc()
 funcDecl(p: U8?): Bool!
     if p
         return p = 42
+    else if p = 0
+        return false
     else
         return Error("Parameter not specified")
 

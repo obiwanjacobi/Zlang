@@ -49,6 +49,15 @@ public:
   virtual void enterStatement_else(zsharp_parserParser::Statement_elseContext * /*ctx*/) override { }
   virtual void exitStatement_else(zsharp_parserParser::Statement_elseContext * /*ctx*/) override { }
 
+  virtual void enterStatement_elseif(zsharp_parserParser::Statement_elseifContext * /*ctx*/) override { }
+  virtual void exitStatement_elseif(zsharp_parserParser::Statement_elseifContext * /*ctx*/) override { }
+
+  virtual void enterStatement_break(zsharp_parserParser::Statement_breakContext * /*ctx*/) override { }
+  virtual void exitStatement_break(zsharp_parserParser::Statement_breakContext * /*ctx*/) override { }
+
+  virtual void enterStatement_continue(zsharp_parserParser::Statement_continueContext * /*ctx*/) override { }
+  virtual void exitStatement_continue(zsharp_parserParser::Statement_continueContext * /*ctx*/) override { }
+
   virtual void enterDeclaration_top(zsharp_parserParser::Declaration_topContext * /*ctx*/) override { }
   virtual void exitDeclaration_top(zsharp_parserParser::Declaration_topContext * /*ctx*/) override { }
 
