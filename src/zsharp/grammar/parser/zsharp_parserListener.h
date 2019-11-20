@@ -254,39 +254,6 @@ public:
   virtual void enterIdentifier_unused(zsharp_parserParser::Identifier_unusedContext *ctx) = 0;
   virtual void exitIdentifier_unused(zsharp_parserParser::Identifier_unusedContext *ctx) = 0;
 
-  virtual void enterKeyword_module(zsharp_parserParser::Keyword_moduleContext *ctx) = 0;
-  virtual void exitKeyword_module(zsharp_parserParser::Keyword_moduleContext *ctx) = 0;
-
-  virtual void enterKeyword_import(zsharp_parserParser::Keyword_importContext *ctx) = 0;
-  virtual void exitKeyword_import(zsharp_parserParser::Keyword_importContext *ctx) = 0;
-
-  virtual void enterKeyword_export(zsharp_parserParser::Keyword_exportContext *ctx) = 0;
-  virtual void exitKeyword_export(zsharp_parserParser::Keyword_exportContext *ctx) = 0;
-
-  virtual void enterKeyword_loop(zsharp_parserParser::Keyword_loopContext *ctx) = 0;
-  virtual void exitKeyword_loop(zsharp_parserParser::Keyword_loopContext *ctx) = 0;
-
-  virtual void enterKeyword_break(zsharp_parserParser::Keyword_breakContext *ctx) = 0;
-  virtual void exitKeyword_break(zsharp_parserParser::Keyword_breakContext *ctx) = 0;
-
-  virtual void enterKeyword_continue(zsharp_parserParser::Keyword_continueContext *ctx) = 0;
-  virtual void exitKeyword_continue(zsharp_parserParser::Keyword_continueContext *ctx) = 0;
-
-  virtual void enterKeyword_if(zsharp_parserParser::Keyword_ifContext *ctx) = 0;
-  virtual void exitKeyword_if(zsharp_parserParser::Keyword_ifContext *ctx) = 0;
-
-  virtual void enterKeyword_else(zsharp_parserParser::Keyword_elseContext *ctx) = 0;
-  virtual void exitKeyword_else(zsharp_parserParser::Keyword_elseContext *ctx) = 0;
-
-  virtual void enterKeyword_return(zsharp_parserParser::Keyword_returnContext *ctx) = 0;
-  virtual void exitKeyword_return(zsharp_parserParser::Keyword_returnContext *ctx) = 0;
-
-  virtual void enterKeyword_in(zsharp_parserParser::Keyword_inContext *ctx) = 0;
-  virtual void exitKeyword_in(zsharp_parserParser::Keyword_inContext *ctx) = 0;
-
-  virtual void enterKeyword_self(zsharp_parserParser::Keyword_selfContext *ctx) = 0;
-  virtual void exitKeyword_self(zsharp_parserParser::Keyword_selfContext *ctx) = 0;
-
   virtual void enterLiteral_bool(zsharp_parserParser::Literal_boolContext *ctx) = 0;
   virtual void exitLiteral_bool(zsharp_parserParser::Literal_boolContext *ctx) = 0;
 

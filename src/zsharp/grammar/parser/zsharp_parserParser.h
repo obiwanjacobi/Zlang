@@ -55,22 +55,19 @@ public:
     RuleType_Bool = 70, RuleType_Bit = 71, RuleIdentifier_type = 72, RuleIdentifier_var = 73, 
     RuleIdentifier_param = 74, RuleIdentifier_func = 75, RuleIdentifier_field = 76, 
     RuleIdentifier_enumoption = 77, RuleIdentifier_module = 78, RuleIdentifier_unused = 79, 
-    RuleKeyword_module = 80, RuleKeyword_import = 81, RuleKeyword_export = 82, 
-    RuleKeyword_loop = 83, RuleKeyword_break = 84, RuleKeyword_continue = 85, 
-    RuleKeyword_if = 86, RuleKeyword_else = 87, RuleKeyword_return = 88, 
-    RuleKeyword_in = 89, RuleKeyword_self = 90, RuleLiteral_bool = 91, RuleLiteral = 92, 
-    RuleNumber = 93, RuleNumber_unsigned = 94, RuleNumber_bin = 95, RuleNumber_oct = 96, 
-    RuleNumber_dec = 97, RuleNumber_hex = 98, RuleNumber_char = 99, RuleOperator_arithmetic = 100, 
-    RuleOperator_arithmetic_unary = 101, RuleOperator_logic = 102, RuleOperator_logic_unary = 103, 
-    RuleOperator_comparison = 104, RuleOperator_bits = 105, RuleOperator_bits_unary = 106, 
-    RuleOperator_assignment = 107, RuleOp_plus = 108, RuleOp_minus_neg = 109, 
-    RuleOp_mult = 110, RuleOp_div = 111, RuleOp_mod = 112, RuleOp_pow = 113, 
-    RuleOp_eq_assign = 114, RuleOp_neq = 115, RuleOp_great = 116, RuleOp_small = 117, 
-    RuleOp_greq = 118, RuleOp_smeq = 119, RuleOp_and = 120, RuleOp_or = 121, 
-    RuleOp_not = 122, RuleOp_bit_and = 123, RuleOp_bit_or = 124, RuleOp_bit_xor = 125, 
-    RuleOp_bit_not = 126, RuleOp_bit_shl = 127, RuleOp_bit_shr = 128, RuleOp_bit_roll = 129, 
-    RuleOp_bit_rolr = 130, RuleOp_concat = 131, RuleEmpty_line = 132, RuleNewline = 133, 
-    RuleComment = 134, RuleString = 135, RuleCharacter = 136, RuleIndent = 137
+    RuleLiteral_bool = 80, RuleLiteral = 81, RuleNumber = 82, RuleNumber_unsigned = 83, 
+    RuleNumber_bin = 84, RuleNumber_oct = 85, RuleNumber_dec = 86, RuleNumber_hex = 87, 
+    RuleNumber_char = 88, RuleOperator_arithmetic = 89, RuleOperator_arithmetic_unary = 90, 
+    RuleOperator_logic = 91, RuleOperator_logic_unary = 92, RuleOperator_comparison = 93, 
+    RuleOperator_bits = 94, RuleOperator_bits_unary = 95, RuleOperator_assignment = 96, 
+    RuleOp_plus = 97, RuleOp_minus_neg = 98, RuleOp_mult = 99, RuleOp_div = 100, 
+    RuleOp_mod = 101, RuleOp_pow = 102, RuleOp_eq_assign = 103, RuleOp_neq = 104, 
+    RuleOp_great = 105, RuleOp_small = 106, RuleOp_greq = 107, RuleOp_smeq = 108, 
+    RuleOp_and = 109, RuleOp_or = 110, RuleOp_not = 111, RuleOp_bit_and = 112, 
+    RuleOp_bit_or = 113, RuleOp_bit_xor = 114, RuleOp_bit_not = 115, RuleOp_bit_shl = 116, 
+    RuleOp_bit_shr = 117, RuleOp_bit_roll = 118, RuleOp_bit_rolr = 119, 
+    RuleOp_concat = 120, RuleEmpty_line = 121, RuleNewline = 122, RuleComment = 123, 
+    RuleString = 124, RuleCharacter = 125, RuleIndent = 126
   };
 
   zsharp_parserParser(antlr4::TokenStream *input);
@@ -163,17 +160,6 @@ public:
   class Identifier_enumoptionContext;
   class Identifier_moduleContext;
   class Identifier_unusedContext;
-  class Keyword_moduleContext;
-  class Keyword_importContext;
-  class Keyword_exportContext;
-  class Keyword_loopContext;
-  class Keyword_breakContext;
-  class Keyword_continueContext;
-  class Keyword_ifContext;
-  class Keyword_elseContext;
-  class Keyword_returnContext;
-  class Keyword_inContext;
-  class Keyword_selfContext;
   class Literal_boolContext;
   class LiteralContext;
   class NumberContext;
@@ -307,7 +293,7 @@ public:
   public:
     Statement_moduleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Keyword_moduleContext *keyword_module();
+    antlr4::tree::TerminalNode *MODULE();
     antlr4::tree::TerminalNode *SP();
     Module_nameContext *module_name();
     NewlineContext *newline();
@@ -325,7 +311,7 @@ public:
   public:
     Statement_importContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Keyword_importContext *keyword_import();
+    antlr4::tree::TerminalNode *IMPORT();
     antlr4::tree::TerminalNode *SP();
     Module_nameContext *module_name();
     NewlineContext *newline();
@@ -343,7 +329,7 @@ public:
   public:
     Statement_exportContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Keyword_exportContext *keyword_export();
+    antlr4::tree::TerminalNode *EXPORT();
     antlr4::tree::TerminalNode *SP();
     NewlineContext *newline();
     Identifier_funcContext *identifier_func();
@@ -384,7 +370,7 @@ public:
     Statement_returnContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     IndentContext *indent();
-    Keyword_returnContext *keyword_return();
+    antlr4::tree::TerminalNode *RETURN();
     NewlineContext *newline();
     antlr4::tree::TerminalNode *SP();
     Expression_valueContext *expression_value();
@@ -403,7 +389,7 @@ public:
     Statement_ifContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     IndentContext *indent();
-    Keyword_ifContext *keyword_if();
+    antlr4::tree::TerminalNode *IF();
     antlr4::tree::TerminalNode *SP();
     Expression_logicContext *expression_logic();
     NewlineContext *newline();
@@ -423,7 +409,7 @@ public:
     Statement_elseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     IndentContext *indent();
-    Keyword_elseContext *keyword_else();
+    antlr4::tree::TerminalNode *ELSE();
     NewlineContext *newline();
     CodeblockContext *codeblock();
 
@@ -441,10 +427,10 @@ public:
     Statement_elseifContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     IndentContext *indent();
-    Keyword_elseContext *keyword_else();
+    antlr4::tree::TerminalNode *ELSE();
     std::vector<antlr4::tree::TerminalNode *> SP();
     antlr4::tree::TerminalNode* SP(size_t i);
-    Keyword_ifContext *keyword_if();
+    antlr4::tree::TerminalNode *IF();
     Expression_logicContext *expression_logic();
     NewlineContext *newline();
     CodeblockContext *codeblock();
@@ -463,7 +449,7 @@ public:
     Statement_breakContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     IndentContext *indent();
-    Keyword_breakContext *keyword_break();
+    antlr4::tree::TerminalNode *BREAK();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -479,7 +465,7 @@ public:
     Statement_continueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     IndentContext *indent();
-    Keyword_continueContext *keyword_continue();
+    antlr4::tree::TerminalNode *CONTINUE();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -513,7 +499,7 @@ public:
   public:
     Statement_loop_infiniteContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Keyword_loopContext *keyword_loop();
+    antlr4::tree::TerminalNode *LOOP();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -528,7 +514,7 @@ public:
   public:
     Statement_loop_whileContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    Keyword_loopContext *keyword_loop();
+    antlr4::tree::TerminalNode *LOOP();
     antlr4::tree::TerminalNode *SP();
     Expression_logicContext *expression_logic();
 
@@ -1649,171 +1635,6 @@ public:
   };
 
   Identifier_unusedContext* identifier_unused();
-
-  class  Keyword_moduleContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_moduleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *MODULE();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_moduleContext* keyword_module();
-
-  class  Keyword_importContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_importContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *IMPORT();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_importContext* keyword_import();
-
-  class  Keyword_exportContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_exportContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *EXPORT();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_exportContext* keyword_export();
-
-  class  Keyword_loopContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_loopContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *LOOP();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_loopContext* keyword_loop();
-
-  class  Keyword_breakContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_breakContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *BREAK();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_breakContext* keyword_break();
-
-  class  Keyword_continueContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_continueContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *CONTINUE();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_continueContext* keyword_continue();
-
-  class  Keyword_ifContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_ifContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *IF();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_ifContext* keyword_if();
-
-  class  Keyword_elseContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_elseContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *ELSE();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_elseContext* keyword_else();
-
-  class  Keyword_returnContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_returnContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *RETURN();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_returnContext* keyword_return();
-
-  class  Keyword_inContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_inContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *IN();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_inContext* keyword_in();
-
-  class  Keyword_selfContext : public antlr4::ParserRuleContext {
-  public:
-    Keyword_selfContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *SELF();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-
-    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
-   
-  };
-
-  Keyword_selfContext* keyword_self();
 
   class  Literal_boolContext : public antlr4::ParserRuleContext {
   public:

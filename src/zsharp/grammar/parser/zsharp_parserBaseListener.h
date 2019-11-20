@@ -256,39 +256,6 @@ public:
   virtual void enterIdentifier_unused(zsharp_parserParser::Identifier_unusedContext * /*ctx*/) override { }
   virtual void exitIdentifier_unused(zsharp_parserParser::Identifier_unusedContext * /*ctx*/) override { }
 
-  virtual void enterKeyword_module(zsharp_parserParser::Keyword_moduleContext * /*ctx*/) override { }
-  virtual void exitKeyword_module(zsharp_parserParser::Keyword_moduleContext * /*ctx*/) override { }
-
-  virtual void enterKeyword_import(zsharp_parserParser::Keyword_importContext * /*ctx*/) override { }
-  virtual void exitKeyword_import(zsharp_parserParser::Keyword_importContext * /*ctx*/) override { }
-
-  virtual void enterKeyword_export(zsharp_parserParser::Keyword_exportContext * /*ctx*/) override { }
-  virtual void exitKeyword_export(zsharp_parserParser::Keyword_exportContext * /*ctx*/) override { }
-
-  virtual void enterKeyword_loop(zsharp_parserParser::Keyword_loopContext * /*ctx*/) override { }
-  virtual void exitKeyword_loop(zsharp_parserParser::Keyword_loopContext * /*ctx*/) override { }
-
-  virtual void enterKeyword_break(zsharp_parserParser::Keyword_breakContext * /*ctx*/) override { }
-  virtual void exitKeyword_break(zsharp_parserParser::Keyword_breakContext * /*ctx*/) override { }
-
-  virtual void enterKeyword_continue(zsharp_parserParser::Keyword_continueContext * /*ctx*/) override { }
-  virtual void exitKeyword_continue(zsharp_parserParser::Keyword_continueContext * /*ctx*/) override { }
-
-  virtual void enterKeyword_if(zsharp_parserParser::Keyword_ifContext * /*ctx*/) override { }
-  virtual void exitKeyword_if(zsharp_parserParser::Keyword_ifContext * /*ctx*/) override { }
-
-  virtual void enterKeyword_else(zsharp_parserParser::Keyword_elseContext * /*ctx*/) override { }
-  virtual void exitKeyword_else(zsharp_parserParser::Keyword_elseContext * /*ctx*/) override { }
-
-  virtual void enterKeyword_return(zsharp_parserParser::Keyword_returnContext * /*ctx*/) override { }
-  virtual void exitKeyword_return(zsharp_parserParser::Keyword_returnContext * /*ctx*/) override { }
-
-  virtual void enterKeyword_in(zsharp_parserParser::Keyword_inContext * /*ctx*/) override { }
-  virtual void exitKeyword_in(zsharp_parserParser::Keyword_inContext * /*ctx*/) override { }
-
-  virtual void enterKeyword_self(zsharp_parserParser::Keyword_selfContext * /*ctx*/) override { }
-  virtual void exitKeyword_self(zsharp_parserParser::Keyword_selfContext * /*ctx*/) override { }
-
   virtual void enterLiteral_bool(zsharp_parserParser::Literal_boolContext * /*ctx*/) override { }
   virtual void exitLiteral_bool(zsharp_parserParser::Literal_boolContext * /*ctx*/) override { }
 

@@ -335,50 +335,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitKeyword_module(zsharp_parserParser::Keyword_moduleContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitKeyword_import(zsharp_parserParser::Keyword_importContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitKeyword_export(zsharp_parserParser::Keyword_exportContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitKeyword_loop(zsharp_parserParser::Keyword_loopContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitKeyword_break(zsharp_parserParser::Keyword_breakContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitKeyword_continue(zsharp_parserParser::Keyword_continueContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitKeyword_if(zsharp_parserParser::Keyword_ifContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitKeyword_else(zsharp_parserParser::Keyword_elseContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitKeyword_return(zsharp_parserParser::Keyword_returnContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitKeyword_in(zsharp_parserParser::Keyword_inContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitKeyword_self(zsharp_parserParser::Keyword_selfContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitLiteral_bool(zsharp_parserParser::Literal_boolContext *ctx) override {
     return visitChildren(ctx);
   }

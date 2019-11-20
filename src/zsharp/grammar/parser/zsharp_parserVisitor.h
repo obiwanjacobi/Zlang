@@ -179,28 +179,6 @@ public:
 
     virtual antlrcpp::Any visitIdentifier_unused(zsharp_parserParser::Identifier_unusedContext *context) = 0;
 
-    virtual antlrcpp::Any visitKeyword_module(zsharp_parserParser::Keyword_moduleContext *context) = 0;
-
-    virtual antlrcpp::Any visitKeyword_import(zsharp_parserParser::Keyword_importContext *context) = 0;
-
-    virtual antlrcpp::Any visitKeyword_export(zsharp_parserParser::Keyword_exportContext *context) = 0;
-
-    virtual antlrcpp::Any visitKeyword_loop(zsharp_parserParser::Keyword_loopContext *context) = 0;
-
-    virtual antlrcpp::Any visitKeyword_break(zsharp_parserParser::Keyword_breakContext *context) = 0;
-
-    virtual antlrcpp::Any visitKeyword_continue(zsharp_parserParser::Keyword_continueContext *context) = 0;
-
-    virtual antlrcpp::Any visitKeyword_if(zsharp_parserParser::Keyword_ifContext *context) = 0;
-
-    virtual antlrcpp::Any visitKeyword_else(zsharp_parserParser::Keyword_elseContext *context) = 0;
-
-    virtual antlrcpp::Any visitKeyword_return(zsharp_parserParser::Keyword_returnContext *context) = 0;
-
-    virtual antlrcpp::Any visitKeyword_in(zsharp_parserParser::Keyword_inContext *context) = 0;
-
-    virtual antlrcpp::Any visitKeyword_self(zsharp_parserParser::Keyword_selfContext *context) = 0;
-
     virtual antlrcpp::Any visitLiteral_bool(zsharp_parserParser::Literal_boolContext *context) = 0;
 
     virtual antlrcpp::Any visitLiteral(zsharp_parserParser::LiteralContext *context) = 0;

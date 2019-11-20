@@ -8,22 +8,22 @@ codeblock: (flow_statement | variable_assign | definition | comment | empty_line
 // modules
 module_statement : statement_module | statement_import | statement_export;
 module_name: identifier_module | module_name DOT identifier_module;
-statement_module: keyword_module SP module_name newline;
-statement_import: keyword_import SP module_name newline;
-statement_export: keyword_export SP (identifier_func | identifier_type) newline;
+statement_module: MODULE SP module_name newline;
+statement_import: IMPORT SP module_name newline;
+statement_export: EXPORT SP (identifier_func | identifier_type) newline;
 
 // flow control
 flow_statement: statement_if | statement_else | statement_elseif
     | statement_loop | statement_return | statement_break | statement_continue;
-statement_return: indent keyword_return (SP expression_value)? newline;
-statement_if: indent keyword_if SP expression_logic newline codeblock;
-statement_else: indent keyword_else newline codeblock;
-statement_elseif: indent keyword_else SP keyword_if SP expression_logic newline codeblock;
-statement_break: indent keyword_break;
-statement_continue: indent keyword_continue;
+statement_return: indent RETURN (SP expression_value)? newline;
+statement_if: indent IF SP expression_logic newline codeblock;
+statement_else: indent ELSE newline codeblock;
+statement_elseif: indent ELSE SP IF SP expression_logic newline codeblock;
+statement_break: indent BREAK;
+statement_continue: indent CONTINUE;
 statement_loop: indent (statement_loop_infinite | statement_loop_while) newline codeblock;
-statement_loop_infinite: keyword_loop;
-statement_loop_while: keyword_loop SP expression_logic;
+statement_loop_infinite: LOOP;
+statement_loop_while: LOOP SP expression_logic;
 
 // definition
 definition_top: function_def | enum_def | struct_def | variable_def_top;
@@ -132,19 +132,6 @@ identifier_field: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
 identifier_enumoption: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
 identifier_module: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
 identifier_unused: UNUSED;
-
-// keywords
-keyword_module: MODULE;
-keyword_import: IMPORT;
-keyword_export: EXPORT;
-keyword_loop: LOOP;
-keyword_break: BREAK;
-keyword_continue: CONTINUE;
-keyword_if: IF;
-keyword_else: ELSE;
-keyword_return: RETURN;
-keyword_in: IN;
-keyword_self: SELF;
 
 literal_bool: TRUE | FALSE;
 literal: number | string;
