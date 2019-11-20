@@ -63,7 +63,7 @@ expression_bool: literal_bool | identifier_bool;
 identifier_bool: variable_ref | parameter_ref;
 
 // functions
-function_call: indent identifier_func PARENopen function_parameter_uselist? PARENclose;
+function_call: identifier_func PARENopen function_parameter_uselist? PARENclose;
 function_def: identifier_func PARENopen function_parameter_list? PARENclose function_type? newline codeblock;
 function_parameter_list: function_parameter | (COMMA SP function_parameter)+;
 function_parameter: identifier_param function_type;

@@ -27,7 +27,7 @@ funcDecl(p: U8?): Bool!
         return Error("Parameter not specified")
 
 funcErr(p: U16): U8
-    x = 0
+    x = 3
     loop p > 42
     return Error()
     

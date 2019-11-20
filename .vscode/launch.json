@@ -8,7 +8,7 @@
             "input": "./src/zsharp/grammar/_test/antlr.debug.zs",
             "grammar": "./src/zsharp/grammar/zsharp_parser.g4",
             "startRule": "file",
-            "printParseTree": true,
+            "printParseTree": false,
             "visualParseTree": true,
             "internalConsoleOptions": "neverOpen"
         },

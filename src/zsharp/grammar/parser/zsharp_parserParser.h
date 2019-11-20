@@ -802,7 +802,6 @@ public:
   public:
     Function_callContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    IndentContext *indent();
     Identifier_funcContext *identifier_func();
     antlr4::tree::TerminalNode *PARENopen();
     antlr4::tree::TerminalNode *PARENclose();
