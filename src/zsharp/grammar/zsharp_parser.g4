@@ -3,7 +3,7 @@ grammar zsharp_parser;
 // entry point
 file : (module_statement | definition_top | comment | empty_line)* EOF;
 
-codeblock: (flow_statement | definition | comment | empty_line)+;
+codeblock: (flow_statement | variable_assign | definition | comment | empty_line)+;
 
 // modules
 module_statement : statement_module | statement_import | statement_export;
@@ -21,10 +21,12 @@ statement_else: indent keyword_else newline codeblock;
 statement_elseif: indent keyword_else SP keyword_if SP expression_logic newline codeblock;
 statement_break: indent keyword_break;
 statement_continue: indent keyword_continue;
-statement_loop: indent keyword_loop (SP expression_logic)? newline codeblock;
+statement_loop: indent (statement_loop_infinite | statement_loop_while) newline codeblock;
+statement_loop_infinite: keyword_loop;
+statement_loop_while: keyword_loop SP expression_logic;
 
 // definition
-definition_top: function_def | enum_def | struct_def | variable_def;
+definition_top: function_def | enum_def | struct_def | variable_def_top;
 definition: variable_def;
 
 // expressions
@@ -61,8 +63,8 @@ expression_bool: literal_bool | identifier_bool;
 identifier_bool: variable_ref | parameter_ref;
 
 // functions
-function_call: identifier_func PARENopen function_parameter_uselist? PARENclose;
-function_def: indent? identifier_func PARENopen function_parameter_list? PARENclose function_type? newline codeblock;
+function_call: indent identifier_func PARENopen function_parameter_uselist? PARENclose;
+function_def: identifier_func PARENopen function_parameter_list? PARENclose function_type? newline codeblock;
 function_parameter_list: function_parameter | (COMMA SP function_parameter)+;
 function_parameter: identifier_param function_type;
 function_type: COLON SP type_any;
@@ -72,10 +74,12 @@ function_param_use: expression_value | (COMMA SP expression_value)+;
 // variables
 variable_ref: identifier_var;
 parameter_ref: identifier_param;
-variable_def: indent? (variable_def_typed | variable_def_auto) newline;
-variable_def_typed: identifier_var COLON SP type_any (SP variable_init)?;
-variable_def_auto: identifier_var SP variable_init;
-variable_init: EQ_ASSIGN SP expression_value;
+variable_def_top: (variable_def_typed | variable_def_typed_init | variable_auto_assign) newline;
+variable_def: indent (variable_def_typed | variable_def_typed_init | variable_auto_assign) newline;
+variable_def_typed: identifier_var COLON SP type_any;
+variable_def_typed_init: identifier_var COLON SP type_any SP EQ_ASSIGN SP expression_value;
+variable_auto_assign: identifier_var SP EQ_ASSIGN SP expression_value;
+variable_assign: indent identifier_var SP EQ_ASSIGN SP expression_value;
 
 // structs
 struct_def: identifier_type (COLON SP type_any)? newline struct_field_def_list;

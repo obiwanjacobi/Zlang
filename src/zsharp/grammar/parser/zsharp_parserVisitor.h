@@ -49,6 +49,10 @@ public:
 
     virtual antlrcpp::Any visitStatement_loop(zsharp_parserParser::Statement_loopContext *context) = 0;
 
+    virtual antlrcpp::Any visitStatement_loop_infinite(zsharp_parserParser::Statement_loop_infiniteContext *context) = 0;
+
+    virtual antlrcpp::Any visitStatement_loop_while(zsharp_parserParser::Statement_loop_whileContext *context) = 0;
+
     virtual antlrcpp::Any visitDefinition_top(zsharp_parserParser::Definition_topContext *context) = 0;
 
     virtual antlrcpp::Any visitDefinition(zsharp_parserParser::DefinitionContext *context) = 0;
@@ -95,13 +99,17 @@ public:
 
     virtual antlrcpp::Any visitParameter_ref(zsharp_parserParser::Parameter_refContext *context) = 0;
 
+    virtual antlrcpp::Any visitVariable_def_top(zsharp_parserParser::Variable_def_topContext *context) = 0;
+
     virtual antlrcpp::Any visitVariable_def(zsharp_parserParser::Variable_defContext *context) = 0;
 
     virtual antlrcpp::Any visitVariable_def_typed(zsharp_parserParser::Variable_def_typedContext *context) = 0;
 
-    virtual antlrcpp::Any visitVariable_def_auto(zsharp_parserParser::Variable_def_autoContext *context) = 0;
+    virtual antlrcpp::Any visitVariable_def_typed_init(zsharp_parserParser::Variable_def_typed_initContext *context) = 0;
 
-    virtual antlrcpp::Any visitVariable_init(zsharp_parserParser::Variable_initContext *context) = 0;
+    virtual antlrcpp::Any visitVariable_auto_assign(zsharp_parserParser::Variable_auto_assignContext *context) = 0;
+
+    virtual antlrcpp::Any visitVariable_assign(zsharp_parserParser::Variable_assignContext *context) = 0;
 
     virtual antlrcpp::Any visitStruct_def(zsharp_parserParser::Struct_defContext *context) = 0;
 
