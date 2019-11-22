@@ -204,15 +204,15 @@ Function overloading means that there are multiple functions with the same name 
 Function overloading will work regardless if the function uses a self parameter or not.
 
 ```C#
-samename(p: U8)
+sameName(p: U8)
     ...
-samename(p: Str)
+sameName(p: Str)
     ...
 
-samename(42)
-samename("42")
+sameName(42)
+sameName("42")
 
-samename(x: Str)    // error! already defined
+sameName(x: Str)    // error! already defined
     ...
 ```
 
@@ -332,7 +332,6 @@ loop [0..3]
 support recursion? Let compiler check for exit condition.
 
 pure functions (functional) / higher order functions?
-
 
 anonymous functions/lambda/in-place syntax (no capture)
 

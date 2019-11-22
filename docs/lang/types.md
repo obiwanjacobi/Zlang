@@ -22,7 +22,7 @@ followed by the width in the number of bits.
 - 24
 - 32
 
-```
+```C#
 U8 U16 U24 U32
 I8 I16 I24 I32
 ```
@@ -33,7 +33,7 @@ I8 I16 I24 I32
 
 The floating point data types are:
 
-```
+```C#
 F16 F32
 ```
 
@@ -41,7 +41,7 @@ F16 F32
 
 A 'string' of characters of text.
 
-```
+```C#
 Str
 ```
 
@@ -87,11 +87,13 @@ name: PersonName = "John"
 
 You do have to use the explicit type on the variable declaration, using defaults will yield standard types (U8 and Str).
 
-The way data types differ from using aliases is in the use of type bound functions.
+The way data types differ from using aliases is in the use of type-bound functions.
 
 > Can data types have more fields? If so, how do they differ from structs?
 
 > Is it possible to restrict the valid data for a data type? For instance `0 <= Age <= 130`. Could we use ranges?
+
+> overload value setter to do custom validation?
 
 ## Pointer Types
 
