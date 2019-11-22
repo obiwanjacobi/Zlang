@@ -174,42 +174,137 @@ e = MyEnum.MagicValue
 b = e.IsMagicValue()        // true
 ```
 
----
+## Fluent Functions
 
-> TDB:
-
-support recursion? Let compiler check for exit condition.
-
-resolving overloads (only type bound?) (pattern) match on self-type (fn's with same name diff self param)? visitor pattern/double dispatch?
-
-pure functions (functional) / higher order functions?
-
-coroutines (yield/return) (impl. detail of the fn)
+Fluent functions are possible with type-bound functions that return self or another type where another set of bound function is available for.
 
 ```C#
-// What is the difference between multiple times a single result
-coroutine(p: U8): U16
-    yield p
-    yield p << 4
-    yield p << 8
-    yield p << 12
-// ... and a single time, multiple results ??
+FnState1
+    ...
+FnState2
+    ...
+
+add(self: FnState1, v: U8): FnState2
+    ...
+build(self: FnState2): Array<U8>
+    ...
+
+s = FnState1        // instantiate root struct
+    ...
+
+arr = s.Add(42)     // chained calls can be spread over muliple lines
+// split before . and use 2 indents (next indent + 1)
+        .Build()
+```
+
+## Function Overloads
+
+Function overloading means that there are multiple functions with the same name but different parameter (or return) types.
+
+Function overloading will work regardless if the function uses a self parameter or not.
+
+```C#
+samename(p: U8)
+    ...
+samename(p: Str)
+    ...
+
+samename(42)
+samename("42")
+
+samename(x: Str)    // error! already defined
+    ...
+```
+
+An overloaded type bound function with a self parameter:
+
+```C#
+overloadFn(self: U8, p: U8)
+    ...
+overloadFn(self: U8, p: Str)
+    ...
+
+v = 42
+v.overloadFn(42)
+v.overloadFn("42")
+```
+
+When resolving overloads the types of the function parameters are used to determine what function to call. Conversion functions can be used to direct resolving the targeted function.
+
+### Double Dispatch / Visitor Pattern
+
+A demonstration on function overloading and resolving them: does the visitor pattern work?
+
+```C#
+// declare data structure to visit
+MyStruct1
+    ...
+MyStruct2
+    ...
+MyStruct
+    field1: MyStruct1
+    field2: MyStruct2
+
+// instantiate data structure to visit
+s = MyStruct
+    ...
+
+// declare visitor struct
+Visitor
+    ...
+
+// instantiate visitor struct
+v = Visitor
+    ...
+
+// 2 visit functions for different data structs
+// these functions could also be on an interface
+visit(self: Visitor, p: MyStruct1)
+    ...
+visit(self: Visitor, p: MyStruct2)
+    ...
+
+// accept a visitor
+accept(self: MyStruct, v: Visitor)
+    v.visit(field1)
+    v.visit(field2)
+
+```
+
+## Coroutines
+
+Coroutines are functions that execute in parts. A different part is executed each time the function is called.
+
+The `yield` keyword indicates that a part in the function code has finished and the function should be exited. When the function is called next, execution will begin right after the yield statement that exited it last time.
+
+The `return` keyword works as normal and also resets the state of the coroutine. The next call to the function will start from the beginning.
+
+There are three types of coroutines in respect to the function return value.
+
+```C#
+// multiple calls, no result
+coroutine(p: U8)
+    yield
+    yield
+    yield
+    return
+
+// multiple calls, one result
+coroutine(p: U8): U16?
+    yield _
+    yield _
+    yield _
+    return p << 12
+
+// multiple calls each with result
 coroutine(p: U8): Iter<U16>
     yield p
     yield p << 4
     yield p << 8
-    yield p << 12
-
-// last yield or return will reset state.
-// Next call will begin at start of fn.
-
-// can return result at end with optional
-coroutine(p: U8): U16?
-    yield _
-    return p
+    return p << 12
 ```
 
-Coroutine state is kept in hidden param? (has to be caller context specific)
+> Coroutine state is kept in hidden param? (has to be caller context specific)
 
 ```C#
 coroutine(p: U8) // hidden coroutine state param?
@@ -230,6 +325,15 @@ loop [0..3]
     otherCoroutine(42, s2.Ptr())
 ```
 
+---
+
+> TDB:
+
+support recursion? Let compiler check for exit condition.
+
+pure functions (functional) / higher order functions?
+
+
 anonymous functions/lambda/in-place syntax (no capture)
 
 ```C#
@@ -239,8 +343,6 @@ arr.ForEach(i => action(i, 42))   // like match, but different
 
 simulate properties? thru type-bound functions?
 Get\<T>/Set\<T>/Notify\<T>/Watch\<T[]>
-
-fluent functions are possible with type-bound functions that return self or another type where another set of bound function is available for.
 
 tag interrupt service routines (for analysis - volatile) as a simplified interface?
 

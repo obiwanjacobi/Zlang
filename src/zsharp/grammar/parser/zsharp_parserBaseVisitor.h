@@ -303,6 +303,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitType_Ptr(zsharp_parserParser::Type_PtrContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitIdentifier_type(zsharp_parserParser::Identifier_typeContext *ctx) override {
     return visitChildren(ctx);
   }

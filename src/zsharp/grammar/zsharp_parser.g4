@@ -121,7 +121,9 @@ type_F16: F16;
 type_F32: F32;
 type_Str: STR;
 type_Bool: BOOL;
-type_Bit: BIT; // TODO type parameter
+// TODO type parameter
+type_Bit: BIT;
+type_Ptr: PTR;
 
 // identifiers
 identifier_type: IDENTIFIERupper;
@@ -181,6 +183,7 @@ F32: 'F32';
 STR: 'Str';
 BOOL: 'Bool';
 BIT: 'Bit';
+PTR: 'Ptr';
 
 // keywords
 MODULE: 'module';

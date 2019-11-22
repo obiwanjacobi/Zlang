@@ -26,11 +26,11 @@ funcDecl(p: U8?): Bool!
     else
         return Error("Parameter not specified")
 
-funcErr(p: U16): U8
+funcX(p: U16): U8
     x = p + 3
     loop p > 42
         p = p - 1
-    return Error()
+    return x
     
 // enums
 MyEnum1

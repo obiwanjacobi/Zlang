@@ -163,6 +163,8 @@ public:
 
     virtual antlrcpp::Any visitType_Bit(zsharp_parserParser::Type_BitContext *context) = 0;
 
+    virtual antlrcpp::Any visitType_Ptr(zsharp_parserParser::Type_PtrContext *context) = 0;
+
     virtual antlrcpp::Any visitIdentifier_type(zsharp_parserParser::Identifier_typeContext *context) = 0;
 
     virtual antlrcpp::Any visitIdentifier_var(zsharp_parserParser::Identifier_varContext *context) = 0;

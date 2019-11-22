@@ -73,6 +73,26 @@ Bit<4>
 
 When `Bit`s are stored, the closest fitting data type is used. So a `Bit<6>` would take up a single byte `U8`, while a `Bit<12>` would take up two bytes `U16`. `Bit`s are always interpreted as unsigned and stored in the lower bits of the storage type. The upper unused bits are reset to zero.
 
+## Data Types
+
+There is an easy way to create data types to differentiate data at a type level. By using different types the purpose of the data become even more clear.
+
+```C#
+Age: U8
+PersonName: Str
+
+a: Age = 42
+name: PersonName = "John"
+```
+
+You do have to use the explicit type on the variable declaration, using defaults will yield standard types (U8 and Str).
+
+The way data types differ from using aliases is in the use of type bound functions.
+
+> Can data types have more fields? If so, how do they differ from structs?
+
+> Is it possible to restrict the valid data for a data type? For instance `0 <= Age <= 130`. Could we use ranges?
+
 ## Pointer Types
 
 The template type `Ptr<T>` is used to represent a pointer.
@@ -111,10 +131,10 @@ Template Access
 
 ```C#
 changeByRef<T>(Ptr<T> ptr)
-    x = ptr.T()     // don't know the type
-                    // error at runtime
+    x = ptr.T()         // don't know the type
+
     x = ptr.get<T>()    // ptr.U8() is simply: ptr.get<U8>()
-    ptr.set<T>(42)  // error when no conversion from U8 to T
+    ptr.set<T>(42)      // error when no conversion from U8 to T
 ```
 
 Casting

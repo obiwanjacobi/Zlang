@@ -232,6 +232,9 @@ public:
   virtual void enterType_Bit(zsharp_parserParser::Type_BitContext * /*ctx*/) override { }
   virtual void exitType_Bit(zsharp_parserParser::Type_BitContext * /*ctx*/) override { }
 
+  virtual void enterType_Ptr(zsharp_parserParser::Type_PtrContext * /*ctx*/) override { }
+  virtual void exitType_Ptr(zsharp_parserParser::Type_PtrContext * /*ctx*/) override { }
+
   virtual void enterIdentifier_type(zsharp_parserParser::Identifier_typeContext * /*ctx*/) override { }
   virtual void exitIdentifier_type(zsharp_parserParser::Identifier_typeContext * /*ctx*/) override { }
 

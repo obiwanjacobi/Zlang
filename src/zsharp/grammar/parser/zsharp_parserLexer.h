@@ -13,20 +13,20 @@ class  zsharp_parserLexer : public antlr4::Lexer {
 public:
   enum {
     U8 = 1, U16 = 2, U24 = 3, U32 = 4, I8 = 5, I16 = 6, I24 = 7, I32 = 8, 
-    F16 = 9, F32 = 10, STR = 11, BOOL = 12, BIT = 13, MODULE = 14, IMPORT = 15, 
-    EXPORT = 16, LOOP = 17, BREAK = 18, CONTINUE = 19, IF = 20, ELSE = 21, 
-    RETURN = 22, IN = 23, SELF = 24, TRUE = 25, FALSE = 26, COMMENT = 27, 
-    NUMBERbin = 28, NUMBERoct = 29, NUMBERdec = 30, NUMBERdec_prefix = 31, 
-    NUMBERhex = 32, CHARACTER = 33, STRING = 34, UNUSED = 35, PLUS = 36, 
-    MINUS_NEG = 37, MULT = 38, DIV = 39, MOD = 40, POW = 41, EQ_ASSIGN = 42, 
-    NEQ = 43, GREAT_ANGLEclose = 44, SMALL_ANGLEopen = 45, GREQ = 46, SMEQ = 47, 
-    AND = 48, OR = 49, NOT = 50, BIT_AND = 51, BIT_OR = 52, BIT_XOR = 53, 
-    BIT_NOT = 54, BIT_SHL = 55, BIT_SHR = 56, BIT_ROLL = 57, BIT_ROLR = 58, 
-    CONCAT = 59, SUBopen = 60, SUBclose = 61, PARENopen = 62, PARENclose = 63, 
-    QUESTION = 64, COLON = 65, DOT = 66, RANGE = 67, SPREAD = 68, COMMA = 69, 
-    META = 70, COMPTIME = 71, ERROR = 72, STR_QUOTE = 73, CHAR_QUOTE = 74, 
-    COMMENTstart = 75, IDENTIFIERupper = 76, IDENTIFIERlower = 77, IDENTIFIERmixed = 78, 
-    SP = 79, TAB = 80, INDENT = 81, EOL = 82
+    F16 = 9, F32 = 10, STR = 11, BOOL = 12, BIT = 13, PTR = 14, MODULE = 15, 
+    IMPORT = 16, EXPORT = 17, LOOP = 18, BREAK = 19, CONTINUE = 20, IF = 21, 
+    ELSE = 22, RETURN = 23, IN = 24, SELF = 25, TRUE = 26, FALSE = 27, COMMENT = 28, 
+    NUMBERbin = 29, NUMBERoct = 30, NUMBERdec = 31, NUMBERdec_prefix = 32, 
+    NUMBERhex = 33, CHARACTER = 34, STRING = 35, UNUSED = 36, PLUS = 37, 
+    MINUS_NEG = 38, MULT = 39, DIV = 40, MOD = 41, POW = 42, EQ_ASSIGN = 43, 
+    NEQ = 44, GREAT_ANGLEclose = 45, SMALL_ANGLEopen = 46, GREQ = 47, SMEQ = 48, 
+    AND = 49, OR = 50, NOT = 51, BIT_AND = 52, BIT_OR = 53, BIT_XOR = 54, 
+    BIT_NOT = 55, BIT_SHL = 56, BIT_SHR = 57, BIT_ROLL = 58, BIT_ROLR = 59, 
+    CONCAT = 60, SUBopen = 61, SUBclose = 62, PARENopen = 63, PARENclose = 64, 
+    QUESTION = 65, COLON = 66, DOT = 67, RANGE = 68, SPREAD = 69, COMMA = 70, 
+    META = 71, COMPTIME = 72, ERROR = 73, STR_QUOTE = 74, CHAR_QUOTE = 75, 
+    COMMENTstart = 76, IDENTIFIERupper = 77, IDENTIFIERlower = 78, IDENTIFIERmixed = 79, 
+    SP = 80, TAB = 81, INDENT = 82, EOL = 83
   };
 
   zsharp_parserLexer(antlr4::CharStream *input);

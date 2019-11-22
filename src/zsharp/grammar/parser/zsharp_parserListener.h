@@ -230,6 +230,9 @@ public:
   virtual void enterType_Bit(zsharp_parserParser::Type_BitContext *ctx) = 0;
   virtual void exitType_Bit(zsharp_parserParser::Type_BitContext *ctx) = 0;
 
+  virtual void enterType_Ptr(zsharp_parserParser::Type_PtrContext *ctx) = 0;
+  virtual void exitType_Ptr(zsharp_parserParser::Type_PtrContext *ctx) = 0;
+
   virtual void enterIdentifier_type(zsharp_parserParser::Identifier_typeContext *ctx) = 0;
   virtual void exitIdentifier_type(zsharp_parserParser::Identifier_typeContext *ctx) = 0;
 
