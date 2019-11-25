@@ -28,6 +28,19 @@
     <ClCompile Include="zsharp\grammar\parser\zsharp_parserParser.cpp" />
     <ClCompile Include="zsharp\grammar\parser\zsharp_parserVisitor.cpp" />
     <ClCompile Include="zsharp\grammar\ZsharpParser.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\indent\IndentingLexer.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\indent\parser\indentLexer.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\indent\parser\indentParser.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\indent\parser\indentParserBaseListener.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\indent\parser\indentParserBaseVisitor.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\indent\parser\indentParserListener.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\indent\parser\indentParserVisitor.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\parser\testlexer.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\parser\testparser.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\parser\testparserBaseListener.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\parser\testparserBaseVisitor.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\parser\testparserListener.cpp" />
+    <ClCompile Include="zsharp\grammar\_test\parser\testparserVisitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -35,6 +48,12 @@
     <None Include="zsharp\grammar\parser\zsharp_parserLexer.tokens" />
     <None Include="zsharp\grammar\zsharp_parser.g4" />
     <None Include="zsharp\grammar\_test\antlr.debug.zs" />
+    <None Include="zsharp\grammar\_test\indent\indentLexer.g4" />
+    <None Include="zsharp\grammar\_test\indent\indentParser.g4" />
+    <None Include="zsharp\grammar\_test\indent\parser\indentLexer.tokens" />
+    <None Include="zsharp\grammar\_test\indent\parser\indentParser.tokens" />
+    <None Include="zsharp\grammar\_test\parser\testlexer.tokens" />
+    <None Include="zsharp\grammar\_test\parser\testparser.tokens" />
     <None Include="zsharp\grammar\_test\testlexer.g4" />
     <None Include="zsharp\grammar\_test\testparser.g4" />
   </ItemGroup>
@@ -47,8 +66,22 @@
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserParser.h" />
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserVisitor.h" />
     <ClInclude Include="zsharp\grammar\ZsharpParser.h" />
+    <ClInclude Include="zsharp\grammar\_test\indent\IndentingLexer.h" />
+    <ClInclude Include="zsharp\grammar\_test\indent\parser\indentLexer.h" />
+    <ClInclude Include="zsharp\grammar\_test\indent\parser\indentParser.h" />
+    <ClInclude Include="zsharp\grammar\_test\indent\parser\indentParserBaseListener.h" />
+    <ClInclude Include="zsharp\grammar\_test\indent\parser\indentParserBaseVisitor.h" />
+    <ClInclude Include="zsharp\grammar\_test\indent\parser\indentParserListener.h" />
+    <ClInclude Include="zsharp\grammar\_test\indent\parser\indentParserVisitor.h" />
+    <ClInclude Include="zsharp\grammar\_test\parser\testlexer.h" />
+    <ClInclude Include="zsharp\grammar\_test\parser\testparser.h" />
+    <ClInclude Include="zsharp\grammar\_test\parser\testparserBaseListener.h" />
+    <ClInclude Include="zsharp\grammar\_test\parser\testparserBaseVisitor.h" />
+    <ClInclude Include="zsharp\grammar\_test\parser\testparserListener.h" />
+    <ClInclude Include="zsharp\grammar\_test\parser\testparserVisitor.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="zsharp\grammar\_test\indent\indenttest.txt" />
     <Text Include="zsharp\grammar\_test\testdata.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -108,7 +141,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\lib\antlr\include;$(ProjectDir)\zsharp;$(ProjectDir)\zsharp\grammar\parser;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)..\lib\antlr\include;$(ProjectDir)\zsharp;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\lib\antlr\debug;$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>

@@ -132,24 +132,26 @@ MyFunc(p: U8, p2: U16): MyStruct
 
 Return values are also passed by value, so in the example above, two values (U8 and U16) would be copied to the caller.
 
-> TBD: Force caller to handle return value (just like with Error)?
+The caller has to handle the return value (just like with Error). There is a syntax to explicitly ignore the return value.
 
 ```C#
 retFunc(): Bool
     ...
 
 b = retFunc()       // ok, retval caught
-retFunc()           // warning? uncaught retval
+retFunc()           // error! uncaught retval
 
 _ = retFunc()       // ok, explicitly not interested in retval
 ```
 
+These is a language syntax compiler option to turn this feature on or off.
+
 ## Type Bound (Self)
 
-Using the `self` keyword on the first parameter, a function can be bound to a type. In this example the function is bound to the MyStruct type.
+Using the `self` keyword on the (name of the) first parameter, a function can be bound to a type. In this example the function is bound to the MyStruct type.
 
 ```C#
-jamesBond(self s: MyStruct)
+jamesBond(self Ptr<MyStruct>)
     ...
 
 s = MyStruct
@@ -159,11 +161,16 @@ s.jamesBond()
 jamesBond(s)
 ```
 
-When calling a bound function, the 'self' parameter can be used as an 'object' using a dot-notation or simply passed as a first parameter.
+When calling a bound function, the 'self' parameter can be used as an 'object' using a dot-notation or simply passed as a first parameter. Normal function rules apply, so for a struct it is usually a good idea to declare a `Ptr<T>` in order to avoid copying and be able to change the fields of the structure. Matching type-bound functions to their types is done as follows:
 
-> TBD: `self` could be the (reserved) name of the first parameter.
+|Var Type | Self Type | Self Type Note
+|---|---|---
+| T | T or Ptr\<T> | Either can be Imm\<T>
+| T? | T? or Ptr\<T?> | Either can be Imm\<T>
+| Ptr\<T> | T or Ptr\<T> | Either can be Imm\<T>
+| Imm\<T> | Imm\<T> or Ptr<Imm<\<T>>>
 
-This even works for Enum types:
+Any type can be used, for instance Enum types:
 
 ```C#
 isMagicValue(self: MyEnum): Bool
@@ -227,6 +234,21 @@ overloadFn(self: U8, p: Str)
 v = 42
 v.overloadFn(42)
 v.overloadFn("42")
+```
+
+Overload a function by the number of parameters.
+
+```C#
+overload(p1: U8)
+    ...
+overload(p1: U8, p2: U8)
+    ...
+overload(p1: U8, p2: U8, p3: U8)
+    ...
+
+overload(42)            // #1
+overload(42, 42)        // #2
+overload(42, 42, 42)    // #3
 ```
 
 When resolving overloads the types of the function parameters are used to determine what function to call. Conversion functions can be used to direct resolving the targeted function.

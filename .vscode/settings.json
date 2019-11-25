@@ -7,4 +7,8 @@
         "listeners": true,
         "visitors": true
     },
+    "cSpell.ignoreWords": [
+        "antlr",
+        "zsharp"
+    ],
 }

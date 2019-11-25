@@ -1,0 +1,6 @@
+INDENT=1
+DEDENT=2
+TOK=3
+EOL=4
+WS=5
+'tok'=3

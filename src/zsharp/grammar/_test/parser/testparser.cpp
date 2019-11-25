@@ -117,7 +117,7 @@ std::vector<std::string> testparser::_ruleNames = {
 };
 
 std::vector<std::string> testparser::_literalNames = {
-  "", "'toks'"
+  "", "'tok'"
 };
 
 std::vector<std::string> testparser::_symbolicNames = {

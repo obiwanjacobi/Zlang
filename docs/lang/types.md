@@ -132,11 +132,9 @@ changeByRef(Ptr<U8> ptr)
 Template Access
 
 ```C#
-changeByRef<T>(Ptr<T> ptr)
-    x = ptr.T()         // don't know the type
-
-    x = ptr.get<T>()    // ptr.U8() is simply: ptr.get<U8>()
-    ptr.set<T>(42)      // error when no conversion from U8 to T
+changeByRef<T>(Ptr<T> ptr, val: T)
+    x = ptr.value<T>()    // ptr.U8() is simply: ptr.value<U8>()
+    ptr.value<T>(val)
 ```
 
 Casting
@@ -148,14 +146,26 @@ v = ptr.U16()       // error! U16 is too big
 b = ptr.Bit<4>([4..8])  // error! Bit<4> is too small
 ```
 
-This also works with structures:
+Custom structures must use the value accessor:
 
 ```C#
 MyStruct: OtherStruct
     ....
 
 ptr: Ptr<MyStruct>
-s = ptr.OtherStruct()   // can convert to base type
+s = ptr.value<OtherStruct>()   // can convert to base type
+
+// Ptr<MyStruct>
+myS = ptr.value()   // shorthand for MyStruct
+```
+
+### Static Ptr Helper
+
+```C#
+a = 42
+ptr = Ptr.to(a)
+
+ptr = Ptr.to(42)    // ptr to literal is immutable
 ```
 
 ### Optional
@@ -180,6 +190,16 @@ pop: Ptr<Ptr<U8>?>      // ptr to optional ptr to U8
 The pointer to an Array is not expressed with the `Ptr<T>` type. Instead the `Slice<T>` type is used for this.
 
 > TODO: `Slice<T>`
+
+### Pointer to Immutable
+
+> TBD: A pure reference.
+
+```C#
+x = 42#imm      // or x: Imm<U8> = 42
+p = x.Ptr()     // Ptr<Imm<U8>>
+p.set(101)      // error! immutable
+```
 
 ### Pointer Arithmetic
 

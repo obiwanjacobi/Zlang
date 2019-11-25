@@ -22,6 +22,11 @@ s: MyStruct
 s.field1 = 42
 ```
 
+```C#
+z: MyStruct
+    field1 = 42     // inline assignment
+```
+
 > Because both the `Equals` and the `Assignment` operators use the '`=`' symbol, it is not possible to assign values inside a comparison expression.
 
 ```C#
@@ -43,6 +48,8 @@ protect from (non-maskable) interrupts.
 > volatile / locking...
 
 ---
+
+> TBD
 
 ## Deconstructing
 

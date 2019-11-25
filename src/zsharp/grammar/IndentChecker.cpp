@@ -51,26 +51,26 @@ antlrcpp::Any IndentChecker::visitStatement_export(zsharp_parserParser::Statemen
     return visitChildren(ctx);
 }
 
-antlrcpp::Any IndentChecker::visitFunction_decl(zsharp_parserParser::Function_declContext* ctx)
+antlrcpp::Any IndentChecker::visitFunction_def(zsharp_parserParser::Function_defContext* ctx)
 {
     clearIndent();
     return visitChildren(ctx);
 }
 
-antlrcpp::Any IndentChecker::visitStruct_decl(zsharp_parserParser::Struct_declContext* ctx)
+antlrcpp::Any IndentChecker::visitStruct_def(zsharp_parserParser::Struct_defContext* ctx)
 {
     clearIndent();
     return visitChildren(ctx);
 }
 
-antlrcpp::Any IndentChecker::visitEnum_decl(zsharp_parserParser::Enum_declContext* ctx)
+antlrcpp::Any IndentChecker::visitEnum_def(zsharp_parserParser::Enum_defContext* ctx)
 {
     clearIndent();
     return visitChildren(ctx);
 }
 
 // indent: 1
-antlrcpp::Any IndentChecker::visitStruct_field_decl(zsharp_parserParser::Struct_field_declContext* ctx)
+antlrcpp::Any IndentChecker::visitStruct_field_def(zsharp_parserParser::Struct_field_defContext* ctx)
 {
     nextIndent();
     auto retval = visitChildren(ctx);
@@ -78,7 +78,7 @@ antlrcpp::Any IndentChecker::visitStruct_field_decl(zsharp_parserParser::Struct_
     return retval;
 }
 
-antlrcpp::Any IndentChecker::visitEnum_option_decl(zsharp_parserParser::Enum_option_declContext* ctx)
+antlrcpp::Any IndentChecker::visitEnum_option_def(zsharp_parserParser::Enum_option_defContext* ctx)
 {
     nextIndent();
     auto retval = visitChildren(ctx);
@@ -89,7 +89,7 @@ antlrcpp::Any IndentChecker::visitEnum_option_decl(zsharp_parserParser::Enum_opt
 // indent: relative
 antlrcpp::Any IndentChecker::visitCodeblock(zsharp_parserParser::CodeblockContext* ctx)
 {
-    auto fn = dynamic_cast<zsharp_parserParser::Function_declContext*>(ctx->parent);
+    auto fn = dynamic_cast<zsharp_parserParser::Function_defContext*>(ctx->parent);
     auto ifstmt = dynamic_cast<zsharp_parserParser::Statement_ifContext*>(ctx->parent);
     auto elsestmt = dynamic_cast<zsharp_parserParser::Statement_elseContext*>(ctx->parent);
 
@@ -134,9 +134,9 @@ antlrcpp::Any IndentChecker::visitStatement_else(zsharp_parserParser::Statement_
     return retval;
 }
 
-antlrcpp::Any IndentChecker::visitVariable_decl(zsharp_parserParser::Variable_declContext* ctx)
+antlrcpp::Any IndentChecker::visitVariable_def(zsharp_parserParser::Variable_defContext* ctx)
 {
-    // `variable_decl` has optional indent
+    // `variable_def` has optional indent
     if (ctx->indent() == nullptr && _indent > 0)
     {
         std::cout << "Missing indentation at line: " << ctx->getStart()->getLine() << "\r\n";
