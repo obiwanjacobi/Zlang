@@ -9,7 +9,7 @@
 void testIndent()
 {
     std::fstream fileStream;
-    fileStream.open("_test/indent/indenttest.txt");
+    fileStream.open("zsharp/grammar/_test/indent/indenttest.txt");
     
     auto stream = std::make_unique<antlr4::ANTLRInputStream>(fileStream);
     auto lexer = std::make_unique<indentLexer>(stream.get());
@@ -17,6 +17,8 @@ void testIndent()
     auto parser = std::make_unique<indentParser>(tokens.get());
     
     indentParser::StartContext* start = parser->start();
+
+    std::cout << start->getText();
 }
 
 void testZsharp(const char* filePath)

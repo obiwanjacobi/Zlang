@@ -204,6 +204,13 @@ arr = s.Add(42)     // chained calls can be spread over muliple lines
         .Build()
 ```
 
+```C#
+is(someVar).biggerThan(42)
+does<SomeType>().implement<SomeInterface>()
+can<SomeType>().BeCastedTo<DiffType>()
+does<SomeType>().implementMethod(MethodName)
+```
+
 ## Function Overloads
 
 Function overloading means that there are multiple functions with the same name but different parameter (or return) types.

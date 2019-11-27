@@ -13,6 +13,7 @@ The number of keywords have been kept to a minimum. Much of the language is expr
 | if | Conditional branch
 | else | Opposite of conditional branch
 | return | Exit a Function
+| yield | Exits a Coroutine Function
 | in | Iterating values
 | self | Indicates bound type
 | try | Propagate if Error
@@ -25,3 +26,14 @@ The number of keywords have been kept to a minimum. Much of the language is expr
 - and
 - or
 - not
+
+## Reserved for future use
+
+- defer
+- errdefer
+- in
+- out
+- ref
+- any
+- asm
+- bank

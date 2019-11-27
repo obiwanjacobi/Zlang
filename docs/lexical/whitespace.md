@@ -8,10 +8,6 @@ Spaces are used to separate code elements in order to make them distinct.
 
 `iftrue` does not mean anything, while `if true` represents an `if` statement with a condition (`true`). The space separates the parts and makes them meaningful.
 
-Tabs are used to indent code and signal scope (see Indentation).
-
-> Set your editor to use tabs and not spaces.
-
 ## Indentation
 
 Z# uses whitespace -indents- to signal scope. Where a lot of languages use `{}` to declare a scope, Z# attempts to minimize noise and do away with those characters.
@@ -59,4 +55,31 @@ global-scope
 
     <Type>
         type-scope
+```
+
+## Breaking up lines
+
+As a general rule: broken up lines continue on the next line one indent further than a new (child) scope would be: a double indent.
+
+### Literal Strings
+
+No extra quotes are required. The new-line (EOL) character(s) and the indent white-space(s) will **NOT** become part of the string.
+
+```C#
+s = "this is a very long string to demonstrate
+        how to break up long literal strings"
+```
+
+So in this example there is a trailing space after demonstrate in order to separate that word from the next word 'how'.
+
+### Functions
+
+The function name cannot be split. Parameters can be spread out over multiple lines. The opening parenthesis is always next to the function name. The closing parenthesis can either be directly after the last parameter or at the beginning (same indent/scope as the function name) of a new line. Commas that separate the parameters go directly after its previous parameter and cannot be on the start of a new line (after a double indent).
+
+```C#
+my_very_long_function_name_with_lots_of_parameters(
+        p1: U8, p2: U16, p3: U24, p4: U32,
+        p5: Str
+)
+    ...
 ```

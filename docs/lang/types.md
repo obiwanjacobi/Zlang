@@ -95,6 +95,22 @@ The way data types differ from using aliases is in the use of type-bound functio
 
 > overload value setter to do custom validation?
 
+## Variant Type
+
+> Do we need a variant type?
+
+```C#
+funcAny(): Any
+    ...
+
+a = funcAny()   // a => Any
+v = match a.type
+    n: U8 => n
+    _ => Error("Unsupported")
+
+// v => U8!
+```
+
 ## Pointer Types
 
 The template type `Ptr<T>` is used to represent a pointer.

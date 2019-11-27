@@ -35,7 +35,7 @@ Floating point literals can be specified in different ways. Mainly the use of th
 1.0  1.  .42
 ```
 
-> Use of exponents -like `1.42e-3`- is currently not defined.
+> Use of exponents (like `1.42e-3`) is currently not defined.
 
 ## Strings
 
@@ -77,6 +77,8 @@ s = "Answer to everything is '{v}'"
 ```
 
 Using the `{}` characters as is in a string literal, requires the escape sequence `\\`.
+
+> What character to use to disable string features like formatting?
 
 ## Character
 

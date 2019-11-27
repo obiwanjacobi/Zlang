@@ -35,7 +35,8 @@ Operators never allocate memory!
 | >\| | Bitwise Rotate Right
 | \|< | Bitwise Rotate Left
 | = | Value Assignment
-| [ ] | Slice / Range
+| .. | Range operator
+| ... | Spread operator
 
 ## Other Symbols
 
@@ -48,6 +49,9 @@ Operators never allocate memory!
 | ( ) | Function
 | " " | String
 | ' ' | Character
+| @ | Disable String formatting features
+| { } | String formatting parameter / Code Decoration
+| [ ] | Slice / Range
 | ! | Possible Error (on return type)
 | ? | Optional variable or parameter/return value
 | \| \| | Optional fallback (or ??)
