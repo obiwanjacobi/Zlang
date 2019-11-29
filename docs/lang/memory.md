@@ -54,6 +54,10 @@ s = a.Str(alloc)                // function that needs memory
 
 ---
 
+## Volatile ??
+
+> How to deal with memory mapped hardware (IO)?
+
 ## Code Layout
 
 Assign code to memory sections (Page0) to fit hardware targets.

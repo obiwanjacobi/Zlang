@@ -50,7 +50,7 @@ Operators never allocate memory!
 | " " | String
 | ' ' | Character
 | @ | Disable String formatting features
-| { } | String formatting parameter / Code Decoration
+| { } | String formatting parameter / Code Decorator
 | [ ] | Slice / Range
 | ! | Possible Error (on return type)
 | ? | Optional variable or parameter/return value
