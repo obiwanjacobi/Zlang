@@ -25,3 +25,18 @@ funTwo(): Bool
 if funOne() or funTwo()
     code_is_executed
 ```
+
+---
+
+> TBD
+
+Allow these combinations?
+
+```C#
+true not and true       // nand: false
+false not or true       // nor: false
+
+true nand true          // nand: false
+false nor true          // nor: false
+true xor true           // xor: false
+```

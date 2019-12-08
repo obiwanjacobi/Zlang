@@ -10,8 +10,6 @@ It is also distinguished by the use of parenthesis `()` when declared or called.
 MyFunction()        // function declaration
     fn_impl_here
 
-...
-
 MyFunction()        // function call
 ```
 
@@ -20,8 +18,6 @@ A more complex example would look like this:
 ```C#
 repeat(count: U8, char: U8): Str
     fn_impl_here
-
-...
 
 s = repeat(42, 'X')
 ```
@@ -52,7 +48,7 @@ Any function that takes parameters that represent pointer to functions must spec
 
 When the code has a pointer to a function, it can be called by specifying the `()` straight after it. Any parameters the function that is pointed to requires, must be passed in at that time. The return value -if any- will be available when the function returns.
 
-See also [Function Interfaces](interfaces.md).
+A function without implementation is called a function declaration or [Function Interfaces](interfaces.md).
 
 ## Parameters
 
@@ -183,7 +179,7 @@ b = e.IsMagicValue()        // true
 
 ## Fluent Functions
 
-Fluent functions are possible with type-bound functions that return self or another type where another set of bound function is available for.
+Fluent functions are possible with type-bound functions that return self or another types where another set of bound function is available for.
 
 ```C#
 FnState1

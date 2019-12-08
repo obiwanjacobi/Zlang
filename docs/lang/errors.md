@@ -69,6 +69,8 @@ b = myFunc() catch(err)  // error! myFunc does not return errors
 
 It is not possible to return an Error from a void function - a function that has no return value.
 
+> That could be fixed by introducing a `Void` type (but I want to avoid that: noise).
+
 ```C#
 voidFn()                    // no return value specified
     return Error("Failed")  // error! no return value
@@ -78,7 +80,7 @@ You can use the `return` keyword in a function to exit its execution of course.
 
 ## Error Trace
 
-When an error is returned from a function and it bubbles up the call stack, a trace can be made of all the code sites it visits.
+When an error is returned from a function and it naturally bubbles up the call stack, a trace can be made of all the code sites it visits.
 
 This diagnostic information can be useful for tracking down problems.
 
@@ -86,9 +88,7 @@ This diagnostic information can be useful for tracking down problems.
 
 > How to access standard errors (make a list of standard errors?)?
 
-Use catch with a handler function instead of an inline handler?
-
-Function Interface needed for the error-handler function.
+Use catch with a handler function instead of an inline handler? Function Interface needed for the error-handler function.
 
 How can the handler-function direct control-flow?
 
@@ -120,11 +120,16 @@ errorFn(p: U8) U8!
         return Error("Standard Error")
 
 v = errorFn(42) catch(err)
-    if (err.typeId = MyError.typeId)
+    // control flow: using typeid
+    if err#typeId = MyError#typeId
         ...
+    // value: match
+    a = match err
+        myErr: MyError => ...
+        _ => ...
 ```
 
-> Fatal Errors
+## Fatal Errors
 
 What some call 'panic' also known as exit()
 
@@ -136,4 +141,4 @@ FatalError("panic!")
 FatalError("panic!", err)
 ```
 
-What errors are fatal? DivideByZero, StackOverflow, OutOfMemory, ... ??
+> What errors are fatal? DivideByZero, StackOverflow, OutOfMemory, ... ??

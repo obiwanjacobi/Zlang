@@ -21,13 +21,13 @@ s = "zlang"     // s is of type Str and has value 'zlang'
 b = true        // b is of type Bool and has value true
 ```
 
-If no explicit type is given the initialization value is used to infer the smallest type from it. The `Bit` type is never considered.
+If no explicit type is given the initialization value is used to infer the smallest type from it. The `Bit<T>` type is never considered.
 
 These are not valid:
 
 ```C#
-a: U8 = true    // error! Bool cannot be converted to U8
-a: U8 = "zlang" // error! Str cannot be converted to U8
+a: U8 = true    // error! Bool cannot be 'converted' to U8
+a: U8 = "zlang" // error! Str cannot be 'converted' to U8
 ```
 
 The names of a variable must be unique inside the root scope they're used in:
@@ -84,6 +84,18 @@ x = v#imm   // error, immutable values cannot be assigned
 ```
 
 An immutable variable is initialized when declared (not assigned to later).
+
+> Or use `Imm<T>`??
+
+```C#
+c: Imm<U8> = 10  // c has value 10 and cannot be changed
+
+c = 42          // error! cannot change value
+a = c           // now a is immutable as well (??)
+
+v = 42          // mutable U8
+c: Imm<U8> = v  // ok, immutable copy of v
+```
 
 ## Global Variables
 

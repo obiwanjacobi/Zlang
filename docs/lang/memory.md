@@ -1,6 +1,6 @@
 # Memory
 
-The language does not know anything about memory management. It is oblivious to the existence of a heap. It does assume stack space or 'global space' when allocating room for storing variables.
+The language does not know anything about memory management. It is oblivious to the existence of a heap. It does assume 'stack space' or 'global space' when allocating room for storing variables.
 
 That means that when program data is to be stored outside the scope of a function (stack) an explicit library function must be used in order to make that happen.
 
@@ -37,7 +37,7 @@ s = a.Str(alloc)                // function that needs memory
 
 ### Allocation Strategies
 
-- Heap: traditional global memory allocation.
+- Heap: traditional (global) memory allocation where a reserved chunk of memory is used to satisfy memory allocation requests.
 - Pool: A pool (of a fixed number) of fixed sized chunks. Usually the size of a specific type.
 - Scoped: A container for allocation made within a certain scope. When going out-of-scope, memory is freed/container is destroyed.
 - Object: allocated objects are on a stack. When an object is freed, all other object on top of it are freed also.
@@ -50,7 +50,7 @@ s = a.Str(alloc)                // function that needs memory
 
 ---
 
-> Differentiate between code and data addresses? A pointer to a function is a code address. A pointer to an allocated array is a data address. You cannot write to code addresses. You cannot execute data addresses (possible issue when rom-images are copied to ram for fast execution in old hardware).
+> Differentiate between code and data addresses? A pointer to a function is a code address. A pointer to an allocated array is a data address. You cannot write to code addresses. You cannot execute data addresses (possible issue when rom-images are copied to ram for fast execution in old hardware - supply transformation/casting).
 
 ---
 

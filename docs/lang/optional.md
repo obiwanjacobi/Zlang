@@ -1,6 +1,6 @@
 # Optional Values
 
-There is no null in Z#. There is a syntax to structure the case where a value may not be available. The `?` is used on the type to indicate this.
+There is no null or null-ptr in Z#. There is a syntax to structure the case where a value may not be available. The `?` is used on the type to indicate this.
 
 ```C#
 valueMaybe(): U8?
@@ -8,7 +8,8 @@ valueMaybe(): U8?
     return 42           // to return a value
 
 // fallback when there is no value
-var = valueMaybe() || 42
+var = valueMaybe() || 42    // more like javascript?
+var = valueMaybe() ?? 42    // more like C#?
 
 // optional can be used in a logical expression
 if var
@@ -38,7 +39,7 @@ hasParam(p: U8?): Bool
 
 There is no implicit conversions in Z#. So p cannot be implicitly converted to a Bool value and therefor `return p` is invalid.
 
-In this case where it needs to be converted to boolean it results in a little verbose code.
+In this case where it needs to be converted to boolean it results in a little verbose (not so nice) code.
 
 Optional fields in structs:
 

@@ -4,19 +4,18 @@ Interfaces are the means to polymorphism without using objects (in an OOP sense)
 
 ## Function Interface
 
-Function interfaces are a template for a singe function. Usually used as a callback or delegate.
+Function interfaces are a prototype for a singe function. Usually used as a callback or delegate.
 
 A function interface declares only one function and does _not_ use the `self` keyword.
 
 ```C#
-FunctionInterface
-    (p1: U16): U8
+FunctionInterface (p1: U16): U8 _
 
 callFn(ptrFn: Ptr<FunctionInterface>): U8
     return ptrFn(0x4242)
 ```
 
-Also, there is no function name. The name of the interface is used as a type.
+The function interface is simply a function declaration. It end with a `_` to indicate it is not a function definition and contains no implementation.
 
 Function interfaces are syntactically different from Object interfaces - so an object interface with one function cannot be mixed up/interchanged with a function interface.
 
@@ -36,18 +35,22 @@ An object interface template:
 
 ```C#
 TemplateInterface<T>
+    lowByte(self, p1: U16): T _
+    hiByte(self, p1: U16): T _
+
+// recommended way to restrict self
+MyStruct
+    ...
+RestrictedInterface<T: MyStruct>
     lowByte(self: T, p1: U16): U8 _
     hiByte(self: T, p1: U16): U8 _
-
-TemplateInterface<T, R>
-    lowByte(self: T, p1: U16): R _
-    hiByte(self: T, p1: U16): R _
+// The interface can only be implemented on MyStruct (or derived) types.
 ```
 
 How to implement an interface:
 
 ```C#
-// declare
+// define
 MyStruct
     ...
 

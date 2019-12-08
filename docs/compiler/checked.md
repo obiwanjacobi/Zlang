@@ -2,7 +2,7 @@
 
 Use functions that do extra checking like bounds and overflow checking using a compiler option. This make the code safer but also bigger and slower. Typically on during development and off for release.
 
-User should also be able to write a checked and unchecked version of function.
+User should also be able to write a checked and unchecked version of a function.
 
 ## Code Contracts
 
@@ -12,13 +12,13 @@ Provide a way to be explicit about the expectations of the code (functions).
 
 ### At Compile Time
 
-The compiler (or standard library) provides an `assert` (not sure about the name yet) function that checks the provided condition and generates an error (a warning too?) when it evaluates to false. Additional text can be specified to explain the problem.
+The compiler (or standard library) provides an `#assert` (not sure about the name yet) function that checks the provided condition and generates an error (a warning too?) when it evaluates to false. Additional text can be specified to explain the problem.
 
 This can be used as a basis to allow compile time checking of expectations of any code. Helper functions could be created with more appropriate names like, expect or guard etc.
 
 ### At Run Time
 
-This requires the code that does the validation to be present in the output binary. The same `assert` method can be used -or one that has the same name but is for runtime use- to signal the problem. At runtime `assert` failures result in a `FatalError`.
+This requires the code that does the validation to be present in the output binary. The `assert` function can be used to signal the runtime problem. At runtime `assert` failures result in a `FatalError`.
 
 Again helper functions can be made to make more appropriate names and -more importantly- have a way to eliminate the code when at compile time the necessary flags are not found.
 

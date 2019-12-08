@@ -6,10 +6,10 @@ The allowed conversions are all explicitly represented by a function. The name o
 
 ```C#
 b = 42        // U8
-s = b.Str()   // to string "42"
+s = b.Str(alloc)   // to string "42"
 ```
 
-> TBD: remove implicit string allocation in `.Str()`. Use explicit allocator object?
+Because `Str` allocates memory to store its content an Allocator object is required for this conversion.
 
 Type conversion from larger to smaller types need some extra help:
 

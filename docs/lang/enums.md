@@ -3,7 +3,7 @@
 Enums are groups of values that belong together.
 An enum is basically a value type that has its possible values predefined.
 
-> These values all have to be available at compile time, so the cannot be calculated at runtime.
+> These values all have to be available at compile time, they cannot be calculated at runtime.
 
 As with all type names, the name of the enum type has to start with a capital letter. The enum declaration looks very much like the declaration of a structure, but the use of comma's (and the absence of data types) make it an enum.
 

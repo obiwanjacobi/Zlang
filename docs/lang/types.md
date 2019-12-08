@@ -47,11 +47,9 @@ Str
 
 A string is an `Array` of characters. But there is no character data type, so `U8` is used as a byte. Assumed here is that characters are ASCII based.
 
-> `Array`s are fixed length, are `Str`'s also fixed length?
+An `Array` is fixed length, therefor `Str`'s are also fixed length, meaning that when a `Str` is constructed its length is known.
 
-> Make a `Ptr<U8>` to point to fixed (null-terminated) strings? And use `Str` for dynamic string?
-
-> What if `Str` is part of structure? Can the entire structure still be allocated on the stack?
+> What if `Str` is part of structure? Can the entire structure still be allocated on the stack? => Only the Str structure, not the string itself.
 
 ### Boolean
 
@@ -104,12 +102,14 @@ funcAny(): Any
     ...
 
 a = funcAny()   // a => Any
-v = match a.type
+v = match a
     n: U8 => n
     _ => Error("Unsupported")
 
 // v => U8!
 ```
+
+See also Union Types.
 
 ## Pointer Types
 
@@ -140,39 +140,19 @@ Assigning a new value to the pointed-to-storage:
 ```C#
 changeByRef(Ptr<U8> ptr)
     ptr.U8(42)          // conversion with new value
+    ptr.value(42)       // same (uses Ptr type: U8)
+    ptr.value<U8>(42)   // same, explicit
 
-    v = ptr.U8()        // how is the link maintained?
-    v = 42
+    v = ptr.U8()        // v is a local copy
+    v = 42              // does NOT change ptr value!
 ```
 
 Template Access
 
 ```C#
 changeByRef<T>(Ptr<T> ptr, val: T)
-    x = ptr.value<T>()    // ptr.U8() is simply: ptr.value<U8>()
+    x = ptr.value<T>()  // compatibility checked at compile time
     ptr.value<T>(val)
-```
-
-Casting
-
-```C#
-ptr: Ptr<U8>
-v = ptr.I8()        // ok, unsigned to signed conversion
-v = ptr.U16()       // error! U16 is too big
-b = ptr.Bit<4>([4..8])  // error! Bit<4> is too small
-```
-
-Custom structures must use the value accessor:
-
-```C#
-MyStruct: OtherStruct
-    ....
-
-ptr: Ptr<MyStruct>
-s = ptr.value<OtherStruct>()   // can convert to base type
-
-// Ptr<MyStruct>
-myS = ptr.value()   // shorthand for MyStruct
 ```
 
 ### Static Ptr Helper
@@ -199,7 +179,12 @@ Should be no different than creating that initial pointer.
 pp: Ptr<Ptr<U8>>        // ptr to ptr to U8
 opp: Ptr<Ptr<U8>>?      // optional ptr to a ptr to U8
 pop: Ptr<Ptr<U8>?>      // ptr to optional ptr to U8
+
+p: Ptr<U8>              // Ptr<U8>
+pp = p.Ptr()            // Ptr<Ptr<u8>>
 ```
+
+> Only two levels allowed?
 
 ### Pointer to Arrays
 
@@ -212,30 +197,55 @@ The pointer to an Array is not expressed with the `Ptr<T>` type. Instead the `Sl
 > TBD: A pure reference.
 
 ```C#
+// literals are immutable by default
 x = 42#imm      // or x: Imm<U8> = 42
 p = x.Ptr()     // Ptr<Imm<U8>>
-p.set(101)      // error! immutable
+p.value(101)      // error! immutable
 ```
 
 ### Pointer Arithmetic
 
 > There is no pointer arithmetic.
 
-Typically a `Slice<T>` should be used to index into a pointer.
+Typically a `Slice<T>` should be used to index into a pointer. See Pointer to Arrays.
 
 > TBD: Syntax for pointing to members of structures?
 
+Needs an offset (compile time) from a runtime Ptr.
+
+```C#
+MyStruct
+    field1: U8
+    field2: U16
+
+s = MyStruct
+    ...
+p = s.Ptr()
+pFld2 = p#offset(MyStruct.field2)
+```
+
+> What about pointing to bit-field members?
+
 ### Casting
 
-To change the type of a pointer:
+Type compatibility.
+
+```C#
+ptr: Ptr<U8>
+v = ptr.I8()        // ok, unsigned to signed conversion
+v = ptr.U16()       // error! U16 is too big
+b = ptr.Bit<4>([4..8])  // error! Bit<4> is too small
+```
+
+Custom structures must use the value accessor:
 
 ```C#
 MyStruct : OtherStruct
     ...
 
 ptr = Ptr<MyStruct>
-cast = ptr.Ptr<OtherStruct>()   // ok, cast to derived type
-p = cast.Ptr<MyStruct>()        // ok, is original type
+cast = ptr.value<OtherStruct>()     // ok, cast to derived type
+p = cast.value<MyStruct>()          // ok, is original type
 ```
 
 ```C#
@@ -244,19 +254,19 @@ MyStruct : OtherStruct
 MyStruct2: OtherStruct
     ...
 ptr = Ptr<MyStruct>
-cast = ptr.Ptr<OtherStruct>()
-p2 = cast.Ptr<MyStruct2>()        // error, is not original type
+cast = ptr.value<OtherStruct>()
+p2 = cast.value<MyStruct2>()        // error, is not original type
 ```
 
-If the original type is lost, casting up the inheritance hierarchy will always fail.
+If the original type is lost or cannot be determined at compile time, casting up the inheritance hierarchy will always fail.
 
 ## Aliases
 
 Same as declaring a new type, just without any additions.
 
 ```C#
-// a real new type
-MyType: OtherType<Complex<U8>, Str>         // do we need to close with _ ??
+// a real new type (struct)
+MyType: OtherType<Complex<U8>, Str> _   // _ to indicate no fields
 
 // another name for the same type (alias)
 MyType = OtherType<Complex<U8>, Str>
@@ -315,8 +325,13 @@ typedFn<OtherStruct>(o)     // type explicit
 > This too??
 
 ```C#
-FixedArray<T, count: U8>    // non-type template params?
+// non-type template params?
+FixedArray<T, count: U8>
     arr: Array<T>(count)
+
+// restricting on metadata?
+TemplateType<T#bits=8>
+    field: T
 ```
 
 ### Template Specialization

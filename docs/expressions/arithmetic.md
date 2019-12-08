@@ -23,6 +23,6 @@ d = 16 % 3   // 1
 x = (2 + a) * (b / 3) + d
 ```
 
-## Overflow
+## Overflow / Underflow
 
-Checked functions can be used to implement the operators that check for overflow. Overflow is a condition where the results exceeds the storage capacity of the data types used.
+Checked functions can be used to implement the operators that check for overflow and underflow. Overflow is a condition where the results exceeds the storage capacity of the data types used. Underflow is a condition where a subtraction resulted in a numerical value smaller than 0 (on an unsigned type).

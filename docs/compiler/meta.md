@@ -21,8 +21,10 @@ A special operator is used to access them: `#`
 | `#default` | Default value for the type.
 | `#ptr` | Pointer to a (function) type.
 | `#imm` | Make immutable.
+| `#mask` | Mask for retrieving a bit field value.
+| `#offset` | Byte offset from the start of a structure to a field.
 
-> `#typeid` is a U16 hash value over the module name and type name.
+> `#typeid` is a U16 hash value over (part of) the module name and type name.
 
 > `#type` is only available in a compile-time function that is tagged with a `#!`.
 
@@ -70,7 +72,7 @@ A pragma is prefixed with: `#` that starts at the indent level of the current sc
 well_behaved_code
 ```
 
-> A `#` symbol not at the current scope indent position, does not start a new scope.
+> A `#` symbol not at the start of the current scope indent position, does not start a new scope.
 
 > TBD: A file level scope 'options' pragma that executes all pragmas for that file.
 

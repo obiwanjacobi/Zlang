@@ -1,10 +1,8 @@
 # Structures
 
-> TODO: Structuring/destructuring(spread operator)
-
 Structures are data records of fields.
 
-A name and a set of fields is required in order to define a structure. Structures cannot be empty - have no fields.
+A name and a set of fields is required in order to define a structure. Structures (that do not derive) cannot be empty - have no fields.
 
 ```C#
 MyStruct
@@ -12,9 +10,7 @@ MyStruct
     field2: Str
 ```
 
-Note that the name of the structure has to start with a capital letter, because it is a new type.
-
-Also note the absence of any specific keywords like 'struct'.
+Note that the name of the structure has to start with a capital letter, because it is a new type. Also note the absence of any specific keywords like 'struct'.
 
 Here is how to create an instance of a structure and assign its fields with values.
 
@@ -100,9 +96,23 @@ MyStruct
 
 When the total number of bits exceed a byte the rest of the bits is packed into a new byte. Bit fields never cross byte boundaries.
 
-> Do we want this? =>
+When bit fields are combined with other types, the bit fields are grouped to optimize byte usage.
 
-If the bit fields need to span more than a single byte, the structure can be derived from the unsigned data type.
+```C#
+MyStruct
+    field1: Bit<2>
+    field2: Bit<4>
+    field3: Bit<4>
+    other: U8
+    field4: Bit<4>
+    field5: Bit<4>
+```
+
+The resulting structure has 3 bytes worth of bit fields and one byte for the other field.
+
+> What will be the #offset for a bit field? (byte-offset/bit-offset)
+
+When a larger (than 8-bit-based) bit field type is needed the structure can be derived from an unsigned built-in data type. But the structure can no longer be mixed with non-bit field fields.
 
 ```C#
 MyStruct: U16
@@ -113,8 +123,6 @@ MyStruct: U16
     field5: Bit<4>      // error! cannot overflow
     other: U8           // error! only bit fields
 ```
-
-Deriving a structure from an unsigned datatype is only valid when the structure contains only bit fields.
 
 ## Memory Layout
 
