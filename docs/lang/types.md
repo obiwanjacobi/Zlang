@@ -255,7 +255,11 @@ If the original type is lost, casting up the inheritance hierarchy will always f
 Same as declaring a new type, just without any additions.
 
 ```C#
-MyType: OtherType<Complex<U8>, Str>
+// a real new type
+MyType: OtherType<Complex<U8>, Str>         // do we need to close with _ ??
+
+// another name for the same type (alias)
+MyType = OtherType<Complex<U8>, Str>
 ```
 
 ## Templates

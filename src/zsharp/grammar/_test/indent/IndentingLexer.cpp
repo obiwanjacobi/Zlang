@@ -67,7 +67,7 @@ std::unique_ptr<antlr4::CommonToken> IndentingLexer::commonToken(int tokenType, 
     size_t charPos = getCharIndex();
     size_t stop = charPos - 1;
     size_t start = len == 0 ? stop : stop - len + 1;
-    size_t line = _lastToken->getLine();
+    size_t line = getLine();
 
     std::pair<antlr4::TokenSource*, antlr4::CharStream*> source(this, this->_input);
     return _factory->create(source, tokenType, text, DEFAULT_TOKEN_CHANNEL, start, stop, line, charPos);

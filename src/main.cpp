@@ -32,8 +32,8 @@ void testZsharp(const char* filePath)
 
 int main(int argc, char **argv)
 {
-    //testZsharp(argv[1]);
-    testIndent();
+    testZsharp(argv[1]);
+    //testIndent();
 
     return 0;
 }

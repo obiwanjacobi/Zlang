@@ -17,7 +17,7 @@ module myproject.Custom_String1
 
 In a sense, the module name is also the namespace of the code in the file.
 
-> Packaging libraries is not part of the language but a function of the compiler.
+> Packaging libraries is not part of the language but a function of the compiler. It uses modules to group code together. The module identifies all the code -not just the exported public identifiers.
 
 ---
 
