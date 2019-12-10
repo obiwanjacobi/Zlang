@@ -2,24 +2,26 @@
 
 The array is a continuous sequence of elements. The structure of these elements are expressed in types. An array is always one-dimensional. It it possible to make arrays of arrays, thus simulating multi-dimensional arrays.
 
-An array has a fixed size, determined at compile time that cannot be changed: the array cannot be made larger or smaller.
+An array has a fixed size, determined at compile time that cannot be changed: the array cannot be made larger or smaller. All its data is stored on the stack (or in the global segment).
 
 An immutable array is initialized once and its contents cannot be changed after that:
 
-> TBD: the immutable array is inconsistent with the use of the `#imm` compiler attribute. `arr = [1, 2]` would be mutable and `arr = [1, 2]#imm` would be immutable...
-
 ```C#
 // immutable
-arr = [1, 2, 3, 4, 5]               // 5 x U8
-arr: Array<U16> = [1, 2, 3, 4, 5]   // 5 x U16
+arr = [1, 2, 3, 4, 5]#imm               // 5 x U8
+arr: Imm<Array<U16>> = [1, 2, 3, 4, 5]  // 5 x U16
 
 arr[0] = 42                     // error!
+arr: Array<U16> = [1, 2, 3, 4, 5]#imm  // error! arr is not imm
 ```
 
 A mutable array has its size specified up front, but the contents of its elements can be changed dynamically in code.
 
 ```C#
 // mutable
+arr = [1, 2, 3, 4, 5]               // 5 x U8
+arr: Array<U16> = [1, 2, 3, 4, 5]   // 5 x U16
+// using a creator function
 arr = Array<U8>([1, 2, 3, 4])   // 4 x U8
 arr = Array<U8>(10)             // 10 x U8 (all 0)
 

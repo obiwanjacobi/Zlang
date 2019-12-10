@@ -112,3 +112,32 @@ anyFunc<T>(m: T)    // normal function
 #! anyFunc(m)       // called/run at compile time
 anyFunc(m)          // called/run at run time
 ```
+
+---
+
+> TBD
+
+Test for field exists
+
+```C#
+MyStruct
+    field1: U8
+
+s = MyStruct
+    ...
+
+if s#field1     // does 'field1' exist?
+    ...
+```
+
+Meh:
+
+```C#
+MyFunc(p1: U8, p2: U16)
+    ...
+
+pfn = MyFunct#ptr
+
+if pfn#p1   // does 'p1' parameter exist
+    ...
+```

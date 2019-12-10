@@ -45,11 +45,21 @@ A 'string' of characters of text.
 Str
 ```
 
-A string is an `Array` of characters. But there is no character data type, so `U8` is used as a byte. Assumed here is that characters are ASCII based.
+A string is an `Array` of characters. There is no character data type, so `U8` is used as a character byte. Assumed here is that characters are ASCII based.
 
 An `Array` is fixed length, therefor `Str`'s are also fixed length, meaning that when a `Str` is constructed its length is known.
 
-> What if `Str` is part of structure? Can the entire structure still be allocated on the stack? => Only the Str structure, not the string itself.
+### Text
+
+Just like `Str` is syntactic sugar for an `Array<U8>` in that same way `Text` is synonym for `List<U8>`. This means that the content data - the text itself - is stored using an allocator in some 'external' memory. The reference to that memory and some bookkeeping variables are stored on the stack in the Text structure.
+
+```C#
+Text
+```
+
+> Conversion between Text and Str will be common. Aim to overload most Str/Text bound functions.
+
+> A TextBuilder will probably be required to efficiently create longer texts.
 
 ### Boolean
 
@@ -330,8 +340,18 @@ FixedArray<T, count: U8>
     arr: Array<T>(count)
 
 // restricting on metadata?
-TemplateType<T#bits=8>
+TemplateType<T#bits=8>  // '=' conflicts with parameter default
     field: T
+```
+
+### Template Parameter Defaults
+
+```C#
+TemplateType<T=U8>
+    field1: T
+
+t = TemplateType
+    field1 = 42         // U8
 ```
 
 ### Template Specialization
@@ -388,3 +408,20 @@ OneOfThese: Struct1 or Struct2 or Struct3 or Struct4
 ---
 
 > Look into data types like C++ implementations of (physical) units. Make it impossible to assign kg to length - that sort of thing.
+
+> Should dynamic types be taken into account? How would the syntax look and what semantics are attached?
+
+```C#
+d: Dyn              // dynamic type
+d.prop1 = 42        // creates a new field (fixed type)
+
+SomeFunction(self: Dyn, p1: U8): Bool
+    // does prop1 exist
+    if self#prop1
+    if self?prop1
+        return self.prop1 = 42
+    return false
+
+if d.MyFunc(42)
+    ...
+```
