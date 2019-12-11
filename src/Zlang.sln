@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zlang", "Zlang.vcxproj", "{146F16AF-068C-4D7B-8FA4-47919EFC482D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zlang", "Zlang\Zlang.vcxproj", "{146F16AF-068C-4D7B-8FA4-47919EFC482D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zlang.UnitTests", "Zlang.UnitTests\Zlang.UnitTests.vcxproj", "{4873C98A-4B75-48A6-98B5-98F412F2B099}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{146F16AF-068C-4D7B-8FA4-47919EFC482D}.Release|x64.Build.0 = Release|x64
 		{146F16AF-068C-4D7B-8FA4-47919EFC482D}.Release|x86.ActiveCfg = Release|Win32
 		{146F16AF-068C-4D7B-8FA4-47919EFC482D}.Release|x86.Build.0 = Release|Win32
+		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Debug|x64.ActiveCfg = Debug|x64
+		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Debug|x64.Build.0 = Debug|x64
+		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Debug|x86.ActiveCfg = Debug|Win32
+		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Debug|x86.Build.0 = Debug|Win32
+		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Release|x64.ActiveCfg = Release|x64
+		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Release|x64.Build.0 = Release|x64
+		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Release|x86.ActiveCfg = Release|Win32
+		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
