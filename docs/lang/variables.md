@@ -74,7 +74,7 @@ When variables are immutable they cannot be changed during the execution of the 
 c = 10#imm  // c has value 10 and cannot be changed
 
 c = 42      // error! cannot change value
-a = c       // now a is immutable as well (??)
+a = c       // a is NOT immutable
 
 v = 42      // mutable U8
 c = v#imm   // ok, immutable copy of v

@@ -141,3 +141,32 @@ pfn = MyFunct#ptr
 if pfn#p1   // does 'p1' parameter exist
     ...
 ```
+
+---
+
+> Type manipulation?
+
+```C#
+MyStruct
+    fld1: U8
+    fld2: U16
+
+MyOptionalStruct: MyStruct#opt
+MyOptionalStruct: MyStruct?     // language supported?
+// fld1: U8?
+// fld2: U16?
+
+// make type read-only
+MyReadOnlyStruct: MyStruct#imm
+MyReadOnlyStruct: Imm<MyStruct>
+    fld1 = 42           // have to init right away
+    fld2 = 0x4242
+
+s = MyStruct
+    fld1 = 42
+    fld2 = 0x4242
+
+// make instance readonly
+r = s.ReadOnly()    // makes or requires? #imm type
+r.fld1 = 101        // error! field is read-only
+```

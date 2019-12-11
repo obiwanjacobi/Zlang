@@ -374,9 +374,20 @@ Ideas...
 
 Unions
 
+> How are shared fields (locations) initialized when two structs have different default values? Or simply init to zero-always.
+
+> What happens if -part of- a field is accessed through another -incompatible- type? For instance: `Str|U8` write `Str="42"` and read through `U8`. (also a problem in C)
+
 ```C#
 MyStruct: Struct1 | Struct2
+
+MyUnion             // all fields share the same memory
+    fld1: U8 |
+    fld2: U16 |
+    fld3: Str |     // trailing | ok?
 ```
+
+> Because there is no `union` keyword, anonymous unions are not possible.
 
 Multiple Inheritance (type addition)
 
@@ -394,15 +405,20 @@ Difference: Struct1 ^ Struct2
 
 > This too?
 
-How do you know what type is active?
-(hidden id?)
-Pattern matching?
-
-Variant
+Variant (constrained)
 
 ```C#
 OneOrTheOther: Struct1 or Struct2
 OneOfThese: Struct1 or Struct2 or Struct3 or Struct4
+
+s = OneOfThese
+    ...
+
+v = match s
+    s1: Struct1 => s1.fld1
+    s2: Struct2 => s2.val2
+    s3: Struct3 => s3.bla
+    s4: Struct4 => s4.myfld
 ```
 
 ---
