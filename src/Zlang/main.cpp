@@ -6,7 +6,7 @@
 void testZsharp(const char* filePath)
 {
     ZsharpParser parser;
-    auto file = parser.parse(filePath);
+    auto file = parser.parseFile(filePath);
 
     IndentChecker checker;
     checker.walk(file);

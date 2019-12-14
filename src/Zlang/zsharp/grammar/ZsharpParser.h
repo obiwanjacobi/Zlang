@@ -8,7 +8,10 @@
 class ZsharpParser
 {
 public:
-    zsharp_parserParser::FileContext* parse(const char* filePath);
+    zsharp_parserParser::FileContext* parseFile(const char* filePath);
+    zsharp_parserParser::SourceContext* parseText(const char* text);
+
+    bool hasErrors() const { return _parser->getNumberOfSyntaxErrors() > 0; }
 
 private:
     std::unique_ptr<antlr4::ANTLRInputStream> _stream;

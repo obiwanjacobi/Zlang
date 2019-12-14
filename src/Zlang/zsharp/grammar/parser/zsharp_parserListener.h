@@ -1,5 +1,5 @@
 
-// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
+// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\Zlang\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -16,6 +16,9 @@ public:
 
   virtual void enterFile(zsharp_parserParser::FileContext *ctx) = 0;
   virtual void exitFile(zsharp_parserParser::FileContext *ctx) = 0;
+
+  virtual void enterSource(zsharp_parserParser::SourceContext *ctx) = 0;
+  virtual void exitSource(zsharp_parserParser::SourceContext *ctx) = 0;
 
   virtual void enterCodeblock(zsharp_parserParser::CodeblockContext *ctx) = 0;
   virtual void exitCodeblock(zsharp_parserParser::CodeblockContext *ctx) = 0;

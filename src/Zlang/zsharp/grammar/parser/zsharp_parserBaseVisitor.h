@@ -1,5 +1,5 @@
 
-// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
+// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\Zlang\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -16,6 +16,10 @@ class  zsharp_parserBaseVisitor : public zsharp_parserVisitor {
 public:
 
   virtual antlrcpp::Any visitFile(zsharp_parserParser::FileContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitSource(zsharp_parserParser::SourceContext *ctx) override {
     return visitChildren(ctx);
   }
 

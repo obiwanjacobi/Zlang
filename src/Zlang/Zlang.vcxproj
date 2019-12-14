@@ -122,8 +122,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\..\lib\antlr\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\lib\antlr\debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\lib\antlr\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>

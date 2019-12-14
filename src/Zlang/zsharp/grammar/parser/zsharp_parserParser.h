@@ -1,5 +1,5 @@
 
-// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
+// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\Zlang\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -30,38 +30,39 @@ public:
   };
 
   enum {
-    RuleFile = 0, RuleCodeblock = 1, RuleModule_statement = 2, RuleModule_name = 3, 
-    RuleStatement_module = 4, RuleStatement_import = 5, RuleStatement_export = 6, 
-    RuleFlow_statement = 7, RuleStatement_return = 8, RuleStatement_if = 9, 
-    RuleStatement_else = 10, RuleStatement_elseif = 11, RuleStatement_break = 12, 
-    RuleStatement_continue = 13, RuleStatement_loop = 14, RuleStatement_loop_infinite = 15, 
-    RuleStatement_loop_while = 16, RuleDefinition_top = 17, RuleDefinition = 18, 
-    RuleExpression_value = 19, RuleComptime_expression_value = 20, RuleExpression_arithmetic = 21, 
-    RuleArithmetic_operand = 22, RuleExpression_logic = 23, RuleLogic_operand = 24, 
-    RuleExpression_comparison = 25, RuleComparison_operand = 26, RuleExpression_bitwise = 27, 
-    RuleBitwise_operand = 28, RuleExpression_bool = 29, RuleIdentifier_bool = 30, 
-    RuleFunction_call = 31, RuleFunction_def = 32, RuleFunction_parameter_list = 33, 
-    RuleFunction_parameter = 34, RuleFunction_type = 35, RuleFunction_parameter_uselist = 36, 
-    RuleFunction_param_use = 37, RuleVariable_ref = 38, RuleParameter_ref = 39, 
-    RuleVariable_def_top = 40, RuleVariable_def = 41, RuleVariable_def_typed = 42, 
-    RuleVariable_def_typed_init = 43, RuleVariable_auto_assign = 44, RuleVariable_assign = 45, 
-    RuleStruct_def = 46, RuleStruct_field_def_list = 47, RuleStruct_field_def = 48, 
-    RuleEnum_def = 49, RuleEnum_option_def_list = 50, RuleEnum_option_def = 51, 
-    RuleEnum_base_types = 52, RuleType_any = 53, RuleOptional_type = 54, 
-    RuleError_type = 55, RuleOptional_error_type = 56, RuleType_name = 57, 
-    RuleKnown_types = 58, RuleType_U8 = 59, RuleType_U16 = 60, RuleType_U24 = 61, 
-    RuleType_U32 = 62, RuleType_I8 = 63, RuleType_I16 = 64, RuleType_I24 = 65, 
-    RuleType_I32 = 66, RuleType_F16 = 67, RuleType_F32 = 68, RuleType_Str = 69, 
-    RuleType_Bool = 70, RuleType_Bit = 71, RuleType_Ptr = 72, RuleIdentifier_type = 73, 
-    RuleIdentifier_var = 74, RuleIdentifier_param = 75, RuleIdentifier_func = 76, 
-    RuleIdentifier_field = 77, RuleIdentifier_enumoption = 78, RuleIdentifier_module = 79, 
-    RuleIdentifier_unused = 80, RuleLiteral_bool = 81, RuleLiteral = 82, 
-    RuleNumber = 83, RuleNumber_unsigned = 84, RuleNumber_bin = 85, RuleNumber_oct = 86, 
-    RuleNumber_dec = 87, RuleNumber_hex = 88, RuleNumber_char = 89, RuleOperator_arithmetic = 90, 
-    RuleOperator_arithmetic_unary = 91, RuleOperator_logic = 92, RuleOperator_logic_unary = 93, 
-    RuleOperator_comparison = 94, RuleOperator_bits = 95, RuleOperator_bits_unary = 96, 
-    RuleOperator_assignment = 97, RuleEmpty_line = 98, RuleNewline = 99, 
-    RuleComment = 100, RuleString = 101, RuleCharacter = 102, RuleIndent = 103
+    RuleFile = 0, RuleSource = 1, RuleCodeblock = 2, RuleModule_statement = 3, 
+    RuleModule_name = 4, RuleStatement_module = 5, RuleStatement_import = 6, 
+    RuleStatement_export = 7, RuleFlow_statement = 8, RuleStatement_return = 9, 
+    RuleStatement_if = 10, RuleStatement_else = 11, RuleStatement_elseif = 12, 
+    RuleStatement_break = 13, RuleStatement_continue = 14, RuleStatement_loop = 15, 
+    RuleStatement_loop_infinite = 16, RuleStatement_loop_while = 17, RuleDefinition_top = 18, 
+    RuleDefinition = 19, RuleExpression_value = 20, RuleComptime_expression_value = 21, 
+    RuleExpression_arithmetic = 22, RuleArithmetic_operand = 23, RuleExpression_logic = 24, 
+    RuleLogic_operand = 25, RuleExpression_comparison = 26, RuleComparison_operand = 27, 
+    RuleExpression_bitwise = 28, RuleBitwise_operand = 29, RuleExpression_bool = 30, 
+    RuleIdentifier_bool = 31, RuleFunction_call = 32, RuleFunction_def = 33, 
+    RuleFunction_parameter_list = 34, RuleFunction_parameter = 35, RuleFunction_type = 36, 
+    RuleFunction_parameter_uselist = 37, RuleFunction_param_use = 38, RuleVariable_ref = 39, 
+    RuleParameter_ref = 40, RuleVariable_def_top = 41, RuleVariable_def = 42, 
+    RuleVariable_def_typed = 43, RuleVariable_def_typed_init = 44, RuleVariable_auto_assign = 45, 
+    RuleVariable_assign = 46, RuleStruct_def = 47, RuleStruct_field_def_list = 48, 
+    RuleStruct_field_def = 49, RuleEnum_def = 50, RuleEnum_option_def_list = 51, 
+    RuleEnum_option_def = 52, RuleEnum_base_types = 53, RuleType_any = 54, 
+    RuleOptional_type = 55, RuleError_type = 56, RuleOptional_error_type = 57, 
+    RuleType_name = 58, RuleKnown_types = 59, RuleType_U8 = 60, RuleType_U16 = 61, 
+    RuleType_U24 = 62, RuleType_U32 = 63, RuleType_I8 = 64, RuleType_I16 = 65, 
+    RuleType_I24 = 66, RuleType_I32 = 67, RuleType_F16 = 68, RuleType_F32 = 69, 
+    RuleType_Str = 70, RuleType_Bool = 71, RuleType_Bit = 72, RuleType_Ptr = 73, 
+    RuleIdentifier_type = 74, RuleIdentifier_var = 75, RuleIdentifier_param = 76, 
+    RuleIdentifier_func = 77, RuleIdentifier_field = 78, RuleIdentifier_enumoption = 79, 
+    RuleIdentifier_module = 80, RuleIdentifier_unused = 81, RuleLiteral_bool = 82, 
+    RuleLiteral = 83, RuleNumber = 84, RuleNumber_unsigned = 85, RuleNumber_bin = 86, 
+    RuleNumber_oct = 87, RuleNumber_dec = 88, RuleNumber_hex = 89, RuleNumber_char = 90, 
+    RuleOperator_arithmetic = 91, RuleOperator_arithmetic_unary = 92, RuleOperator_logic = 93, 
+    RuleOperator_logic_unary = 94, RuleOperator_comparison = 95, RuleOperator_bits = 96, 
+    RuleOperator_bits_unary = 97, RuleOperator_assignment = 98, RuleEmpty_line = 99, 
+    RuleNewline = 100, RuleComment = 101, RuleString = 102, RuleCharacter = 103, 
+    RuleIndent = 104
   };
 
   zsharp_parserParser(antlr4::TokenStream *input);
@@ -75,6 +76,7 @@ public:
 
 
   class FileContext;
+  class SourceContext;
   class CodeblockContext;
   class Module_statementContext;
   class Module_nameContext;
@@ -184,14 +186,8 @@ public:
     FileContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *EOF();
-    std::vector<Module_statementContext *> module_statement();
-    Module_statementContext* module_statement(size_t i);
-    std::vector<Definition_topContext *> definition_top();
-    Definition_topContext* definition_top(size_t i);
-    std::vector<CommentContext *> comment();
-    CommentContext* comment(size_t i);
-    std::vector<Empty_lineContext *> empty_line();
-    Empty_lineContext* empty_line(size_t i);
+    std::vector<SourceContext *> source();
+    SourceContext* source(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -201,6 +197,24 @@ public:
   };
 
   FileContext* file();
+
+  class  SourceContext : public antlr4::ParserRuleContext {
+  public:
+    SourceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    Module_statementContext *module_statement();
+    Definition_topContext *definition_top();
+    CommentContext *comment();
+    Empty_lineContext *empty_line();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  SourceContext* source();
 
   class  CodeblockContext : public antlr4::ParserRuleContext {
   public:

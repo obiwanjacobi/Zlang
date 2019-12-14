@@ -6,11 +6,7 @@ Zlang is the name of the compiler for the Z# (Zee-Sharp) language.
 
 ## Cpp
 
-Error during build: 'Cannot find cl.exe'
-
-- Start the Visual Studio Developer Command Prompt.
-- Navigate to the project root folder (cd).
-- `code .` to start vs-code.
+Use Visual Studio.
 
 ---
 

@@ -1,8 +1,8 @@
 grammar zsharp_parser;
 
 // entry point
-file : (module_statement | definition_top | comment | empty_line)* EOF;
-
+file : source* EOF;
+source: (module_statement | definition_top | comment | empty_line);
 codeblock: (flow_statement | variable_assign | definition | comment | empty_line)+;
 
 // modules

@@ -1,5 +1,5 @@
 
-// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
+// Generated from c:\Users\marc\Documents\MyProjects\Zalt\Zlang\src\Zlang\zsharp\grammar\zsharp_parser.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -20,6 +20,8 @@ public:
    * Visit parse trees produced by zsharp_parserParser.
    */
     virtual antlrcpp::Any visitFile(zsharp_parserParser::FileContext *context) = 0;
+
+    virtual antlrcpp::Any visitSource(zsharp_parserParser::SourceContext *context) = 0;
 
     virtual antlrcpp::Any visitCodeblock(zsharp_parserParser::CodeblockContext *context) = 0;
 
