@@ -3,9 +3,15 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="grammar\EnumSmokeTests.cpp" />
+    <ClCompile Include="grammar\StructSmokeTests.cpp" />
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="grammar\FunctionSmokeTests.cpp" />
+    <ClCompile Include="grammar\ModuleSmokeTests.cpp" />
+    <ClCompile Include="grammar\FlowSmokeTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,13 +1,5 @@
 #include "pch.h"
-
-#include "../../Zlang/zsharp/grammar/ZsharpParser.h"
-
-bool SmokeTest(const char* src)
-{
-    ZsharpParser parser;
-    auto parseTree = parser.parseText(src);
-    return !parser.hasErrors();
-}
+#include "../Utils.h"
 
 TEST(EnumSmokeTests, DefaultOptions) {
     const char* src = "MyEnum\n"
@@ -16,7 +8,7 @@ TEST(EnumSmokeTests, DefaultOptions) {
         "    opt3\n"
         ;
 
-    EXPECT_TRUE(SmokeTest(src));
+    EXPECT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(EnumSmokeTests, ExplicitOptions) {
@@ -26,7 +18,7 @@ TEST(EnumSmokeTests, ExplicitOptions) {
         "    opt3 = 2\n"
         ;
 
-    EXPECT_TRUE(SmokeTest(src));
+    EXPECT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(EnumSmokeTests, StrOptions) {
@@ -36,12 +28,12 @@ TEST(EnumSmokeTests, StrOptions) {
         "    opt3 = \"1\"\n"
         ;
 
-    EXPECT_TRUE(SmokeTest(src));
+    EXPECT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(EnumSmokeTests, E_NoOptions) {
     const char* src = "MyEnum\n"
         ;
 
-    EXPECT_FALSE(SmokeTest(src));
+    EXPECT_FALSE(ParserSmokeTest(src));
 }

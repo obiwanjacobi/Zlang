@@ -37,10 +37,16 @@
     <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(SolutionDir)Zlang\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="grammar\EnumSmokeTests.cpp" />
+    <ClCompile Include="grammar\FlowSmokeTests.cpp" />
+    <ClCompile Include="grammar\FunctionSmokeTests.cpp" />
+    <ClCompile Include="grammar\ModuleSmokeTests.cpp" />
+    <ClCompile Include="grammar\StructSmokeTests.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
