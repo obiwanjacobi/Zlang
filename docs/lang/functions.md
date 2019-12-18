@@ -177,6 +177,22 @@ e = MyEnum.MagicValue
 b = e.IsMagicValue()        // true
 ```
 
+## Local Functions
+
+A local function is a function that is defined inside another function and is local to that scope - it cannot be used (seen) outside the function its defined in.
+
+In other aspects they are no different from other functions.
+
+```C#
+MyFunc(): U8
+    LocalFun(p: U8): U8
+        return p << 1;
+
+    return LocalFun(42)
+```
+
+> Not sure if local variables of the containing function can be captured in the local function...
+
 ## Fluent Functions
 
 Fluent functions are possible with type-bound functions that return self or another types where another set of bound function is available for.
@@ -195,7 +211,7 @@ build(self: FnState2): Array<U8>
 s = FnState1        // instantiate root struct
     ...
 
-arr = s.Add(42)     // chained calls can be spread over muliple lines
+arr = s.Add(42)     // chained calls can be spread over multiple lines
 // split before . and use 2 indents (next indent + 1)
         .Build()
 ```
@@ -206,6 +222,8 @@ does<SomeType>().implement<SomeInterface>()
 can<SomeType>().BeCastedTo<DiffType>()
 does<SomeType>().implementMethod(MethodName)
 ```
+
+> Auto-Fluent syntax? `Build(p: MyStruct)::Into(target: Stream)`
 
 ## Function Overloads
 
@@ -369,7 +387,8 @@ simulate properties? thru type-bound functions?
 Get\<T>/Set\<T>/Notify\<T>/Watch\<T[]>
 
 tag interrupt service routines (for analysis - volatile) as a simplified interface?
+functions that do not return?
 
-intrinsic functions (operator implementations)
+intrinsic functions (operator implementations) - extensions?
 
 inlining (compiler)

@@ -3,7 +3,8 @@
 
 
 TEST(FunctionSmokeTests, Void) {
-    const char* src = "MyFunction()\n"
+    const char* src = 
+        "MyFunction()\n"
         "    return\n"
         ;
 
@@ -11,7 +12,8 @@ TEST(FunctionSmokeTests, Void) {
 }
 
 TEST(FunctionSmokeTests, ParamVoid) {
-    const char* src = "MyFunction(p: U8)\n"
+    const char* src = 
+        "MyFunction(p: U8)\n"
         "    return\n"
         ;
 
@@ -19,7 +21,8 @@ TEST(FunctionSmokeTests, ParamVoid) {
 }
 
 TEST(FunctionSmokeTests, RetVal) {
-    const char* src = "MyFunction(): Bool\n"
+    const char* src = 
+        "MyFunction(): Bool\n"
         "    return true\n"
         ;
 
@@ -27,7 +30,8 @@ TEST(FunctionSmokeTests, RetVal) {
 }
 
 TEST(FunctionSmokeTests, ParamRetVal) {
-    const char* src = "MyFunction(p: Str): Bool\n"
+    const char* src = 
+        "MyFunction(p: Str): Bool\n"
         "    return true\n"
         ;
 

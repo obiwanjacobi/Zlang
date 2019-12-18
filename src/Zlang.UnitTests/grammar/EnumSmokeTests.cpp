@@ -2,7 +2,8 @@
 #include "../Utils.h"
 
 TEST(EnumSmokeTests, DefaultOptions) {
-    const char* src = "MyEnum\n"
+    const char* src = 
+        "MyEnum\n"
         "    opt1\n"
         "    opt2\n"
         "    opt3\n"
@@ -12,7 +13,8 @@ TEST(EnumSmokeTests, DefaultOptions) {
 }
 
 TEST(EnumSmokeTests, ExplicitOptions) {
-    const char* src = "MyEnum\n"
+    const char* src = 
+        "MyEnum\n"
         "    opt1 = 0\n"
         "    opt2 = 1\n"
         "    opt3 = 2\n"
@@ -22,7 +24,8 @@ TEST(EnumSmokeTests, ExplicitOptions) {
 }
 
 TEST(EnumSmokeTests, StrOptions) {
-    const char* src = "MyEnum: Str\n"
+    const char* src = 
+        "MyEnum: Str\n"
         "    opt1 = \"1\"\n"
         "    opt2 = \"1\"\n"
         "    opt3 = \"1\"\n"
@@ -32,7 +35,8 @@ TEST(EnumSmokeTests, StrOptions) {
 }
 
 TEST(EnumSmokeTests, E_NoOptions) {
-    const char* src = "MyEnum\n"
+    const char* src = 
+        "MyEnum\n"
         ;
 
     EXPECT_FALSE(ParserSmokeTest(src));

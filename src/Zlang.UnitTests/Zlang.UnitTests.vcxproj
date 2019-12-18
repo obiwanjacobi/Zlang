@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="grammar\EnumSmokeTests.cpp" />
+    <ClCompile Include="grammar\ExpressionSmokeTests.cpp" />
     <ClCompile Include="grammar\FlowSmokeTests.cpp" />
     <ClCompile Include="grammar\FunctionSmokeTests.cpp" />
     <ClCompile Include="grammar\ModuleSmokeTests.cpp" />

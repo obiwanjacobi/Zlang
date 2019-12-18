@@ -6,7 +6,7 @@ The allowed conversions are all explicitly represented by a function. The name o
 
 ```C#
 b = 42        // U8
-s = b.Str(alloc)   // to string "42"
+s = b.Text(alloc)   // to string "42"
 ```
 
 Because `Str` allocates memory to store its content an Allocator object is required for this conversion.

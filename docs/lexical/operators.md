@@ -22,7 +22,7 @@ Operators never allocate memory!
 | < | Smaller than
 | >= | Greater or Equal
 | <= | Smaller or Equal
-| ? : | Unary Comparison
+| ? : | Ternary Comparison
 | and | Logical And
 | or | Logical Or
 | not | Logical Negation
@@ -57,3 +57,7 @@ Operators never allocate memory!
 | \| \| | Optional fallback (or ??)
 | # | Pragma / Attribute Access
 | #! | Compile-Time Code
+
+---
+
+> What if operators cause overflow (or underflow)? A bitwise shift `<<` can shift out bits - sort of the point. Does every operator determine for itself if overflow is a problem or is there a general principle?

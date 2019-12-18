@@ -3,7 +3,8 @@
 
 
 TEST(StructSmokeTests, DefaultWithFields) {
-    const char* src = "MyStruct\n"
+    const char* src = 
+        "MyStruct\n"
         "    fld1: U8\n"
         "    fld2: U16\n"
         "    fld3: Str\n"
@@ -13,7 +14,8 @@ TEST(StructSmokeTests, DefaultWithFields) {
 }
 
 TEST(StructSmokeTests, DerivedWithFields) {
-    const char* src = "MyStruct: OtherStruct\n"
+    const char* src = 
+        "MyStruct: OtherStruct\n"
         "    fld1: U8\n"
         "    fld2: U16\n"
         "    fld3: Str\n"
