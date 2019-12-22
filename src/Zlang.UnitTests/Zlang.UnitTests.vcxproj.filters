@@ -9,6 +9,8 @@
     <ClCompile Include="grammar\ModuleSmokeTests.cpp" />
     <ClCompile Include="grammar\FlowSmokeTests.cpp" />
     <ClCompile Include="grammar\ExpressionSmokeTests.cpp" />
+    <ClCompile Include="grammar\VariablesSmokeTests.cpp" />
+    <ClCompile Include="grammar\CommentSmokeTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

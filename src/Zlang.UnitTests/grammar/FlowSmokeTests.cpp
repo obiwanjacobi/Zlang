@@ -57,3 +57,14 @@ TEST(FlowSmokeTests, While) {
 
     EXPECT_TRUE(ParserSmokeTest(src));
 }
+
+TEST(FlowSmokeTests, While2) {
+    const char* src =
+        "fn()\n"
+        "    x: U8 = 42\n"
+        "    loop x < 65535\n"
+        "       x = x + 1\n"
+        ;
+
+    EXPECT_TRUE(ParserSmokeTest(src));
+}

@@ -30,10 +30,12 @@ a = match s
     "42" => "The Answer"    // this pattern will be chosen
     _ => ""
 
-// a = "The Answer
+// a = "The Answer (Str)
 ```
 
 When more comprehensive logic is required to compute the result a function can be called to yield that result.
+
+> The result is always of one type only (unless perhaps when we support union (||) types or compound (or) types) where only optional `?` or Error '!' can be added by other branches.
 
 Here an example on matching a type pattern with multiple pattern for the same type - but different filters.
 
@@ -46,7 +48,7 @@ a = match s
     x: MyStruct ? x.field1 = 12 => 42
     x: MyStruct => 0
 
-// a = 42
+// a = 42 (U8)
 ```
 
 The two patterns for `MyStruct` differ in filter. That is why this works.

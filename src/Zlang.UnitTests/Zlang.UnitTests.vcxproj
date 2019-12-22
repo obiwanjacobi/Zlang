@@ -41,12 +41,14 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="grammar\CommentSmokeTests.cpp" />
     <ClCompile Include="grammar\EnumSmokeTests.cpp" />
     <ClCompile Include="grammar\ExpressionSmokeTests.cpp" />
     <ClCompile Include="grammar\FlowSmokeTests.cpp" />
     <ClCompile Include="grammar\FunctionSmokeTests.cpp" />
     <ClCompile Include="grammar\ModuleSmokeTests.cpp" />
     <ClCompile Include="grammar\StructSmokeTests.cpp" />
+    <ClCompile Include="grammar\VariablesSmokeTests.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

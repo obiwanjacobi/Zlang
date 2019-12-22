@@ -177,6 +177,12 @@ e = MyEnum.MagicValue
 b = e.IsMagicValue()        // true
 ```
 
+## Function Overrides
+
+When resolving target functions the most specific function is chosen at compile time. This means that of the multiple function candidates the function is chosen that has parameter and return types that are most specific and closest to the types used at the call site.
+
+> TODO: Example
+
 ## Local Functions
 
 A local function is a function that is defined inside another function and is local to that scope - it cannot be used (seen) outside the function its defined in.
