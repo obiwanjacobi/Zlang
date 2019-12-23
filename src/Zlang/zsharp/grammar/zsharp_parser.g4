@@ -26,7 +26,7 @@ statement_loop_infinite: LOOP;
 statement_loop_while: LOOP SP expression_logic;
 
 // definition
-definition_top: function_def | enum_def | struct_def | variable_def;
+definition_top: function_def | enum_def | struct_def | variable_def_top;
 definition: variable_def;
 
 // expressions
@@ -74,6 +74,7 @@ function_param_use: expression_value (COMMA SP expression_value)*;
 // variables
 variable_ref: identifier_var;
 parameter_ref: identifier_param;
+variable_def_top: (variable_def_typed | variable_def_typed_init | variable_auto_assign) newline;
 variable_def: indent (variable_def_typed | variable_def_typed_init | variable_auto_assign) newline;
 variable_def_typed: identifier_var COLON SP type_any;
 variable_def_typed_init: identifier_var COLON SP type_any SP EQ_ASSIGN SP expression_value;

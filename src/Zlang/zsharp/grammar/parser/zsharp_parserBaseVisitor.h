@@ -179,6 +179,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitVariable_def_top(zsharp_parserParser::Variable_def_topContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitVariable_def(zsharp_parserParser::Variable_defContext *ctx) override {
     return visitChildren(ctx);
   }

@@ -43,27 +43,27 @@ public:
     RuleIdentifier_bool = 31, RuleFunction_call = 32, RuleFunction_def = 33, 
     RuleFunction_parameter_list = 34, RuleFunction_parameter = 35, RuleFunction_type = 36, 
     RuleFunction_parameter_uselist = 37, RuleFunction_param_use = 38, RuleVariable_ref = 39, 
-    RuleParameter_ref = 40, RuleVariable_def = 41, RuleVariable_def_typed = 42, 
-    RuleVariable_def_typed_init = 43, RuleVariable_auto_assign = 44, RuleVariable_assign = 45, 
-    RuleStruct_def = 46, RuleStruct_field_def_list = 47, RuleStruct_field_def = 48, 
-    RuleEnum_def = 49, RuleEnum_option_def_list = 50, RuleEnum_option_def = 51, 
-    RuleEnum_base_types = 52, RuleType_any = 53, RuleOptional_type = 54, 
-    RuleError_type = 55, RuleOptional_error_type = 56, RuleType_name = 57, 
-    RuleKnown_types = 58, RuleType_U8 = 59, RuleType_U16 = 60, RuleType_U24 = 61, 
-    RuleType_U32 = 62, RuleType_I8 = 63, RuleType_I16 = 64, RuleType_I24 = 65, 
-    RuleType_I32 = 66, RuleType_F16 = 67, RuleType_F32 = 68, RuleType_Str = 69, 
-    RuleType_Bool = 70, RuleType_Bit = 71, RuleType_Ptr = 72, RuleType_param_number = 73, 
-    RuleType_param_type = 74, RuleType_param_list = 75, RuleType_param_name_list = 76, 
-    RuleType_param_anytype = 77, RuleIdentifier_type = 78, RuleIdentifier_var = 79, 
-    RuleIdentifier_param = 80, RuleIdentifier_func = 81, RuleIdentifier_field = 82, 
-    RuleIdentifier_enumoption = 83, RuleIdentifier_module = 84, RuleIdentifier_unused = 85, 
-    RuleLiteral_bool = 86, RuleLiteral = 87, RuleNumber = 88, RuleNumber_unsigned = 89, 
-    RuleNumber_bin = 90, RuleNumber_oct = 91, RuleNumber_dec = 92, RuleNumber_hex = 93, 
-    RuleNumber_char = 94, RuleOperator_arithmetic = 95, RuleOperator_arithmetic_unary = 96, 
-    RuleOperator_logic = 97, RuleOperator_logic_unary = 98, RuleOperator_comparison = 99, 
-    RuleOperator_bits = 100, RuleOperator_bits_unary = 101, RuleOperator_assignment = 102, 
-    RuleEmpty_line = 103, RuleNewline = 104, RuleComment = 105, RuleString = 106, 
-    RuleCharacter = 107, RuleIndent = 108
+    RuleParameter_ref = 40, RuleVariable_def_top = 41, RuleVariable_def = 42, 
+    RuleVariable_def_typed = 43, RuleVariable_def_typed_init = 44, RuleVariable_auto_assign = 45, 
+    RuleVariable_assign = 46, RuleStruct_def = 47, RuleStruct_field_def_list = 48, 
+    RuleStruct_field_def = 49, RuleEnum_def = 50, RuleEnum_option_def_list = 51, 
+    RuleEnum_option_def = 52, RuleEnum_base_types = 53, RuleType_any = 54, 
+    RuleOptional_type = 55, RuleError_type = 56, RuleOptional_error_type = 57, 
+    RuleType_name = 58, RuleKnown_types = 59, RuleType_U8 = 60, RuleType_U16 = 61, 
+    RuleType_U24 = 62, RuleType_U32 = 63, RuleType_I8 = 64, RuleType_I16 = 65, 
+    RuleType_I24 = 66, RuleType_I32 = 67, RuleType_F16 = 68, RuleType_F32 = 69, 
+    RuleType_Str = 70, RuleType_Bool = 71, RuleType_Bit = 72, RuleType_Ptr = 73, 
+    RuleType_param_number = 74, RuleType_param_type = 75, RuleType_param_list = 76, 
+    RuleType_param_name_list = 77, RuleType_param_anytype = 78, RuleIdentifier_type = 79, 
+    RuleIdentifier_var = 80, RuleIdentifier_param = 81, RuleIdentifier_func = 82, 
+    RuleIdentifier_field = 83, RuleIdentifier_enumoption = 84, RuleIdentifier_module = 85, 
+    RuleIdentifier_unused = 86, RuleLiteral_bool = 87, RuleLiteral = 88, 
+    RuleNumber = 89, RuleNumber_unsigned = 90, RuleNumber_bin = 91, RuleNumber_oct = 92, 
+    RuleNumber_dec = 93, RuleNumber_hex = 94, RuleNumber_char = 95, RuleOperator_arithmetic = 96, 
+    RuleOperator_arithmetic_unary = 97, RuleOperator_logic = 98, RuleOperator_logic_unary = 99, 
+    RuleOperator_comparison = 100, RuleOperator_bits = 101, RuleOperator_bits_unary = 102, 
+    RuleOperator_assignment = 103, RuleEmpty_line = 104, RuleNewline = 105, 
+    RuleComment = 106, RuleString = 107, RuleCharacter = 108, RuleIndent = 109
   };
 
   zsharp_parserParser(antlr4::TokenStream *input);
@@ -117,6 +117,7 @@ public:
   class Function_param_useContext;
   class Variable_refContext;
   class Parameter_refContext;
+  class Variable_def_topContext;
   class Variable_defContext;
   class Variable_def_typedContext;
   class Variable_def_typed_initContext;
@@ -526,7 +527,7 @@ public:
     Function_defContext *function_def();
     Enum_defContext *enum_def();
     Struct_defContext *struct_def();
-    Variable_defContext *variable_def();
+    Variable_def_topContext *variable_def_top();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -941,6 +942,24 @@ public:
   };
 
   Parameter_refContext* parameter_ref();
+
+  class  Variable_def_topContext : public antlr4::ParserRuleContext {
+  public:
+    Variable_def_topContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    NewlineContext *newline();
+    Variable_def_typedContext *variable_def_typed();
+    Variable_def_typed_initContext *variable_def_typed_init();
+    Variable_auto_assignContext *variable_auto_assign();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Variable_def_topContext* variable_def_top();
 
   class  Variable_defContext : public antlr4::ParserRuleContext {
   public:

@@ -101,6 +101,8 @@ public:
 
     virtual antlrcpp::Any visitParameter_ref(zsharp_parserParser::Parameter_refContext *context) = 0;
 
+    virtual antlrcpp::Any visitVariable_def_top(zsharp_parserParser::Variable_def_topContext *context) = 0;
+
     virtual antlrcpp::Any visitVariable_def(zsharp_parserParser::Variable_defContext *context) = 0;
 
     virtual antlrcpp::Any visitVariable_def_typed(zsharp_parserParser::Variable_def_typedContext *context) = 0;

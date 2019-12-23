@@ -139,6 +139,9 @@ public:
   virtual void enterParameter_ref(zsharp_parserParser::Parameter_refContext * /*ctx*/) override { }
   virtual void exitParameter_ref(zsharp_parserParser::Parameter_refContext * /*ctx*/) override { }
 
+  virtual void enterVariable_def_top(zsharp_parserParser::Variable_def_topContext * /*ctx*/) override { }
+  virtual void exitVariable_def_top(zsharp_parserParser::Variable_def_topContext * /*ctx*/) override { }
+
   virtual void enterVariable_def(zsharp_parserParser::Variable_defContext * /*ctx*/) override { }
   virtual void exitVariable_def(zsharp_parserParser::Variable_defContext * /*ctx*/) override { }
 
