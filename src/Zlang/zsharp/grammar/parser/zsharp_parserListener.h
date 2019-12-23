@@ -137,9 +137,6 @@ public:
   virtual void enterParameter_ref(zsharp_parserParser::Parameter_refContext *ctx) = 0;
   virtual void exitParameter_ref(zsharp_parserParser::Parameter_refContext *ctx) = 0;
 
-  virtual void enterVariable_def_top(zsharp_parserParser::Variable_def_topContext *ctx) = 0;
-  virtual void exitVariable_def_top(zsharp_parserParser::Variable_def_topContext *ctx) = 0;
-
   virtual void enterVariable_def(zsharp_parserParser::Variable_defContext *ctx) = 0;
   virtual void exitVariable_def(zsharp_parserParser::Variable_defContext *ctx) = 0;
 
@@ -235,6 +232,21 @@ public:
 
   virtual void enterType_Ptr(zsharp_parserParser::Type_PtrContext *ctx) = 0;
   virtual void exitType_Ptr(zsharp_parserParser::Type_PtrContext *ctx) = 0;
+
+  virtual void enterType_param_number(zsharp_parserParser::Type_param_numberContext *ctx) = 0;
+  virtual void exitType_param_number(zsharp_parserParser::Type_param_numberContext *ctx) = 0;
+
+  virtual void enterType_param_type(zsharp_parserParser::Type_param_typeContext *ctx) = 0;
+  virtual void exitType_param_type(zsharp_parserParser::Type_param_typeContext *ctx) = 0;
+
+  virtual void enterType_param_list(zsharp_parserParser::Type_param_listContext *ctx) = 0;
+  virtual void exitType_param_list(zsharp_parserParser::Type_param_listContext *ctx) = 0;
+
+  virtual void enterType_param_name_list(zsharp_parserParser::Type_param_name_listContext *ctx) = 0;
+  virtual void exitType_param_name_list(zsharp_parserParser::Type_param_name_listContext *ctx) = 0;
+
+  virtual void enterType_param_anytype(zsharp_parserParser::Type_param_anytypeContext *ctx) = 0;
+  virtual void exitType_param_anytype(zsharp_parserParser::Type_param_anytypeContext *ctx) = 0;
 
   virtual void enterIdentifier_type(zsharp_parserParser::Identifier_typeContext *ctx) = 0;
   virtual void exitIdentifier_type(zsharp_parserParser::Identifier_typeContext *ctx) = 0;

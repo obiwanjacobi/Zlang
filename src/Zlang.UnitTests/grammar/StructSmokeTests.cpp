@@ -23,3 +23,14 @@ TEST(StructSmokeTests, DerivedWithFields) {
 
     EXPECT_TRUE(ParserSmokeTest(src));
 }
+
+TEST(StructSmokeTests, DefaultWithTypeParam1) {
+    const char* src =
+        "MyStruct<T>\n"
+        "    fld1: T\n"
+        "    fld2: U16\n"
+        "    fld3: Str\n"
+        ;
+
+    EXPECT_TRUE(ParserSmokeTest(src));
+}

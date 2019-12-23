@@ -179,10 +179,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitVariable_def_top(zsharp_parserParser::Variable_def_topContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitVariable_def(zsharp_parserParser::Variable_defContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -308,6 +304,26 @@ public:
   }
 
   virtual antlrcpp::Any visitType_Ptr(zsharp_parserParser::Type_PtrContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitType_param_number(zsharp_parserParser::Type_param_numberContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitType_param_type(zsharp_parserParser::Type_param_typeContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitType_param_list(zsharp_parserParser::Type_param_listContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitType_param_name_list(zsharp_parserParser::Type_param_name_listContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitType_param_anytype(zsharp_parserParser::Type_param_anytypeContext *ctx) override {
     return visitChildren(ctx);
   }
 

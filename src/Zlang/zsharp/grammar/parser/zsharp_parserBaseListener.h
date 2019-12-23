@@ -139,9 +139,6 @@ public:
   virtual void enterParameter_ref(zsharp_parserParser::Parameter_refContext * /*ctx*/) override { }
   virtual void exitParameter_ref(zsharp_parserParser::Parameter_refContext * /*ctx*/) override { }
 
-  virtual void enterVariable_def_top(zsharp_parserParser::Variable_def_topContext * /*ctx*/) override { }
-  virtual void exitVariable_def_top(zsharp_parserParser::Variable_def_topContext * /*ctx*/) override { }
-
   virtual void enterVariable_def(zsharp_parserParser::Variable_defContext * /*ctx*/) override { }
   virtual void exitVariable_def(zsharp_parserParser::Variable_defContext * /*ctx*/) override { }
 
@@ -237,6 +234,21 @@ public:
 
   virtual void enterType_Ptr(zsharp_parserParser::Type_PtrContext * /*ctx*/) override { }
   virtual void exitType_Ptr(zsharp_parserParser::Type_PtrContext * /*ctx*/) override { }
+
+  virtual void enterType_param_number(zsharp_parserParser::Type_param_numberContext * /*ctx*/) override { }
+  virtual void exitType_param_number(zsharp_parserParser::Type_param_numberContext * /*ctx*/) override { }
+
+  virtual void enterType_param_type(zsharp_parserParser::Type_param_typeContext * /*ctx*/) override { }
+  virtual void exitType_param_type(zsharp_parserParser::Type_param_typeContext * /*ctx*/) override { }
+
+  virtual void enterType_param_list(zsharp_parserParser::Type_param_listContext * /*ctx*/) override { }
+  virtual void exitType_param_list(zsharp_parserParser::Type_param_listContext * /*ctx*/) override { }
+
+  virtual void enterType_param_name_list(zsharp_parserParser::Type_param_name_listContext * /*ctx*/) override { }
+  virtual void exitType_param_name_list(zsharp_parserParser::Type_param_name_listContext * /*ctx*/) override { }
+
+  virtual void enterType_param_anytype(zsharp_parserParser::Type_param_anytypeContext * /*ctx*/) override { }
+  virtual void exitType_param_anytype(zsharp_parserParser::Type_param_anytypeContext * /*ctx*/) override { }
 
   virtual void enterIdentifier_type(zsharp_parserParser::Identifier_typeContext * /*ctx*/) override { }
   virtual void exitIdentifier_type(zsharp_parserParser::Identifier_typeContext * /*ctx*/) override { }

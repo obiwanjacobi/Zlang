@@ -3,7 +3,7 @@ grammar zsharp_parser;
 // entry point
 file : source* EOF;
 source: (module_statement | definition_top | comment | empty_line);
-codeblock: (flow_statement | variable_assign | definition | comment | empty_line)+;
+codeblock: (flow_statement | variable_assign | function_call | definition | comment | empty_line)+;
 
 // modules
 module_statement : statement_module | statement_import | statement_export;
@@ -26,7 +26,7 @@ statement_loop_infinite: LOOP;
 statement_loop_while: LOOP SP expression_logic;
 
 // definition
-definition_top: function_def | enum_def | struct_def | variable_def_top;
+definition_top: function_def | enum_def | struct_def | variable_def;
 definition: variable_def;
 
 // expressions
@@ -63,18 +63,17 @@ expression_bool: literal_bool | identifier_bool;
 identifier_bool: variable_ref | parameter_ref;
 
 // functions
-function_call: identifier_func PARENopen function_parameter_uselist? PARENclose;
+function_call: indent identifier_func PARENopen function_parameter_uselist? PARENclose newline;
 function_def: identifier_func PARENopen function_parameter_list? PARENclose function_type? newline codeblock;
-function_parameter_list: function_parameter | (COMMA SP function_parameter)+;
+function_parameter_list: function_parameter (COMMA SP function_parameter)*;
 function_parameter: identifier_param function_type;
 function_type: COLON SP type_any;
-function_parameter_uselist: function_param_use | (COMMA SP function_param_use)+;
-function_param_use: expression_value | (COMMA SP expression_value)+;
+function_parameter_uselist: function_param_use (COMMA SP function_param_use)*;
+function_param_use: expression_value (COMMA SP expression_value)*;
 
 // variables
 variable_ref: identifier_var;
 parameter_ref: identifier_param;
-variable_def_top: (variable_def_typed | variable_def_typed_init | variable_auto_assign) newline;
 variable_def: indent (variable_def_typed | variable_def_typed_init | variable_auto_assign) newline;
 variable_def_typed: identifier_var COLON SP type_any;
 variable_def_typed_init: identifier_var COLON SP type_any SP EQ_ASSIGN SP expression_value;
@@ -82,7 +81,7 @@ variable_auto_assign: identifier_var SP EQ_ASSIGN SP expression_value;
 variable_assign: indent identifier_var SP EQ_ASSIGN SP expression_value;
 
 // structs
-struct_def: identifier_type (COLON SP type_any)? newline struct_field_def_list;
+struct_def: identifier_type type_param_list? (COLON SP type_any)? newline struct_field_def_list;
 struct_field_def_list: struct_field_def+;
 struct_field_def: indent identifier_field COLON SP type_any newline;
 
@@ -102,9 +101,10 @@ optional_type: type_name QUESTION;
 error_type: type_name ERROR;
 optional_error_type: type_name ERROR QUESTION;
 
-type_name: known_types | identifier_type;
+type_name: known_types | identifier_type type_param_list?;
 known_types: 
-      type_Bit | type_Bool | type_Str
+      type_Bit | type_Ptr
+    | type_Bool | type_Str
     | type_F16 | type_F32 
     | type_I16 | type_I24 | type_I32 | type_I8  
     | type_U16 | type_U24 | type_U32 | type_U8;
@@ -121,9 +121,14 @@ type_F16: F16;
 type_F32: F32;
 type_Str: STR;
 type_Bool: BOOL;
-// TODO type parameter
-type_Bit: BIT;
-type_Ptr: PTR;
+type_Bit: BIT type_param_number;
+type_Ptr: PTR type_param_type;
+
+type_param_number: SMALL_ANGLEopen number GREAT_ANGLEclose;
+type_param_type: SMALL_ANGLEopen type_name GREAT_ANGLEclose;
+type_param_list: SMALL_ANGLEopen type_param_name_list GREAT_ANGLEclose;
+type_param_name_list: type_param_anytype (COMMA SP type_param_anytype)*;
+type_param_anytype: type_name|number;
 
 // identifiers
 identifier_type: IDENTIFIERupper;

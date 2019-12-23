@@ -61,6 +61,8 @@ Text
 
 > A TextBuilder will probably be required to efficiently create longer texts.
 
+> We could introduce a type that holds concatenated strings/texts as separate parts and read them using an iterator appearing to be one continuous text. That way no extra memory allocation is required putting the parts together - only some extra processing during read. An additional 'build' function could do all the allocations and return a single text at any point in time.
+
 ### Boolean
 
 The boolean data type is defined as:
