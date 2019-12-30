@@ -52,7 +52,6 @@ private:
     virtual antlrcpp::Any visitStatement_else(zsharp_parserParser::Statement_elseContext* ctx) override;
     virtual antlrcpp::Any visitVariable_def(zsharp_parserParser::Variable_defContext* ctx) override;
 
-
     // ignore
     virtual antlrcpp::Any visitNewline(zsharp_parserParser::NewlineContext* ctx) override;
     virtual antlrcpp::Any visitEmpty_line(zsharp_parserParser::Empty_lineContext* ctx) override;

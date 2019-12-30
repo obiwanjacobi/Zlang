@@ -16,6 +16,12 @@
     <ClCompile Include="zsharp\grammar\_test\parser\testparserBaseVisitor.cpp" />
     <ClCompile Include="zsharp\grammar\_test\parser\testparserListener.cpp" />
     <ClCompile Include="zsharp\grammar\_test\parser\testparserVisitor.cpp" />
+    <ClCompile Include="zsharp\AST\AstBuilder.cpp" />
+    <ClCompile Include="zsharp\AST\AstNode.cpp" />
+    <ClCompile Include="zsharp\AST\AstModule.cpp" />
+    <ClCompile Include="zsharp\AST\AstFile.cpp" />
+    <ClCompile Include="zsharp\AST\ParseTreeNavigator.cpp" />
+    <ClCompile Include="zsharp\AST\AstNodeBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -43,6 +49,13 @@
     <ClInclude Include="zsharp\grammar\_test\parser\testparserBaseVisitor.h" />
     <ClInclude Include="zsharp\grammar\_test\parser\testparserListener.h" />
     <ClInclude Include="zsharp\grammar\_test\parser\testparserVisitor.h" />
+    <ClInclude Include="zsharp\AST\AstBuilder.h" />
+    <ClInclude Include="zsharp\AST\AstNode.h" />
+    <ClInclude Include="zsharp\AST\AstModule.h" />
+    <ClInclude Include="zsharp\AST\AstFile.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="zsharp\AST\ParseTreeNavigator.h" />
+    <ClInclude Include="zsharp\AST\AstNodeBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="zsharp\grammar\_test\testdata.txt" />
