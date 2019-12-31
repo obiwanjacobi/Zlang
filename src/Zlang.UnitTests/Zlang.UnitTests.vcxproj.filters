@@ -13,6 +13,7 @@
     <ClCompile Include="grammar\CommentSmokeTests.cpp" />
     <ClCompile Include="grammar\TypesSmokeTests.cpp" />
     <ClCompile Include="AST\AstBuilderTests.cpp" />
+    <ClCompile Include="LLVM\LlvmIrBuilderTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

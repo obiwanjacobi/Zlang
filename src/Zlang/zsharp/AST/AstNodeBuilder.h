@@ -10,11 +10,10 @@ class AstNodeBuilder : public zsharp_parserBaseVisitor
     typedef zsharp_parserBaseVisitor base;
 
 public:
-    AstNodeBuilder()
+    AstNodeBuilder(std::string namespace_)
+        : _namespace(namespace_)
     {}
 
-
-    // implemented:
     antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult) override;
 
     antlrcpp::Any visitFile(zsharp_parserParser::FileContext* ctx) override;
@@ -23,7 +22,9 @@ public:
     antlrcpp::Any visitFunction_def(zsharp_parserParser::Function_defContext* ctx) override;
 
 private:
+    std::string ToQualifiedName(const std::string& name);
 
+    std::string _namespace;
     antlrcpp::Any _current;
 };
 

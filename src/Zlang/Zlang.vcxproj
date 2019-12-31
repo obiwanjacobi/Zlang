@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="zsharp\LLVM\LlvmIrBuilder.cpp" />
     <ClCompile Include="zsharp\AST\AstFunction.cpp" />
     <ClCompile Include="zsharp\AST\AstNodeBuilder.cpp" />
     <ClCompile Include="zsharp\AST\ParseTreeNavigator.cpp" />
@@ -52,8 +53,10 @@
     <None Include="zsharp\grammar\_test\parser\testparser.tokens" />
     <None Include="zsharp\grammar\_test\testlexer.g4" />
     <None Include="zsharp\grammar\_test\testparser.g4" />
+    <None Include="zsharp\LLVM\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="zsharp\LLVM\LlvmIrBuilder.h" />
     <ClInclude Include="zsharp\AST\AstFunction.h" />
     <ClInclude Include="zsharp\AST\AstNodeBuilder.h" />
     <ClInclude Include="zsharp\AST\ParseTreeNavigator.h" />
@@ -137,8 +140,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\lib\antlr\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\lib\antlr\include;$(SolutionDir)..\..\..\llvm\z80-llvm-project\build_vs\include;$(SolutionDIr)..\..\..\llvm\z80-llvm-project\llvm\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(SolutionDir)..\..\..\llvm\z80-llvm-project\build_vs\Debug\lib;$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -177,7 +180,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>antlr4-runtime.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>antlr4-runtime.lib;LLVMCore.lib;LLVMRemarks.lib;LLVMBitstreamReader.lib;LLVMBinaryFormat.lib;LLVMSupport.lib;LLVMDemangle.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy $(ProjectDir)..\lib\antlr\debug\antlr4-runtime.dll $(OutputPath) /C /R</Command>

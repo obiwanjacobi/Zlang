@@ -4,6 +4,14 @@
 #include "../grammar/parser/zsharp_parserParser.h"
 #include "AstFunction.h"
 
+std::string AstNodeBuilder::ToQualifiedName(const std::string& name)
+{
+    if (_namespace.size() > 0) {
+        return _namespace + "." + name;
+    }
+    return name;
+}
+
 antlrcpp::Any AstNodeBuilder::aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult)
 {
     return nextResult;
@@ -41,6 +49,8 @@ antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_de
     if (_current.is<AstFile*>()) {
         auto file = _current.as<AstFile*>();
         auto function = std::make_shared<AstFunction>(ctx);
+        
+        function->setName(ToQualifiedName(ctx->identifier_func()->getText()));
 
         file->AddFunction(function);
     }

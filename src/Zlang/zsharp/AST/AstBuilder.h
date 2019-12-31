@@ -9,7 +9,7 @@ class AstBuilder
 {
 public:
     void Build(zsharp_parserParser::FileContext* fileCtx);
-    std::shared_ptr<AstFile> BuildFile(zsharp_parserParser::FileContext* fileCtx);
+    std::shared_ptr<AstFile> BuildFile(std::string moduleName, zsharp_parserParser::FileContext* fileCtx);
 
     const std::vector<std::shared_ptr<AstModule>>& getModules() const { return _modules; }
 

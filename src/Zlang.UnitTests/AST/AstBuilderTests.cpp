@@ -4,8 +4,8 @@
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
 
-TEST(AstBuilderTests, BuildFile_empty) {
-    
+TEST(AstBuilderTests, BuildFile_empty)
+{
     const char* src = 
         "// comment\n"
         ;
@@ -14,14 +14,14 @@ TEST(AstBuilderTests, BuildFile_empty) {
     auto fileCtx = parser.parseFileText(src);
 
     AstBuilder uut;
-    auto file = uut.BuildFile(fileCtx);
+    auto file = uut.BuildFile("", fileCtx);
 
     EXPECT_NE(file, nullptr);
     EXPECT_EQ(file->getNodeType(), AstNodeType::File);
 }
 
-TEST(AstBuilderTests, BuildFile_ImportsOne) {
-
+TEST(AstBuilderTests, BuildFile_ImportsOne)
+{
     const char* src =
         "import importmodule\n"
         ;
@@ -30,7 +30,7 @@ TEST(AstBuilderTests, BuildFile_ImportsOne) {
     auto fileCtx = parser.parseFileText(src);
 
     AstBuilder uut;
-    auto file = uut.BuildFile(fileCtx);
+    auto file = uut.BuildFile("", fileCtx);
 
     auto imports = file->getImports();
     EXPECT_EQ(imports.size(), 1);
@@ -41,8 +41,8 @@ TEST(AstBuilderTests, BuildFile_ImportsOne) {
     EXPECT_STREQ(text.c_str(), "importmodule");
 }
 
-TEST(AstBuilderTests, BuildFile_Imports) {
-
+TEST(AstBuilderTests, BuildFile_Imports)
+{
     const char* src =
         "import importmodule1\n"
         "import importmodule2\n"
@@ -52,7 +52,7 @@ TEST(AstBuilderTests, BuildFile_Imports) {
     auto fileCtx = parser.parseFileText(src);
 
     AstBuilder uut;
-    auto file = uut.BuildFile(fileCtx);
+    auto file = uut.BuildFile("", fileCtx);
 
     auto imports = file->getImports();
     EXPECT_EQ(imports.size(), 2);
@@ -68,8 +68,8 @@ TEST(AstBuilderTests, BuildFile_Imports) {
     EXPECT_STREQ(text.c_str(), "importmodule2");
 }
 
-TEST(AstBuilderTests, BuildFile_ExportsOne) {
-
+TEST(AstBuilderTests, BuildFile_ExportsOne)
+{
     const char* src =
         "export myFunction\n"
         ;
@@ -78,7 +78,7 @@ TEST(AstBuilderTests, BuildFile_ExportsOne) {
     auto fileCtx = parser.parseFileText(src);
 
     AstBuilder uut;
-    auto file = uut.BuildFile(fileCtx);
+    auto file = uut.BuildFile("", fileCtx);
 
     auto exports = file->getExports();
     EXPECT_EQ(exports.size(), 1);
@@ -89,8 +89,8 @@ TEST(AstBuilderTests, BuildFile_ExportsOne) {
     EXPECT_STREQ(text.c_str(), "myFunction");
 }
 
-TEST(AstBuilderTests, BuildFile_Exports) {
-
+TEST(AstBuilderTests, BuildFile_Exports) 
+{
     const char* src =
         "export myFunction1\n"
         "export myFunction2\n"
@@ -100,7 +100,7 @@ TEST(AstBuilderTests, BuildFile_Exports) {
     auto fileCtx = parser.parseFileText(src);
 
     AstBuilder uut;
-    auto file = uut.BuildFile(fileCtx);
+    auto file = uut.BuildFile("", fileCtx);
 
     auto exports = file->getExports();
     EXPECT_EQ(exports.size(), 2);
@@ -116,8 +116,50 @@ TEST(AstBuilderTests, BuildFile_Exports) {
     EXPECT_STREQ(text.c_str(), "myFunction2");
 }
 
-TEST(AstBuilderTests, Build_ModuleName) {
+TEST(AstBuilderTests, BuildFile_Function)
+{
+    const char* src =
+        "MyFunction()\n"
+        "    return\n"
+        ;
 
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    
+    auto functions = file->getFunctions();
+    EXPECT_EQ(functions.size(), 1);
+
+    auto fn = functions.at(0).get();
+    auto fnCtx = fn->getContext();
+    EXPECT_NE(fnCtx->codeblock(), nullptr);
+}
+
+TEST(AstBuilderTests, BuildFile_FunctionExternal)
+{
+    const char* src =
+        "export MyFunction\n"
+        "MyFunction()\n"
+        "    return\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+
+    auto functions = file->getFunctions();
+    EXPECT_EQ(functions.size(), 1);
+
+    auto fn = functions.at(0).get();
+    EXPECT_TRUE(fn->isExternal());
+}
+
+TEST(AstBuilderTests, Build_ModuleName)
+{
     const char* src =
         "module testmodule\n"
         ;
@@ -134,26 +176,4 @@ TEST(AstBuilderTests, Build_ModuleName) {
     auto mod = modules.at(0).get();
     auto name = mod->getName();
     EXPECT_STREQ(name.c_str(), "testmodule");
-}
-
-
-TEST(AstBuilderTests, BuildFile_Function) {
-
-    const char* src =
-        "MyFunction()\n"
-        "    return\n"
-        ;
-
-    ZsharpParser parser;
-    auto fileCtx = parser.parseFileText(src);
-
-    AstBuilder uut;
-    auto file = uut.BuildFile(fileCtx);
-    
-    auto functions = file->getFunctions();
-    EXPECT_EQ(functions.size(), 1);
-
-    auto fn = functions.at(0).get();
-    auto fnCtx = fn->getContext();
-    EXPECT_NE(fnCtx->codeblock(), nullptr);
 }

@@ -23,7 +23,9 @@ protected:
     void AddImport(zsharp_parserParser::Statement_importContext* importCtx);
     void AddExport(zsharp_parserParser::Statement_exportContext* exportCtx);
     
-    void AddFunction(std::shared_ptr<AstFunction> functionCtx);
+    void AddFunction(std::shared_ptr<AstFunction> function);
+    bool functionIsExport(const std::string& functionName) const;
+    bool functionIsExport(std::shared_ptr<AstFunction> function);
 
 private:
     zsharp_parserParser::FileContext* _fileCtx;

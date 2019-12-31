@@ -17,13 +17,13 @@ void AstBuilder::Build(zsharp_parserParser::FileContext* fileCtx)
     ParseTreeNavigator nav;
 
     auto module = AddModule(nav.ToStatementModule(fileCtx));
-    auto file = BuildFile(fileCtx);
+    auto file = BuildFile(module->getName(), fileCtx);
     module->AddFile(file);
 }
 
-std::shared_ptr<AstFile> AstBuilder::BuildFile(zsharp_parserParser::FileContext* fileCtx)
+std::shared_ptr<AstFile> AstBuilder::BuildFile(std::string moduleName, zsharp_parserParser::FileContext* fileCtx)
 {
-    AstNodeBuilder builder;
+    AstNodeBuilder builder(moduleName);
     auto file = builder.visitFile(fileCtx);
     
     return file.as<std::shared_ptr<AstFile>>();

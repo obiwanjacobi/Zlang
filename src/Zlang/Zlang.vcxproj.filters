@@ -23,6 +23,7 @@
     <ClCompile Include="zsharp\AST\ParseTreeNavigator.cpp" />
     <ClCompile Include="zsharp\AST\AstNodeBuilder.cpp" />
     <ClCompile Include="zsharp\AST\AstFunction.cpp" />
+    <ClCompile Include="zsharp\LLVM\LlvmIrBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -34,6 +35,7 @@
     <None Include="zsharp\grammar\_test\testparser.g4" />
     <None Include="zsharp\grammar\_test\parser\testlexer.tokens" />
     <None Include="zsharp\grammar\_test\parser\testparser.tokens" />
+    <None Include="zsharp\LLVM\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="zsharp\grammar\ZsharpParser.h" />
@@ -58,6 +60,7 @@
     <ClInclude Include="zsharp\AST\ParseTreeNavigator.h" />
     <ClInclude Include="zsharp\AST\AstNodeBuilder.h" />
     <ClInclude Include="zsharp\AST\AstFunction.h" />
+    <ClInclude Include="zsharp\LLVM\LlvmIrBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="zsharp\grammar\_test\testdata.txt" />

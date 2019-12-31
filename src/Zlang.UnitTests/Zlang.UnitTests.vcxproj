@@ -33,8 +33,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)..\lib\antlr\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(SolutionDir)Zlang\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\lib\antlr\include;$(SolutionDir)..\..\..\llvm\z80-llvm-project\build_vs\include;$(SolutionDIr)..\..\..\llvm\z80-llvm-project\llvm\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(SolutionDir)Zlang\$(Platform)\$(Configuration);$(SolutionDir)..\..\..\llvm\z80-llvm-project\build_vs\Debug\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h" />
@@ -51,6 +51,7 @@
     <ClCompile Include="grammar\StructSmokeTests.cpp" />
     <ClCompile Include="grammar\TypesSmokeTests.cpp" />
     <ClCompile Include="grammar\VariablesSmokeTests.cpp" />
+    <ClCompile Include="LLVM\LlvmIrBuilderTests.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -100,7 +101,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstFile.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstFile.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;LLVMCore.lib;LLVMRemarks.lib;LLVMBitstreamReader.lib;LLVMBinaryFormat.lib;LLVMSupport.lib;LLVMDemangle.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
