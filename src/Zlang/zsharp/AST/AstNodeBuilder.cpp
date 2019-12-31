@@ -2,6 +2,7 @@
 #include "AstFile.h"
 
 #include "../grammar/parser/zsharp_parserParser.h"
+#include "AstFunction.h"
 
 antlrcpp::Any AstNodeBuilder::aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult)
 {
@@ -35,3 +36,14 @@ antlrcpp::Any AstNodeBuilder::visitStatement_export(zsharp_parserParser::Stateme
     return nullptr;
 }
 
+antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_defContext* ctx)
+{
+    if (_current.is<AstFile*>()) {
+        auto file = _current.as<AstFile*>();
+        auto function = std::make_shared<AstFunction>(ctx);
+
+        file->AddFunction(function);
+    }
+
+    return nullptr;
+}

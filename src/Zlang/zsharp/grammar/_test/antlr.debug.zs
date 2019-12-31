@@ -1,3 +1,6 @@
-import importmodule1
-import importmodule2
-
+MyFunction()
+    loop false
+        if true
+            return
+        else
+            x = 0

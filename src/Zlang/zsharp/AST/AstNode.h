@@ -14,14 +14,14 @@ class AstNode
 {
 public:
     AstNodeType getNodeType() const { return _nodeType; }
+
     const AstNode* getParent() const { return _parent; }
+    void setParent(AstNode* parent) { _parent = parent; }
 
 protected:
     AstNode(AstNodeType nodeType)
         : _nodeType(nodeType), _parent(nullptr)
     {}
-
-    void setParent(AstNode* parent) { _parent = parent; }
 
 private:
     AstNodeType _nodeType;

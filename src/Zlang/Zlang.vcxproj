@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="zsharp\AST\AstFunction.cpp" />
     <ClCompile Include="zsharp\AST\AstNodeBuilder.cpp" />
     <ClCompile Include="zsharp\AST\ParseTreeNavigator.cpp" />
     <ClCompile Include="zsharp\AST\AstFile.cpp" />
@@ -53,6 +54,7 @@
     <None Include="zsharp\grammar\_test\testparser.g4" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="zsharp\AST\AstFunction.h" />
     <ClInclude Include="zsharp\AST\AstNodeBuilder.h" />
     <ClInclude Include="zsharp\AST\ParseTreeNavigator.h" />
     <ClInclude Include="Utils.h" />

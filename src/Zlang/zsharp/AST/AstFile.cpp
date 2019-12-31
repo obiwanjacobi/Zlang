@@ -13,3 +13,11 @@ void AstFile::AddExport(zsharp_parserParser::Statement_exportContext* exportCtx)
         _exports.push_back(exportCtx);
     }
 }
+
+void AstFile::AddFunction(std::shared_ptr<AstFunction> functionCtx)
+{
+    if (functionCtx != nullptr) {
+        functionCtx->setParent(this);
+        _functions.push_back(functionCtx);
+    }
+}

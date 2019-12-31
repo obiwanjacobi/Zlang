@@ -116,7 +116,7 @@ TEST(AstBuilderTests, BuildFile_Exports) {
     EXPECT_STREQ(text.c_str(), "myFunction2");
 }
 
-TEST(AstBuilderTests, Build_empty) {
+TEST(AstBuilderTests, Build_ModuleName) {
 
     const char* src =
         "module testmodule\n"
@@ -134,4 +134,26 @@ TEST(AstBuilderTests, Build_empty) {
     auto mod = modules.at(0).get();
     auto name = mod->getName();
     EXPECT_STREQ(name.c_str(), "testmodule");
+}
+
+
+TEST(AstBuilderTests, BuildFile_Function) {
+
+    const char* src =
+        "MyFunction()\n"
+        "    return\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+
+    AstBuilder uut;
+    auto file = uut.BuildFile(fileCtx);
+    
+    auto functions = file->getFunctions();
+    EXPECT_EQ(functions.size(), 1);
+
+    auto fn = functions.at(0).get();
+    auto fnCtx = fn->getContext();
+    EXPECT_NE(fnCtx->codeblock(), nullptr);
 }
