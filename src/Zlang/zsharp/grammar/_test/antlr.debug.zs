@@ -1,6 +1,3 @@
-// comment
-
-module mymodule
-import mod1
-import mod2
+import importmodule1
+import importmodule2
 

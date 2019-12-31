@@ -2,14 +2,14 @@
 #include "AstNodeBuilder.h"
 #include "ParseTreeNavigator.h"
 
-AstModule* AstBuilder::AddModule(zsharp_parserParser::Statement_moduleContext* moduleCtx)
+std::shared_ptr<AstModule> AstBuilder::AddModule(zsharp_parserParser::Statement_moduleContext* moduleCtx)
 {
     assert(moduleCtx != nullptr);
-    auto mod = std::make_unique<AstModule>();
+    auto mod = std::make_shared<AstModule>();
     mod->AddModule(moduleCtx);
 
-    _modules.push_back(std::move(mod));
-    return mod.get();
+    _modules.push_back(mod);
+    return mod;
 }
 
 void AstBuilder::Build(zsharp_parserParser::FileContext* fileCtx)
@@ -18,13 +18,13 @@ void AstBuilder::Build(zsharp_parserParser::FileContext* fileCtx)
 
     auto module = AddModule(nav.ToStatementModule(fileCtx));
     auto file = BuildFile(fileCtx);
-    module->AddFile(std::move(file));
+    module->AddFile(file);
 }
 
-std::unique_ptr<AstFile> AstBuilder::BuildFile(zsharp_parserParser::FileContext* fileCtx)
+std::shared_ptr<AstFile> AstBuilder::BuildFile(zsharp_parserParser::FileContext* fileCtx)
 {
     AstNodeBuilder builder;
     auto file = builder.visitFile(fileCtx);
     
-    return std::move(file.as<std::unique_ptr<AstFile>>());
+    return file.as<std::shared_ptr<AstFile>>();
 }

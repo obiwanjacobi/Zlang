@@ -7,7 +7,7 @@
 TEST(AstBuilderTests, BuildFile_empty) {
     
     const char* src = 
-        "// comment"
+        "// comment\n"
         ;
 
     ZsharpParser parser;
@@ -23,7 +23,7 @@ TEST(AstBuilderTests, BuildFile_empty) {
 TEST(AstBuilderTests, BuildFile_ImportsOne) {
 
     const char* src =
-        "import importmodule"
+        "import importmodule\n"
         ;
 
     ZsharpParser parser;
@@ -41,10 +41,37 @@ TEST(AstBuilderTests, BuildFile_ImportsOne) {
     EXPECT_STREQ(text.c_str(), "importmodule");
 }
 
+TEST(AstBuilderTests, BuildFile_Imports) {
+
+    const char* src =
+        "import importmodule1\n"
+        "import importmodule2\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+
+    AstBuilder uut;
+    auto file = uut.BuildFile(fileCtx);
+
+    auto imports = file->getImports();
+    EXPECT_EQ(imports.size(), 2);
+
+    auto import = imports.at(0);
+    auto modName = import->module_name();
+    auto text = modName->getText();
+    EXPECT_STREQ(text.c_str(), "importmodule1");
+
+    import = imports.at(1);
+    modName = import->module_name();
+    text = modName->getText();
+    EXPECT_STREQ(text.c_str(), "importmodule2");
+}
+
 TEST(AstBuilderTests, BuildFile_ExportsOne) {
 
     const char* src =
-        "export myFunction"
+        "export myFunction\n"
         ;
 
     ZsharpParser parser;
@@ -60,4 +87,51 @@ TEST(AstBuilderTests, BuildFile_ExportsOne) {
     auto funName = exprt->identifier_func();
     auto text = funName->getText();
     EXPECT_STREQ(text.c_str(), "myFunction");
+}
+
+TEST(AstBuilderTests, BuildFile_Exports) {
+
+    const char* src =
+        "export myFunction1\n"
+        "export myFunction2\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+
+    AstBuilder uut;
+    auto file = uut.BuildFile(fileCtx);
+
+    auto exports = file->getExports();
+    EXPECT_EQ(exports.size(), 2);
+
+    auto exprt = exports.at(0);
+    auto funName = exprt->identifier_func();
+    auto text = funName->getText();
+    EXPECT_STREQ(text.c_str(), "myFunction1");
+
+    exprt = exports.at(1);
+    funName = exprt->identifier_func();
+    text = funName->getText();
+    EXPECT_STREQ(text.c_str(), "myFunction2");
+}
+
+TEST(AstBuilderTests, Build_empty) {
+
+    const char* src =
+        "module testmodule\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+
+    AstBuilder uut;
+    uut.Build(fileCtx);
+
+    auto modules = uut.getModules();
+    EXPECT_EQ(modules.size(), 1);
+
+    auto mod = modules.at(0).get();
+    auto name = mod->getName();
+    EXPECT_STREQ(name.c_str(), "testmodule");
 }

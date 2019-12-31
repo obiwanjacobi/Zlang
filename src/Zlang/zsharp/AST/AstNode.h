@@ -4,7 +4,6 @@ enum class AstNodeType {
     None,
     Module,         // root
     File,           // Module::*
-    Dependencies,   // File::1
     Global,         // File::1
     Function,       // File::*
     Struct,         // File::*
@@ -18,9 +17,11 @@ public:
     const AstNode* getParent() const { return _parent; }
 
 protected:
-    AstNode(AstNodeType nodeType, AstNode* parent) 
-        : _nodeType(nodeType), _parent(parent)
+    AstNode(AstNodeType nodeType)
+        : _nodeType(nodeType), _parent(nullptr)
     {}
+
+    void setParent(AstNode* parent) { _parent = parent; }
 
 private:
     AstNodeType _nodeType;

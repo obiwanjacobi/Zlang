@@ -18,10 +18,14 @@ public:
     antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult) override;
 
     antlrcpp::Any visitFile(zsharp_parserParser::FileContext* ctx) override;
-    antlrcpp::Any visitSource(zsharp_parserParser::SourceContext* ctx) override;
-
+    antlrcpp::Any visitStatement_import(zsharp_parserParser::Statement_importContext* ctx) override;
+    antlrcpp::Any visitStatement_export(zsharp_parserParser::Statement_exportContext* ctx) override;
 
     // not implemented:
+    antlrcpp::Any visitSource(zsharp_parserParser::SourceContext* ctx) override {
+        return visitChildren(ctx);
+    }
+
     antlrcpp::Any visitCodeblock(zsharp_parserParser::CodeblockContext* ctx) override {
         return visitChildren(ctx);
     }
@@ -35,14 +39,6 @@ public:
     }
 
     antlrcpp::Any visitStatement_module(zsharp_parserParser::Statement_moduleContext* ctx) override {
-        return visitChildren(ctx);
-    }
-
-    antlrcpp::Any visitStatement_import(zsharp_parserParser::Statement_importContext* ctx) override {
-        return visitChildren(ctx);
-    }
-
-    antlrcpp::Any visitStatement_export(zsharp_parserParser::Statement_exportContext* ctx) override {
         return visitChildren(ctx);
     }
 

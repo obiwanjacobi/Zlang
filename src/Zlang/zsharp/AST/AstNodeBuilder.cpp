@@ -9,23 +9,29 @@ antlrcpp::Any AstNodeBuilder::aggregateResult(antlrcpp::Any aggregate, const ant
 }
 
 antlrcpp::Any AstNodeBuilder::visitFile(zsharp_parserParser::FileContext* ctx) {
-    auto file = std::make_unique<AstFile>(ctx);
+    auto file = std::make_shared<AstFile>(ctx);
     _current = file.get();
 
     auto any = base::visitFile(ctx);
 
-    return std::move(file);
+    return file;
 }
 
-antlrcpp::Any AstNodeBuilder::visitSource(zsharp_parserParser::SourceContext* ctx)
-{
-    if (ctx->module_statement() != nullptr) {
-        if (_current.is<AstFile*>()) {
-            auto file = _current.as<AstFile*>();
-            file->AddImport(ctx->module_statement()->statement_import());
-            file->AddExport(ctx->module_statement()->statement_export());
-        }
+antlrcpp::Any AstNodeBuilder::visitStatement_import(zsharp_parserParser::Statement_importContext* ctx) {
+    if (_current.is<AstFile*>()) {
+        auto file = _current.as<AstFile*>();
+        file->AddImport(ctx);
     }
 
-    return base::visitSource(ctx);
+    return nullptr;
 }
+
+antlrcpp::Any AstNodeBuilder::visitStatement_export(zsharp_parserParser::Statement_exportContext* ctx) {
+    if (_current.is<AstFile*>()) {
+        auto file = _current.as<AstFile*>();
+        file->AddExport(ctx);
+    }
+
+    return nullptr;
+}
+

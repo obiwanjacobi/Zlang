@@ -9,7 +9,7 @@ class AstFile : public AstNode
 
 public:
     AstFile(zsharp_parserParser::FileContext* fileCtx)
-        : AstNode(AstNodeType::File, nullptr), _fileCtx(fileCtx)
+        : AstNode(AstNodeType::File), _fileCtx(fileCtx)
     {}
 
     const std::vector<zsharp_parserParser::Statement_importContext*>& getImports() const { return _imports; }
