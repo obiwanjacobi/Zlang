@@ -1,6 +1,1 @@
-MyFunction()
-    loop false
-        if true
-            return
-        else
-            x = 0
+b = 0x42

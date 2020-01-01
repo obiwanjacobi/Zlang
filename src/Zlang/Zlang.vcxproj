@@ -19,6 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="zsharp\AST\AstNumericBuilder.cpp" />
+    <ClCompile Include="zsharp\AST\AstExpression.cpp" />
+    <ClCompile Include="zsharp\AST\AstExpressionBuilder.cpp" />
+    <ClCompile Include="zsharp\AST\AstNumeric.cpp" />
     <ClCompile Include="zsharp\LLVM\LlvmIrBuilder.cpp" />
     <ClCompile Include="zsharp\AST\AstFunction.cpp" />
     <ClCompile Include="zsharp\AST\AstNodeBuilder.cpp" />
@@ -56,6 +61,10 @@
     <None Include="zsharp\LLVM\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="zsharp\AST\AstNumericBuilder.h" />
+    <ClInclude Include="zsharp\AST\AstExpression.h" />
+    <ClInclude Include="zsharp\AST\AstExpressionBuilder.h" />
+    <ClInclude Include="zsharp\AST\AstNumeric.h" />
     <ClInclude Include="zsharp\LLVM\LlvmIrBuilder.h" />
     <ClInclude Include="zsharp\AST\AstFunction.h" />
     <ClInclude Include="zsharp\AST\AstNodeBuilder.h" />

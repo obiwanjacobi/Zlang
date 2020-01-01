@@ -8,6 +8,9 @@ enum class AstNodeType {
     Function,       // File::*
     Struct,         // File::*
     Enum,           // File::*
+
+    Expression,     // CodeBlock::*
+    Numeric,        // Expression::1
 };
 
 class AstNode

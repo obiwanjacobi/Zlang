@@ -1,3 +1,5 @@
 #pragma once
 
-#define Guard(c) assert(c)
+#include <string>
+
+void ReplaceAll(std::string& str, const std::string& from, const std::string& to);

@@ -212,7 +212,7 @@ NUMBERbin: PREFIXbin (DIGIT2 | UNUSED)+;
 NUMBERoct: PREFIXoct (DIGIT8 | UNUSED)+;
 NUMBERdec: DIGIT10+;
 NUMBERdec_prefix: PREFIXdec (DIGIT10 | UNUSED)+;
-NUMBERhex: PREFIXhex (DIGIT16 UNUSED)+;
+NUMBERhex: PREFIXhex (DIGIT16 | UNUSED)+;
 
 fragment ALPHAlower: [a-z];
 fragment ALPHAupper: [A-Z];
