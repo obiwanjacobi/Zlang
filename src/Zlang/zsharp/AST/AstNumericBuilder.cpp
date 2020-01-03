@@ -16,6 +16,8 @@ antlrcpp::Any AstNumericBuilder::aggregateResult(antlrcpp::Any aggregate, const 
 
 antlrcpp::Any AstNumericBuilder::visitNumber(zsharp_parserParser::NumberContext* ctx) {
     auto numeric = std::make_shared<AstNumeric>(ctx);
+    numeric->setParent(_parent.get());
+
     auto val = visitChildren(ctx);
     numeric->setValue(val.as<uint64_t>());
     return numeric;

@@ -31,17 +31,18 @@ definition: variable_def;
 
 // expressions
 expression_value: number | string | expression_bool
-    | expression_arithmetic | expression_logic | expression_bitwise 
+    | expression_arithmetic | expression_logic
     | function_call;
 comptime_expression_value: number | string | expression_bool;
 
 expression_arithmetic: 
       expression_arithmetic SP operator_arithmetic SP expression_arithmetic
+    | expression_arithmetic SP operator_bits SP expression_arithmetic
     | PARENopen expression_arithmetic PARENclose
     | operator_arithmetic_unary expression_arithmetic
-    | arithmetic_operand
-    ;
-arithmetic_operand: expression_bitwise | number | variable_ref | parameter_ref;
+    | operator_bits_unary expression_arithmetic
+    | arithmetic_operand;
+arithmetic_operand: number | variable_ref | parameter_ref | function_call;
 
 expression_logic: 
       expression_logic SP operator_logic SP expression_logic
@@ -52,12 +53,7 @@ logic_operand: expression_comparison | expression_bool;
 expression_comparison: 
       comparison_operand SP operator_comparison SP comparison_operand
     | PARENopen expression_comparison PARENclose;
-comparison_operand: expression_arithmetic | expression_bitwise | function_call | variable_ref | literal;
-
-expression_bitwise: 
-      bitwise_operand SP operator_bits SP bitwise_operand
-    | operator_bits_unary bitwise_operand;
-bitwise_operand: function_call | variable_ref | number;
+comparison_operand: expression_arithmetic | function_call | variable_ref | literal;
 
 expression_bool: literal_bool | identifier_bool;
 identifier_bool: variable_ref | parameter_ref;

@@ -15,6 +15,7 @@
     <ClCompile Include="AST\AstBuilderTests.cpp" />
     <ClCompile Include="LLVM\LlvmIrBuilderTests.cpp" />
     <ClCompile Include="AST\AstNumericBuilderTests.cpp" />
+    <ClCompile Include="AST\AstExpressionBuilderTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

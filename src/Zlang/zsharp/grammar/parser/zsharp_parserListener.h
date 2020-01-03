@@ -98,12 +98,6 @@ public:
   virtual void enterComparison_operand(zsharp_parserParser::Comparison_operandContext *ctx) = 0;
   virtual void exitComparison_operand(zsharp_parserParser::Comparison_operandContext *ctx) = 0;
 
-  virtual void enterExpression_bitwise(zsharp_parserParser::Expression_bitwiseContext *ctx) = 0;
-  virtual void exitExpression_bitwise(zsharp_parserParser::Expression_bitwiseContext *ctx) = 0;
-
-  virtual void enterBitwise_operand(zsharp_parserParser::Bitwise_operandContext *ctx) = 0;
-  virtual void exitBitwise_operand(zsharp_parserParser::Bitwise_operandContext *ctx) = 0;
-
   virtual void enterExpression_bool(zsharp_parserParser::Expression_boolContext *ctx) = 0;
   virtual void exitExpression_bool(zsharp_parserParser::Expression_boolContext *ctx) = 0;
 

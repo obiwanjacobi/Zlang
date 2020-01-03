@@ -61,3 +61,19 @@ TEST(ExpressionSmokeTests, ArithmeticComparisonLogicalLiteralVariable) {
     EXPECT_TRUE(ParserSmokeTest(src));
 }
 
+TEST(ExpressionSmokeTests, ArithmeticBitwiseLiteralVariable) {
+    const char* src =
+        "b = 42 * (x + 7) >> 4\n"
+        ;
+
+    EXPECT_TRUE(ParserSmokeTest(src));
+}
+
+TEST(ExpressionSmokeTests, BitwiseArithmetic) {
+    const char* src =
+        "b = 42 * (x >> 7) / 4\n"
+        ;
+
+    EXPECT_TRUE(ParserSmokeTest(src));
+}
+

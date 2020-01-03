@@ -127,14 +127,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitExpression_bitwise(zsharp_parserParser::Expression_bitwiseContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitBitwise_operand(zsharp_parserParser::Bitwise_operandContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitExpression_bool(zsharp_parserParser::Expression_boolContext *ctx) override {
     return visitChildren(ctx);
   }

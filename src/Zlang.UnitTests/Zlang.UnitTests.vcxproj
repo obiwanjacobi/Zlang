@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AST\AstBuilderTests.cpp" />
+    <ClCompile Include="AST\AstExpressionBuilderTests.cpp" />
     <ClCompile Include="AST\AstNumericBuilderTests.cpp" />
     <ClCompile Include="grammar\CommentSmokeTests.cpp" />
     <ClCompile Include="grammar\EnumSmokeTests.cpp" />

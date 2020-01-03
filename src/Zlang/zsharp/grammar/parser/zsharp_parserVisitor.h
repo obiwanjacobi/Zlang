@@ -75,10 +75,6 @@ public:
 
     virtual antlrcpp::Any visitComparison_operand(zsharp_parserParser::Comparison_operandContext *context) = 0;
 
-    virtual antlrcpp::Any visitExpression_bitwise(zsharp_parserParser::Expression_bitwiseContext *context) = 0;
-
-    virtual antlrcpp::Any visitBitwise_operand(zsharp_parserParser::Bitwise_operandContext *context) = 0;
-
     virtual antlrcpp::Any visitExpression_bool(zsharp_parserParser::Expression_boolContext *context) = 0;
 
     virtual antlrcpp::Any visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext *context) = 0;
