@@ -634,11 +634,13 @@ public:
   public:
     Expression_logicContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *PARENopen();
+    std::vector<Expression_logicContext *> expression_logic();
+    Expression_logicContext* expression_logic(size_t i);
+    antlr4::tree::TerminalNode *PARENclose();
     Operator_logic_unaryContext *operator_logic_unary();
     std::vector<antlr4::tree::TerminalNode *> SP();
     antlr4::tree::TerminalNode* SP(size_t i);
-    std::vector<Expression_logicContext *> expression_logic();
-    Expression_logicContext* expression_logic(size_t i);
     Logic_operandContext *logic_operand();
     Operator_logicContext *operator_logic();
 
@@ -671,14 +673,14 @@ public:
   public:
     Expression_comparisonContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    std::vector<Comparison_operandContext *> comparison_operand();
-    Comparison_operandContext* comparison_operand(size_t i);
+    antlr4::tree::TerminalNode *PARENopen();
+    std::vector<Expression_comparisonContext *> expression_comparison();
+    Expression_comparisonContext* expression_comparison(size_t i);
+    antlr4::tree::TerminalNode *PARENclose();
+    Comparison_operandContext *comparison_operand();
     std::vector<antlr4::tree::TerminalNode *> SP();
     antlr4::tree::TerminalNode* SP(size_t i);
     Operator_comparisonContext *operator_comparison();
-    antlr4::tree::TerminalNode *PARENopen();
-    Expression_comparisonContext *expression_comparison();
-    antlr4::tree::TerminalNode *PARENclose();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -688,7 +690,7 @@ public:
   };
 
   Expression_comparisonContext* expression_comparison();
-
+  Expression_comparisonContext* expression_comparison(int precedence);
   class  Comparison_operandContext : public antlr4::ParserRuleContext {
   public:
     Comparison_operandContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -2078,6 +2080,7 @@ public:
   bool module_nameSempred(Module_nameContext *_localctx, size_t predicateIndex);
   bool expression_arithmeticSempred(Expression_arithmeticContext *_localctx, size_t predicateIndex);
   bool expression_logicSempred(Expression_logicContext *_localctx, size_t predicateIndex);
+  bool expression_comparisonSempred(Expression_comparisonContext *_localctx, size_t predicateIndex);
 
 private:
   static std::vector<antlr4::dfa::DFA> _decisionToDFA;

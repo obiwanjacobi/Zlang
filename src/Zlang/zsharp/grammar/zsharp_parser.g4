@@ -46,13 +46,15 @@ arithmetic_operand: number | variable_ref | parameter_ref | function_call;
 
 expression_logic: 
       expression_logic SP operator_logic SP expression_logic
+    | PARENopen expression_logic PARENclose
     | operator_logic_unary SP expression_logic
     | logic_operand;
 logic_operand: expression_comparison | expression_bool;
 
 expression_comparison: 
-      comparison_operand SP operator_comparison SP comparison_operand
-    | PARENopen expression_comparison PARENclose;
+      expression_comparison SP operator_comparison SP expression_comparison
+    | PARENopen expression_comparison PARENclose
+    | comparison_operand;
 comparison_operand: expression_arithmetic | function_call | variable_ref | literal;
 
 expression_bool: literal_bool | identifier_bool;

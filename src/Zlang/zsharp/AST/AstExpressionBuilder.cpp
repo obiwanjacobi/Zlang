@@ -1,7 +1,68 @@
 #include "AstExpressionBuilder.h"
 #include "AstNumericBuilder.h"
 
+
+bool isOperand(zsharp_parserParser::Expression_arithmeticContext* ctx) {
+    return ctx->arithmetic_operand() != nullptr;
+}
+
+bool isOperand(zsharp_parserParser::Expression_logicContext* ctx) {
+    return ctx->logic_operand() != nullptr;
+}
+
+bool isOperand(zsharp_parserParser::Expression_comparisonContext* ctx) {
+    return ctx->comparison_operand() != nullptr;
+}
+
+template<class T>
+antlrcpp::Any  AstExpressionBuilder::ProcessExpression(T ctx) {
+    auto operatorPosition = _operators.size();
+
+    for (auto child : ctx->children) {
+        auto retVal = child->accept(this);
+
+        if (retVal.is<AstExpressionOperator>()) {
+            // there is an extra expression node with just the operand.
+            // return its value and be done.
+            if (isOperand(ctx)) {
+                return retVal;
+            }
+
+            auto op = retVal.as<AstExpressionOperator>();
+            if (op != AstExpressionOperator::NotSet) {
+
+                auto expr = std::make_shared<AstExpression>(ctx);
+                expr->setOperator(op);
+
+                if (_operators.size() > 0) {
+                    auto lowerOp = _operators.top();
+
+                    if (lowerOp->getPrecedence() > expr->getPrecedence()) {
+                        auto popExpr = PopExpression();
+                        assert(lowerOp == popExpr);
+
+                        AddOperand(popExpr);
+                    }
+                }
+                _operators.push(expr);
+            }
+        }
+        else if (retVal.is<std::shared_ptr<AstExpressionOperand>>()) {
+            _values.push(retVal.as<std::shared_ptr<AstExpressionOperand>>());
+        }
+    }
+
+    if (ctx->PARENclose() != nullptr) {
+        auto expr = BuildExpression(operatorPosition);
+        AddOperand(expr);
+    }
+
+    return nullptr;
+}
+
 std::shared_ptr<AstExpression> AstExpressionBuilder::PopExpression() {
+    assert(_values.size() > 0);
+
     std::shared_ptr<AstExpression> expr = _operators.top();
     _operators.pop();
 
@@ -9,7 +70,9 @@ std::shared_ptr<AstExpression> AstExpressionBuilder::PopExpression() {
         _values.top()->setParent(expr.get());
         _values.pop();
     }
-    if (expr->Add(_values.top())) {
+
+    if (_values.size() > 0 &&
+        expr->Add(_values.top())) {
         _values.top()->setParent(expr.get());
         _values.pop();
     }
@@ -41,49 +104,35 @@ antlrcpp::Any AstExpressionBuilder::aggregateResult(antlrcpp::Any aggregate, con
 }
 
 antlrcpp::Any AstExpressionBuilder::visitExpression_arithmetic(zsharp_parserParser::Expression_arithmeticContext* ctx) {
-    
-    auto operatorPosition = _operators.size();
-    
-    for (auto child : ctx->children) {
-        auto retVal = child->accept(this);
+    return ProcessExpression(ctx);
+}
 
-        if (retVal.is<AstExpressionOperator>()) {
-            // there is an extra expression node with just the operand.
-            // return its value and be done.
-            if (ctx->arithmetic_operand() != nullptr) {
-                return retVal;
-            }
+antlrcpp::Any AstExpressionBuilder::visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) {
+    return ProcessExpression(ctx);
+}
 
-            auto op = retVal.as<AstExpressionOperator>();
-            if (op != AstExpressionOperator::NotSet) {
-                
-                auto expr = std::make_shared<AstExpression>(ctx);
-                expr->setOperator(op);
+antlrcpp::Any AstExpressionBuilder::visitExpression_comparison(zsharp_parserParser::Expression_comparisonContext* ctx) {
+    return ProcessExpression(ctx);
+}
 
-                if (_operators.size() > 0) {
-                    auto lowerOp = _operators.top();
+antlrcpp::Any AstExpressionBuilder::visitLiteral_bool(zsharp_parserParser::Literal_boolContext* ctx) {
+    return std::make_shared<AstExpressionOperand>(ctx);
+}
 
-                    if (lowerOp->getPrecedence() > expr->getPrecedence()) {
-                        auto popExpr = PopExpression();
-                        assert(lowerOp == popExpr);
+antlrcpp::Any AstExpressionBuilder::visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx) {
+    return std::make_shared<AstExpressionOperand>(ctx);
+}
 
-                        AddOperand(popExpr);
-                    }
-                }
-                _operators.push(expr);
-            }
-        }
-        else if (retVal.is<std::shared_ptr<AstExpressionOperand>>()){
-            _values.push(retVal.as<std::shared_ptr<AstExpressionOperand>>());
-        }
-    }
+antlrcpp::Any AstExpressionBuilder::visitFunction_call(zsharp_parserParser::Function_callContext* ctx) {
+    return std::make_shared<AstExpressionOperand>(ctx);
+}
 
-    if (ctx->PARENclose() != nullptr) {
-        auto expr = BuildExpression(operatorPosition);
-        AddOperand(expr);
-    }
+antlrcpp::Any AstExpressionBuilder::visitVariable_ref(zsharp_parserParser::Variable_refContext* ctx) {
+    return std::make_shared<AstExpressionOperand>(ctx);
+}
 
-    return nullptr;
+antlrcpp::Any AstExpressionBuilder::visitParameter_ref(zsharp_parserParser::Parameter_refContext* ctx) {
+    return std::make_shared<AstExpressionOperand>(ctx);
 }
 
 antlrcpp::Any AstExpressionBuilder::visitNumber(zsharp_parserParser::NumberContext* ctx) {

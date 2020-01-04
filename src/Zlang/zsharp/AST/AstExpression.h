@@ -13,8 +13,19 @@ class AstExpression : public AstNode
 
 public:
     AstExpression(zsharp_parserParser::Expression_arithmeticContext* ctx)
-        : AstNode(AstNodeType::Expression), 
-        _arithmeticCtx(ctx), _operator(AstExpressionOperator::NotSet)
+        : AstNode(AstNodeType::Expression),
+        _arithmeticCtx(ctx), _logicCtx(nullptr), _comparisonCtx(nullptr), 
+        _operator(AstExpressionOperator::NotSet)
+    {}
+    AstExpression(zsharp_parserParser::Expression_logicContext* ctx)
+        : AstNode(AstNodeType::Expression),
+        _arithmeticCtx(nullptr), _logicCtx(ctx), _comparisonCtx(nullptr), 
+        _operator(AstExpressionOperator::NotSet)
+    {}
+    AstExpression(zsharp_parserParser::Expression_comparisonContext* ctx)
+        : AstNode(AstNodeType::Expression),
+        _arithmeticCtx(nullptr), _logicCtx(nullptr), _comparisonCtx(ctx), 
+        _operator(AstExpressionOperator::NotSet)
     {}
 
     AstExpressionOperator getOperator() const { return _operator; }
@@ -35,4 +46,6 @@ private:
     std::shared_ptr<AstExpressionOperand> _rhs;
     AstExpressionOperator _operator;
     zsharp_parserParser::Expression_arithmeticContext* _arithmeticCtx;
+    zsharp_parserParser::Expression_logicContext* _logicCtx;
+    zsharp_parserParser::Expression_comparisonContext* _comparisonCtx;
 };
