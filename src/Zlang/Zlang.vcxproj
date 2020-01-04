@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="zsharp\AST\AstExpressionOperand.cpp" />
     <ClCompile Include="zsharp\AST\AstNumericBuilder.cpp" />
     <ClCompile Include="zsharp\AST\AstExpression.cpp" />
     <ClCompile Include="zsharp\AST\AstExpressionBuilder.cpp" />
@@ -61,6 +62,8 @@
     <None Include="zsharp\LLVM\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="zsharp\AST\AstExpressionOperand.h" />
+    <ClInclude Include="zsharp\AST\AstExpressionOperator.h" />
     <ClInclude Include="zsharp\AST\AstNumericBuilder.h" />
     <ClInclude Include="zsharp\AST\AstExpression.h" />
     <ClInclude Include="zsharp\AST\AstExpressionBuilder.h" />

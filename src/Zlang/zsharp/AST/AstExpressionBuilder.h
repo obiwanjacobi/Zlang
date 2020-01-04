@@ -6,31 +6,26 @@
 #include "../grammar/parser/zsharp_parserParser.h"
 #include <antlr4-runtime.h>
 
+// implements shunting-yard algorithm
 class AstExpressionBuilder : protected zsharp_parserBaseVisitor
 {
     typedef zsharp_parserBaseVisitor base;
 
 public:
-
     std::shared_ptr<AstExpression> Build(zsharp_parserParser::Expression_valueContext* expressionCtx) {
         auto val = visitExpression_value(expressionCtx);
+        assert(val.isNull());
 
-        if (val.is<std::shared_ptr<AstExpression>>()) {
-            return val.as<std::shared_ptr<AstExpression>>();
-        }
-
-        return BuildExpression();
+        return BuildExpression(0);
     }
 
     std::shared_ptr<AstExpression> Test(antlr4::ParserRuleContext* ctx) {
         auto val = visit(ctx);
+        assert(val.isNull());
 
-        if (val.is<std::shared_ptr<AstExpression>>()) {
-            return val.as<std::shared_ptr<AstExpression>>();
-        }
-
-        return BuildExpression();
+        return BuildExpression(0);
     }
+
 protected:
     antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult) override;
 
@@ -46,7 +41,7 @@ protected:
     antlrcpp::Any visitOperator_bits_unary(zsharp_parserParser::Operator_bits_unaryContext* ctx) override;
 
 private:
-    std::shared_ptr<AstExpression> BuildExpression();
+    std::shared_ptr<AstExpression> BuildExpression(size_t stopAtCount);
     std::shared_ptr<AstExpression> PopExpression();
     void AddOperand(std::shared_ptr<AstExpression> expr) {
         auto operand = std::make_shared<AstExpressionOperand>(expr);
