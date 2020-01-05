@@ -1,1 +1,1 @@
-b = not true
+b = not (42 + 11)

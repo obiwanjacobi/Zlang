@@ -138,6 +138,29 @@ TEST(AstExpressionBuilderTests, ArithmeticNestedParenth)
     EXPECT_EQ(expr->getLHS()->getExpression()->getLHS()->getExpression()->getOperator(), AstExpressionOperator::Plus);
 }
 
+TEST(AstExpressionBuilderTests, ArithmeticUnaryParenth1)
+{
+    const char* src =
+        "a = 2 + -(4 * 3)\n"
+        ;
+
+    ZsharpParser parser;
+    auto sourceCtx = parser.parseText(src);
+
+    AstExpressionBuilder uut;
+    auto expr = uut.Test(sourceCtx);
+
+    EXPECT_NE(expr, nullptr);
+    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
+    EXPECT_NE(expr->getLHS(), nullptr);
+    EXPECT_NE(expr->getRHS(), nullptr);
+    EXPECT_NE(expr->getRHS()->getExpression(), nullptr);
+    EXPECT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Negate);
+    EXPECT_NE(expr->getLHS()->getNumeric(), nullptr);
+    EXPECT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
+}
+
+
 TEST(AstExpressionBuilderTests, Comparison1)
 {
     const char* src =
@@ -200,3 +223,24 @@ TEST(AstExpressionBuilderTests, Logical1)
     EXPECT_NE(expr->getRHS(), nullptr);
     EXPECT_NE(expr->getRHS()->getLiteralBool(), nullptr);
 }
+
+TEST(AstExpressionBuilderTests, LogicalComparison1)
+{
+    const char* src =
+        "b = not (42 > 100)\n"
+        ;
+
+    ZsharpParser parser;
+    auto sourceCtx = parser.parseText(src);
+
+    AstExpressionBuilder uut;
+    auto expr = uut.Test(sourceCtx);
+
+    EXPECT_NE(expr, nullptr);
+    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Not);
+    EXPECT_EQ(expr->getLHS(), nullptr);
+    EXPECT_NE(expr->getRHS(), nullptr);
+    EXPECT_NE(expr->getRHS()->getExpression(), nullptr);
+    EXPECT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Greater);
+}
+

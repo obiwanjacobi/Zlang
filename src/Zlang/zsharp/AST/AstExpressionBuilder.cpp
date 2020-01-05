@@ -16,10 +16,19 @@ bool isOperand(zsharp_parserParser::Expression_comparisonContext* ctx) {
 
 template<class T>
 antlrcpp::Any  AstExpressionBuilder::ProcessExpression(T ctx) {
+
+    if (ctx->PARENopen() != nullptr) {
+        auto expr = std::make_shared<AstExpression>(ctx);
+        expr->setOperator(AstExpressionOperator::Open);
+        _operators.push(expr);
+    }
+
     auto operatorPosition = _operators.size();
 
     for (auto child : ctx->children) {
         auto retVal = child->accept(this);
+
+        if (retVal.isNull()) { continue; }
 
         if (retVal.is<AstExpressionOperator>()) {
             // there is an extra expression node with just the operand.
@@ -37,7 +46,8 @@ antlrcpp::Any  AstExpressionBuilder::ProcessExpression(T ctx) {
                 if (_operators.size() > 0) {
                     auto lowerOp = _operators.top();
 
-                    if (lowerOp->getPrecedence() > expr->getPrecedence()) {
+                    if (lowerOp->getOperator() != AstExpressionOperator::Open &&
+                        lowerOp->getPrecedence() > expr->getPrecedence()) {
                         auto popExpr = PopExpression();
                         assert(lowerOp == popExpr);
 
@@ -55,6 +65,10 @@ antlrcpp::Any  AstExpressionBuilder::ProcessExpression(T ctx) {
     if (ctx->PARENclose() != nullptr) {
         auto expr = BuildExpression(operatorPosition);
         AddOperand(expr);
+
+        // open operator only used as marker - discard
+        assert(_operators.top()->getOperator() == AstExpressionOperator::Open);
+        _operators.pop();
     }
 
     return nullptr;
