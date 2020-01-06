@@ -7,6 +7,12 @@
 #include "../grammar/parser/zsharp_parserParser.h"
 #include <memory>
 
+class AstExpressionSite
+{
+public:
+    virtual bool AddExpression(std::shared_ptr<AstExpression> expr) = 0;
+};
+
 class AstExpression : public AstNode
 {
     friend class AstExpressionBuilder;

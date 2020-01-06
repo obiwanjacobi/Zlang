@@ -9,7 +9,9 @@ enum class AstNodeType {
     Struct,         // File::*
     Enum,           // File::*
 
-    Expression,     // CodeBlock::*
+    CodeBlock,      // File::*
+    Branch,         // CodeBlock::*
+    Expression,     // CodeBlock::*, Branch::[1]
     Numeric,        // Expression::1
 };
 
@@ -25,6 +27,7 @@ protected:
     AstNode(AstNodeType nodeType)
         : _nodeType(nodeType), _parent(nullptr)
     {}
+    virtual ~AstNode() {}
 
 private:
     AstNodeType _nodeType;
