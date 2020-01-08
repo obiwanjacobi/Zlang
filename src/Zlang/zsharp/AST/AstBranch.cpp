@@ -1,13 +1,13 @@
 #include "AstBranch.h"
 
 bool AstBranch::AddExpression(std::shared_ptr<AstExpression> expr) {
-    if (_condition != nullptr) {
+    if (_expression != nullptr) {
         if (hasSubBranches()) {
             return Last()->AddExpression(expr);
         }
         return false; 
     }
-    _condition = expr;
+    _expression = expr;
     return true;
 }
 

@@ -32,6 +32,8 @@ public:
 
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
 
+    antlrcpp::Any visitIndent(zsharp_parserParser::IndentContext* ctx) override;
+
 private:
     template <class T> 
     T getCurrent();

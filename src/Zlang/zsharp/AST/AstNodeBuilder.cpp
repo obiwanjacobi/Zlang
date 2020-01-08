@@ -189,3 +189,12 @@ antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Express
 
     return nullptr;
 }
+
+antlrcpp::Any AstNodeBuilder::visitIndent(zsharp_parserParser::IndentContext* ctx)
+{
+    // ignore indents that appear at the end of a line (before a comment)
+    if (dynamic_cast<zsharp_parserParser::NewlineContext*>(ctx->parent) == nullptr) {
+        return ctx->getText().length();
+    }
+    return 0;
+}

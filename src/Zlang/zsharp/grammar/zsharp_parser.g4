@@ -280,5 +280,5 @@ fragment IDENTIFIERpart: ALPHAlower | ALPHAupper | DIGIT10 | UNUSED;
 // whitespace
 SP: ' ';
 TAB: '\t';
-INDENT: SP+ | TAB+;
+INDENT: SP+;
 EOL: '\r'? '\n' | '\r';

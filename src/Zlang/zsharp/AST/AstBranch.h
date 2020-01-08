@@ -50,7 +50,7 @@ public:
     bool hasCondition() const { return _branchType == AstBranchType::Conditional; }
     bool hasCode() const { return _branchType == AstBranchType::Conditional; }
 
-    std::shared_ptr<AstExpression> getCondition() const { return _condition; }
+    std::shared_ptr<AstExpression> getCondition() const { return _expression; }
     // if body
     std::shared_ptr<AstCodeBlock> getConditionTrueCodeBlock() const { return _trueCodeBlock; }
     void setConditionTrueCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) { _trueCodeBlock = codeBlock; }
@@ -66,7 +66,7 @@ public:
     
 private:
     AstBranchType _branchType;
-    std::shared_ptr<AstExpression> _condition;
+    std::shared_ptr<AstExpression> _expression;
     std::shared_ptr<AstCodeBlock> _trueCodeBlock;
     std::shared_ptr<AstCodeBlock> _falseCodeBlock;
     std::vector<std::shared_ptr<AstBranch>> _subBranches;
