@@ -133,8 +133,9 @@ TEST(AstBuilderTests, BuildFile_Function)
     EXPECT_EQ(functions.size(), 1);
 
     auto fn = functions.at(0).get();
-    auto fnCtx = fn->getContext();
-    EXPECT_NE(fnCtx->codeblock(), nullptr);
+    EXPECT_NE(fn->getCodeBlocks().size(), 0);
+    auto cb = fn->getCodeBlocks().at(0);
+    EXPECT_NE(cb, nullptr);
 }
 
 TEST(AstBuilderTests, BuildFile_FunctionExternal)

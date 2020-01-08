@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AstNode.h"
-
+#include "AstError.h"
 #include "../grammar/parser/zsharp_parserBaseVisitor.h"
 #include <antlr4-runtime.h>
 
@@ -26,6 +26,9 @@ public:
     antlrcpp::Any visitStatement_if(zsharp_parserParser::Statement_ifContext* ctx) override;
     antlrcpp::Any visitStatement_else(zsharp_parserParser::Statement_elseContext* ctx) override;
     antlrcpp::Any visitStatement_elseif(zsharp_parserParser::Statement_elseifContext* ctx) override;
+    antlrcpp::Any visitStatement_return(zsharp_parserParser::Statement_returnContext* ctx) override;
+    antlrcpp::Any visitStatement_break(zsharp_parserParser::Statement_breakContext* ctx) override;
+    antlrcpp::Any visitStatement_continue(zsharp_parserParser::Statement_continueContext* ctx) override;
 
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
 
@@ -41,5 +44,8 @@ private:
 
     std::string _namespace;
     std::deque<AstNode*> _current;
+
+
+    std::vector<std::shared_ptr<AstError>> _errors;
 };
 

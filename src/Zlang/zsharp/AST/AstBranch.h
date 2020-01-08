@@ -8,11 +8,9 @@
 enum class AstBranchType {
     NotSet,
     Conditional,    // if-else
-
     ExitIteration,  // continue
     ExitLoop,       // break
     ExitFunction,   // return
-    // yield??
 };
 
 class AstBranch : public AstCodeBlockItem, public AstExpressionSite, public AstCodeBlockSite
@@ -20,11 +18,28 @@ class AstBranch : public AstCodeBlockItem, public AstExpressionSite, public AstC
 public:
     AstBranch(zsharp_parserParser::Statement_ifContext* ctx)
         : AstCodeBlockItem(AstNodeType::Branch), 
-        _branchType(AstBranchType::Conditional), _ifCtx(ctx), _elseifCtx(nullptr)
+        _branchType(AstBranchType::Conditional), _ifCtx(ctx), _elseifCtx(nullptr), 
+        _returnCtx(nullptr), _breakCtx(nullptr), _continueCtx(nullptr)
     {}
     AstBranch(zsharp_parserParser::Statement_elseifContext* ctx)
         : AstCodeBlockItem(AstNodeType::Branch),
-        _branchType(AstBranchType::Conditional), _ifCtx(nullptr), _elseifCtx(ctx)
+        _branchType(AstBranchType::Conditional), _ifCtx(nullptr), _elseifCtx(ctx), 
+        _returnCtx(nullptr), _breakCtx(nullptr), _continueCtx(nullptr)
+    {}
+    AstBranch(zsharp_parserParser::Statement_returnContext* ctx)
+        : AstCodeBlockItem(AstNodeType::Branch),
+        _branchType(AstBranchType::ExitFunction), _ifCtx(nullptr), _elseifCtx(nullptr), 
+        _returnCtx(ctx), _breakCtx(nullptr), _continueCtx(nullptr)
+    {}
+    AstBranch(zsharp_parserParser::Statement_breakContext* ctx)
+        : AstCodeBlockItem(AstNodeType::Branch),
+        _branchType(AstBranchType::ExitLoop), _ifCtx(nullptr), _elseifCtx(nullptr),
+        _returnCtx(nullptr), _breakCtx(ctx), _continueCtx(nullptr)
+    {}
+    AstBranch(zsharp_parserParser::Statement_continueContext* ctx)
+        : AstCodeBlockItem(AstNodeType::Branch),
+        _branchType(AstBranchType::ExitIteration), _ifCtx(nullptr), _elseifCtx(nullptr),
+        _returnCtx(nullptr), _breakCtx(nullptr), _continueCtx(ctx)
     {}
 
     // sites
@@ -47,7 +62,7 @@ public:
     void AddSubBranch(std::shared_ptr<AstBranch> subBranch) { _subBranches.push_back(subBranch); }
     bool hasSubBranches() const { return _subBranches.size() > 0; }
 
-    AstBranch* Last() { return (_subBranches.size() > 0) ? _subBranches.at(_subBranches.size() - 1).get() : this; }
+    AstBranch* Last() { return hasSubBranches() ? _subBranches.at(_subBranches.size() - 1).get() : this; }
     
 private:
     AstBranchType _branchType;
@@ -58,5 +73,8 @@ private:
 
     zsharp_parserParser::Statement_ifContext* _ifCtx;
     zsharp_parserParser::Statement_elseifContext* _elseifCtx;
+    zsharp_parserParser::Statement_returnContext* _returnCtx;
+    zsharp_parserParser::Statement_breakContext* _breakCtx;
+    zsharp_parserParser::Statement_continueContext* _continueCtx;
 };
 

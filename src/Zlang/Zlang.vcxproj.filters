@@ -32,6 +32,7 @@
     <ClCompile Include="zsharp\AST\AstExpressionOperand.cpp" />
     <ClCompile Include="zsharp\AST\AstCodeBlock.cpp" />
     <ClCompile Include="zsharp\AST\AstBranch.cpp" />
+    <ClCompile Include="zsharp\AST\AstError.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -77,6 +78,7 @@
     <ClInclude Include="zsharp\AST\AstExpressionOperator.h" />
     <ClInclude Include="zsharp\AST\AstCodeBlock.h" />
     <ClInclude Include="zsharp\AST\AstBranch.h" />
+    <ClInclude Include="zsharp\AST\AstError.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="zsharp\grammar\_test\testdata.txt" />

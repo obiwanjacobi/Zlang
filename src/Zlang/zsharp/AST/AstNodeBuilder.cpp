@@ -6,6 +6,10 @@
 #include "../grammar/parser/zsharp_parserParser.h"
 #include "../../Utils.h"
 
+bool isEmpty(antlr4::ParserRuleContext* ctx) {
+    return ctx->children.size() == 0;
+}
+
 template <class T> 
 T AstNodeBuilder::getCurrent()
 {
@@ -50,14 +54,16 @@ antlrcpp::Any AstNodeBuilder::visitFile(zsharp_parserParser::FileContext* ctx) {
     return file;
 }
 
-antlrcpp::Any AstNodeBuilder::visitStatement_import(zsharp_parserParser::Statement_importContext* ctx) {
+antlrcpp::Any AstNodeBuilder::visitStatement_import(zsharp_parserParser::Statement_importContext* ctx)
+{
     auto file = getCurrent<AstFile*>();
     file->AddImport(ctx);
 
     return nullptr;
 }
 
-antlrcpp::Any AstNodeBuilder::visitStatement_export(zsharp_parserParser::Statement_exportContext* ctx) {
+antlrcpp::Any AstNodeBuilder::visitStatement_export(zsharp_parserParser::Statement_exportContext* ctx)
+{
     auto file = getCurrent<AstFile*>();
     file->AddExport(ctx);
 
@@ -79,7 +85,15 @@ antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_de
     return any;
 }
 
-antlrcpp::Any AstNodeBuilder::visitCodeblock(zsharp_parserParser::CodeblockContext* ctx) {
+antlrcpp::Any AstNodeBuilder::visitCodeblock(zsharp_parserParser::CodeblockContext* ctx)
+{
+    if (isEmpty(ctx)) {
+        auto err = std::make_shared<AstError>(ctx);
+        err->setText("Empty Code Block");
+        _errors.push_back(err);
+        return nullptr;
+    }
+
     auto site = getCurrent<AstCodeBlockSite*>();
     auto codeBlock = std::make_shared<AstCodeBlock>(ctx);
     bool success = site->AddCodeBlock(codeBlock);
@@ -93,7 +107,8 @@ antlrcpp::Any AstNodeBuilder::visitCodeblock(zsharp_parserParser::CodeblockConte
     return any;
 }
 
-antlrcpp::Any AstNodeBuilder::visitStatement_if(zsharp_parserParser::Statement_ifContext* ctx) {
+antlrcpp::Any AstNodeBuilder::visitStatement_if(zsharp_parserParser::Statement_ifContext* ctx)
+{
     auto codeBlock = getCurrent<AstCodeBlock*>();
     auto branch = std::make_shared<AstBranch>(ctx);
     bool success = codeBlock->AddItem(branch);
@@ -107,7 +122,8 @@ antlrcpp::Any AstNodeBuilder::visitStatement_if(zsharp_parserParser::Statement_i
     return any;
 }
 
-antlrcpp::Any AstNodeBuilder::visitStatement_else(zsharp_parserParser::Statement_elseContext* ctx) {
+antlrcpp::Any AstNodeBuilder::visitStatement_else(zsharp_parserParser::Statement_elseContext* ctx)
+{
     auto branch = getCurrent<AstBranch*>();
     auto last = branch->Last();
     setCurrent(last);
@@ -118,7 +134,8 @@ antlrcpp::Any AstNodeBuilder::visitStatement_else(zsharp_parserParser::Statement
     return any;
 }
 
-antlrcpp::Any AstNodeBuilder::visitStatement_elseif(zsharp_parserParser::Statement_elseifContext* ctx) {
+antlrcpp::Any AstNodeBuilder::visitStatement_elseif(zsharp_parserParser::Statement_elseifContext* ctx)
+{
     auto branch = getCurrent<AstBranch*>();
     auto subBr = std::make_shared<AstBranch>(ctx);
     branch->AddSubBranch(subBr);
@@ -128,7 +145,41 @@ antlrcpp::Any AstNodeBuilder::visitStatement_elseif(zsharp_parserParser::Stateme
     return any;
 }
 
-antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) {
+antlrcpp::Any AstNodeBuilder::visitStatement_return(zsharp_parserParser::Statement_returnContext* ctx)
+{
+    auto codeBlock = getCurrent<AstCodeBlock*>();
+    auto branch = std::make_shared<AstBranch>(ctx);
+    bool success = codeBlock->AddItem(branch);
+    guard(success);
+
+    setCurrent(branch);
+
+    auto any = base::visitChildren(ctx);
+
+    revertCurrent();
+    return any;
+}
+
+antlrcpp::Any AstNodeBuilder::visitStatement_break(zsharp_parserParser::Statement_breakContext* ctx)
+{
+    auto codeBlock = getCurrent<AstCodeBlock*>();
+    auto branch = std::make_shared<AstBranch>(ctx);
+    bool success = codeBlock->AddItem(branch);
+    guard(success);
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any AstNodeBuilder::visitStatement_continue(zsharp_parserParser::Statement_continueContext* ctx)
+{
+    auto codeBlock = getCurrent<AstCodeBlock*>();
+    auto branch = std::make_shared<AstBranch>(ctx);
+    bool success = codeBlock->AddItem(branch);
+    guard(success);
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx)
+{
     AstExpressionBuilder builder;
     auto expr = builder.Build(ctx);
     
@@ -138,4 +189,3 @@ antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Express
 
     return nullptr;
 }
-
