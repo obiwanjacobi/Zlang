@@ -43,7 +43,7 @@ protected:
 
 private:
     template <class T> 
-    T getCurrent();
+    T* getCurrent();
     template <class T> 
     void setCurrent(std::shared_ptr<T> current) { setCurrent(current.get()); }
     void setCurrent(AstNode* current) { _current.push_front(current); }
