@@ -159,6 +159,25 @@ TEST(AstBuilderTests, BuildFile_FunctionExternal)
     EXPECT_TRUE(fn->isExternal());
 }
 
+TEST(AstBuilderTests, BuildFile_Assignment)
+{
+    const char* src =
+        "MyFunction()\n"
+        "    c = 0\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+
+    auto functions = file->getFunctions();
+    auto fn = functions.at(0).get();
+    auto cb = fn->getCodeBlocks().at(0);
+    auto ci = cb->getItems().at(0);
+}
+
 TEST(AstBuilderTests, Build_ModuleName)
 {
     const char* src =

@@ -17,6 +17,7 @@
     <ClCompile Include="AST\AstNumericBuilderTests.cpp" />
     <ClCompile Include="AST\AstExpressionBuilderTests.cpp" />
     <ClCompile Include="AST\AstControlFlowTests.cpp" />
+    <ClCompile Include="AST\AstIndentationTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

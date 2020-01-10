@@ -30,9 +30,16 @@ public:
     antlrcpp::Any visitStatement_break(zsharp_parserParser::Statement_breakContext* ctx) override;
     antlrcpp::Any visitStatement_continue(zsharp_parserParser::Statement_continueContext* ctx) override;
 
+    antlrcpp::Any visitVariable_assign(zsharp_parserParser::Variable_assignContext* ctx) override;
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
 
     antlrcpp::Any visitIndent(zsharp_parserParser::IndentContext* ctx) override;
+
+    bool hasErrors() const { return _errors.size() == 0; }
+    const std::vector<std::shared_ptr<AstError>>& getErrors() const { return _errors; }
+
+protected:
+    antlrcpp::Any visitChildrenExcept(antlr4::ParserRuleContext* node, antlr4::ParserRuleContext* except);
 
 private:
     template <class T> 
@@ -41,12 +48,15 @@ private:
     void setCurrent(std::shared_ptr<T> current) { setCurrent(current.get()); }
     void setCurrent(AstNode* current) { _current.push_front(current); }
     void revertCurrent() { _current.pop_front(); }
-
-    std::string ToQualifiedName(const std::string& name);
-
-    std::string _namespace;
     std::deque<AstNode*> _current;
 
+    std::string ToQualifiedName(const std::string& name);
+    std::string _namespace;
+
+    void addIndentation();
+    void revertIndentation() { _indentation.pop(); }
+    std::stack<int> _indentation;
+    int _indent;
 
     std::vector<std::shared_ptr<AstError>> _errors;
 };

@@ -10,6 +10,7 @@ enum class AstNodeType {
     Enum,           // File::*
 
     CodeBlock,      // File::*
+    Assignment,     // CodeBlock::*
     Branch,         // CodeBlock::*
     Expression,     // CodeBlock::*, Branch::[1]
     Numeric,        // Expression::1

@@ -312,9 +312,25 @@ s = MyStruct<OtherStruct>
 typedFn<T>(p: T)
     ...
 
-typedFn(42)         // type inferred and checked
-typedFn<U8>(42)     // type explicit
+// type inferred and checked
+typedFn(42)
+
+// type explicit
+typedFn<U8>(42)
+typedFn(42: U8)
+typedFn(x: U8)
+
+// return values
+typedRet<T>(): T
+    ...
+
+x = typedRet<U8>()
+x = typedRet(): U8
+y: U8 = typedRet()  // type forwarding?
+z = typedRet()      // Error! cannot determine type
 ```
+
+> Are template parameters simply normal parameters know at compile time?
 
 ### Restricting Template Type Parameters
 

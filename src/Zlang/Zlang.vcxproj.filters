@@ -33,6 +33,7 @@
     <ClCompile Include="zsharp\AST\AstCodeBlock.cpp" />
     <ClCompile Include="zsharp\AST\AstBranch.cpp" />
     <ClCompile Include="zsharp\AST\AstError.cpp" />
+    <ClCompile Include="zsharp\AST\AstAssignment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -79,6 +80,7 @@
     <ClInclude Include="zsharp\AST\AstCodeBlock.h" />
     <ClInclude Include="zsharp\AST\AstBranch.h" />
     <ClInclude Include="zsharp\AST\AstError.h" />
+    <ClInclude Include="zsharp\AST\AstAssignment.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="zsharp\grammar\_test\testdata.txt" />

@@ -6,6 +6,7 @@ But nothing radically new. Should look familiar.
 
 No hidden memory allocation.
 No hidden function calls.
+Syntax directs thought. The way you write it down should match with the underlying model.
 
 Simple to learn.
 Minimal number of keywords.

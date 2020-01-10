@@ -1,5 +1,6 @@
 #include "AstNodeBuilder.h"
 #include "AstFile.h"
+#include "AstAssignment.h"
 #include "AstBranch.h"
 #include "AstFunction.h"
 #include "AstExpressionBuilder.h"
@@ -32,6 +33,25 @@ std::string AstNodeBuilder::ToQualifiedName(const std::string& name)
         return _namespace + "." + name;
     }
     return name;
+}
+
+antlrcpp::Any AstNodeBuilder::visitChildrenExcept(antlr4::ParserRuleContext* node, antlr4::ParserRuleContext* except)
+{
+    antlrcpp::Any result = defaultResult();
+    size_t n = node->children.size();
+    for (size_t i = 0; i < n; i++) {
+        antlr4::tree::ParseTree* child = node->children[i];
+        if (child == except) continue;
+
+        if (!shouldVisitNextChild(node, result)) {
+            break;
+        }
+
+        antlrcpp::Any childResult = child->accept(this);
+        result = aggregateResult(result, childResult);
+    }
+
+    return result;
 }
 
 antlrcpp::Any AstNodeBuilder::aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult)
@@ -78,9 +98,11 @@ antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_de
 
     file->AddFunction(function);
     setCurrent(function);
+    addIndentation();
 
     auto any = base::visitChildren(ctx);
 
+    revertIndentation();
     revertCurrent();
     return any;
 }
@@ -114,10 +136,15 @@ antlrcpp::Any AstNodeBuilder::visitStatement_if(zsharp_parserParser::Statement_i
     bool success = codeBlock->AddItem(branch);
     guard(success);
 
+    auto indent = ctx->indent();
+    auto retVal = visitIndent(indent);
+
     setCurrent(branch);
+    addIndentation();
 
-    auto any = base::visitChildren(ctx);
+    auto any = visitChildrenExcept(ctx, indent);
 
+    revertIndentation();
     revertCurrent();
     return any;
 }
@@ -126,10 +153,16 @@ antlrcpp::Any AstNodeBuilder::visitStatement_else(zsharp_parserParser::Statement
 {
     auto branch = getCurrent<AstBranch*>();
     auto last = branch->Last();
-    setCurrent(last);
 
-    auto any = base::visitChildren(ctx);
+    auto indent = ctx->indent();
+    auto retVal = visitIndent(indent);
+
+    setCurrent(last);
+    addIndentation();
+
+    auto any = visitChildrenExcept(ctx, indent);
     
+    revertIndentation();
     revertCurrent();
     return any;
 }
@@ -140,8 +173,14 @@ antlrcpp::Any AstNodeBuilder::visitStatement_elseif(zsharp_parserParser::Stateme
     auto subBr = std::make_shared<AstBranch>(ctx);
     branch->AddSubBranch(subBr);
 
-    auto any = base::visitChildren(ctx);
+    auto indent = ctx->indent();
+    auto retVal = visitIndent(indent);
+
+    addIndentation();
+
+    auto any = visitChildrenExcept(ctx, indent);
     
+    revertIndentation();
     return any;
 }
 
@@ -166,6 +205,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_break(zsharp_parserParser::Statemen
     auto branch = std::make_shared<AstBranch>(ctx);
     bool success = codeBlock->AddItem(branch);
     guard(success);
+
     return visitChildren(ctx);
 }
 
@@ -175,7 +215,23 @@ antlrcpp::Any AstNodeBuilder::visitStatement_continue(zsharp_parserParser::State
     auto branch = std::make_shared<AstBranch>(ctx);
     bool success = codeBlock->AddItem(branch);
     guard(success);
+
     return visitChildren(ctx);
+}
+
+antlrcpp::Any AstNodeBuilder::visitVariable_assign(zsharp_parserParser::Variable_assignContext* ctx)
+{
+    auto codeBlock = getCurrent<AstCodeBlock*>();
+    auto assign = std::make_shared<AstAssignment>(ctx);
+    bool success = codeBlock->AddItem(assign);
+    guard(success);
+
+    setCurrent(assign);
+
+    auto any = visitChildren(ctx);
+
+    revertCurrent();
+    return any;
 }
 
 antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx)
@@ -192,9 +248,41 @@ antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Express
 
 antlrcpp::Any AstNodeBuilder::visitIndent(zsharp_parserParser::IndentContext* ctx)
 {
-    // ignore indents that appear at the end of a line (before a comment)
-    if (dynamic_cast<zsharp_parserParser::NewlineContext*>(ctx->parent) == nullptr) {
-        return ctx->getText().length();
+    // ignore indents that appear at the end of a line
+    if (dynamic_cast<zsharp_parserParser::NewlineContext*>(ctx->parent) ||
+        dynamic_cast<zsharp_parserParser::CommentContext*>(ctx->parent) ) {
+        return 0;
     }
-    return 0;
+
+    auto indent = ctx->getText().length();
+    assert(std::numeric_limits<int>::max() > indent);
+
+    if (_indent == 0) {
+        _indent = (int)indent;
+
+        if (_indentation.size() == 1) {
+            _indentation.pop(); // remove placeholder
+            _indentation.push(_indent);
+        }
+
+        assert(_indentation.size() <= 1);
+    }
+
+    if (indent != _indentation.top()) {
+        auto err = std::make_shared<AstError>(ctx);
+        err->setText("Indentation mismatch.");
+        _errors.push_back(err);
+    }
+
+    return nullptr;
+}
+
+void AstNodeBuilder::addIndentation()
+{
+    if (_indentation.size() > 0) {
+        _indentation.push(_indentation.top() + _indent);
+    }
+    else {
+        _indentation.push(_indent);
+    }
 }

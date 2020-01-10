@@ -2,20 +2,24 @@
 #include "AstNumericBuilder.h"
 
 
-bool isOperand(zsharp_parserParser::Expression_arithmeticContext* ctx) {
+bool isOperand(zsharp_parserParser::Expression_arithmeticContext* ctx)
+{
     return ctx->arithmetic_operand() != nullptr;
 }
 
-bool isOperand(zsharp_parserParser::Expression_logicContext* ctx) {
+bool isOperand(zsharp_parserParser::Expression_logicContext* ctx)
+{
     return ctx->logic_operand() != nullptr;
 }
 
-bool isOperand(zsharp_parserParser::Expression_comparisonContext* ctx) {
+bool isOperand(zsharp_parserParser::Expression_comparisonContext* ctx)
+{
     return ctx->comparison_operand() != nullptr;
 }
 
 template<class T>
-antlrcpp::Any  AstExpressionBuilder::ProcessExpression(T ctx) {
+antlrcpp::Any  AstExpressionBuilder::ProcessExpression(T ctx)
+{
 
     if (ctx->PARENopen() != nullptr) {
         auto expr = std::make_shared<AstExpression>(ctx);
@@ -74,7 +78,8 @@ antlrcpp::Any  AstExpressionBuilder::ProcessExpression(T ctx) {
     return nullptr;
 }
 
-std::shared_ptr<AstExpression> AstExpressionBuilder::PopExpression() {
+std::shared_ptr<AstExpression> AstExpressionBuilder::PopExpression()
+{
     assert(_values.size() > 0);
 
     std::shared_ptr<AstExpression> expr = _operators.top();
@@ -117,46 +122,71 @@ antlrcpp::Any AstExpressionBuilder::aggregateResult(antlrcpp::Any aggregate, con
     return nextResult;
 }
 
-antlrcpp::Any AstExpressionBuilder::visitExpression_arithmetic(zsharp_parserParser::Expression_arithmeticContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx)
+{
+    auto number = ctx->number();
+    if (number) {
+        auto nr = visitNumber(number);
+        _values.push(nr.as<std::shared_ptr<AstExpressionOperand>>());
+
+        auto expr = std::make_shared<AstExpression>(ctx);
+        _operators.push(expr);
+        return nullptr;
+    }
+
+    return base::visitChildren(ctx);
+}
+
+antlrcpp::Any AstExpressionBuilder::visitExpression_arithmetic(zsharp_parserParser::Expression_arithmeticContext* ctx)
+{
     return ProcessExpression(ctx);
 }
 
-antlrcpp::Any AstExpressionBuilder::visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx)
+{
     return ProcessExpression(ctx);
 }
 
-antlrcpp::Any AstExpressionBuilder::visitExpression_comparison(zsharp_parserParser::Expression_comparisonContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitExpression_comparison(zsharp_parserParser::Expression_comparisonContext* ctx)
+{
     return ProcessExpression(ctx);
 }
 
-antlrcpp::Any AstExpressionBuilder::visitLiteral_bool(zsharp_parserParser::Literal_boolContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitLiteral_bool(zsharp_parserParser::Literal_boolContext* ctx)
+{
     return std::make_shared<AstExpressionOperand>(ctx);
 }
 
-antlrcpp::Any AstExpressionBuilder::visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx)
+{
     return std::make_shared<AstExpressionOperand>(ctx);
 }
 
-antlrcpp::Any AstExpressionBuilder::visitFunction_call(zsharp_parserParser::Function_callContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitFunction_call(zsharp_parserParser::Function_callContext* ctx)
+{
     return std::make_shared<AstExpressionOperand>(ctx);
 }
 
-antlrcpp::Any AstExpressionBuilder::visitVariable_ref(zsharp_parserParser::Variable_refContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitVariable_ref(zsharp_parserParser::Variable_refContext* ctx)
+{
     return std::make_shared<AstExpressionOperand>(ctx);
 }
 
-antlrcpp::Any AstExpressionBuilder::visitParameter_ref(zsharp_parserParser::Parameter_refContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitParameter_ref(zsharp_parserParser::Parameter_refContext* ctx)
+{
     return std::make_shared<AstExpressionOperand>(ctx);
 }
 
-antlrcpp::Any AstExpressionBuilder::visitNumber(zsharp_parserParser::NumberContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitNumber(zsharp_parserParser::NumberContext* ctx)
+{
     AstNumericBuilder builder;
     auto numeric = builder.Build(ctx);
     auto operand = std::make_shared<AstExpressionOperand>(numeric);   
     return operand;
 }
 
-antlrcpp::Any AstExpressionBuilder::visitOperator_arithmetic(zsharp_parserParser::Operator_arithmeticContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitOperator_arithmetic(zsharp_parserParser::Operator_arithmeticContext* ctx)
+{
     if (ctx->DIV() != nullptr) return AstExpressionOperator::Divide;
     if (ctx->MINUS_NEG() != nullptr) return AstExpressionOperator::Minus;
     if (ctx->MOD() != nullptr) return AstExpressionOperator::Modulo;
@@ -166,23 +196,27 @@ antlrcpp::Any AstExpressionBuilder::visitOperator_arithmetic(zsharp_parserParser
     return AstExpressionOperator::NotSet;
 }
 
-antlrcpp::Any AstExpressionBuilder::visitOperator_arithmetic_unary(zsharp_parserParser::Operator_arithmetic_unaryContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitOperator_arithmetic_unary(zsharp_parserParser::Operator_arithmetic_unaryContext* ctx)
+{
     if (ctx->MINUS_NEG() != nullptr) return AstExpressionOperator::Negate;
     return AstExpressionOperator::NotSet;
 }
 
-antlrcpp::Any AstExpressionBuilder::visitOperator_logic(zsharp_parserParser::Operator_logicContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitOperator_logic(zsharp_parserParser::Operator_logicContext* ctx)
+{
     if (ctx->AND() != nullptr) return AstExpressionOperator::And;
     if (ctx->OR() != nullptr) return AstExpressionOperator::Or;
     return AstExpressionOperator::NotSet;
 }
 
-antlrcpp::Any AstExpressionBuilder::visitOperator_logic_unary(zsharp_parserParser::Operator_logic_unaryContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitOperator_logic_unary(zsharp_parserParser::Operator_logic_unaryContext* ctx)
+{
     if (ctx->NOT() != nullptr) return AstExpressionOperator::Not;
     return AstExpressionOperator::NotSet;
 }
 
-antlrcpp::Any AstExpressionBuilder::visitOperator_comparison(zsharp_parserParser::Operator_comparisonContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitOperator_comparison(zsharp_parserParser::Operator_comparisonContext* ctx)
+{
     if (ctx->EQ_ASSIGN() != nullptr) return AstExpressionOperator::Equal;
     if (ctx->GREAT_ANGLEclose() != nullptr) return AstExpressionOperator::Greater;
     if (ctx->GREQ() != nullptr) return AstExpressionOperator::GreaterEqual;
@@ -192,7 +226,8 @@ antlrcpp::Any AstExpressionBuilder::visitOperator_comparison(zsharp_parserParser
     return AstExpressionOperator::NotSet;
 }
 
-antlrcpp::Any AstExpressionBuilder::visitOperator_bits(zsharp_parserParser::Operator_bitsContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitOperator_bits(zsharp_parserParser::Operator_bitsContext* ctx)
+{
     if (ctx->BIT_AND() != nullptr) return AstExpressionOperator::BitAnd;
     if (ctx->BIT_OR() != nullptr) return AstExpressionOperator::BitOr;
     if (ctx->BIT_ROLL() != nullptr) return AstExpressionOperator::BitRollLeft;
@@ -203,7 +238,8 @@ antlrcpp::Any AstExpressionBuilder::visitOperator_bits(zsharp_parserParser::Oper
     return AstExpressionOperator::NotSet;
 }
 
-antlrcpp::Any AstExpressionBuilder::visitOperator_bits_unary(zsharp_parserParser::Operator_bits_unaryContext* ctx) {
+antlrcpp::Any AstExpressionBuilder::visitOperator_bits_unary(zsharp_parserParser::Operator_bits_unaryContext* ctx)
+{
     if (ctx->BIT_NOT() != nullptr) return AstExpressionOperator::BitNegate;
     return AstExpressionOperator::NotSet;
 }

@@ -244,3 +244,22 @@ TEST(AstExpressionBuilderTests, LogicalComparison1)
     EXPECT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Greater);
 }
 
+TEST(AstExpressionBuilderTests, Assignment1)
+{
+    const char* src =
+        "a = 2\n"
+        ;
+
+    ZsharpParser parser;
+    auto sourceCtx = parser.parseText(src);
+
+    AstExpressionBuilder uut;
+    auto expr = uut.Test(sourceCtx);
+
+    EXPECT_NE(expr, nullptr);
+    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Number);
+    EXPECT_EQ(expr->getLHS(), nullptr);
+    EXPECT_NE(expr->getRHS(), nullptr);
+    EXPECT_NE(expr->getRHS()->getNumeric(), nullptr);
+    EXPECT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 2);
+}

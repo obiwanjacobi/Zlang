@@ -31,3 +31,15 @@ my-type
 ```C#
 MyModule.v2.MyFunction
 ```
+
+> Do we want to distinguish between namespace separators and obj.fn() calls?
+
+```C#
+// namespace / module name (also for import, export aliases)
+MyModule::v2::MyFunction
+
+// function call
+obj.MyFunction(42)
+```
+
+Only needed when function call may include namespace/module parts...

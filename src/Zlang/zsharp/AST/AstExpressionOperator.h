@@ -4,6 +4,9 @@
 enum class AstExpressionOperator {
     NotSet = 0x0000,
 
+    // to pass through a number
+    Number = 0x0101,
+
     // precedence
     Open = 0x00C1,
     Close = 0x00C2,

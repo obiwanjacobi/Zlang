@@ -30,6 +30,7 @@ protected:
     antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult) override;
 
     // expressions
+    antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
     antlrcpp::Any visitExpression_arithmetic(zsharp_parserParser::Expression_arithmeticContext* ctx) override;
     antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) override;
     antlrcpp::Any visitExpression_comparison(zsharp_parserParser::Expression_comparisonContext* ctx) override;
