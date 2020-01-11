@@ -10,8 +10,8 @@ class AstNodeBuilder : public zsharp_parserBaseVisitor
     typedef zsharp_parserBaseVisitor base;
 
 public:
-    AstNodeBuilder(std::string namespace_)
-        : _namespace(namespace_)
+    AstNodeBuilder(std::string namespace_, int defaultIndentation = 0)
+        : _namespace(namespace_), _indent(defaultIndentation)
     {}
 
     antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult) override;
@@ -19,8 +19,11 @@ public:
     antlrcpp::Any visitFile(zsharp_parserParser::FileContext* ctx) override;
     antlrcpp::Any visitStatement_import(zsharp_parserParser::Statement_importContext* ctx) override;
     antlrcpp::Any visitStatement_export(zsharp_parserParser::Statement_exportContext* ctx) override;
-    antlrcpp::Any visitFunction_def(zsharp_parserParser::Function_defContext* ctx) override;
 
+    // WIP: block iteration for now - not implemented yet
+    antlrcpp::Any visitVariable_def_top(zsharp_parserParser::Variable_def_topContext* ctx) override { return nullptr; }
+
+    antlrcpp::Any visitFunction_def(zsharp_parserParser::Function_defContext* ctx) override;
     antlrcpp::Any visitCodeblock(zsharp_parserParser::CodeblockContext* ctx) override;
 
     antlrcpp::Any visitStatement_if(zsharp_parserParser::Statement_ifContext* ctx) override;
@@ -43,7 +46,9 @@ protected:
 
 private:
     template <class T> 
-    T* getCurrent();
+    T* findCurrent() const;
+    template <class T>
+    T* getCurrent() const { return dynamic_cast<T*>(_current.front()); }
     template <class T> 
     void setCurrent(std::shared_ptr<T> current) { setCurrent(current.get()); }
     void setCurrent(AstNode* current) { _current.push_front(current); }

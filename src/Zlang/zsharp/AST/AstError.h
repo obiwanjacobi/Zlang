@@ -15,6 +15,9 @@ public:
     const std::string& getText() const { return _text; }
     void setText(const std::string text) { _text = text; }
 
+    static const char* EmptyCodeBlock;
+    static const char* IndentationMismatch;
+
 private:
     antlr4::ParserRuleContext* _ctx;
     std::string _text;
