@@ -26,7 +26,8 @@ statement_loop_infinite: LOOP;
 statement_loop_while: LOOP SP expression_logic;
 
 // definition
-definition_top: function_def | enum_def | struct_def | variable_def_top;
+definition_top: function_def | enum_def | struct_def 
+    | type_def | type_alias | variable_def_top;
 definition: variable_def;
 
 // expressions
@@ -63,8 +64,9 @@ identifier_bool: variable_ref | parameter_ref;
 // functions
 function_call: indent identifier_func PARENopen function_parameter_uselist? PARENclose newline;
 function_def: identifier_func PARENopen function_parameter_list? PARENclose function_type? newline codeblock;
-function_parameter_list: function_parameter (COMMA SP function_parameter)*;
+function_parameter_list: (function_parameter | function_parameter_self) (COMMA SP function_parameter)*;
 function_parameter: identifier_param function_type;
+function_parameter_self: SELF function_type;
 function_type: COLON SP type_any;
 function_parameter_uselist: function_param_use (COMMA SP function_param_use)*;
 function_param_use: expression_value (COMMA SP expression_value)*;
@@ -80,25 +82,29 @@ variable_auto_assign: identifier_var SP EQ_ASSIGN SP expression_value;
 variable_assign: indent identifier_var SP EQ_ASSIGN SP expression_value;
 
 // structs
-struct_def: identifier_type type_param_list? (COLON SP type_any)? newline struct_field_def_list;
+struct_def: identifier_type type_param_list? (COLON SP type_any)? (newline struct_field_def_list);
 struct_field_def_list: struct_field_def+;
 struct_field_def: indent identifier_field COLON SP type_any newline;
 
 // enums
-enum_def: identifier_type (COLON SP enum_base_types)? newline enum_option_def_list;
-enum_option_def_list: enum_option_def+;
-enum_option_def: indent identifier_enumoption (SP EQ_ASSIGN SP comptime_expression_value)? COMMA? newline;
-enum_base_types:       
+enum_def: identifier_type (COLON SP enum_base_type)? newline (enum_option_def_list | enum_option_def_listline);
+enum_option_def_listline: indent (identifier_enumoption COMMA SP)* identifier_enumoption COMMA? newline;
+enum_option_def_list: (enum_option_def COMMA newline)* enum_option_def COMMA? newline;
+enum_option_def: indent identifier_enumoption enum_option_value?;
+enum_option_value: SP EQ_ASSIGN SP comptime_expression_value;
+enum_base_type:       
       type_Bit | type_Str
     | type_F16 | type_F32 
     | type_I16 | type_I24 | type_I32 | type_I8  
     | type_U16 | type_U24 | type_U32 | type_U8;
 
 // types
-type_any: type_name | optional_type | error_type | optional_error_type;
+type_def: identifier_type type_param_list? COLON SP type_any SP UNUSED newline;
+type_alias: identifier_type type_param_list? SP EQ_ASSIGN SP type_any newline;
+type_any: type_name | optional_type | error_type | error_optional_type;
 optional_type: type_name QUESTION;
 error_type: type_name ERROR;
-optional_error_type: type_name ERROR QUESTION;
+error_optional_type: type_name ERROR QUESTION;
 
 type_name: known_types | identifier_type type_param_list?;
 known_types: 
@@ -127,24 +133,23 @@ type_param_number: SMALL_ANGLEopen number GREAT_ANGLEclose;
 type_param_type: SMALL_ANGLEopen type_name GREAT_ANGLEclose;
 type_param_list: SMALL_ANGLEopen type_param_name_list GREAT_ANGLEclose;
 type_param_name_list: type_param_anytype (COMMA SP type_param_anytype)*;
-type_param_anytype: type_name|number;
+type_param_anytype: type_name | number;
 
 // identifiers
 identifier_type: IDENTIFIERupper;
 identifier_var: IDENTIFIERlower;
 identifier_param: IDENTIFIERlower;
-identifier_func: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
-identifier_field: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
-identifier_enumoption: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
-identifier_module: IDENTIFIERmixed | IDENTIFIERupper | IDENTIFIERlower;
+identifier_func: IDENTIFIERupper | IDENTIFIERlower;
+identifier_field: IDENTIFIERupper | IDENTIFIERlower;
+identifier_enumoption: IDENTIFIERupper | IDENTIFIERlower;
+identifier_module: IDENTIFIERupper | IDENTIFIERlower;
 identifier_unused: UNUSED;
 
 literal_bool: TRUE | FALSE;
 literal: number | string;
 
 // numbers
-number: number_unsigned;
-number_unsigned: number_bin | number_oct | number_dec | number_hex | number_char;
+number: number_bin | number_oct | number_dec | number_hex | number_char;
 number_bin: NUMBERbin;
 number_oct: NUMBERoct;
 number_dec: NUMBERdec | NUMBERdec_prefix;
@@ -274,7 +279,6 @@ COMMENTstart: '//';
 // identifiers
 IDENTIFIERupper: ALPHAupper IDENTIFIERpart*;
 IDENTIFIERlower: ALPHAlower IDENTIFIERpart*;
-IDENTIFIERmixed: (ALPHAlower | ALPHAupper | UNUSED) IDENTIFIERpart*;
 fragment IDENTIFIERpart: ALPHAlower | ALPHAupper | DIGIT10 | UNUSED;
 
 // whitespace

@@ -34,3 +34,20 @@ TEST(TypesSmokeTests, Ptr) {
 
     EXPECT_TRUE(ParserSmokeTest(src));
 }
+
+
+TEST(TypesSmokeTests, TypeDef) {
+    const char* src =
+        "MyType: Map<Str, U8> _\n"
+        ;
+
+    EXPECT_TRUE(ParserSmokeTest(src));
+}
+
+TEST(TypesSmokeTests, TypeAlias) {
+    const char* src =
+        "MyType = Map<Str, U8>\n"
+        ;
+
+    EXPECT_TRUE(ParserSmokeTest(src));
+}

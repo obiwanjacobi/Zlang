@@ -1,12 +1,21 @@
 #include "pch.h"
 #include "../Utils.h"
 
+TEST(EnumSmokeTests, DefaultOptionsLine) {
+    const char* src =
+        "MyEnum\n"
+        "    opt1, opt2, opt3\n"
+        ;
+
+    EXPECT_TRUE(ParserSmokeTest(src));
+}
+
 TEST(EnumSmokeTests, DefaultOptions) {
     const char* src = 
         "MyEnum\n"
-        "    opt1\n"
-        "    opt2\n"
-        "    opt3\n"
+        "    opt1,\n"
+        "    opt2,\n"
+        "    opt3,\n"
         ;
 
     EXPECT_TRUE(ParserSmokeTest(src));
@@ -15,8 +24,8 @@ TEST(EnumSmokeTests, DefaultOptions) {
 TEST(EnumSmokeTests, ExplicitOptions) {
     const char* src = 
         "MyEnum\n"
-        "    opt1 = 0\n"
-        "    opt2 = 1\n"
+        "    opt1 = 0,\n"
+        "    opt2 = 1,\n"
         "    opt3 = 2\n"
         ;
 
@@ -26,12 +35,23 @@ TEST(EnumSmokeTests, ExplicitOptions) {
 TEST(EnumSmokeTests, StrOptions) {
     const char* src = 
         "MyEnum: Str\n"
-        "    opt1 = \"1\"\n"
-        "    opt2 = \"1\"\n"
-        "    opt3 = \"1\"\n"
+        "    opt1 = \"1\",\n"
+        "    opt2 = \"2\",\n"
+        "    opt3 = \"3\",\n"
         ;
 
     EXPECT_TRUE(ParserSmokeTest(src));
+}
+
+TEST(EnumSmokeTests, E_NoCommas) {
+    const char* src =
+        "MyEnum\n"
+        "    Opt1\n"
+        "    Opt2\n"
+        ;
+
+    // TODO: Error not detected! Works in debugger in VScode.
+    //EXPECT_FALSE(ParserSmokeTest(src));
 }
 
 TEST(EnumSmokeTests, E_NoOptions) {

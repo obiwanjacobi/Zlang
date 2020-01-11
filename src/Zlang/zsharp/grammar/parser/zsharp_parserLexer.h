@@ -25,8 +25,8 @@ public:
     CONCAT = 60, SUBopen = 61, SUBclose = 62, PARENopen = 63, PARENclose = 64, 
     QUESTION = 65, COLON = 66, DOT = 67, RANGE = 68, SPREAD = 69, COMMA = 70, 
     META = 71, COMPTIME = 72, ERROR = 73, STR_QUOTE = 74, CHAR_QUOTE = 75, 
-    COMMENTstart = 76, IDENTIFIERupper = 77, IDENTIFIERlower = 78, IDENTIFIERmixed = 79, 
-    SP = 80, TAB = 81, INDENT = 82, EOL = 83
+    COMMENTstart = 76, IDENTIFIERupper = 77, IDENTIFIERlower = 78, SP = 79, 
+    TAB = 80, INDENT = 81, EOL = 82
   };
 
   zsharp_parserLexer(antlr4::CharStream *input);

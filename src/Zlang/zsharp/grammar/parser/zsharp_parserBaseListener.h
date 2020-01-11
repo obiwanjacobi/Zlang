@@ -118,6 +118,9 @@ public:
   virtual void enterFunction_parameter(zsharp_parserParser::Function_parameterContext * /*ctx*/) override { }
   virtual void exitFunction_parameter(zsharp_parserParser::Function_parameterContext * /*ctx*/) override { }
 
+  virtual void enterFunction_parameter_self(zsharp_parserParser::Function_parameter_selfContext * /*ctx*/) override { }
+  virtual void exitFunction_parameter_self(zsharp_parserParser::Function_parameter_selfContext * /*ctx*/) override { }
+
   virtual void enterFunction_type(zsharp_parserParser::Function_typeContext * /*ctx*/) override { }
   virtual void exitFunction_type(zsharp_parserParser::Function_typeContext * /*ctx*/) override { }
 
@@ -163,14 +166,26 @@ public:
   virtual void enterEnum_def(zsharp_parserParser::Enum_defContext * /*ctx*/) override { }
   virtual void exitEnum_def(zsharp_parserParser::Enum_defContext * /*ctx*/) override { }
 
+  virtual void enterEnum_option_def_listline(zsharp_parserParser::Enum_option_def_listlineContext * /*ctx*/) override { }
+  virtual void exitEnum_option_def_listline(zsharp_parserParser::Enum_option_def_listlineContext * /*ctx*/) override { }
+
   virtual void enterEnum_option_def_list(zsharp_parserParser::Enum_option_def_listContext * /*ctx*/) override { }
   virtual void exitEnum_option_def_list(zsharp_parserParser::Enum_option_def_listContext * /*ctx*/) override { }
 
   virtual void enterEnum_option_def(zsharp_parserParser::Enum_option_defContext * /*ctx*/) override { }
   virtual void exitEnum_option_def(zsharp_parserParser::Enum_option_defContext * /*ctx*/) override { }
 
-  virtual void enterEnum_base_types(zsharp_parserParser::Enum_base_typesContext * /*ctx*/) override { }
-  virtual void exitEnum_base_types(zsharp_parserParser::Enum_base_typesContext * /*ctx*/) override { }
+  virtual void enterEnum_option_value(zsharp_parserParser::Enum_option_valueContext * /*ctx*/) override { }
+  virtual void exitEnum_option_value(zsharp_parserParser::Enum_option_valueContext * /*ctx*/) override { }
+
+  virtual void enterEnum_base_type(zsharp_parserParser::Enum_base_typeContext * /*ctx*/) override { }
+  virtual void exitEnum_base_type(zsharp_parserParser::Enum_base_typeContext * /*ctx*/) override { }
+
+  virtual void enterType_def(zsharp_parserParser::Type_defContext * /*ctx*/) override { }
+  virtual void exitType_def(zsharp_parserParser::Type_defContext * /*ctx*/) override { }
+
+  virtual void enterType_alias(zsharp_parserParser::Type_aliasContext * /*ctx*/) override { }
+  virtual void exitType_alias(zsharp_parserParser::Type_aliasContext * /*ctx*/) override { }
 
   virtual void enterType_any(zsharp_parserParser::Type_anyContext * /*ctx*/) override { }
   virtual void exitType_any(zsharp_parserParser::Type_anyContext * /*ctx*/) override { }
@@ -181,8 +196,8 @@ public:
   virtual void enterError_type(zsharp_parserParser::Error_typeContext * /*ctx*/) override { }
   virtual void exitError_type(zsharp_parserParser::Error_typeContext * /*ctx*/) override { }
 
-  virtual void enterOptional_error_type(zsharp_parserParser::Optional_error_typeContext * /*ctx*/) override { }
-  virtual void exitOptional_error_type(zsharp_parserParser::Optional_error_typeContext * /*ctx*/) override { }
+  virtual void enterError_optional_type(zsharp_parserParser::Error_optional_typeContext * /*ctx*/) override { }
+  virtual void exitError_optional_type(zsharp_parserParser::Error_optional_typeContext * /*ctx*/) override { }
 
   virtual void enterType_name(zsharp_parserParser::Type_nameContext * /*ctx*/) override { }
   virtual void exitType_name(zsharp_parserParser::Type_nameContext * /*ctx*/) override { }
@@ -279,9 +294,6 @@ public:
 
   virtual void enterNumber(zsharp_parserParser::NumberContext * /*ctx*/) override { }
   virtual void exitNumber(zsharp_parserParser::NumberContext * /*ctx*/) override { }
-
-  virtual void enterNumber_unsigned(zsharp_parserParser::Number_unsignedContext * /*ctx*/) override { }
-  virtual void exitNumber_unsigned(zsharp_parserParser::Number_unsignedContext * /*ctx*/) override { }
 
   virtual void enterNumber_bin(zsharp_parserParser::Number_binContext * /*ctx*/) override { }
   virtual void exitNumber_bin(zsharp_parserParser::Number_binContext * /*ctx*/) override { }

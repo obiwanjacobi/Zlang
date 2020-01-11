@@ -85,6 +85,8 @@ When `Bit`s are stored, the closest fitting data type is used. So a `Bit<6>` wou
 
 ## Data Types
 
+(Constrained Types?)
+
 There is an easy way to create data types to differentiate data at a type level. By using different types the purpose of the data become even more clear.
 
 ```C#
@@ -101,9 +103,14 @@ The way data types differ from using aliases is in the use of type-bound functio
 
 > Can data types have more fields? If so, how do they differ from structs?
 
-> Is it possible to restrict the valid data for a data type? For instance `0 <= Age <= 130`. Could we use ranges?
+> Is it possible to restrict the valid data for a data type? For instance `0 <= Age <= 130`. Could we use ranges? Perhaps make an `or` type with literals and or range expressions? 
 
-> overload value setter to do custom validation?
+```C#
+Age: U8 => 0 or 2..100
+Mode: Str => "A" or "B" or "C"
+```
+
+> overload/override value setter to do custom validation?
 
 ## Variant Type
 
@@ -451,7 +458,6 @@ d.prop1 = 42        // creates a new field (fixed type)
 
 SomeFunction(self: Dyn, p1: U8): Bool
     // does prop1 exist
-    if self#prop1
     if self?prop1
         return self.prop1 = 42
     return false

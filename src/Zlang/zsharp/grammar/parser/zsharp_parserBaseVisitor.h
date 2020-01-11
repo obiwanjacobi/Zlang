@@ -151,6 +151,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitFunction_parameter_self(zsharp_parserParser::Function_parameter_selfContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitFunction_type(zsharp_parserParser::Function_typeContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -211,6 +215,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitEnum_option_def_listline(zsharp_parserParser::Enum_option_def_listlineContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitEnum_option_def_list(zsharp_parserParser::Enum_option_def_listContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -219,7 +227,19 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitEnum_base_types(zsharp_parserParser::Enum_base_typesContext *ctx) override {
+  virtual antlrcpp::Any visitEnum_option_value(zsharp_parserParser::Enum_option_valueContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitEnum_base_type(zsharp_parserParser::Enum_base_typeContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitType_def(zsharp_parserParser::Type_defContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitType_alias(zsharp_parserParser::Type_aliasContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -235,7 +255,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitOptional_error_type(zsharp_parserParser::Optional_error_typeContext *ctx) override {
+  virtual antlrcpp::Any visitError_optional_type(zsharp_parserParser::Error_optional_typeContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -364,10 +384,6 @@ public:
   }
 
   virtual antlrcpp::Any visitNumber(zsharp_parserParser::NumberContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitNumber_unsigned(zsharp_parserParser::Number_unsignedContext *ctx) override {
     return visitChildren(ctx);
   }
 

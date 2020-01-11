@@ -147,7 +147,7 @@ These is a language syntax compiler option to turn this feature on or off.
 Using the `self` keyword on the (name of the) first parameter, a function can be bound to a type. In this example the function is bound to the MyStruct type.
 
 ```C#
-jamesBond(self Ptr<MyStruct>)
+jamesBond(self: Ptr<MyStruct>)
     ...
 
 s = MyStruct

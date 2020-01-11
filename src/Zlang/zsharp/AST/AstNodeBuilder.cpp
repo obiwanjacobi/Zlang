@@ -250,6 +250,7 @@ antlrcpp::Any AstNodeBuilder::visitIndent(zsharp_parserParser::IndentContext* ct
 {
     // ignore indents that appear at the end of a line
     if (dynamic_cast<zsharp_parserParser::NewlineContext*>(ctx->parent) ||
+        dynamic_cast<zsharp_parserParser::Empty_lineContext*>(ctx->parent) ||
         dynamic_cast<zsharp_parserParser::CommentContext*>(ctx->parent) ) {
         return 0;
     }
