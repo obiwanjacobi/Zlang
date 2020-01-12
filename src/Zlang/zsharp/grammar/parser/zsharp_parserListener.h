@@ -110,6 +110,9 @@ public:
   virtual void enterFunction_def(zsharp_parserParser::Function_defContext *ctx) = 0;
   virtual void exitFunction_def(zsharp_parserParser::Function_defContext *ctx) = 0;
 
+  virtual void enterFunction_def_export(zsharp_parserParser::Function_def_exportContext *ctx) = 0;
+  virtual void exitFunction_def_export(zsharp_parserParser::Function_def_exportContext *ctx) = 0;
+
   virtual void enterFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext *ctx) = 0;
   virtual void exitFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext *ctx) = 0;
 

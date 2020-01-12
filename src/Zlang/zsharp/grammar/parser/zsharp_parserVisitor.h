@@ -83,6 +83,8 @@ public:
 
     virtual antlrcpp::Any visitFunction_def(zsharp_parserParser::Function_defContext *context) = 0;
 
+    virtual antlrcpp::Any visitFunction_def_export(zsharp_parserParser::Function_def_exportContext *context) = 0;
+
     virtual antlrcpp::Any visitFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext *context) = 0;
 
     virtual antlrcpp::Any visitFunction_parameter(zsharp_parserParser::Function_parameterContext *context) = 0;

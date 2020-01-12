@@ -143,6 +143,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual antlrcpp::Any visitFunction_def_export(zsharp_parserParser::Function_def_exportContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual antlrcpp::Any visitFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext *ctx) override {
     return visitChildren(ctx);
   }

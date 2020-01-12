@@ -2,6 +2,15 @@
 #include "../Utils.h"
 
 
+TEST(FunctionSmokeTests, Export) {
+    const char* src =
+        "export MyFunction()\n"
+        "    return\n"
+        ;
+
+    EXPECT_TRUE(ParserSmokeTest(src));
+}
+
 TEST(FunctionSmokeTests, Void) {
     const char* src = 
         "MyFunction()\n"

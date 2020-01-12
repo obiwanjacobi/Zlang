@@ -27,14 +27,6 @@ T* AstNodeBuilder::findCurrent() const
     return p;
 }
 
-std::string AstNodeBuilder::ToQualifiedName(const std::string& name)
-{
-    if (_namespace.size() > 0) {
-        return _namespace + "." + name;
-    }
-    return name;
-}
-
 antlrcpp::Any AstNodeBuilder::visitChildrenExcept(antlr4::ParserRuleContext* node, antlr4::ParserRuleContext* except)
 {
     antlrcpp::Any result = defaultResult();
@@ -66,7 +58,7 @@ antlrcpp::Any AstNodeBuilder::visitFile(zsharp_parserParser::FileContext* ctx) {
     auto file = std::make_shared<AstFile>(ctx);
     setCurrent(file);
 
-    auto any = base::visitFile(ctx);
+    auto any = base::visitChildren(ctx);
 
     revertCurrent();
     guard(_current.size() == 0);
@@ -79,6 +71,10 @@ antlrcpp::Any AstNodeBuilder::visitStatement_import(zsharp_parserParser::Stateme
     auto file = findCurrent<AstFile>();
     file->AddImport(ctx);
 
+    auto symbols = file->getSymbols();
+    auto entry = symbols.AddSymbol(ctx->module_name()->getText(), "", AstSymbolType::NotSet, nullptr);
+    entry->setSymbolLocality(AstSymbolLocality::Imported);
+
     return nullptr;
 }
 
@@ -87,14 +83,25 @@ antlrcpp::Any AstNodeBuilder::visitStatement_export(zsharp_parserParser::Stateme
     auto file = findCurrent<AstFile>();
     file->AddExport(ctx);
 
+    auto symbols = file->getSymbols();
+    auto entry = symbols.AddSymbol(_namespace, ctx->identifier_func()->getText(), AstSymbolType::Function, nullptr);
+    entry->setSymbolLocality(AstSymbolLocality::Exported);
+
     return nullptr;
 }
 
 antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_defContext* ctx)
 {
     auto file = findCurrent<AstFile>();
-    auto function = std::make_shared<AstFunction>(ctx);        
-    function->setName(ToQualifiedName(ctx->identifier_func()->getText()));
+    auto function = std::make_shared<AstFunction>(ctx);
+
+    auto symbols = file->getSymbols();
+    auto entry = symbols.AddSymbol(_namespace, ctx->identifier_func()->getText(), AstSymbolType::Function, function);
+    function->setName(entry->getSymbolName().getQualifiedName());
+
+    if (dynamic_cast<zsharp_parserParser::Function_def_exportContext*>(ctx->parent)) {
+        entry->setSymbolLocality(AstSymbolLocality::Exported);
+    }
 
     file->AddFunction(function);
     setCurrent(function);

@@ -40,31 +40,31 @@ public:
     RuleExpression_arithmetic = 22, RuleArithmetic_operand = 23, RuleExpression_logic = 24, 
     RuleLogic_operand = 25, RuleExpression_comparison = 26, RuleComparison_operand = 27, 
     RuleExpression_bool = 28, RuleIdentifier_bool = 29, RuleFunction_call = 30, 
-    RuleFunction_def = 31, RuleFunction_parameter_list = 32, RuleFunction_parameter = 33, 
-    RuleFunction_parameter_self = 34, RuleFunction_type = 35, RuleFunction_parameter_uselist = 36, 
-    RuleFunction_param_use = 37, RuleVariable_ref = 38, RuleParameter_ref = 39, 
-    RuleVariable_def_top = 40, RuleVariable_def = 41, RuleVariable_def_typed = 42, 
-    RuleVariable_def_typed_init = 43, RuleVariable_auto_assign = 44, RuleVariable_assign = 45, 
-    RuleStruct_def = 46, RuleStruct_field_def_list = 47, RuleStruct_field_def = 48, 
-    RuleEnum_def = 49, RuleEnum_option_def_listline = 50, RuleEnum_option_def_list = 51, 
-    RuleEnum_option_def = 52, RuleEnum_option_value = 53, RuleEnum_base_type = 54, 
-    RuleType_def = 55, RuleType_alias = 56, RuleType_any = 57, RuleOptional_type = 58, 
-    RuleError_type = 59, RuleError_optional_type = 60, RuleType_name = 61, 
-    RuleKnown_types = 62, RuleType_U8 = 63, RuleType_U16 = 64, RuleType_U24 = 65, 
-    RuleType_U32 = 66, RuleType_I8 = 67, RuleType_I16 = 68, RuleType_I24 = 69, 
-    RuleType_I32 = 70, RuleType_F16 = 71, RuleType_F32 = 72, RuleType_Str = 73, 
-    RuleType_Bool = 74, RuleType_Bit = 75, RuleType_Ptr = 76, RuleType_param_number = 77, 
-    RuleType_param_type = 78, RuleType_param_list = 79, RuleType_param_name_list = 80, 
-    RuleType_param_anytype = 81, RuleIdentifier_type = 82, RuleIdentifier_var = 83, 
-    RuleIdentifier_param = 84, RuleIdentifier_func = 85, RuleIdentifier_field = 86, 
-    RuleIdentifier_enumoption = 87, RuleIdentifier_module = 88, RuleIdentifier_unused = 89, 
-    RuleLiteral_bool = 90, RuleLiteral = 91, RuleNumber = 92, RuleNumber_bin = 93, 
-    RuleNumber_oct = 94, RuleNumber_dec = 95, RuleNumber_hex = 96, RuleNumber_char = 97, 
-    RuleOperator_arithmetic = 98, RuleOperator_arithmetic_unary = 99, RuleOperator_logic = 100, 
-    RuleOperator_logic_unary = 101, RuleOperator_comparison = 102, RuleOperator_bits = 103, 
-    RuleOperator_bits_unary = 104, RuleOperator_assignment = 105, RuleEmpty_line = 106, 
-    RuleNewline = 107, RuleComment = 108, RuleString = 109, RuleCharacter = 110, 
-    RuleIndent = 111
+    RuleFunction_def = 31, RuleFunction_def_export = 32, RuleFunction_parameter_list = 33, 
+    RuleFunction_parameter = 34, RuleFunction_parameter_self = 35, RuleFunction_type = 36, 
+    RuleFunction_parameter_uselist = 37, RuleFunction_param_use = 38, RuleVariable_ref = 39, 
+    RuleParameter_ref = 40, RuleVariable_def_top = 41, RuleVariable_def = 42, 
+    RuleVariable_def_typed = 43, RuleVariable_def_typed_init = 44, RuleVariable_auto_assign = 45, 
+    RuleVariable_assign = 46, RuleStruct_def = 47, RuleStruct_field_def_list = 48, 
+    RuleStruct_field_def = 49, RuleEnum_def = 50, RuleEnum_option_def_listline = 51, 
+    RuleEnum_option_def_list = 52, RuleEnum_option_def = 53, RuleEnum_option_value = 54, 
+    RuleEnum_base_type = 55, RuleType_def = 56, RuleType_alias = 57, RuleType_any = 58, 
+    RuleOptional_type = 59, RuleError_type = 60, RuleError_optional_type = 61, 
+    RuleType_name = 62, RuleKnown_types = 63, RuleType_U8 = 64, RuleType_U16 = 65, 
+    RuleType_U24 = 66, RuleType_U32 = 67, RuleType_I8 = 68, RuleType_I16 = 69, 
+    RuleType_I24 = 70, RuleType_I32 = 71, RuleType_F16 = 72, RuleType_F32 = 73, 
+    RuleType_Str = 74, RuleType_Bool = 75, RuleType_Bit = 76, RuleType_Ptr = 77, 
+    RuleType_param_number = 78, RuleType_param_type = 79, RuleType_param_list = 80, 
+    RuleType_param_name_list = 81, RuleType_param_anytype = 82, RuleIdentifier_type = 83, 
+    RuleIdentifier_var = 84, RuleIdentifier_param = 85, RuleIdentifier_func = 86, 
+    RuleIdentifier_field = 87, RuleIdentifier_enumoption = 88, RuleIdentifier_module = 89, 
+    RuleIdentifier_unused = 90, RuleLiteral_bool = 91, RuleLiteral = 92, 
+    RuleNumber = 93, RuleNumber_bin = 94, RuleNumber_oct = 95, RuleNumber_dec = 96, 
+    RuleNumber_hex = 97, RuleNumber_char = 98, RuleOperator_arithmetic = 99, 
+    RuleOperator_arithmetic_unary = 100, RuleOperator_logic = 101, RuleOperator_logic_unary = 102, 
+    RuleOperator_comparison = 103, RuleOperator_bits = 104, RuleOperator_bits_unary = 105, 
+    RuleOperator_assignment = 106, RuleEmpty_line = 107, RuleNewline = 108, 
+    RuleComment = 109, RuleString = 110, RuleCharacter = 111, RuleIndent = 112
   };
 
   zsharp_parserParser(antlr4::TokenStream *input);
@@ -109,6 +109,7 @@ public:
   class Identifier_boolContext;
   class Function_callContext;
   class Function_defContext;
+  class Function_def_exportContext;
   class Function_parameter_listContext;
   class Function_parameterContext;
   class Function_parameter_selfContext;
@@ -527,6 +528,7 @@ public:
   public:
     Definition_topContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    Function_def_exportContext *function_def_export();
     Function_defContext *function_def();
     Enum_defContext *enum_def();
     Struct_defContext *struct_def();
@@ -789,6 +791,23 @@ public:
   };
 
   Function_defContext* function_def();
+
+  class  Function_def_exportContext : public antlr4::ParserRuleContext {
+  public:
+    Function_def_exportContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *EXPORT();
+    antlr4::tree::TerminalNode *SP();
+    Function_defContext *function_def();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+
+    virtual antlrcpp::Any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  Function_def_exportContext* function_def_export();
 
   class  Function_parameter_listContext : public antlr4::ParserRuleContext {
   public:

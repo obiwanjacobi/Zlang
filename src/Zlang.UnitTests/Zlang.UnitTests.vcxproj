@@ -105,7 +105,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstFile.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;AstNumeric.obj;AstNumericBuilder.obj;AstExpression.obj;AstExpressionOperand.obj;AstExpressionBuilder.obj;AstBranch.obj;AstCodeBlock.obj;AstAssignment.obj;AstError.obj;Utils.obj;LLVMCore.lib;LLVMRemarks.lib;LLVMBitstreamReader.lib;LLVMBinaryFormat.lib;LLVMSupport.lib;LLVMDemangle.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstFile.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;AstNumeric.obj;AstNumericBuilder.obj;AstExpression.obj;AstExpressionOperand.obj;AstExpressionBuilder.obj;AstBranch.obj;AstCodeBlock.obj;AstAssignment.obj;AstError.obj;AstSymbolTable.obj;Utils.obj;LLVMCore.lib;LLVMRemarks.lib;LLVMBitstreamReader.lib;LLVMBinaryFormat.lib;LLVMSupport.lib;LLVMDemangle.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

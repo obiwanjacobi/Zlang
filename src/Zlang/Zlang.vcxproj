@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="zsharp\AST\AstSymbolTable.cpp" />
     <ClCompile Include="zsharp\AST\AstAssignment.cpp" />
     <ClCompile Include="zsharp\AST\AstError.cpp" />
     <ClCompile Include="zsharp\AST\AstBranch.cpp" />
@@ -66,6 +67,7 @@
     <None Include="zsharp\LLVM\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="zsharp\AST\AstSymbolTable.h" />
     <ClInclude Include="zsharp\AST\AstAssignment.h" />
     <ClInclude Include="zsharp\AST\AstError.h" />
     <ClInclude Include="zsharp\AST\AstBranch.h" />

@@ -1,2 +1,2 @@
-MyFunc()
+export MyFunc()
         c = 10

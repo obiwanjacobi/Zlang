@@ -26,7 +26,7 @@ statement_loop_infinite: LOOP;
 statement_loop_while: LOOP SP expression_logic;
 
 // definition
-definition_top: function_def | enum_def | struct_def 
+definition_top: function_def_export | function_def | enum_def | struct_def 
     | type_def | type_alias | variable_def_top;
 definition: variable_def;
 
@@ -64,6 +64,7 @@ identifier_bool: variable_ref | parameter_ref;
 // functions
 function_call: indent identifier_func PARENopen function_parameter_uselist? PARENclose newline;
 function_def: identifier_func PARENopen function_parameter_list? PARENclose function_type? newline codeblock;
+function_def_export: EXPORT SP function_def;
 function_parameter_list: (function_parameter | function_parameter_self) (COMMA SP function_parameter)*;
 function_parameter: identifier_param function_type;
 function_parameter_self: SELF function_type;

@@ -55,7 +55,6 @@ private:
     void revertCurrent() { _current.pop_front(); }
     std::deque<AstNode*> _current;
 
-    std::string ToQualifiedName(const std::string& name);
     std::string _namespace;
 
     void addIndentation();

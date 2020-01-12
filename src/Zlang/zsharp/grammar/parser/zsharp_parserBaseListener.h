@@ -112,6 +112,9 @@ public:
   virtual void enterFunction_def(zsharp_parserParser::Function_defContext * /*ctx*/) override { }
   virtual void exitFunction_def(zsharp_parserParser::Function_defContext * /*ctx*/) override { }
 
+  virtual void enterFunction_def_export(zsharp_parserParser::Function_def_exportContext * /*ctx*/) override { }
+  virtual void exitFunction_def_export(zsharp_parserParser::Function_def_exportContext * /*ctx*/) override { }
+
   virtual void enterFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext * /*ctx*/) override { }
   virtual void exitFunction_parameter_list(zsharp_parserParser::Function_parameter_listContext * /*ctx*/) override { }
 
