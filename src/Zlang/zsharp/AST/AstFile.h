@@ -20,13 +20,13 @@ public:
     
     const std::vector<std::shared_ptr<AstFunction>>& getFunctions() const { return _functions; }
 
+    AstSymbolTable* getSymbols() { return &_symbols; }
+
 protected:
     void AddImport(zsharp_parserParser::Statement_importContext* importCtx);
     void AddExport(zsharp_parserParser::Statement_exportContext* exportCtx);
     
     void AddFunction(std::shared_ptr<AstFunction> function);
-
-    AstSymbolTable& getSymbols() { return _symbols; }
 
 private:
     AstSymbolTable _symbols;

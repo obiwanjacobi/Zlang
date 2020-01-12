@@ -15,6 +15,8 @@ public:
     bool AddExpression(std::shared_ptr<AstExpression> expr) override;
     bool AddIdentifier(std::shared_ptr<AstIdentifier> identifier) override;
 
+    const std::shared_ptr<AstIdentifier>& getIdentifier() const { return _identifier; }
+
 private:
     std::shared_ptr<AstExpression> _expression;
     std::shared_ptr<AstIdentifier> _identifier;

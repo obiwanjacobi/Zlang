@@ -12,6 +12,7 @@ TEST(AstNumericBuilderTests, Binary)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstNumericBuilder uut;
     auto numeric = uut.Test(sourceCtx);
@@ -28,6 +29,7 @@ TEST(AstNumericBuilderTests, Octal)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstNumericBuilder uut;
     auto numeric = uut.Test(sourceCtx);
@@ -44,6 +46,7 @@ TEST(AstNumericBuilderTests, Decimal)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstNumericBuilder uut;
     auto numeric = uut.Test(sourceCtx);
@@ -60,6 +63,7 @@ TEST(AstNumericBuilderTests, DecimalPrefix)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstNumericBuilder uut;
     auto numeric = uut.Test(sourceCtx);
@@ -76,6 +80,7 @@ TEST(AstNumericBuilderTests, Hexadecimal)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstNumericBuilder uut;
     auto numeric = uut.Test(sourceCtx);

@@ -43,6 +43,7 @@ public:
 
     antlrcpp::Any visitVariable_assign(zsharp_parserParser::Variable_assignContext* ctx) override;
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
+    antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) override;
 
     antlrcpp::Any visitIndent(zsharp_parserParser::IndentContext* ctx) override;
 

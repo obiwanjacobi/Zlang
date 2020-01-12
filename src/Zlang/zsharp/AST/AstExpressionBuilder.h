@@ -19,6 +19,13 @@ public:
         return BuildExpression(0);
     }
 
+    std::shared_ptr<AstExpression> Build(zsharp_parserParser::Expression_logicContext* expressionCtx) {
+        auto val = visitExpression_logic(expressionCtx);
+        assert(val.isNull());
+
+        return BuildExpression(0);
+    }
+
     std::shared_ptr<AstExpression> Test(antlr4::ParserRuleContext* ctx) {
         auto val = visit(ctx);
         assert(val.isNull());

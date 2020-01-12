@@ -75,7 +75,7 @@ public:
     std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& ns, const std::string& symbolName, 
         AstSymbolType type, std::shared_ptr<AstNode> node);
 
-    std::shared_ptr<AstSymbolEntry> getEntry(const std::string& qualifiedNameOrAlias) { return _table[qualifiedNameOrAlias]; }
+    std::shared_ptr<AstSymbolEntry> getEntry(const std::string qualifiedNameOrAlias) { return _table[qualifiedNameOrAlias]; }
 
 private:
     std::map<const std::string, std::shared_ptr<AstSymbolEntry>> _table;

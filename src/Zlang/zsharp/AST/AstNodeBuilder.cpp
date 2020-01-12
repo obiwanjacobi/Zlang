@@ -73,7 +73,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_import(zsharp_parserParser::Stateme
     file->AddImport(ctx);
 
     auto symbols = file->getSymbols();
-    auto entry = symbols.AddSymbol(ctx->module_name()->getText(), "", AstSymbolType::NotSet, nullptr);
+    auto entry = symbols->AddSymbol(ctx->module_name()->getText(), "", AstSymbolType::NotSet, nullptr);
     entry->setSymbolLocality(AstSymbolLocality::Imported);
 
     return nullptr;
@@ -85,7 +85,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_export(zsharp_parserParser::Stateme
     file->AddExport(ctx);
 
     auto symbols = file->getSymbols();
-    auto entry = symbols.AddSymbol(_namespace, ctx->identifier_func()->getText(), AstSymbolType::Function, nullptr);
+    auto entry = symbols->AddSymbol(_namespace, ctx->identifier_func()->getText(), AstSymbolType::Function, nullptr);
     entry->setSymbolLocality(AstSymbolLocality::Exported);
 
     return nullptr;
@@ -104,7 +104,7 @@ antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_de
     auto dummy = visitIdentifier_func(identifier);
 
     auto symbols = file->getSymbols();
-    auto entry = symbols.AddSymbol(_namespace, function->getIdentifier()->getName(), AstSymbolType::Function, function);
+    auto entry = symbols->AddSymbol(_namespace, function->getIdentifier()->getName(), AstSymbolType::Function, function);
 
     if (dynamic_cast<zsharp_parserParser::Function_def_exportContext*>(ctx->parent)) {
         entry->setSymbolLocality(AstSymbolLocality::Exported);
@@ -236,8 +236,11 @@ template<class T>
 bool AstNodeBuilder::AddIdentifier(T ctx)
 {
     auto namedObj = findCurrent<AstIdentifierSite>();
-    auto identifier = std::make_shared<AstIdentifier>(ctx);
-    return namedObj->AddIdentifier(identifier);
+    if (namedObj) {
+        auto identifier = std::make_shared<AstIdentifier>(ctx);
+        return namedObj->AddIdentifier(identifier);
+    }
+    return false;
 }
 
 antlrcpp::Any AstNodeBuilder::visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx)
@@ -259,7 +262,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_type(zsharp_parserParser::Identifi
 antlrcpp::Any AstNodeBuilder::visitIdentifier_var(zsharp_parserParser::Identifier_varContext* ctx)
 {
     bool success = AddIdentifier(ctx);
-    //guard(success);   not implemented yet
+    guard(success);
 
     return visitChildren(ctx);
 }
@@ -309,6 +312,11 @@ antlrcpp::Any AstNodeBuilder::visitVariable_assign(zsharp_parserParser::Variable
     auto any = visitChildren(ctx);
 
     revertCurrent();
+
+    auto file = findCurrent<AstFile>();
+    auto symbols = file->getSymbols();
+    auto entry = symbols->AddSymbol(_namespace, assign->getIdentifier()->getName(), AstSymbolType::Variable, assign);
+
     return any;
 }
 
@@ -317,6 +325,17 @@ antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Express
     AstExpressionBuilder builder;
     auto expr = builder.Build(ctx);
     
+    auto site = findCurrent<AstExpressionSite>();
+    bool success = site->AddExpression(expr);
+    guard(success);
+
+    return nullptr;
+}
+
+antlrcpp::Any AstNodeBuilder::visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) {
+    AstExpressionBuilder builder;
+    auto expr = builder.Build(ctx);
+
     auto site = findCurrent<AstExpressionSite>();
     bool success = site->AddExpression(expr);
     guard(success);

@@ -16,6 +16,7 @@ TEST(AstIndentationTests, FunctionBody)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -37,6 +38,7 @@ TEST(AstIndentationTests, E_FunctionBody_CodeBlockEmpty)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_TRUE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -60,6 +62,7 @@ TEST(AstIndentationTests, E_FunctionBody_IndentationMismatch)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);

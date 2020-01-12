@@ -44,8 +44,10 @@
     <ClCompile Include="AST\AstBuilderTests.cpp" />
     <ClCompile Include="AST\AstControlFlowTests.cpp" />
     <ClCompile Include="AST\AstExpressionBuilderTests.cpp" />
+    <ClCompile Include="AST\AstIdentifierTests.cpp" />
     <ClCompile Include="AST\AstIndentationTests.cpp" />
     <ClCompile Include="AST\AstNumericBuilderTests.cpp" />
+    <ClCompile Include="AST\AstSymbolTableTests.cpp" />
     <ClCompile Include="grammar\CommentSmokeTests.cpp" />
     <ClCompile Include="grammar\EnumSmokeTests.cpp" />
     <ClCompile Include="grammar\ExpressionSmokeTests.cpp" />
