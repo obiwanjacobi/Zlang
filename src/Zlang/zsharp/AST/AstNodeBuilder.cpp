@@ -3,6 +3,7 @@
 #include "AstAssignment.h"
 #include "AstBranch.h"
 #include "AstFunction.h"
+#include "AstIdentifier.h"
 #include "AstExpressionBuilder.h"
 #include "../grammar/parser/zsharp_parserParser.h"
 #include "../../Utils.h"
@@ -94,20 +95,24 @@ antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_de
 {
     auto file = findCurrent<AstFile>();
     auto function = std::make_shared<AstFunction>(ctx);
+    
+    file->AddFunction(function);
+    setCurrent(function);
+
+    // process identifier first
+    auto identifier = ctx->identifier_func();
+    auto dummy = visitIdentifier_func(identifier);
 
     auto symbols = file->getSymbols();
-    auto entry = symbols.AddSymbol(_namespace, ctx->identifier_func()->getText(), AstSymbolType::Function, function);
-    function->setName(entry->getSymbolName().getQualifiedName());
+    auto entry = symbols.AddSymbol(_namespace, function->getIdentifier()->getName(), AstSymbolType::Function, function);
 
     if (dynamic_cast<zsharp_parserParser::Function_def_exportContext*>(ctx->parent)) {
         entry->setSymbolLocality(AstSymbolLocality::Exported);
     }
 
-    file->AddFunction(function);
-    setCurrent(function);
     addIndentation();
 
-    auto any = base::visitChildren(ctx);
+    auto any = visitChildrenExcept(ctx, identifier);
 
     revertIndentation();
     revertCurrent();
@@ -226,6 +231,72 @@ antlrcpp::Any AstNodeBuilder::visitStatement_continue(zsharp_parserParser::State
     return visitChildren(ctx);
 }
 
+
+template<class T>
+bool AstNodeBuilder::AddIdentifier(T ctx)
+{
+    auto namedObj = findCurrent<AstIdentifierSite>();
+    auto identifier = std::make_shared<AstIdentifier>(ctx);
+    return namedObj->AddIdentifier(identifier);
+}
+
+antlrcpp::Any AstNodeBuilder::visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx)
+{
+    bool success = AddIdentifier(ctx);
+    guard(success);
+
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any AstNodeBuilder::visitIdentifier_type(zsharp_parserParser::Identifier_typeContext* ctx)
+{
+    bool success = AddIdentifier(ctx);
+    guard(success);
+
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any AstNodeBuilder::visitIdentifier_var(zsharp_parserParser::Identifier_varContext* ctx)
+{
+    bool success = AddIdentifier(ctx);
+    //guard(success);   not implemented yet
+
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any AstNodeBuilder::visitIdentifier_param(zsharp_parserParser::Identifier_paramContext* ctx)
+{
+    bool success = AddIdentifier(ctx);
+    guard(success);
+
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any AstNodeBuilder::visitIdentifier_func(zsharp_parserParser::Identifier_funcContext* ctx)
+{
+    bool success = AddIdentifier(ctx);
+    guard(success);
+
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any AstNodeBuilder::visitIdentifier_field(zsharp_parserParser::Identifier_fieldContext* ctx)
+{
+    bool success = AddIdentifier(ctx);
+    guard(success);
+
+    return visitChildren(ctx);
+}
+
+antlrcpp::Any AstNodeBuilder::visitIdentifier_enumoption(zsharp_parserParser::Identifier_enumoptionContext* ctx)
+{
+    bool success = AddIdentifier(ctx);
+    guard(success);
+
+    return visitChildren(ctx);
+}
+
+
 antlrcpp::Any AstNodeBuilder::visitVariable_assign(zsharp_parserParser::Variable_assignContext* ctx)
 {
     auto codeBlock = findCurrent<AstCodeBlock>();
@@ -258,8 +329,9 @@ antlrcpp::Any AstNodeBuilder::visitIndent(zsharp_parserParser::IndentContext* ct
     // ignore indents that appear at the end of a line
     if (dynamic_cast<zsharp_parserParser::NewlineContext*>(ctx->parent) ||
         dynamic_cast<zsharp_parserParser::Empty_lineContext*>(ctx->parent) ||
-        dynamic_cast<zsharp_parserParser::CommentContext*>(ctx->parent) ) {
-        return 0;
+        dynamic_cast<zsharp_parserParser::CommentContext*>(ctx->parent) )
+    {
+        return nullptr;
     }
 
     auto indent = ctx->getText().length();

@@ -24,7 +24,6 @@ std::shared_ptr<AstSymbolEntry> AstSymbolTable::AddSymbol(const std::string& ns,
     auto entry = std::make_shared<AstSymbolEntry>(ns, symbolName, type);
     entry->setNode(node);
 
-    //_table.insert(std::pair<const std::string, std::shared_ptr<AstSymbolEntry>>(entry->getKey(), entry));
     _table[entry->getKey()] = entry;
     return entry;
 }

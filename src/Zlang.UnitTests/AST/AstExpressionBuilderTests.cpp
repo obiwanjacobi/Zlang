@@ -12,6 +12,7 @@ TEST(AstExpressionBuilderTests, Arithmetic1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -34,6 +35,7 @@ TEST(AstExpressionBuilderTests, Arithmetic2)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -56,6 +58,7 @@ TEST(AstExpressionBuilderTests, ArithmeticUnary1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -76,6 +79,7 @@ TEST(AstExpressionBuilderTests, ArithmeticUnary2)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -98,6 +102,7 @@ TEST(AstExpressionBuilderTests, ArithmeticParenth)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -121,6 +126,7 @@ TEST(AstExpressionBuilderTests, ArithmeticNestedParenth)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -146,6 +152,7 @@ TEST(AstExpressionBuilderTests, ArithmeticUnaryParenth1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -169,6 +176,7 @@ TEST(AstExpressionBuilderTests, Comparison1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -191,6 +199,7 @@ TEST(AstExpressionBuilderTests, ComparisonEqualAssign)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -213,6 +222,7 @@ TEST(AstExpressionBuilderTests, Logical1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -232,6 +242,7 @@ TEST(AstExpressionBuilderTests, LogicalComparison1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
@@ -252,6 +263,7 @@ TEST(AstExpressionBuilderTests, Assignment1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);

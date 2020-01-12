@@ -25,8 +25,8 @@ void LlvmIrBuilder::BuildFile(std::shared_ptr<llvm::Module> module, std::shared_
 llvm::Function* LlvmIrBuilder::BuildFunction(std::shared_ptr<llvm::Module> module, std::shared_ptr<AstFunction> astFunction)
 {
     auto fnType = llvm::FunctionType::get(llvm::Type::getVoidTy(_context), /*isVarArg*/ false);
-    auto linkage = astFunction->isExternal() ? llvm::Function::ExternalLinkage : llvm::Function::CommonLinkage;
+    auto linkage = llvm::Function::CommonLinkage;
 
-    auto fn = llvm::Function::Create(fnType, linkage, astFunction->getName(), module.get());
+    auto fn = llvm::Function::Create(fnType, linkage, astFunction->getIdentifier()->getName(), module.get());
     return fn;
 }

@@ -12,6 +12,7 @@ TEST(AstBuilderTests, BuildFile_empty)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -28,6 +29,7 @@ TEST(AstBuilderTests, BuildFile_ImportsOne)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -50,6 +52,7 @@ TEST(AstBuilderTests, BuildFile_Imports)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -76,6 +79,7 @@ TEST(AstBuilderTests, BuildFile_ExportsOne)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -98,6 +102,7 @@ TEST(AstBuilderTests, BuildFile_Exports)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -125,6 +130,7 @@ TEST(AstBuilderTests, BuildFile_Function)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -138,27 +144,6 @@ TEST(AstBuilderTests, BuildFile_Function)
     EXPECT_NE(cb, nullptr);
 }
 
-TEST(AstBuilderTests, BuildFile_FunctionExternal)
-{
-    const char* src =
-        "export MyFunction\n"
-        "MyFunction()\n"
-        "    return\n"
-        ;
-
-    ZsharpParser parser;
-    auto fileCtx = parser.parseFileText(src);
-
-    AstBuilder uut;
-    auto file = uut.BuildFile("", fileCtx);
-
-    auto functions = file->getFunctions();
-    EXPECT_EQ(functions.size(), 1);
-
-    auto fn = functions.at(0).get();
-    EXPECT_TRUE(fn->isExternal());
-}
-
 TEST(AstBuilderTests, BuildFile_Assignment)
 {
     const char* src =
@@ -168,6 +153,7 @@ TEST(AstBuilderTests, BuildFile_Assignment)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -186,6 +172,7 @@ TEST(AstBuilderTests, Build_ModuleName)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     uut.Build(fileCtx);

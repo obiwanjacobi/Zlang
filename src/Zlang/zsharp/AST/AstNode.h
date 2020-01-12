@@ -14,6 +14,8 @@ enum class AstNodeType {
     Branch,         // CodeBlock::*
     Expression,     // CodeBlock::*, Branch::[1]
     Numeric,        // Expression::1
+
+    Identifier,     // Function::1, Struct::1, Enum::1, Assignment::1
 };
 
 class AstNode

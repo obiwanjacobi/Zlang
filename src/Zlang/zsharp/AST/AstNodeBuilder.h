@@ -33,6 +33,14 @@ public:
     antlrcpp::Any visitStatement_break(zsharp_parserParser::Statement_breakContext* ctx) override;
     antlrcpp::Any visitStatement_continue(zsharp_parserParser::Statement_continueContext* ctx) override;
 
+    antlrcpp::Any visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx) override;
+    antlrcpp::Any visitIdentifier_type(zsharp_parserParser::Identifier_typeContext* ctx) override;
+    antlrcpp::Any visitIdentifier_var(zsharp_parserParser::Identifier_varContext* ctx) override;
+    antlrcpp::Any visitIdentifier_param(zsharp_parserParser::Identifier_paramContext* ctx) override;
+    antlrcpp::Any visitIdentifier_func(zsharp_parserParser::Identifier_funcContext* ctx) override;
+    antlrcpp::Any visitIdentifier_field(zsharp_parserParser::Identifier_fieldContext* ctx) override;
+    antlrcpp::Any visitIdentifier_enumoption(zsharp_parserParser::Identifier_enumoptionContext* ctx) override;
+
     antlrcpp::Any visitVariable_assign(zsharp_parserParser::Variable_assignContext* ctx) override;
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
 
@@ -43,6 +51,9 @@ public:
 
 protected:
     antlrcpp::Any visitChildrenExcept(antlr4::ParserRuleContext* node, antlr4::ParserRuleContext* except);
+
+    template<class T>
+    bool AddIdentifier(T ctx);
 
 private:
     template <class T> 

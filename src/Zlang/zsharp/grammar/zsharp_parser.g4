@@ -43,7 +43,7 @@ expression_arithmetic:
     | operator_arithmetic_unary expression_arithmetic
     | operator_bits_unary expression_arithmetic
     | arithmetic_operand;
-arithmetic_operand: number | variable_ref | parameter_ref | function_call;
+arithmetic_operand: number | variable_ref | function_call;
 
 expression_logic: 
       expression_logic SP operator_logic SP expression_logic
@@ -59,7 +59,7 @@ expression_comparison:
 comparison_operand: expression_arithmetic | function_call | variable_ref | literal;
 
 expression_bool: literal_bool | identifier_bool;
-identifier_bool: variable_ref | parameter_ref;
+identifier_bool: variable_ref;
 
 // functions
 function_call: indent identifier_func PARENopen function_parameter_uselist? PARENclose newline;
@@ -74,13 +74,12 @@ function_param_use: expression_value (COMMA SP expression_value)*;
 
 // variables
 variable_ref: identifier_var;
-parameter_ref: identifier_param;
-variable_def_top: (variable_def_typed | variable_def_typed_init | variable_auto_assign) newline;
-variable_def: indent (variable_def_typed | variable_def_typed_init | variable_auto_assign) newline;
+variable_def_top: (variable_def_typed | variable_def_typed_init | variable_assign_auto) newline;
+variable_def: indent (variable_def_typed | variable_def_typed_init | variable_assign_auto) newline;
 variable_def_typed: identifier_var COLON SP type_any;
 variable_def_typed_init: identifier_var COLON SP type_any SP EQ_ASSIGN SP expression_value;
-variable_auto_assign: identifier_var SP EQ_ASSIGN SP expression_value;
-variable_assign: indent identifier_var SP EQ_ASSIGN SP expression_value;
+variable_assign_auto: identifier_var SP EQ_ASSIGN SP expression_value;
+variable_assign: indent variable_assign_auto;
 
 // structs
 struct_def: identifier_type type_param_list? (COLON SP type_any)? (newline struct_field_def_list);
@@ -102,10 +101,7 @@ enum_base_type:
 // types
 type_def: identifier_type type_param_list? COLON SP type_any SP UNUSED newline;
 type_alias: identifier_type type_param_list? SP EQ_ASSIGN SP type_any newline;
-type_any: type_name | optional_type | error_type | error_optional_type;
-optional_type: type_name QUESTION;
-error_type: type_name ERROR;
-error_optional_type: type_name ERROR QUESTION;
+type_any: type_name ERROR? QUESTION?;
 
 type_name: known_types | identifier_type type_param_list?;
 known_types: 

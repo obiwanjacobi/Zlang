@@ -40,7 +40,6 @@ protected:
     antlrcpp::Any visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx) override;
     antlrcpp::Any visitFunction_call(zsharp_parserParser::Function_callContext* ctx) override;
     antlrcpp::Any visitVariable_ref(zsharp_parserParser::Variable_refContext* ctx) override;
-    antlrcpp::Any visitParameter_ref(zsharp_parserParser::Parameter_refContext* ctx) override;
     antlrcpp::Any visitNumber(zsharp_parserParser::NumberContext* ctx) override;
 
     // operators

@@ -134,9 +134,6 @@ public:
   virtual void enterVariable_ref(zsharp_parserParser::Variable_refContext *ctx) = 0;
   virtual void exitVariable_ref(zsharp_parserParser::Variable_refContext *ctx) = 0;
 
-  virtual void enterParameter_ref(zsharp_parserParser::Parameter_refContext *ctx) = 0;
-  virtual void exitParameter_ref(zsharp_parserParser::Parameter_refContext *ctx) = 0;
-
   virtual void enterVariable_def_top(zsharp_parserParser::Variable_def_topContext *ctx) = 0;
   virtual void exitVariable_def_top(zsharp_parserParser::Variable_def_topContext *ctx) = 0;
 
@@ -149,8 +146,8 @@ public:
   virtual void enterVariable_def_typed_init(zsharp_parserParser::Variable_def_typed_initContext *ctx) = 0;
   virtual void exitVariable_def_typed_init(zsharp_parserParser::Variable_def_typed_initContext *ctx) = 0;
 
-  virtual void enterVariable_auto_assign(zsharp_parserParser::Variable_auto_assignContext *ctx) = 0;
-  virtual void exitVariable_auto_assign(zsharp_parserParser::Variable_auto_assignContext *ctx) = 0;
+  virtual void enterVariable_assign_auto(zsharp_parserParser::Variable_assign_autoContext *ctx) = 0;
+  virtual void exitVariable_assign_auto(zsharp_parserParser::Variable_assign_autoContext *ctx) = 0;
 
   virtual void enterVariable_assign(zsharp_parserParser::Variable_assignContext *ctx) = 0;
   virtual void exitVariable_assign(zsharp_parserParser::Variable_assignContext *ctx) = 0;
@@ -190,15 +187,6 @@ public:
 
   virtual void enterType_any(zsharp_parserParser::Type_anyContext *ctx) = 0;
   virtual void exitType_any(zsharp_parserParser::Type_anyContext *ctx) = 0;
-
-  virtual void enterOptional_type(zsharp_parserParser::Optional_typeContext *ctx) = 0;
-  virtual void exitOptional_type(zsharp_parserParser::Optional_typeContext *ctx) = 0;
-
-  virtual void enterError_type(zsharp_parserParser::Error_typeContext *ctx) = 0;
-  virtual void exitError_type(zsharp_parserParser::Error_typeContext *ctx) = 0;
-
-  virtual void enterError_optional_type(zsharp_parserParser::Error_optional_typeContext *ctx) = 0;
-  virtual void exitError_optional_type(zsharp_parserParser::Error_optional_typeContext *ctx) = 0;
 
   virtual void enterType_name(zsharp_parserParser::Type_nameContext *ctx) = 0;
   virtual void exitType_name(zsharp_parserParser::Type_nameContext *ctx) = 0;

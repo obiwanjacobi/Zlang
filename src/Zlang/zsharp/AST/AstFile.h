@@ -25,8 +25,6 @@ protected:
     void AddExport(zsharp_parserParser::Statement_exportContext* exportCtx);
     
     void AddFunction(std::shared_ptr<AstFunction> function);
-    bool functionIsExport(const std::string& functionName) const;
-    bool functionIsExport(std::shared_ptr<AstFunction> function);
 
     AstSymbolTable& getSymbols() { return _symbols; }
 

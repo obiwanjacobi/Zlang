@@ -15,6 +15,7 @@ TEST(AstControlFlowTests, If)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -43,6 +44,7 @@ TEST(AstControlFlowTests, ElseIf)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
@@ -74,6 +76,7 @@ TEST(AstControlFlowTests, Else)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
