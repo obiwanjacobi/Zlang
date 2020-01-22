@@ -1,3 +1,2 @@
 MyFunction()
-x = 1
-
+    x: U8 = 0

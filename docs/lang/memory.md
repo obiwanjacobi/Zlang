@@ -32,7 +32,7 @@ Typically a custom Allocator object is created through a factory function for th
 alloc = getHeapAllocator()      // get allocator object
 
 a = 42
-s = a.Str(alloc)                // function that needs memory
+s = a.Text(alloc)                // function that needs memory
 ```
 
 ### Allocation Strategies
@@ -56,12 +56,12 @@ s = a.Str(alloc)                // function that needs memory
 
 ## Volatile ??
 
-> How to deal with memory mapped hardware (IO)?
+> How to deal with memory mapped hardware (IO)? Read, Modify, Write bits.
 
 ## Code Layout
 
 Assign code to memory sections (Page0) to fit hardware targets.
-Hardware description language?
+Hardware description language? Linker Scripts?
 
 ## Memory Banks
 

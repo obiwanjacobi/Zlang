@@ -159,10 +159,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitFunction_type(zsharp_parserParser::Function_typeContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitFunction_parameter_uselist(zsharp_parserParser::Function_parameter_uselistContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -240,6 +236,10 @@ public:
   }
 
   virtual antlrcpp::Any visitType_alias(zsharp_parserParser::Type_aliasContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitType_decl(zsharp_parserParser::Type_declContext *ctx) override {
     return visitChildren(ctx);
   }
 

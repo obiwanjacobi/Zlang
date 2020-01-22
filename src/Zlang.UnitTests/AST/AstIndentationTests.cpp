@@ -50,27 +50,3 @@ TEST(AstIndentationTests, E_FunctionBody_CodeBlockEmpty)
     auto error = errors.at(0);
     EXPECT_STREQ(error->getText().c_str(), AstError::EmptyCodeBlock);
 }
-
-
-TEST(AstIndentationTests, E_FunctionBody_IndentationMismatch)
-{
-    const char* src =
-        "MyFunction()\n"
-        "    c = 0\n"
-        "        d = 0\n"
-        ;
-
-    ZsharpParser parser;
-    auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
-
-    AstBuilder uut;
-    auto file = uut.BuildFile("", fileCtx);
-    EXPECT_TRUE(uut.hasErrors());
-
-    auto errors = uut.getErrors();
-    EXPECT_TRUE(errors.size() > 0);
-
-    auto error = errors.at(0);
-    EXPECT_STREQ(error->getText().c_str(), AstError::IndentationMismatch);
-}

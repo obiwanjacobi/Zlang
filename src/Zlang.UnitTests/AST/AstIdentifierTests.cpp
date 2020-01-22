@@ -27,6 +27,27 @@ TEST(AstIndentifierTests, FunctionName)
     EXPECT_STREQ(identifier->getName().c_str(), "MyFunction");
 }
 
+TEST(AstIndentifierTests, FunctionParameterName)
+{
+    const char* src =
+        "MyFunction(a: U8)\n"
+        "    c = 0\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    EXPECT_FALSE(uut.hasErrors());
+
+    auto fn = file->getFunctions().at(0);
+    auto identifier = fn->getIdentifier();
+    EXPECT_NE(identifier, nullptr);
+    EXPECT_STREQ(identifier->getName().c_str(), "MyFunction");
+}
+
 TEST(AstIndentifierTests, VarAssignment)
 {
     const char* src =

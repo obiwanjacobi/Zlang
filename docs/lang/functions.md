@@ -26,6 +26,8 @@ Typically the names of functions (and variables) can begin with either an upper 
 
 ## Pointer to a Function
 
+> I probably gonna do this differently. Make functions lower case and use a Function Interface (declaration) to have the type. Seems more consistent and concise. Does bring up an issue when auto initializing a ptr-to-a-function variable though: What would be the type of ptr? `ptr = myFunction`. Can we go look for suitable types that match the declaration of the specified function? Do we generate an anonymous function type?
+
 This exception has to do with pointers to functions, for instance when a function is passed as a parameter to another function.
 
 Here is an example of how to construct a pointer to a function. It is the same as getting a pointer to any 'object', but here the intrinsic `ptr` attribute is accessible on the type (function).
@@ -45,6 +47,8 @@ takePtr(ptr: Ptr<MyFunction>, p: U8)
 Any function that takes parameters that represent pointer to functions must specify its (function) type up front. This function type definition contains the signature of the number of parameters and their types as well as the return type - if any.
 
 `#ptr` is different from taking a pointer from a variable with `.Ptr()` in that `#ptr` only works on a function type that is known at compile time, while `.Ptr()` takes the runtime address of a variable. See also [Pointer Types](./types.md).
+
+> I want to ditch `#ptr` because just using the function name is easier and more intuitive.
 
 When the code has a pointer to a function, it can be called by specifying the `()` straight after it. Any parameters the function that is pointed to requires, must be passed in at that time. The return value -if any- will be available when the function returns.
 

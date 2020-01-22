@@ -42,6 +42,14 @@ loop n in [0..10]
     foreach_n_1_to_9
 ```
 
+Loop a number of times
+
+```C#
+c = 42
+loop c
+    do_this_42_times
+```
+
 ## Break
 
 It is possible to break out of the execution of a loop at any time with the `break` keyword.

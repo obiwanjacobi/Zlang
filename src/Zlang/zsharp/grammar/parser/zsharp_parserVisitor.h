@@ -91,8 +91,6 @@ public:
 
     virtual antlrcpp::Any visitFunction_parameter_self(zsharp_parserParser::Function_parameter_selfContext *context) = 0;
 
-    virtual antlrcpp::Any visitFunction_type(zsharp_parserParser::Function_typeContext *context) = 0;
-
     virtual antlrcpp::Any visitFunction_parameter_uselist(zsharp_parserParser::Function_parameter_uselistContext *context) = 0;
 
     virtual antlrcpp::Any visitFunction_param_use(zsharp_parserParser::Function_param_useContext *context) = 0;
@@ -132,6 +130,8 @@ public:
     virtual antlrcpp::Any visitType_def(zsharp_parserParser::Type_defContext *context) = 0;
 
     virtual antlrcpp::Any visitType_alias(zsharp_parserParser::Type_aliasContext *context) = 0;
+
+    virtual antlrcpp::Any visitType_decl(zsharp_parserParser::Type_declContext *context) = 0;
 
     virtual antlrcpp::Any visitType_any(zsharp_parserParser::Type_anyContext *context) = 0;
 

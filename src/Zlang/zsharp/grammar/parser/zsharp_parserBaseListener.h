@@ -124,9 +124,6 @@ public:
   virtual void enterFunction_parameter_self(zsharp_parserParser::Function_parameter_selfContext * /*ctx*/) override { }
   virtual void exitFunction_parameter_self(zsharp_parserParser::Function_parameter_selfContext * /*ctx*/) override { }
 
-  virtual void enterFunction_type(zsharp_parserParser::Function_typeContext * /*ctx*/) override { }
-  virtual void exitFunction_type(zsharp_parserParser::Function_typeContext * /*ctx*/) override { }
-
   virtual void enterFunction_parameter_uselist(zsharp_parserParser::Function_parameter_uselistContext * /*ctx*/) override { }
   virtual void exitFunction_parameter_uselist(zsharp_parserParser::Function_parameter_uselistContext * /*ctx*/) override { }
 
@@ -186,6 +183,9 @@ public:
 
   virtual void enterType_alias(zsharp_parserParser::Type_aliasContext * /*ctx*/) override { }
   virtual void exitType_alias(zsharp_parserParser::Type_aliasContext * /*ctx*/) override { }
+
+  virtual void enterType_decl(zsharp_parserParser::Type_declContext * /*ctx*/) override { }
+  virtual void exitType_decl(zsharp_parserParser::Type_declContext * /*ctx*/) override { }
 
   virtual void enterType_any(zsharp_parserParser::Type_anyContext * /*ctx*/) override { }
   virtual void exitType_any(zsharp_parserParser::Type_anyContext * /*ctx*/) override { }

@@ -63,12 +63,11 @@ identifier_bool: variable_ref;
 
 // functions
 function_call: indent identifier_func PARENopen function_parameter_uselist? PARENclose newline;
-function_def: identifier_func PARENopen function_parameter_list? PARENclose function_type? newline codeblock;
+function_def: identifier_func PARENopen function_parameter_list? PARENclose type_decl? newline codeblock;
 function_def_export: EXPORT SP function_def;
 function_parameter_list: (function_parameter | function_parameter_self) (COMMA SP function_parameter)*;
-function_parameter: identifier_param function_type;
-function_parameter_self: SELF function_type;
-function_type: COLON SP type_any;
+function_parameter: identifier_param type_decl;
+function_parameter_self: SELF type_decl?;
 function_parameter_uselist: function_param_use (COMMA SP function_param_use)*;
 function_param_use: expression_value (COMMA SP expression_value)*;
 
@@ -76,15 +75,15 @@ function_param_use: expression_value (COMMA SP expression_value)*;
 variable_ref: identifier_var;
 variable_def_top: (variable_def_typed | variable_def_typed_init | variable_assign_auto) newline;
 variable_def: indent (variable_def_typed | variable_def_typed_init | variable_assign_auto) newline;
-variable_def_typed: identifier_var COLON SP type_any;
-variable_def_typed_init: identifier_var COLON SP type_any SP EQ_ASSIGN SP expression_value;
+variable_def_typed: identifier_var type_decl;
+variable_def_typed_init: identifier_var type_decl SP EQ_ASSIGN SP expression_value;
 variable_assign_auto: identifier_var SP EQ_ASSIGN SP expression_value;
 variable_assign: indent variable_assign_auto;
 
 // structs
-struct_def: identifier_type type_param_list? (COLON SP type_any)? (newline struct_field_def_list);
+struct_def: identifier_type type_param_list? (type_decl)? (newline struct_field_def_list);
 struct_field_def_list: struct_field_def+;
-struct_field_def: indent identifier_field COLON SP type_any newline;
+struct_field_def: indent identifier_field type_decl newline;
 
 // enums
 enum_def: identifier_type (COLON SP enum_base_type)? newline (enum_option_def_list | enum_option_def_listline);
@@ -99,8 +98,9 @@ enum_base_type:
     | type_U16 | type_U24 | type_U32 | type_U8;
 
 // types
-type_def: identifier_type type_param_list? COLON SP type_any SP UNUSED newline;
+type_def: identifier_type type_param_list? type_decl SP UNUSED newline;
 type_alias: identifier_type type_param_list? SP EQ_ASSIGN SP type_any newline;
+type_decl: COLON SP type_any;
 type_any: type_name ERROR? QUESTION?;
 
 type_name: known_types | identifier_type type_param_list?;

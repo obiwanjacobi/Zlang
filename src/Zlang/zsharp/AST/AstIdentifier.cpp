@@ -23,4 +23,6 @@ const std::string AstIdentifier::getName() const
     if (_enumOptCtx) {
         return _enumOptCtx->getText();
     }
+
+    return "";
 }

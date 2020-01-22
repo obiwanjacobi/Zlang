@@ -68,17 +68,42 @@ s = "Some text
 
 These indents on the beginning of the new lines do not become part of the resulting string: `"Some text spread over multiple lines"`
 
+> Or surround each line of string-part with double quotes?
+
 Basic formatting of dynamic values into a string is done in thr following way:
 
 ```C#
 v = 42
 s = "Answer to everything is '{v}'"
 // Answer to everything is '42'
+
+// hex (lower case) formatting
+s = "Answer to everything is '{v:x}'"
+// Answer to everything is '2a'
+
+// escape braces
+s = "This will print \\{braces\\}"
+// This will print {braces}
 ```
 
 Using the `{}` characters as is in a string literal, requires the escape sequence `\\`.
 
-> What character to use to disable string features like formatting?
+> What character to use to disable string features like formatting? `@`
+
+```C#
+s = @"This will print {braces}"
+// This will print {braces}
+```
+
+It should be possible for custom types to implement custom formatting. Most likely the `"{}"` syntax will compile to format calls bound to specific types. The `format` function will be passed all the info it needs to know - like formatting parameters.
+
+```C#
+MyStruct
+    ...
+
+format(self: MyStruct, ctx: FormatContext): Str
+    return custom_formating_impl
+```
 
 ## Character
 

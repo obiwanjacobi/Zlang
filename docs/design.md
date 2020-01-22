@@ -17,3 +17,10 @@ Easy to build (parse).
 Translates well to 8-bit CPUs like Z80.
 
 Explain: size, length, count, capacity.
+
+What is better in Z# than other languages?
+
+* More consistency. Operators generally mean only one thing.
+* Less noise. No unnecessary keywords and no brackets or semi-colons.
+* Focus on compile-time benefits. Do as much at compile-time as possible.
+* Just data and functions. You can do sort of OO but not full OOP. Makes it simpler to learn and the resulting constructs translate easier to (simpler/smaller/faster) machine code.

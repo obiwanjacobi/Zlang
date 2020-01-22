@@ -41,6 +41,9 @@ public:
     antlrcpp::Any visitIdentifier_field(zsharp_parserParser::Identifier_fieldContext* ctx) override;
     antlrcpp::Any visitIdentifier_enumoption(zsharp_parserParser::Identifier_enumoptionContext* ctx) override;
 
+    antlrcpp::Any visitFunction_parameter(zsharp_parserParser::Function_parameterContext* ctx) override;
+    antlrcpp::Any visitFunction_parameter_self(zsharp_parserParser::Function_parameter_selfContext* ctx) override;
+
     antlrcpp::Any visitVariable_assign(zsharp_parserParser::Variable_assignContext* ctx) override;
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
     antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) override;
@@ -51,14 +54,14 @@ public:
     const std::vector<std::shared_ptr<AstError>>& getErrors() const { return _errors; }
 
 protected:
-    antlrcpp::Any visitChildrenExcept(antlr4::ParserRuleContext* node, antlr4::ParserRuleContext* except);
+    antlrcpp::Any visitChildrenExcept(antlr4::ParserRuleContext* node, const antlr4::ParserRuleContext* except);
 
     template<class T>
     bool AddIdentifier(T ctx);
 
 private:
     template <class T> 
-    T* findCurrent() const;
+    T* findCurrent(uint32_t nthOfT = 1) const;
     template <class T>
     T* getCurrent() const { return dynamic_cast<T*>(_current.front()); }
     template <class T> 
@@ -69,10 +72,11 @@ private:
 
     std::string _namespace;
 
-    void addIndentation();
-    void revertIndentation() { _indentation.pop(); }
-    std::stack<int> _indentation;
     int _indent;
+    template <class T>
+    uint32_t getIndent(T ctx) {
+        return visitIndent(ctx->indent()).as<uint64_t>();
+    }
 
     std::vector<std::shared_ptr<AstError>> _errors;
 };

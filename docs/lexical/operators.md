@@ -51,10 +51,10 @@ Operators never allocate memory!
 | ' ' | Character
 | @ | Disable String formatting features
 | { } | String formatting parameter / Code Decorator
-| [ ] | Slice / Range
+| [ ] | Index / Slice / Range
 | ! | Possible Error (on return type)
 | ? | Optional variable or parameter/return value
-| \| \| | Optional fallback (or ??)
+| \| \| | Optional fallback (or `??`)
 | # | Pragma / Attribute Access
 | #! | Compile-Time Code
 

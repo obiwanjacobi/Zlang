@@ -12,8 +12,10 @@ enum class AstSymbolType
     Function,
     Struct,
     Enum,
+    Type,
     Parameter,
     Variable,
+    Field,
 };
 
 enum class AstSymbolLocality
@@ -26,10 +28,6 @@ enum class AstSymbolLocality
 class AstSymbolName
 {
 public:
-    AstSymbolName(const std::string& symbolName)
-    {
-        Parse(symbolName);
-    }
     AstSymbolName(const std::string& ns, const std::string& name)
         : _namespace(ns), _name(name)
     {}
@@ -37,8 +35,6 @@ public:
     const std::string getQualifiedName() const;
 
 private:
-    void Parse(const std::string& symbol);
-
     std::string _namespace;
     std::string _name;
     std::vector<std::string> _aliases;
@@ -60,23 +56,41 @@ public:
     const AstSymbolName& getSymbolName() const { return _name; }
     const std::string getKey() const { return _name.getQualifiedName(); }
 
-    void setNode(std::shared_ptr<AstNode> node) { _node = node; }
+    void AddNode(std::shared_ptr<AstNode> node);
 
 private:
     AstSymbolType _type;
     AstSymbolName _name;
     AstSymbolLocality _locality;
-    std::shared_ptr<AstNode> _node;
+    std::shared_ptr<AstNode> _definition;
+    std::vector<std::shared_ptr<AstNode>> _references;
 };
 
 class AstSymbolTable
 {
 public:
+    AstSymbolTable()
+    {}
+    AstSymbolTable(std::shared_ptr<AstSymbolTable> parentTable)
+        : _parent(parentTable)
+    {}
+
     std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& ns, const std::string& symbolName, 
         AstSymbolType type, std::shared_ptr<AstNode> node);
 
     std::shared_ptr<AstSymbolEntry> getEntry(const std::string qualifiedNameOrAlias) { return _table[qualifiedNameOrAlias]; }
 
+    std::shared_ptr<AstSymbolTable> getParentTable() const { return _parent; }
+
 private:
+    std::shared_ptr<AstSymbolTable> _parent;
     std::map<const std::string, std::shared_ptr<AstSymbolEntry>> _table;
+};
+
+class AstSymbolTableSite
+{
+public:
+    virtual std::shared_ptr<AstSymbolTable> getSymbols() = 0;
+    virtual std::shared_ptr<AstSymbolEntry> SetSymbol(const std::string& ns, const std::string& symbolName,
+        AstSymbolType type, std::shared_ptr<AstNode> node) = 0;
 };
