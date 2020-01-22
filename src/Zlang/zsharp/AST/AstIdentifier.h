@@ -5,7 +5,21 @@
 #include "../../Utils.h"
 #include <memory>
 
+enum class AstIdentifierType
+{
+    Unknown,
+    Bool,
+    Type,
+    Variable,
+    Parameter,
+    Function,
+    Field,
+    EnumOption
+};
+
+
 class AstIdentifier;
+class AstSymbolEntry;
 
 class AstIdentifierSite
 {
@@ -13,10 +27,8 @@ public:
     virtual bool AddIdentifier(std::shared_ptr<AstIdentifier> identifier) = 0;
 
 protected:
-    // AddSymbol()
-    // walk parents up and test for AstIdentifierSite
-    // concat all identifiers - what if there are more than one on that site??
-    // find AstFile and add resulting Symbol
+    // walk parents up and test for AstSymbolTableSite
+    std::shared_ptr<AstSymbolEntry> AddSymbol(std::shared_ptr<AstIdentifier> identifier);
 };
 
 class AstIdentifier : public AstNode
@@ -62,6 +74,7 @@ public:
     {}
 
     const std::string getName() const;
+    const AstIdentifierType getType() const;
 
 private:
     zsharp_parserParser::Identifier_boolContext* _boolCtx;

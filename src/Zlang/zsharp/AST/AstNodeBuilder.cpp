@@ -330,9 +330,8 @@ antlrcpp::Any AstNodeBuilder::visitVariable_assign(zsharp_parserParser::Variable
 
     revertCurrent();
 
-    auto file = findCurrent<AstFile>();
-    auto symbols = file->getSymbols();
-    auto entry = symbols->AddSymbol(_namespace, assign->getIdentifier()->getName(), AstSymbolType::Variable, assign);
+    auto symbols = findCurrent<AstSymbolTableSite>();
+    auto entry = symbols->SetSymbol(_namespace, assign->getIdentifier()->getName(), AstSymbolType::Variable, assign);
 
     return any;
 }

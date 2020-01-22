@@ -40,7 +40,9 @@ TEST(AstSymbolTableTests, LocalVariableName)
     auto file = uut.BuildFile("", fileCtx);
     EXPECT_FALSE(uut.hasErrors());
 
-    auto symbols = file->getSymbols();
+    auto fn = file->getFunctions().at(0);
+    auto cb = fn->getCodeBlocks().at(0);
+    auto symbols = cb->getSymbols();
     auto entry = symbols->getEntry("c");
 
     EXPECT_NE(entry, nullptr);

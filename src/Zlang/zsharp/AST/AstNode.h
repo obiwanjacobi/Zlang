@@ -25,8 +25,29 @@ class AstNode
 public:
     AstNodeType getNodeType() const { return _nodeType; }
 
-    const AstNode* getParent() const { return _parent; }
+    AstNode* getParent() const { return _parent; }
     void setParent(AstNode* parent) { _parent = parent; }
+
+    template<class T>
+    T* getParent() const { return dynamic_cast<T*>(_parent); }
+    template<class T>
+    T* getParentRecursive() const
+    {
+        auto parent = getParent();
+
+        if (parent) {
+            T* typedParent = getParent<T>();
+
+            if (typedParent) {
+                return typedParent;
+            }
+
+            return parent->getParentRecursive<T>();
+        }
+
+        return nullptr;
+
+    }
 
 protected:
     AstNode(AstNodeType nodeType)

@@ -5,6 +5,8 @@ bool AstFunctionParameter::AddIdentifier(std::shared_ptr<AstIdentifier> identifi
     if (_identifier == nullptr) {
         _identifier = identifier;
         identifier->setParent(this);
+        auto entry = AddSymbol(identifier);
+        guard(entry);
         return true;
     }
 
@@ -16,6 +18,8 @@ bool AstFunction::AddIdentifier(std::shared_ptr<AstIdentifier> identifier)
     if (_identifier == nullptr) {
         _identifier = identifier;
         identifier->setParent(this);
+        auto entry = AddSymbol(identifier);
+        guard(entry);
         return true;
     }
 
