@@ -143,3 +143,27 @@ TEST(AstControlFlowTests, Return)
     auto br = std::static_pointer_cast<AstBranch>(fi);
     EXPECT_EQ(br->getBranchType(), AstBranchType::ExitFunction);
 }
+
+TEST(AstControlFlowTests, ReturnValue)
+{
+    const char* src =
+        "MyFunction(): U8\n"
+        "    return 42\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+
+    EXPECT_NE(file, nullptr);
+    auto fn = file->getFunctions().at(0);
+    auto cb = fn->getCodeBlocks().at(0);
+    auto fi = cb->getItems().at(0);
+    EXPECT_EQ(fi->getNodeType(), AstNodeType::Branch);
+    auto br = std::static_pointer_cast<AstBranch>(fi);
+    EXPECT_EQ(br->getBranchType(), AstBranchType::ExitFunction);
+    EXPECT_NE(br->getExpression(), nullptr);
+    
+}

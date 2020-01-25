@@ -46,6 +46,10 @@ TEST(AstIndentifierTests, FunctionParameterName)
     auto identifier = fn->getIdentifier();
     EXPECT_NE(identifier, nullptr);
     EXPECT_STREQ(identifier->getName().c_str(), "MyFunction");
+    auto param = fn->getParameters().at(0);
+    auto pid = param->getIdentifier();
+    EXPECT_NE(pid, nullptr);
+    EXPECT_STREQ(pid->getName().c_str(), "a");
 }
 
 TEST(AstIndentifierTests, VarAssignment)
@@ -64,8 +68,7 @@ TEST(AstIndentifierTests, VarAssignment)
     EXPECT_FALSE(uut.hasErrors());
 
     auto fn = file->getFunctions().at(0);
-    auto codeblocks = fn->getCodeBlocks();
-    auto cb = codeblocks.at(0);
+    auto cb = fn->getCodeBlocks().at(0);
     auto codeItems = cb->getItems();
     auto ci = std::static_pointer_cast<AstAssignment>(codeItems.at(0));
     auto identifier = ci->getIdentifier();

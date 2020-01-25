@@ -4,17 +4,17 @@
 
 bool isOperand(zsharp_parserParser::Expression_arithmeticContext* ctx)
 {
-    return ctx->arithmetic_operand();
+    return ctx->arithmetic_operand() != nullptr;
 }
 
 bool isOperand(zsharp_parserParser::Expression_logicContext* ctx)
 {
-    return ctx->logic_operand();
+    return ctx->logic_operand() != nullptr;
 }
 
 bool isOperand(zsharp_parserParser::Expression_comparisonContext* ctx)
 {
-    return ctx->comparison_operand();
+    return ctx->comparison_operand() != nullptr;
 }
 
 template<class T>
