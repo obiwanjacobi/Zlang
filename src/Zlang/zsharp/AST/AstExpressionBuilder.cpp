@@ -134,6 +134,15 @@ antlrcpp::Any AstExpressionBuilder::visitExpression_value(zsharp_parserParser::E
         return nullptr;
     }
 
+    if (ctx->expression_bool()) {
+        auto operand = visitChildren(ctx);
+        _values.push(operand.as<std::shared_ptr<AstExpressionOperand>>());
+
+        auto expr = std::make_shared<AstExpression>(ctx);
+        _operators.push(expr);
+        return nullptr;
+    }
+    
     return base::visitChildren(ctx);
 }
 

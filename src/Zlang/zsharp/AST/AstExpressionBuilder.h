@@ -14,23 +14,26 @@ class AstExpressionBuilder : protected zsharp_parserBaseVisitor
 public:
     std::shared_ptr<AstExpression> Build(zsharp_parserParser::Expression_valueContext* expressionCtx) {
         auto val = visitExpression_value(expressionCtx);
-        assert(val.isNull());
-
-        return BuildExpression(0);
+        if (val.isNull()) {
+            return BuildExpression(0);
+        }
+        return val.as< std::shared_ptr<AstExpression>>();
     }
 
     std::shared_ptr<AstExpression> Build(zsharp_parserParser::Expression_logicContext* expressionCtx) {
         auto val = visitExpression_logic(expressionCtx);
-        assert(val.isNull());
-
-        return BuildExpression(0);
+        if (val.isNull()) {
+            return BuildExpression(0);
+        }
+        return val.as< std::shared_ptr<AstExpression>>();
     }
 
     std::shared_ptr<AstExpression> Test(antlr4::ParserRuleContext* ctx) {
         auto val = visit(ctx);
-        assert(val.isNull());
-
-        return BuildExpression(0);
+        if (val.isNull()) {
+            return BuildExpression(0);
+        }
+        return val.as< std::shared_ptr<AstExpression>>();
     }
 
 protected:
@@ -41,7 +44,7 @@ protected:
     antlrcpp::Any visitExpression_arithmetic(zsharp_parserParser::Expression_arithmeticContext* ctx) override;
     antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) override;
     antlrcpp::Any visitExpression_comparison(zsharp_parserParser::Expression_comparisonContext* ctx) override;
-    
+
     // operands
     antlrcpp::Any visitLiteral_bool(zsharp_parserParser::Literal_boolContext* ctx) override;
     antlrcpp::Any visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx) override;

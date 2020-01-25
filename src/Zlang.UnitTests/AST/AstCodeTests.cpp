@@ -16,11 +16,11 @@ TEST(AstCodeTests, Code1)
         "    return false\n"
         ;
 
-    /*ZsharpParser parser;
+    ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
     EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
-    EXPECT_FALSE(uut.hasErrors());*/
+    EXPECT_FALSE(uut.hasErrors());
 }

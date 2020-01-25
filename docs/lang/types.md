@@ -166,6 +166,14 @@ changeByRef(Ptr<U8> ptr)
     v = 42              // does NOT change ptr value!
 ```
 
+> Alternate Syntax
+
+```C#
+ptr: Ptr<U8>        // must be initialized or optional
+v = ptr()           // deref? v => U8
+ptr() = 42          // change pointed to value?
+```
+
 Template Access
 
 ```C#
