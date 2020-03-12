@@ -15,7 +15,7 @@ callFn(ptrFn: Ptr<FunctionInterface>): U8
     return ptrFn(0x4242)
 ```
 
-The function interface is simply a function declaration. It end with a `_` to indicate it is not a function definition and contains no implementation.
+The function interface is simply a function declaration. It ends with a `_` to indicate it is not a function definition and contains no implementation.
 
 Function interfaces are syntactically different from Object interfaces - so an object interface with one function cannot be mixed up/interchanged with a function interface.
 
@@ -45,6 +45,10 @@ RestrictedInterface<T: MyStruct>
     lowByte(self: T, p1: U16): U8 _
     hiByte(self: T, p1: U16): U8 _
 // The interface can only be implemented on MyStruct (or derived) types.
+
+CompanionInterface<T: TemplateInterface>
+    fn(self: T, p1: U8): Str _
+// The interface can only be implemented on types that also implement TemplateInterface (with any T).
 ```
 
 How to implement an interface:

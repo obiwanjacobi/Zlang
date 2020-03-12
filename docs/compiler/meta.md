@@ -19,7 +19,6 @@ A special operator is used to access them: `#`
 | `#count` | The number of elements.
 | `#size` | The size in bytes the type takes up in memory.
 | `#default` | Default value for the type.
-| `#ptr` | Pointer to a (function) type.
 | `#imm` | Make immutable.
 | `#mask` | Mask for retrieving a bit field value.
 | `#offset` | Byte offset from the start of a structure to a field.
@@ -126,7 +125,7 @@ MyStruct
 s = MyStruct
     ...
 
-if s#field1     // does 'field1' exist?
+if s#field1     // does 'field1' exist at compile time?
     ...
 ```
 
@@ -137,8 +136,9 @@ MyFunc(p1: U8, p2: U16)
     ...
 
 pfn = MyFunct#ptr
+pfn = MyFunct
 
-if pfn#p1   // does 'p1' parameter exist
+if pfn#p1   // does 'p1' parameter exist?
     ...
 ```
 
@@ -161,12 +161,15 @@ MyReadOnlyStruct: MyStruct#imm
 MyReadOnlyStruct: Imm<MyStruct>
     fld1 = 42           // have to init right away
     fld2 = 0x4242
+```
 
+```csharp
+// make an instance read-only
 s = MyStruct
     fld1 = 42
     fld2 = 0x4242
 
-// make instance readonly
-r = s.ReadOnly()    // makes or requires? #imm type
+// using a conversion to make immutable
+r = s.Imm()
 r.fld1 = 101        // error! field is read-only
 ```

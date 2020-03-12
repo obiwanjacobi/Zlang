@@ -19,6 +19,15 @@ b = v.U8()          // error: loss of data!
 b = v.U8([8..16])   // using a Range to extract the bits
 ```
 
+Alternative Syntax
+
+```C#
+v = 42: U16         // v => U16
+b = v: U8           // error: loss of data!
+// Nah:
+b = v: U8([8..16])  // using a Range to extract the bits
+```
+
 Unchecked signed to unsigned or visa versa conversions boil down to the number of bits: can the target type contain all the bits of the original value - even though the meaning of those bits may change.
 
 ```C#

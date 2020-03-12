@@ -77,6 +77,8 @@ hasParam(p: U8?): Bool
 
 Default value for a function parameter:
 
+> Having doubts about this for it allows overloading that is not explicit.
+
 ```C#
 defFunc(p: U8 = 0)
     ...
@@ -95,7 +97,7 @@ namedFn(p: U8, p2: U16)
     ...
 
 namedFn(p = 42, p2 = 0x4242)    // ok, both named
-namedFn(p2 = 0x4242, p = 42)    // ok, out oif order, but named
+namedFn(p2 = 0x4242, p = 42)    // ok, out of order, but named
 namedFn(42, p2 = 0x4242)        // ok, p in order, rest named
 namedFn(0x4242, p = 42)         // error! cannot convert 1st to U8
 
@@ -103,7 +105,7 @@ namedFn(0x4242, p = 42)         // error! cannot convert 1st to U8
 
 Variable number of parameters:
 
-Not really supported but can fake with Array: all of same type.
+Not really supported but can fake with Array: all of same type. We don't have an 'object' type that is the basis of all.
 
 ```C#
 varFunc<T>(p: U8, varP: Array<T>)
@@ -170,6 +172,8 @@ When calling a bound function, the 'self' parameter can be used as an 'object' u
 | Ptr\<T> | T or Ptr\<T> | Either can be Imm\<T>
 | Imm\<T> | Imm\<T> or Ptr<Imm<\<T>>>
 
+> This means implicit conversions => something we don't want?
+
 Any type can be used, for instance Enum types:
 
 ```C#
@@ -186,6 +190,8 @@ b = e.IsMagicValue()        // true
 When resolving target functions the most specific function is chosen at compile time. This means that of the multiple function candidates the function is chosen that has parameter and return types that are most specific and closest to the types used at the call site.
 
 > TODO: Example
+
+> At compile time => means no runtime dispatch based on `self` type!?
 
 ## Local Functions
 
@@ -231,6 +237,20 @@ is(someVar).biggerThan(42)
 does<SomeType>().implement<SomeInterface>()
 can<SomeType>().BeCastedTo<DiffType>()
 does<SomeType>().implementMethod(MethodName)
+```
+
+> Allow by default using the 'fluent' self object if no return type?
+
+```csharp
+add(self: Calc, v: U8)
+sub(self: Calc, v: U8)
+
+c = Calc
+// only works with dot-syntax
+c.add(4).sub(2)
+// with scope?
+c.add(4)
+    .sub(2)
 ```
 
 > Auto-Fluent syntax? `Build(p: MyStruct)::Into(target: Stream)`

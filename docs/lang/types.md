@@ -132,7 +132,10 @@ See also Union Types.
 
 ## Pointer Types
 
-The template type `Ptr<T>` is used to represent a pointer.
+The template type `Ptr<T>` is used to represent a pointer. Z# reserves characters like `*` -commonly used in other languages to indicate pointer types- for operators.
+
+> The number of bits used for a pointer into memory depends on the memory model: 16, 20, 24 ...?
+When bank switching and extended memory is worked out this number is configured for the compiler to use.
 
 ```C#
 ptr: Ptr<U8>        // pointer to an U8
@@ -142,17 +145,21 @@ Create a pointer:
 
 ```C#
 v = 42;
-ptr = v.Ptr()       // explicit call
+ptr = v.Ptr()       // explicit call to make ptr
 ```
 
-Dereferencing a pointer is done by using [Conversion](./conversion.md) functions. The pointer will be dereferenced implicitly.
+Dereferencing a pointer is done by using [Conversion](./conversion.md) functions. The pointer will be dereferenced implicitly. 
+
+> TODO: do not do anything implicitly!
 
 ```C#
 ptr: Ptr<U8>
-v = ptr.U8()        // conversion call
+v = ptr.U8()        // conversion deref call
 ```
 
 [Conversion](./conversion.md) to other types is only allowed if the target type has the exact same number of bits as the `T` of the pointer.
+
+> Do we want that? Two actions in one: deref and conversion.
 
 Assigning a new value to the pointed-to-storage:
 
@@ -173,6 +180,8 @@ ptr: Ptr<U8>        // must be initialized or optional
 v = ptr()           // deref? v => U8
 ptr() = 42          // change pointed to value?
 ```
+
+This does align nicely with ptr-to-fn syntax and how to call a function using a ptr-to-fn: `retval = ptr_to_fn(param1)`
 
 Template Access
 
@@ -236,6 +245,10 @@ p.value(101)      // error! immutable
 
 Typically a `Slice<T>` should be used to index into a pointer. See Pointer to Arrays.
 
+> Do we need a generic `object` type as a 'void' pointer?
+
+---
+
 > TBD: Syntax for pointing to members of structures?
 
 Needs an offset (compile time) from a runtime Ptr.
@@ -252,6 +265,8 @@ pFld2 = p#offset(MyStruct.field2)
 ```
 
 > What about pointing to bit-field members?
+
+---
 
 ### Casting
 
@@ -332,6 +347,7 @@ typedFn(42)
 
 // type explicit
 typedFn<U8>(42)
+// new forms of casting?
 typedFn(42: U8)
 typedFn(x: U8)
 
@@ -422,7 +438,7 @@ MyUnion             // all fields share the same memory
 
 > Because there is no `union` keyword, anonymous unions are not possible.
 
-Multiple Inheritance (type addition)
+Type commonality (common fields in all types)
 
 ```C#
 MyStruct: Struct1 & Struct2
@@ -434,9 +450,15 @@ Type difference (inverse union)
 Difference: Struct1 ^ Struct2
 ```
 
----
+The `|`, `&` and `^` operators act on the memory of a type (sort of).
 
-> This too?
+`and` and `or` operator on the logical type.
+
+Multiple Inheritance (type addition)
+
+```C#
+MyStruct: Struct1 and Struct2
+```
 
 Variant (constrained)
 
@@ -458,18 +480,31 @@ v = match s
 
 > Look into data types like C++ implementations of (physical) units. Make it impossible to assign kg to length - that sort of thing.
 
+---
+
 > Should dynamic types be taken into account? How would the syntax look and what semantics are attached?
 
-```C#
+```csharp
 d: Dyn              // dynamic type
 d.prop1 = 42        // creates a new field (fixed type)
 
-SomeFunction(self: Dyn, p1: U8): Bool
-    // does prop1 exist
+MyFunction(self: Dyn, p1: U8): Bool
+    // does field exist
     if self?prop1
         return self.prop1 = 42
+
+    // does function exist
+    if self?getMagicValue
+        return self.getMagicValue() = 42
     return false
 
 if d.MyFunc(42)
     ...
+```
+
+> Do we need (global!) event handlers for Dynamic-Not-Found events?
+
+```csharp
+FieldNotFound(self: Dyn, Str name)
+FunctionNotFound(self: Dyn, Str name)
 ```

@@ -85,14 +85,15 @@ MyStruct
 s = MyStruct
     ...
 
-[field1, field2] = s
+[field1, field3] = s
 // field1: U8 = <value of s.field1>
-// field2: U8 = <value of s.field2>
+// field3: U8 = <value of s.field3>
+// <value of s.field3> is not used
 
-[a, b] = s      // error! field names must match
+[a, b] = s      // error! field names must match (case insensitive)
 ```
 
-Swap variables (unlike structs)
+Swap scalar variables (unlike structs)
 
 ```C#
 x = 42
