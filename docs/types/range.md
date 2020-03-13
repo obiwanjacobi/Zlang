@@ -12,7 +12,7 @@
 ```
 
 ```C#
-rng = Range(1, 6)     // ??
+rng = Rng(1, 6)     // ??
 ```
 
 ## Static
@@ -28,8 +28,13 @@ i = 42
 [0..i]
 ```
 
-iterators
+Iterators
 
-slices
+- Array
+- List
+- Range
+- Slice
 
-> a pointer and a length
+Slices
+
+> A pointer and a length

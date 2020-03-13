@@ -50,6 +50,21 @@ loop c
     do_this_42_times
 ```
 
+> TODO: loop with more than one range
+
+```csharp
+loop w in [5..0], h in [0..10]
+    w_makes_two_rounds_and_h_one
+```
+
+Nested loops
+
+```csharp
+loop h in [0..10]
+    loop w in [0..5]
+        w_times_h
+```
+
 ## Break
 
 It is possible to break out of the execution of a loop at any time with the `break` keyword.

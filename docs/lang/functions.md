@@ -73,6 +73,7 @@ Optional function parameters can be specified using the optional symbol `?`.
 ```C#
 hasParam(p: U8?): Bool
     return p ? true : false
+    return p    // error! implicit cast not allowed
 ```
 
 Default value for a function parameter:
@@ -105,7 +106,7 @@ namedFn(0x4242, p = 42)         // error! cannot convert 1st to U8
 
 Variable number of parameters:
 
-Not really supported but can fake with Array: all of same type. We don't have an 'object' type that is the basis of all.
+Not really supported but can fake with Array: all of same type. We don't have an 'object' type that is the basis of all. (do we need to?)
 
 ```C#
 varFunc<T>(p: U8, varP: Array<T>)
@@ -128,6 +129,12 @@ MyFunc(p: U8, p2: U16): MyStruct
     return Mystruct
         field1 = p
         field2 = p2
+```
+
+```C#
+// simulated out-parameter
+Make42(p: Ptr<U8>)
+    p() = 42
 ```
 
 > Compiler will check if a ptr is returned, it is not pointing at a stack variable.
@@ -400,17 +407,40 @@ loop [0..3]
 
 ---
 
-> TDB:
+> TBD:
 
 support recursion? Let compiler check for exit condition.
 
-pure functions (functional) / higher order functions?
-
 anonymous functions/lambda/in-place syntax (no capture)
 
-```C#
-arr.ForEach(callback)             // fn ptr
-arr.ForEach(i => action(i, 42))   // like match, but different
+```csharp
+// alternate (anonymous) function interface syntax
+// using a type (no names, just types)
+fn: Fn<(U8): U8>    // complex Type
+fn: Fn<U8, U8>      // one param, retval
+fn: Act<U8>         // one param, no retval
+
+// fn ptr will work
+arr.ForEach(callback)
+
+// typical lambda syntax
+ForEach<T>(self: Array<T>, fn: Act<T, U8>)
+// like match, but different (no capture)
+arr.ForEach((v, i) => log("At {i}: {v}"))
+
+sum = 0     // this must be captured => is not supported!
+arr.ForEach((v) => sum = sum + v)   // error! no capture supported
+```
+
+pure functions (functional) / higher order functions?
+
+```csharp
+// a function that returns a function
+pureFn(arr: Arr<U8>): (U8): U8
+pureFn(arr: Arr<U8>): Fn<(U8): U8>
+    ...
+// call pureFn and call the function it returns
+v = pureFn([1,2])(42)
 ```
 
 simulate properties? thru type-bound functions?

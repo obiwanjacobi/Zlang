@@ -12,7 +12,7 @@ a = match v
     0 =>        // by literal numerical value
     "" =>       // by literal string value
     x =>        // by variable value
-    n: U8 =>    // by type (with casted var)
+    n: U8 =>    // by type (with var name)
     s: MyStruct ? s.fld1 = 20 =>  // by type with filter
     _ =>        // default (ignore) case
 ```
@@ -37,7 +37,7 @@ When more comprehensive logic is required to compute the result a function can b
 
 > The result is always of one type only (unless perhaps when we support union (||) types or compound (or) types) where only optional `?` or Error '!' can be added by other branches.
 
-Here an example on matching a type pattern with multiple pattern for the same type - but different filters.
+Here an example on matching a type pattern with multiple patterns for the same type - but different filters.
 
 ```C#
 s = MyStruct

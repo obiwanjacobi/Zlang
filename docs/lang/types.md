@@ -148,7 +148,7 @@ v = 42;
 ptr = v.Ptr()       // explicit call to make ptr
 ```
 
-Dereferencing a pointer is done by using [Conversion](./conversion.md) functions. The pointer will be dereferenced implicitly. 
+Dereferencing a pointer is done by using [Conversion](./conversion.md) functions. The pointer will be dereferenced implicitly.
 
 > TODO: do not do anything implicitly!
 
