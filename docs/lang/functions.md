@@ -68,6 +68,8 @@ v = 42
 byref(v.Ptr())            // call with ptr to value
 ```
 
+### Optional Parameters
+
 Optional function parameters can be specified using the optional symbol `?`.
 
 ```C#
@@ -76,22 +78,16 @@ hasParam(p: U8?): Bool
     return p    // error! implicit cast not allowed
 ```
 
-Default value for a function parameter:
+### Default Parameter Values
 
-> Having doubts about this for it allows overloading that is not explicit.
+> Not supported.
 
-```C#
-defFunc(p: U8 = 0)
-    ...
+Functions should have unique names with well-defined parameters.
+Having default parameter values does not explain at the calling site what is happening.
 
-defFunc();          // ok, default value is used
-defFunc(42);        // ok, default value overridden
+### Named Parameter
 
-defFunc(p: U8 = 0, p2: U16)     // error! default must be last
-    ...
-```
-
-Named Parameter use:
+Function Parameters can be specified by name at the calling site.
 
 ```C#
 namedFn(p: U8, p2: U16)
@@ -115,6 +111,18 @@ varFunc<T>(p: U8, varP: Array<T>)
 // requires (easy) syntax for specifying
 varFunc(42, [1, 2, 3, 4, 5, 6])
 ```
+
+## Immutable Parameters
+
+Gives the caller the guarantee that the parameter will not be changed.
+Only useful for `Ptr<T>` types. All function parameters are passed by value.
+
+```csharp
+immFn(p: Imm<Ptr<U8>>)
+```
+
+This could get tedious. Could we have an operator for immutable?
+`^`, `@`, `$`
 
 ## Return values
 
@@ -153,7 +161,7 @@ retFunc()           // error! uncaught retval
 _ = retFunc()       // ok, explicitly not interested in retval
 ```
 
-These is a language syntax compiler option to turn this feature on or off.
+> Could the compiler have an opinion about where the return statement is located? Only allow early exits inside and `if` and as last statement in the function. What about only one inside a loop?
 
 ## Type Bound (Self)
 
@@ -172,12 +180,16 @@ jamesBond(s)
 
 When calling a bound function, the 'self' parameter can be used as an 'object' using a dot-notation or simply passed as a first parameter. Normal function rules apply, so for a struct it is usually a good idea to declare a `Ptr<T>` in order to avoid copying and be able to change the fields of the structure. Matching type-bound functions to their types is done as follows:
 
-|Var Type | Self Type | Self Type Note
+|Var Type | Self Type | Note
 |---|---|---
-| T | T or Ptr\<T> | Either can be Imm\<T>
-| T? | T? or Ptr\<T?> | Either can be Imm\<T>
-| Ptr\<T> | T or Ptr\<T> | Either can be Imm\<T>
-| Imm\<T> | Imm\<T> or Ptr<Imm<\<T>>>
+| T | T |
+| T | Ptr\<T> | Function can write to var!
+| T? | T? |
+| T? | Ptr\<T?> | Function can write to var!
+| Ptr\<T> | T |
+| Ptr\<T> | Ptr\<T> |
+| Imm\<T> | Imm\<T> |
+| Imm\<T> | Ptr<Imm\<T>> |
 
 > This means implicit conversions => something we don't want?
 
@@ -191,14 +203,6 @@ e = MyEnum.MagicValue
 
 b = e.IsMagicValue()        // true
 ```
-
-## Function Overrides
-
-When resolving target functions the most specific function is chosen at compile time. This means that of the multiple function candidates the function is chosen that has parameter and return types that are most specific and closest to the types used at the call site.
-
-> TODO: Example
-
-> At compile time => means no runtime dispatch based on `self` type!?
 
 ## Local Functions
 
@@ -266,50 +270,9 @@ c.add(4)
 
 Function overloading means that there are multiple functions with the same name but different parameter (or return) types.
 
-Function overloading will work regardless if the function uses a self parameter or not.
+This is not supported.
 
-```C#
-sameName(p: U8)
-    ...
-sameName(p: Str)
-    ...
-
-sameName(42)
-sameName("42")
-
-sameName(x: Str)    // error! already defined
-    ...
-```
-
-An overloaded type bound function with a self parameter:
-
-```C#
-overloadFn(self: U8, p: U8)
-    ...
-overloadFn(self: U8, p: Str)
-    ...
-
-v = 42
-v.overloadFn(42)
-v.overloadFn("42")
-```
-
-Overload a function by the number of parameters.
-
-```C#
-overload(p1: U8)
-    ...
-overload(p1: U8, p2: U8)
-    ...
-overload(p1: U8, p2: U8, p3: U8)
-    ...
-
-overload(42)            // #1
-overload(42, 42)        // #2
-overload(42, 42, 42)    // #3
-```
-
-When resolving overloads the types of the function parameters are used to determine what function to call. Conversion functions can be used to direct resolving the targeted function.
+Give function a unique name.
 
 ### Double Dispatch / Visitor Pattern
 

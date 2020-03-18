@@ -71,6 +71,8 @@ The boolean data type is defined as:
 Bool
 ```
 
+It can only have one of two values: `true` or `false`.
+
 ### Bits
 
 The `Bit` type is parameterized to specify the number of bits the value contains.
@@ -83,34 +85,114 @@ Bit<4>
 
 When `Bit`s are stored, the closest fitting data type is used. So a `Bit<6>` would take up a single byte `U8`, while a `Bit<12>` would take up two bytes `U16`. `Bit`s are always interpreted as unsigned and stored in the lower bits of the storage type. The upper unused bits are reset to zero.
 
+## Optional and Error Types
+
+> The optional and error types can be thought of as constrained variant types.
+
+```csharp
+Opt<T>: T or Nothing _
+Err<T>: T or Error _
+```
+
+`Nothing` is an no-value indication for the compiler and is never available to the program.
+
+`Error` is discussed [here](../Types/Error.md).
+
+### Operators
+
+```csharp
+o: U8?  // optional U8
+e: U8!  // U8 or error
+x: U8!? // optional U8 or Error
+```
+
 ## Data Types
+
+> Look into data types like C++ implementations of (physical) units. Make it impossible to assign kg to length - that sort of thing.
 
 (Constrained Types?)
 
 There is an easy way to create data types to differentiate data at a type level. By using different types the purpose of the data become even more clear.
 
-```C#
-Age: U8
+```csharp
+Age: U8 _           // no rules
 PersonName: Str
+    #length < 100   // rules
+    #length > 0
+```
+
+```csharp
+Age: U8 _
+PersonName: Str _
 
 a: Age = 42
 name: PersonName = "John"
 ```
 
+Use `_` to differentiate from variable declarations. Without the trailing `_` it would be variable not a Type.
+
 You do have to use the explicit type on the variable declaration, using defaults will yield standard types (U8 and Str).
+
+Here's an example of the use of data types.
+
+```csharp
+MetricLength: U16 _
+ImperialLength: U16 _
+
+ml: MetricLength = 200      // 200 meter
+il: ImperialLength = 200    // 200 feet
+
+loa = ml + il               // error: cannot add different data types
+```
+
+Operators of the underlying type can **NOT**  be used. Data Types are always more specific and restrictive than the underlying type. New operator implementations have to created using the dedicated function names mapped to each operator. It is a compile error if such a function is not found for the operator in use.
+
+```csharp
+Age: U8 _
+a: Age = 42
+// use conversion to get to underlying types
+u = a.U8()      // u: U8
+```
 
 The way data types differ from using aliases is in the use of type-bound functions.
 
-> Can data types have more fields? If so, how do they differ from structs?
+```csharp
+Alias = U16
+DataType: U16 _
 
-> Is it possible to restrict the valid data for a data type? For instance `0 <= Age <= 130`. Could we use ranges? Perhaps make an `or` type with literals and or range expressions? 
+baseFn(self: U16, p: U8)
+    ...
+aliasFn(self: Alias, p: U8)
+    ...
+typeFn(self: DataType, p: U8)
+    ...
 
-```C#
-Age: U8 => 0 or 2..100
-Mode: Str => "A" or "B" or "C"
+a: U16 = 0x4242
+a.baseFn(42)        // U16 = Alias
+a.aliasFn(42)       // Alias = U16
+a.typeFn(42)        // error! U16 != DataType
+
+d: DataType = 0x4242
+d.baseFn(42)        // error! DataType more specific than U16
+d.aliasFn(42)       // error! same reason
+d.typeFn(42)        // ok
 ```
 
-> overload/override value setter to do custom validation?
+> Can data types cannot have any fields. A struct can be composed of fields using only data types.
+
+> It is possible to restrict the valid data for a data type. For instance `0 <= Age <= 130`. Could we use ranges? Perhaps make an `or` type with literals and or range expressions?
+
+```C#
+Age: U8
+    0
+    2..100
+Mode: Str
+    "A"
+    "B"
+    "C"
+```
+
+> overload/override value setter (assignment operator?) to do custom validation?
 
 ## Variant Type
 
@@ -128,7 +210,7 @@ v = match a
 // v => U8!
 ```
 
-See also Union Types.
+See also Union/Constrained Variant Types.
 
 ## Pointer Types
 
@@ -205,6 +287,26 @@ ptr = Ptr.to(42)    // ptr to literal is immutable
 ```C#
 ptr: Ptr<U8>?       // an optional pointer to U8
 ptr: Ptr<U8?>       // pointer to an optional U8
+```
+
+> Pointer variables need to be initialized when declared or they must be made optional.
+
+```csharp
+p: Ptr<U8>      // error! must have value or be optional
+p: Ptr<U8>?     // ok, no value - so optional
+
+a = 42;
+p: Ptr<U8> = a.Ptr()    // ok, ptr has value
+```
+
+> How does writing to an optional ptr work?
+
+```csharp
+a: U8?                      // now _
+p: Ptr<U8?> = a.Ptr()
+
+// how does the instance in memory know it's no longer _ ??
+p() = 42
 ```
 
 ### Pointer to Pointer
@@ -378,7 +480,8 @@ o = OtherStruct             // instantiate
     ...
 
 typedFn(o)                  // type inferred and checked
-typedFn<OtherStruct>(o)     // type explicit
+typedFn<MyStruct>(o)        // base type explicit
+typedFn<OtherStruct>(o)     // derived type explicit
 ```
 
 > This too??
@@ -415,13 +518,11 @@ typedFn(42)         // generic typedFn<T> called
 typedFn(true)       // specialization typedFn<Bool> called
 ```
 
----
-
-> Not implemented yet
+## TBD
 
 Ideas...
 
-Unions
+### Unions
 
 > How are shared fields (locations) initialized when two structs have different default values? Or simply init to zero-always.
 
@@ -438,13 +539,19 @@ MyUnion             // all fields share the same memory
 
 > Because there is no `union` keyword, anonymous unions are not possible.
 
-Type commonality (common fields in all types)
+### Type commonality
+
+Common fields in all types.
 
 ```C#
 MyStruct: Struct1 & Struct2
 ```
 
-Type difference (inverse union)
+Error if no fields are common?
+
+### Type difference
+
+Think of this as an inverse union.
 
 ```C#
 Difference: Struct1 ^ Struct2
@@ -452,21 +559,82 @@ Difference: Struct1 ^ Struct2
 
 The `|`, `&` and `^` operators act on the memory of a type (sort of).
 
-`and` and `or` operator on the logical type.
+`and` and `or` operate on the logical type.
 
-Multiple Inheritance (type addition)
+### Multiple Inheritance
+
+Type addition.
 
 ```C#
 MyStruct: Struct1 and Struct2
 ```
 
-Variant (constrained)
+Laid out in memory in order.
+
+> How to move the 'this' pointer?
+
+```csharp
+structFn(self: Struct2, U8)
+    ...
+
+s: MyStruct
+    ...
+
+s.structFn(42)      // the 'reference' to the structFn has to go past Struct1
+// Also goes for Ptr's to sub-parts
+
+// explicit offset? (verbose!)
+structFn(s#offset(Struct2), 42)
+```
+
+## Type Manipulation
+
+```C#
+MyStruct
+    fld1: U8
+    fld2: U16
+
+MyOptionalStruct: MyStruct#opt
+MyOptionalStruct: MyStruct?     // language supported?
+// fld1: U8?
+// fld2: U16?
+
+// make type read-only
+MyReadOnlyStruct: MyStruct#imm
+MyReadOnlyStruct: Imm<MyStruct>
+    fld1 = 42           // have to init right away
+    fld2 = 0x4242
+```
+
+```csharp
+// make an instance read-only
+s = MyStruct
+    fld1 = 42
+    fld2 = 0x4242
+
+// using a conversion to make immutable
+r = s.Imm()
+r.fld1 = 101        // error! field is read-only
+```
+
+```csharp
+// make an instance optional
+s = MyStruct
+    fld1 = 42
+    fld2 = 0x4242
+
+// using a conversion to make optional
+r = s.Opt()
+r.fld1 = _        // field is 'nulled'
+```
+
+## Constrained Variant
 
 ```C#
 OneOrTheOther: Struct1 or Struct2
 OneOfThese: Struct1 or Struct2 or Struct3 or Struct4
 
-s = OneOfThese
+s: OneOfThese
     ...
 
 v = match s
@@ -476,11 +644,15 @@ v = match s
     s4: Struct4 => s4.myfld
 ```
 
+> The type-id is stored with the instance. Access with `#varId` or something?
+
+A Ptr should still point to the payload of the variant so perhaps store the var-type in front of the main payload.
+
+A variant instance cannot change type during its lifetime.
+
 ---
 
-> Look into data types like C++ implementations of (physical) units. Make it impossible to assign kg to length - that sort of thing.
-
----
+## Dynamic Type
 
 > Should dynamic types be taken into account? How would the syntax look and what semantics are attached?
 

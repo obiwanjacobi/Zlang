@@ -128,4 +128,54 @@ MyStruct: U16
 
 The fields of a structure are layed out in the order of their definition starting at the base structure type. No alignment or filler bytes are added.
 
-The exception are fields with the `Bit<T>` type. Those are grouped together and laid out as sequential bytes at the start of the structure (or at the location where the first field is defined?).
+## Tables
+
+> Find a way to allow to easily define tables of data using struct types in an array.
+
+```csharp
+MyStruct
+    fld1: U8
+    fld2: Str
+
+// use of '{}' is undecided yet!
+arr: Array<MyStruct> = [
+    { fld1 = 42, fld2 = "42" },     // by name
+    { 101, "101" },                 // in field order
+]
+```
+
+If we allow this, then we can also move towards easy structure instantiation (ala JS/Json).
+
+```csharp
+MyStruct1
+    fld1: U8
+    fld2: Str
+MyStruct2
+    first: MyStruct1
+    second: MyStruct1
+
+// in order
+v: MyStruct1 =
+    {
+        { 42, "42" },
+        { 101, "101" }
+    }
+
+// by name
+v: MyStruct1 =
+    {
+        first = { fld1 = 42, fld2 = "42" },
+        second = { fld1 = 101, fld2 = "101" }
+    }
+
+// structured by name
+v: MyStruct1 =
+    first = 
+        fld1 = 42
+        fld2 = "42"
+    second = 
+        fld1 = 101
+        fld2 = "101"
+
+// or any combination of these??
+```
