@@ -69,6 +69,8 @@ loop h in [0..10]
 
 It is possible to break out of the execution of a loop at any time with the `break` keyword.
 
+> Perhaps call it `leave` instead of `break` as it sounds less dreadful.
+
 Here's an example of an endless loop that uses a conditional branch `if` to break out of the loop:
 
 ```C#
@@ -101,3 +103,5 @@ loop
 ```
 
 As with `break`, `continue` only works on the immediate parent loop.
+
+> Not sure if this is really needed. Seldom used?

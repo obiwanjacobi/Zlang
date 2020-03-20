@@ -179,3 +179,24 @@ v: MyStruct1 =
 
 // or any combination of these??
 ```
+
+## Anonymous Structures
+
+Also known as Tuples.
+
+The fields are not anonymous, they must have a name.
+
+> Use `()` or `{}`?
+
+```csharp
+a = { Fld1 = 42, Fld2 = "42" }
+
+// a is a tuple with two fields
+x = a.Fld1  // U8
+y = a.Fld2  // Str
+
+// deconstruct - creates new vars
+(fld1, fld2) = a
+// build tuple from vars
+b = { fld1, fld2 }
+```

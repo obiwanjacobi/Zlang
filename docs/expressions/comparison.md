@@ -27,7 +27,6 @@ a = 42
 b = a <> 42 ? true : false
 ```
 
-
 > Because both the `Equals` and the `Assignment` operators use the '`=`' symbol, it is not possible to assign values inside a comparison expression.
 
 ```C#

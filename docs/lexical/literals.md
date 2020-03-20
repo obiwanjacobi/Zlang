@@ -70,7 +70,7 @@ These indents on the beginning of the new lines do not become part of the result
 
 > Or surround each line of string-part with double quotes?
 
-Basic formatting of dynamic values into a string is done in thr following way:
+Basic formatting of dynamic values into a string is done in the following way:
 
 ```C#
 v = 42

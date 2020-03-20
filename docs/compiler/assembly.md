@@ -12,3 +12,7 @@ There are several ways to include assembly into the compiler output:
 ---
 
 > TBD: interfacing with variable, function parameters and return values.
+
+> Calling assembly entry points
+
+> Calling Z# functions from assembly.

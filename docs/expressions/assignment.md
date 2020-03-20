@@ -94,7 +94,7 @@ Memory mapped IO is harder to auto detect.
 // we may want to save IO for language supported Input/Output instructions.
 a: IO<U8> = 42
 a: Volatile<U8> = 42    // too long?
-a: Weak<U8> = 42        // safe for ptrs?
+a: Weak<U8> = 42        // save for ptrs?
 a: Alt<U8> = 42         // alternate
 a: Soft<U8> = 42
 
@@ -112,10 +112,28 @@ a: &U8 = 42
 
 ## Deconstructing
 
+> Use `[]`, `{}` or `()`?
+
+- `[]` says arrays
+- `{}` says objects/structs
+- `()` used for functions but otherwise ok
+
+> This is not the same as a tuple!
+
+> Deconstruction is _copying_ the value into a variable. But referencing could be an optimization - but that would also make it more complex.
+
+```csharp
+(a, b) = ...
+// a and b can be used as separate vars
+sum = add(a, b)
+```
+
 deconstructing an array
 
 ```C#
 [a, b, ...rest] = [1, 2, 3, 4, 5]
+(a, b, ...rest) = [1, 2, 3, 4, 5]
+{a, b, ...rest} = [1, 2, 3, 4, 5]
 
 // a: U8 = 1
 // b: U8 = 2
@@ -145,11 +163,13 @@ s = MyStruct
     ...
 
 [field1, field3] = s
+(field1, field3) = s
 // field1: U8 = <value of s.field1>
 // field3: U8 = <value of s.field3>
 // <value of s.field2> is not used
 
 [a, b] = s      // error! field names must match (case insensitive)
+(a, b) = s
 ```
 
 Swap scalar variables (unlike structs)
@@ -159,6 +179,7 @@ x = 42
 y = 101
 
 [x, y] = [y, x]
+(x, y) = (y, x)
 
 // x = 101
 // y = 42

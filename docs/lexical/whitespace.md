@@ -12,9 +12,8 @@ Spaces are used to separate code elements in order to make them distinct.
 
 Z# uses whitespace -indents- to signal scope. Where a lot of languages use `{}` to declare a scope, Z# attempts to minimize noise and do away with those characters.
 
-**An _`indent`_ is represented by a single tab character.**
-
-_As the parser evolves any number of spaces is expected to be valid in the future._
+**An _`indent`_ is represented by a sequence of spaces.**
+Typically 4 spaces are used. The number of spaces must be consistent throughout a single file but can differ between files. The first indent that is encountered is taken as the template for all others to follow.
 
 The start of the line represents the root scope. An `indent` is always placed below a statement or instruction that belongs to a higher scope (one up).
 
@@ -70,7 +69,7 @@ s = "this is a very long string to demonstrate
         how to break up long literal strings"
 ```
 
-So in this example there is a trailing space after demonstrate in order to separate that word from the next word 'how'.
+So in this example there is a trailing space after 'demonstrate' in order to separate that word from the next word 'how'.
 
 ### Functions
 

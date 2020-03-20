@@ -112,6 +112,21 @@ anyFunc<T>(m: T)    // normal function
 anyFunc(m)          // called/run at run time
 ```
 
+## Compiler Functions
+
+The compiler supplies a set of functions that allows interaction with- and modification of the generated code. There is also contextual information available for formatting diagnostic messages.
+
+| Function | Note
+|-|-
+| line() | the current source code line number
+| file() | the current source code file name
+| module() | the current module the source code is part of
+| name() | the name of current function or type being compiled
+
+```csharp
+msg = "Error in '{#file()}' at line {#line()}: {#name()} is invalid."
+```
+
 ---
 
 > TBD
@@ -143,4 +158,3 @@ if pfn#p1   // does 'p1' parameter exist?
 ```
 
 ---
-
