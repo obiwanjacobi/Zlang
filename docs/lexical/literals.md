@@ -54,6 +54,18 @@ To use special characters in a literal string, you have to use the escape sequen
 s = "Some text \\n with newlines \\n and \\"quotes\\"."
 ```
 
+Escaped Characters
+
+Char | Note
+--|--
+\n | NewLine
+\r | Carriage Return
+\t | Tab
+\f | Line Feed
+\b | Bell
+
+More?
+
 For longer string you may want to spread them out over multiple lines. Using indents the compiler can see that the string is spread out.
 
 > Use one indent extra for spreading out strings.

@@ -63,3 +63,7 @@ arr2 = arr[..]              // arr2 = all elements (not a copy!)
 ---
 
 > Array8, Array16 could be used to indicate the number of bits used for the max count.
+
+```csharp
+Array<T> : T[]     // variable length at compile time
+```

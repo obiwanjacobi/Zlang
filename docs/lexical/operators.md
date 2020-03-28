@@ -61,3 +61,18 @@ Operators never allocate memory!
 ---
 
 > What if operators cause overflow (or underflow)? A bitwise shift `<<` can shift out bits - sort of the point. Does every operator determine for itself if overflow is a problem or is there a general principle?
+
+---
+
+> TBD
+
+```csharp
+fld1: Str?  // optional string field
+
+// assign fld1 to x when set,
+// otherwise assign empty string
+x = fld1 ?? ""
+
+// if fld1 is not set assign empty string
+fld1 ??= ""
+```

@@ -9,6 +9,7 @@ Identifiers name program entities such as variable, functions and types. These n
 -
 - Can start with `_` (but this has special meaning).
 - Can contain alpha-numeric characters.
+- Are case sensitive.
 
 Here are examples of valid identifiers:
 
@@ -24,6 +25,31 @@ Here are examples of _invalid_ identifiers:
 1Function
 some variable
 my-type
+```
+
+## Discard
+
+Using a discard `_` in an identifier is ignored during matching.
+
+```csharp
+My_Function(p: U8)
+    ...
+
+MyFunction(42)  // calls My_Function
+
+//----
+
+MyFunction(p: U8)
+    ...
+
+My_Function(42)  // calls MyFunction
+```
+
+> When an identifier starts with a discard `_` ...?
+
+```csharp
+_myFn(p: U8)
+    ...
 ```
 
 ## Fully Qualified Names

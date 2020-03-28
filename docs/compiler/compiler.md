@@ -27,6 +27,8 @@
 
 > Compiler as Language VM? (used by REPL) - zs-script
 
+> Compiler as a specializer (taking source and static input and compiling an optimized version).
+
 > Compiler as profiler?
 
 > Compiler as a CPU emulator?
@@ -42,3 +44,5 @@
 > entry function (main?)? no command line parameters? => CP/M? Code Attribute? Environment/command line etc. as singleton object?
 
 > build in extra grammar/semantics for verifying correctness of the compiler. Inline unit tests.
+
+> TBD: Compiler reports each 'issue' based on config. A compiler-profile can make an 'issue' a warning or error etc.

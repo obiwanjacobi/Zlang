@@ -200,3 +200,22 @@ y = a.Fld2  // Str
 // build tuple from vars
 b = { fld1, fld2 }
 ```
+
+## Mapping
+
+> TBD
+
+Allow fields of one structure to be mapped easily to fill fields of another structure.
+
+> What operator to use? `<=`?
+
+```csharp
+s1: Struct1
+// manual
+s2: Struct2
+    fld1 = s1.x
+    fld2 = s1.y
+
+// by convention
+s2: Struct2 <= s1
+```

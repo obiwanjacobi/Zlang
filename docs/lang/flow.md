@@ -6,7 +6,7 @@ The basic if statement works as expected, but the condition is not enclosed in `
 
 All the `if` options in one example.
 
-```C#
+```csharp
 if true               // is it true?
     conditional_code
 else if false         // or is it false?
@@ -16,6 +16,22 @@ else                  // or is it neither?
 ```
 
 > No assignment is permitted inside the `if` conditional expression.
+
+### Parenthesis
+
+When parenthesis are used they are always part of the expression, not of the `if` statement. There is always a space after the `if` statement - this is what sets it apart from a function call.
+
+```csharp
+if(p: U8)       // function definition
+    ...
+
+if (21 + 21)    // if statement (+ space)
+   ...
+
+if(42)          // function call
+```
+
+Note that `if` is a reserved keyword and no named language element can have the same name as a reserved keyword.
 
 ## Loops
 
@@ -45,12 +61,15 @@ loop n in [0..10]
 Loop a number of times
 
 ```C#
+loop 42
+    do_this_42_times
+
 c = 42
 loop c
-    do_this_42_times
+    do_this_42_times    // is c available - and what value?
 ```
 
-> TODO: loop with more than one range
+> TODO: loop with more than one range?
 
 ```csharp
 loop w in [5..0], h in [0..10]
@@ -63,6 +82,17 @@ Nested loops
 loop h in [0..10]
     loop w in [0..5]
         w_times_h
+```
+
+Loop with lambda?
+Loop with Function?
+
+```csharp
+loop [0..10]
+    (n) => log("Now at {n}.\n")
+
+loop [0..10]
+    LogInt
 ```
 
 ## Break
