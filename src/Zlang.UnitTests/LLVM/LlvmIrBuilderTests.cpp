@@ -9,6 +9,8 @@ TEST(LlvmIrBuilderTests, BuildFile)
 {
     const char* src =
         "module mod1\n"
+        "fn()\n"
+        "    return\n"
         ;
 
     ZsharpParser parser;
@@ -16,9 +18,11 @@ TEST(LlvmIrBuilderTests, BuildFile)
     EXPECT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
-    auto file = uut.BuildFile("", fileCtx);
+    uut.Build(fileCtx);
     auto modules = uut.getModules();
 
     LlvmIrBuilder builder;
-    builder.Build(modules.at(0));
+    auto llvmModule = builder.Build(modules.at(0));
+
+    llvmModule->dump();
 }

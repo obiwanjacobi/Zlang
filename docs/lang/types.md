@@ -652,6 +652,36 @@ A variant instance cannot change type during its lifetime.
 
 ---
 
+## Opaque Type Reference
+
+A way to export a handle to an instance of a private type.
+
+```csharp
+// both ok
+export outFn(p: U8): Otr<MyStruct>
+export outFn(p: U8): Otr<Ptr<MyStruct>>
+    s: MyStruct
+        ...
+    return s.Otr()  // cast/convert
+
+export inFn(p: Otr<MyStruct>): U8
+export inFn(p: Otr<Ptr<MyStruct>>): U8
+    s = p.value<MyStruct>()
+    s = p.value<OtherStruct>()  // error! not the correct type
+    ...
+
+// usage
+import outFn // pseudo
+import inFn // pseudo
+
+o = outFn(42)   // o => Otr?
+o.x             // error! Otr does not allow member access
+
+a = inFn(o)     // Otr as parameter
+```
+
+---
+
 ## Dynamic Type
 
 > Should dynamic types be taken into account? How would the syntax look and what semantics are attached?
