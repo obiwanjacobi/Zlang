@@ -164,8 +164,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\lib\antlr\include;$(SolutionDir)..\..\..\llvm\z80-llvm-project\build_vs\include;$(SolutionDIr)..\..\..\llvm\z80-llvm-project\llvm\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(SolutionDir)..\..\..\llvm\z80-llvm-project\build_vs\Debug\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\lib\antlr\include;$(SolutionDIr)..\..\..\llvm\llvm-lib\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(SolutionDir)..\..\..\llvm\llvm-lib\lib;$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>

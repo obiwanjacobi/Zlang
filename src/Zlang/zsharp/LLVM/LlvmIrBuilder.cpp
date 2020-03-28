@@ -2,7 +2,7 @@
 #include <llvm/IR/Type.h>
 #include <llvm/IR/DerivedTypes.h>
 
-std::shared_ptr<llvm::Module> LlvmIrBuilder::Build(AstModule* astModule)
+std::shared_ptr<llvm::Module> LlvmIrBuilder::Build(std::shared_ptr<AstModule> astModule)
 {
     if (astModule == nullptr) { return nullptr; }
 

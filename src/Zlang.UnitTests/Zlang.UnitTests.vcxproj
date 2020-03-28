@@ -33,8 +33,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)..\lib\antlr\include;$(SolutionDir)..\..\..\llvm\z80-llvm-project\build_vs\include;$(SolutionDIr)..\..\..\llvm\z80-llvm-project\llvm\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(SolutionDir)Zlang\$(Platform)\$(Configuration);$(SolutionDir)..\..\..\llvm\z80-llvm-project\build_vs\Debug\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\lib\antlr\include;$(SolutionDIr)..\..\..\llvm\llvm-lib\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(SolutionDir)Zlang\$(Platform)\$(Configuration);$(SolutionDir)..\..\..\llvm\llvm-lib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h" />
@@ -104,11 +104,13 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstFile.obj;AstFunction.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;AstNumeric.obj;AstNumericBuilder.obj;AstExpression.obj;AstExpressionOperand.obj;AstExpressionBuilder.obj;AstBranch.obj;AstCodeBlock.obj;AstAssignment.obj;AstError.obj;AstSymbolTable.obj;AstIdentifier.obj;Utils.obj;LLVMCore.lib;LLVMRemarks.lib;LLVMBitstreamReader.lib;LLVMBinaryFormat.lib;LLVMSupport.lib;LLVMDemangle.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstFile.obj;AstFunction.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;AstNumeric.obj;AstNumericBuilder.obj;AstExpression.obj;AstExpressionOperand.obj;AstExpressionBuilder.obj;AstBranch.obj;AstCodeBlock.obj;AstAssignment.obj;AstError.obj;AstSymbolTable.obj;AstIdentifier.obj;LlvmIrBuilder.obj;Utils.obj;LLVMCore.lib;LLVMRemarks.lib;LLVMBitstreamReader.lib;LLVMBinaryFormat.lib;LLVMSupport.lib;LLVMDemangle.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

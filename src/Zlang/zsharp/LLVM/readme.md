@@ -1,21 +1,30 @@
 # LLVM
 
-Build against the llvm-project (github). LLVM build into `llvm-project/build_vs` using CMake for Windows.
+Build against the llvm-project (github). 
+LLVM build into `llvm-lib` using CMake (UI) for Windows.
+
+https://llvm.org/docs/GettingStartedVS.html
+
+`build` the folder used to build to (build folder in cmake).
+`llvm-install` the path to where the llvm-project is installed.
 
 Include Paths:
 ```
-    llvm-project/llvm/include
-    llvm-project/build_vs/include
+    `llvm-install`/llvm/include
 ```
 
 Library Paths:
 ```
-    llvm-project/build_vs/Debug/libs
+    `llvm-install`/lib
 ```
 
 Libraries to Add to Linker Input:
 ```
-    llvm-project/build_vs/bin/llvm-config --libs core
+    `llvm-install`/`build`/bin/llvm-config --libs core
 ```
 
-This prints out all core llvm libraries.
+This prints out all core llvm libraries to add to the linker.
+
+## `Error    C4146    unary minus operator applied to unsigned type, result still unsigned`
+
+* fix by hand / change the source.
