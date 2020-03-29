@@ -78,6 +78,8 @@ private:
         return visitIndent(ctx->indent()).as<uint64_t>();
     }
 
+
+    std::shared_ptr<AstError> AddError(antlr4::ParserRuleContext* ctx, const char* text);
     std::vector<std::shared_ptr<AstError>> _errors;
 };
 

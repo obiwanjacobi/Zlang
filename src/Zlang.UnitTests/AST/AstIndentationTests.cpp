@@ -27,6 +27,8 @@ TEST(AstIndentationTests, FunctionBody)
     auto cb = fn->getCodeBlocks().at(0);
     auto assign = cb->getItems().at(0);
     EXPECT_NE(assign, nullptr);
+    auto branch = cb->getItems().at(1);
+    EXPECT_NE(branch, nullptr);
 }
 
 TEST(AstIndentationTests, E_FunctionBody_CodeBlockEmpty)
@@ -49,4 +51,28 @@ TEST(AstIndentationTests, E_FunctionBody_CodeBlockEmpty)
 
     auto error = errors.at(0);
     EXPECT_STREQ(error->getText().c_str(), AstError::EmptyCodeBlock);
+}
+
+TEST(AstIndentationTests, FunctionBody_Branch)
+{
+    const char* src =
+        "MyFunction()\n"
+        "    if true\n"
+        "        return\n"
+        "    return\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    EXPECT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    EXPECT_FALSE(uut.hasErrors());
+
+    EXPECT_NE(file, nullptr);
+    auto fn = file->getFunctions().at(0);
+    auto cb = fn->getCodeBlocks().at(0);
+    auto branch = cb->getItems().at(0);
+    EXPECT_NE(branch, nullptr);
 }

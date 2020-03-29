@@ -32,6 +32,14 @@ T* AstNodeBuilder::findCurrent(uint32_t nthOfT) const
     return p;
 }
 
+std::shared_ptr<AstError> AstNodeBuilder::AddError(antlr4::ParserRuleContext* ctx, const char* text)
+{
+    auto error = std::make_shared<AstError>(ctx);
+    error->setText(text);
+    _errors.push_back(error);
+    return error;
+}
+
 antlrcpp::Any AstNodeBuilder::visitChildrenExcept(antlr4::ParserRuleContext* node, const antlr4::ParserRuleContext* except)
 {
     antlrcpp::Any result = defaultResult();
@@ -186,7 +194,8 @@ antlrcpp::Any AstNodeBuilder::visitStatement_elseif(zsharp_parserParser::Stateme
 
 antlrcpp::Any AstNodeBuilder::visitStatement_return(zsharp_parserParser::Statement_returnContext* ctx)
 {
-    auto codeBlock = findCurrent<AstCodeBlock>();
+    auto indent = getIndent(ctx);
+    auto codeBlock = findCurrent<AstCodeBlock>(indent);
     auto branch = std::make_shared<AstBranch>(ctx);
     bool success = codeBlock->AddItem(branch);
     guard(success);
@@ -340,22 +349,24 @@ antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Express
 {
     AstExpressionBuilder builder;
     auto expr = builder.Build(ctx);
-    
-    auto site = findCurrent<AstExpressionSite>();
-    bool success = site->AddExpression(expr);
-    guard(success);
-
+    if (expr != nullptr)
+    {
+        auto site = findCurrent<AstExpressionSite>();
+        bool success = site->AddExpression(expr);
+        guard(success);
+    }
     return nullptr;
 }
 
 antlrcpp::Any AstNodeBuilder::visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) {
     AstExpressionBuilder builder;
     auto expr = builder.Build(ctx);
-
-    auto site = findCurrent<AstExpressionSite>();
-    bool success = site->AddExpression(expr);
-    guard(success);
-
+    if (expr != nullptr)
+    {
+        auto site = findCurrent<AstExpressionSite>();
+        bool success = site->AddExpression(expr);
+        guard(success);
+    }
     return nullptr;
 }
 
@@ -368,5 +379,9 @@ antlrcpp::Any AstNodeBuilder::visitIndent(zsharp_parserParser::IndentContext* ct
         _indent = indent;
     }
 
+    if (indent % _indent)
+    {
+        AddError(ctx, AstError::IndentationMismatch);
+    }
     return indent / _indent;
 }

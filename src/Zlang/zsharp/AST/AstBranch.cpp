@@ -7,6 +7,7 @@ bool AstBranch::AddExpression(std::shared_ptr<AstExpression> expr) {
         }
         return false; 
     }
+    expr->setParent(this);
     _expression = expr;
     return true;
 }
@@ -18,10 +19,12 @@ bool AstBranch::AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
         }
         else if (_falseCodeBlock == nullptr) {
             _falseCodeBlock = codeBlock;    // 'else' code block
+            codeBlock->setParent(this);
             return true;
         }
         return false; 
     }
+    codeBlock->setParent(this);
     _trueCodeBlock = codeBlock;
     return true;
 }

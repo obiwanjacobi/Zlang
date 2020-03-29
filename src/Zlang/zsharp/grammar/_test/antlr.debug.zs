@@ -1,2 +1,4 @@
-MyFunction()
-    x: U8 = 0
+MyFunction(): Bool
+    if true
+        return false
+    return true

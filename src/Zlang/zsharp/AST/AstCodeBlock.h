@@ -37,6 +37,7 @@ public:
     
     bool AddItem(std::shared_ptr<AstCodeBlockItem> item) { 
         _items.push_back(item);
+        item->setParent(this);
         return true;
     }
 
