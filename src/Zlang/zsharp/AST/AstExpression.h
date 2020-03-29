@@ -48,8 +48,8 @@ public:
 
 protected:
     bool Add(std::shared_ptr<AstExpressionOperand> child);
-    bool Add(std::shared_ptr<AstExpression> child) { return Add(std::make_shared<AstExpressionOperand > (child)); }
-    bool Add(std::shared_ptr<AstNumeric> child) { return Add(std::make_shared<AstExpressionOperand >(child)); }
+    bool Add(std::shared_ptr<AstExpression> child) { return Add(std::make_shared<AstExpressionOperand>(child)); }
+    bool Add(std::shared_ptr<AstNumeric> child) { return Add(std::make_shared<AstExpressionOperand>(child)); }
     void setOperator(AstExpressionOperator op) { _operator = op; }
 
 private:

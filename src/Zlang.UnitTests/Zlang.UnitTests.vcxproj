@@ -49,6 +49,7 @@
     <ClCompile Include="AST\AstNumericBuilderTests.cpp" />
     <ClCompile Include="AST\AstSymbolTableTests.cpp" />
     <ClCompile Include="AST\AstCodeTests.cpp" />
+    <ClCompile Include="Dgml\DgmlBuilderTests.cpp" />
     <ClCompile Include="grammar\CommentSmokeTests.cpp" />
     <ClCompile Include="grammar\EnumSmokeTests.cpp" />
     <ClCompile Include="grammar\ExpressionSmokeTests.cpp" />
@@ -109,7 +110,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstFile.obj;AstFunction.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;AstNumeric.obj;AstNumericBuilder.obj;AstExpression.obj;AstExpressionOperand.obj;AstExpressionBuilder.obj;AstBranch.obj;AstCodeBlock.obj;AstAssignment.obj;AstError.obj;AstSymbolTable.obj;AstIdentifier.obj;LlvmIrBuilder.obj;Utils.obj;LLVMCore.lib;LLVMRemarks.lib;LLVMBitstreamReader.lib;LLVMBinaryFormat.lib;LLVMSupport.lib;LLVMDemangle.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstFile.obj;AstFunction.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;AstNumeric.obj;AstNumericBuilder.obj;AstExpression.obj;AstExpressionOperand.obj;AstExpressionBuilder.obj;AstBranch.obj;AstCodeBlock.obj;AstAssignment.obj;AstError.obj;AstSymbolTable.obj;AstIdentifier.obj;Dgml.obj;DgmlBuilder.obj;LlvmIrBuilder.obj;Utils.obj;LLVMCore.lib;LLVMRemarks.lib;LLVMBitstreamReader.lib;LLVMBinaryFormat.lib;LLVMSupport.lib;LLVMDemangle.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
     </Link>
   </ItemDefinitionGroup>

@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="zsharp\Dgml\Dgml.cpp" />
+    <ClCompile Include="zsharp\Dgml\DgmlBuilder.cpp" />
     <ClCompile Include="zsharp\AST\AstIdentifier.cpp" />
     <ClCompile Include="zsharp\AST\AstSymbolTable.cpp" />
     <ClCompile Include="zsharp\AST\AstAssignment.cpp" />
@@ -68,6 +70,10 @@
     <None Include="zsharp\LLVM\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="zsharp\Dgml\XmlWriter.h" />
+    <ClInclude Include="zsharp\Dgml\clrDgml.h" />
+    <ClInclude Include="zsharp\Dgml\Dgml.h" />
+    <ClInclude Include="zsharp\Dgml\DgmlBuilder.h" />
     <ClInclude Include="zsharp\AST\AstIdentifier.h" />
     <ClInclude Include="zsharp\AST\AstSymbolTable.h" />
     <ClInclude Include="zsharp\AST\AstAssignment.h" />
@@ -106,6 +112,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="zsharp\grammar\_test\testdata.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="zsharp\Dgml\Dgml.xsd">
+      <DeploymentContent>true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Xsd>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

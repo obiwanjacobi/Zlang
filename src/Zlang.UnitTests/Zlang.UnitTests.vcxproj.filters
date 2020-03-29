@@ -21,6 +21,7 @@
     <ClCompile Include="AST\AstIdentifierTests.cpp" />
     <ClCompile Include="AST\AstSymbolTableTests.cpp" />
     <ClCompile Include="AST\AstCodeTests.cpp" />
+    <ClCompile Include="Dgml\DgmlBuilderTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
