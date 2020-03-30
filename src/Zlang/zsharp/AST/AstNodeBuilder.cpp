@@ -12,19 +12,30 @@ bool isEmpty(const antlr4::ParserRuleContext* ctx) {
     return ctx->children.size() == 0;
 }
 
-template <class T> 
-T* AstNodeBuilder::findCurrent(uint32_t nthOfT) const
+AstCodeBlock* AstNodeBuilder::findCodeBlock(uint32_t indent) const
 {
-    guard(nthOfT > 0);
+    AstCodeBlock* p = nullptr;
+
+    for (auto c : _current) {
+        p = dynamic_cast<AstCodeBlock*>(c);
+        if (p && p->getIndent() == indent) {
+            break;
+        }
+    }
+
+    guard(p != nullptr);
+    return p;
+}
+
+template <class T>
+T* AstNodeBuilder::findCurrent() const
+{
     T* p = nullptr;
 
     for (auto c : _current) {
         p = dynamic_cast<T*>(c);
         if (p) {
-            nthOfT--;
-
-            if (nthOfT == 0)
-                break;
+            break;
         }
     }
 
@@ -128,15 +139,13 @@ antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_de
 antlrcpp::Any AstNodeBuilder::visitCodeblock(zsharp_parserParser::CodeblockContext* ctx)
 {
     if (isEmpty(ctx)) {
-        auto err = std::make_shared<AstError>(ctx);
-        err->setText(AstError::EmptyCodeBlock);
-        _errors.push_back(err);
+        AddError(ctx, AstError::EmptyCodeBlock);
         return nullptr;
     }
 
     auto stSite = findCurrent<AstSymbolTableSite>();
     auto codeBlock = std::make_shared<AstCodeBlock>(stSite->getSymbols(), ctx);
-
+    
     auto cbSite = findCurrent<AstCodeBlockSite>();
     bool success = cbSite->AddCodeBlock(codeBlock);
     guard(success);
@@ -152,10 +161,11 @@ antlrcpp::Any AstNodeBuilder::visitCodeblock(zsharp_parserParser::CodeblockConte
 antlrcpp::Any AstNodeBuilder::visitStatement_if(zsharp_parserParser::Statement_ifContext* ctx)
 {
     auto indent = getIndent(ctx);
-    auto codeBlock = findCurrent<AstCodeBlock>(indent);
+    auto codeBlock = findCodeBlock(indent);
     auto branch = std::make_shared<AstBranch>(ctx);
     bool success = codeBlock->AddItem(branch);
     guard(success);
+    guard(indent == branch->getIndent());
 
     setCurrent(branch);
 
@@ -195,10 +205,11 @@ antlrcpp::Any AstNodeBuilder::visitStatement_elseif(zsharp_parserParser::Stateme
 antlrcpp::Any AstNodeBuilder::visitStatement_return(zsharp_parserParser::Statement_returnContext* ctx)
 {
     auto indent = getIndent(ctx);
-    auto codeBlock = findCurrent<AstCodeBlock>(indent);
+    auto codeBlock = findCodeBlock(indent);
     auto branch = std::make_shared<AstBranch>(ctx);
     bool success = codeBlock->AddItem(branch);
     guard(success);
+    guard(indent == branch->getIndent());
 
     setCurrent(branch);
 
@@ -295,8 +306,6 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_enumoption(zsharp_parserParser::Id
 
     return visitChildren(ctx);
 }
-
-
 
 antlrcpp::Any AstNodeBuilder::visitFunction_parameter(zsharp_parserParser::Function_parameterContext* ctx) {
     auto function = findCurrent<AstFunction>();

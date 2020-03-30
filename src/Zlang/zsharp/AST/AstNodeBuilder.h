@@ -2,6 +2,7 @@
 
 #include "AstNode.h"
 #include "AstError.h"
+#include "AstCodeBlock.h"
 #include "../grammar/parser/zsharp_parserBaseVisitor.h"
 #include <antlr4-runtime.h>
 
@@ -60,8 +61,9 @@ protected:
     bool AddIdentifier(T ctx);
 
 private:
+    AstCodeBlock* findCodeBlock(uint32_t indent) const;
     template <class T> 
-    T* findCurrent(uint32_t nthOfT = 1) const;
+    T* findCurrent() const;
     template <class T>
     T* getCurrent() const { return dynamic_cast<T*>(_current.front()); }
     template <class T> 
@@ -77,7 +79,6 @@ private:
     uint32_t getIndent(T ctx) {
         return visitIndent(ctx->indent()).as<uint64_t>();
     }
-
 
     std::shared_ptr<AstError> AddError(antlr4::ParserRuleContext* ctx, const char* text);
     std::vector<std::shared_ptr<AstError>> _errors;

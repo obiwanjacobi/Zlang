@@ -39,7 +39,8 @@ public:
 
     zsharp_parserParser::Function_defContext* getContext() const { return _function; }
 
-    bool AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) { 
+    bool AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
+        codeBlock->setIndent(1);
         _codeblocks.push_back(codeBlock);
         return true;
     }

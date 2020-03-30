@@ -18,12 +18,14 @@ bool AstBranch::AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
             return Last()->AddCodeBlock(codeBlock);
         }
         else if (_falseCodeBlock == nullptr) {
-            _falseCodeBlock = codeBlock;    // 'else' code block
+            codeBlock->setIndent(getIndent() + 1);
             codeBlock->setParent(this);
+            _falseCodeBlock = codeBlock;    // 'else' code block
             return true;
         }
         return false; 
     }
+    codeBlock->setIndent(getIndent() + 1);
     codeBlock->setParent(this);
     _trueCodeBlock = codeBlock;
     return true;
