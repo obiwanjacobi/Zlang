@@ -3,6 +3,7 @@
 #include "../../Zlang/zsharp/AST/AstBuilder.h"
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
+#include <gtest/gtest.h>
 
 TEST(AstBuilderTests, BuildFile_empty)
 {

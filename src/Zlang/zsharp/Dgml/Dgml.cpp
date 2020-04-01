@@ -47,7 +47,14 @@ namespace dgml
     {
         XmlWriter::BeginElement(output, "Node");
         XmlWriter::Attribute(output, "Id", Id);
-        XmlWriter::Attribute(output, "Label", Label);
+        if (TypeName.length() > 0)
+        {
+            XmlWriter::Attribute(output, "Label", "[" + TypeName + "] " + Label);
+        }
+        else
+        {
+            XmlWriter::Attribute(output, "Label", Label);
+        }
         XmlWriter::Attribute(output, "Category", Category);
         if (Group != Group::NotSet)
         {

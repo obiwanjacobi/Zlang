@@ -40,6 +40,9 @@ namespace dgml
         Group Group;
 
         void Serialize(std::ostream& output);
+
+        // extensions
+        std::string TypeName;
     };
 
     class Link

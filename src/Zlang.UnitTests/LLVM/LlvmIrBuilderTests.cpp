@@ -4,6 +4,7 @@
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
 #include "../../Zlang/zsharp/LLVM/LlvmIrBuilder.h"
+#include <gtest/gtest.h>
 
 TEST(LlvmIrBuilderTests, BuildFile) 
 {

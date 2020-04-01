@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "../Utils.h"
-
+#include <gtest/gtest.h>
 
 TEST(CommentSmokeTests, StartOfLine) {
     const char* src =

@@ -3,6 +3,7 @@
 #include "../../Zlang/zsharp/AST/AstExpressionBuilder.h"
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
+#include <gtest/gtest.h>
 
 TEST(AstExpressionBuilderTests, Arithmetic1)
 {

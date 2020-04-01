@@ -4,6 +4,7 @@
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
 #include "../../Zlang/zsharp/AST/AstBranch.h"
+#include <gtest/gtest.h>
 
 TEST(AstControlFlowTests, If)
 {
