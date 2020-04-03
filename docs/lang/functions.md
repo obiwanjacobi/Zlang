@@ -60,6 +60,8 @@ There is no other way of passing parameters to functions than by value. That mea
 
 That also means that if a parameter is to be passed by reference, an explicit pointer to that value has to be constructed and passed to the function.
 
+> The compiler can still use an immutable reference for optimizations. The by-value model is how you should think about it.
+
 ```C#
 byref(ptr: Ptr<U8>)     // pointer as by-ref parameter
     ...

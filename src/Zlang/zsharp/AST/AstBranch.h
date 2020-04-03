@@ -7,74 +7,117 @@
 
 enum class AstBranchType {
     NotSet,
-    Conditional,    // if-else
-    ExitIteration,  // continue
-    ExitLoop,       // break
-    ExitFunction,   // return
+    Conditional,        // if-else
+    ExitIteration,      // continue
+    ExitLoop,           // break
+    ExitFunction,       // return
 };
 
-class AstBranch : public AstCodeBlockItem, public AstExpressionSite, public AstCodeBlockSite
+class AstBranchConditional;
+
+class AstBranch : public AstCodeBlockItem
 {
 public:
-    AstBranch(zsharp_parserParser::Statement_ifContext* ctx)
-        : AstCodeBlockItem(AstNodeType::Branch), 
-        _branchType(AstBranchType::Conditional), _ifCtx(ctx), _elseifCtx(nullptr), 
-        _returnCtx(nullptr), _breakCtx(nullptr), _continueCtx(nullptr)
-    {}
-    AstBranch(zsharp_parserParser::Statement_elseifContext* ctx)
-        : AstCodeBlockItem(AstNodeType::Branch),
-        _branchType(AstBranchType::Conditional), _ifCtx(nullptr), _elseifCtx(ctx), 
-        _returnCtx(nullptr), _breakCtx(nullptr), _continueCtx(nullptr)
-    {}
     AstBranch(zsharp_parserParser::Statement_returnContext* ctx)
         : AstCodeBlockItem(AstNodeType::Branch),
-        _branchType(AstBranchType::ExitFunction), _ifCtx(nullptr), _elseifCtx(nullptr), 
-        _returnCtx(ctx), _breakCtx(nullptr), _continueCtx(nullptr)
+        _branchType(AstBranchType::ExitFunction),
+        _breakCtx(nullptr), _continueCtx(nullptr)
     {}
     AstBranch(zsharp_parserParser::Statement_breakContext* ctx)
         : AstCodeBlockItem(AstNodeType::Branch),
-        _branchType(AstBranchType::ExitLoop), _ifCtx(nullptr), _elseifCtx(nullptr),
-        _returnCtx(nullptr), _breakCtx(ctx), _continueCtx(nullptr)
+        _branchType(AstBranchType::ExitLoop),
+        _breakCtx(ctx), _continueCtx(nullptr)
     {}
     AstBranch(zsharp_parserParser::Statement_continueContext* ctx)
         : AstCodeBlockItem(AstNodeType::Branch),
-        _branchType(AstBranchType::ExitIteration), _ifCtx(nullptr), _elseifCtx(nullptr),
-        _returnCtx(nullptr), _breakCtx(nullptr), _continueCtx(ctx)
+        _branchType(AstBranchType::ExitIteration),
+        _breakCtx(nullptr), _continueCtx(ctx)
     {}
 
-    // sites
-    bool AddExpression(std::shared_ptr<AstExpression> expr);
-    bool AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock);
-
     AstBranchType getBranchType() const { return _branchType; }
-    bool hasCondition() const { return _branchType == AstBranchType::Conditional; }
     bool hasCode() const { return _branchType == AstBranchType::Conditional; }
-
-    std::shared_ptr<AstExpression> getExpression() const { return _expression; }
-    // if body
-    std::shared_ptr<AstCodeBlock> getConditionTrueCodeBlock() const { return _trueCodeBlock; }
-    void setConditionTrueCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) { _trueCodeBlock = codeBlock; }
-    // else body (for last branch in if-else-if chain)
-    std::shared_ptr<AstCodeBlock> getConditionFalseCodeBlock() const { return _falseCodeBlock; }
-    void setConditionFalseCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) { _falseCodeBlock = codeBlock; }
-    // else-if's
-    const std::vector<std::shared_ptr<AstBranch>>& getSubBranches() const { return _subBranches; }
-    void AddSubBranch(std::shared_ptr<AstBranch> subBranch) { _subBranches.push_back(subBranch); }
-    bool hasSubBranches() const { return _subBranches.size() > 0; }
-
-    AstBranch* Last() { return hasSubBranches() ? _subBranches.at(_subBranches.size() - 1).get() : this; }
+    bool isConditional() const { return _branchType == AstBranchType::Conditional; }
+    AstBranchConditional* toCondtional() const { return isConditional() ? (AstBranchConditional*)this : nullptr; }
     
+protected:
+    AstBranch(AstBranchType branchType)
+        : AstCodeBlockItem(AstNodeType::Branch),
+        _branchType(branchType),
+        _breakCtx(nullptr), _continueCtx(nullptr)
+    {}
+
 private:
     AstBranchType _branchType;
-    std::shared_ptr<AstExpression> _expression;
-    std::shared_ptr<AstCodeBlock> _trueCodeBlock;
-    std::shared_ptr<AstCodeBlock> _falseCodeBlock;
-    std::vector<std::shared_ptr<AstBranch>> _subBranches;
 
-    zsharp_parserParser::Statement_ifContext* _ifCtx;
-    zsharp_parserParser::Statement_elseifContext* _elseifCtx;
-    zsharp_parserParser::Statement_returnContext* _returnCtx;
+    
     zsharp_parserParser::Statement_breakContext* _breakCtx;
     zsharp_parserParser::Statement_continueContext* _continueCtx;
 };
 
+//
+// A Branch that contains an expression
+//
+
+class AstBranchExpression : public AstBranch, public AstExpressionSite
+{
+public:
+    AstBranchExpression(zsharp_parserParser::Statement_returnContext* ctx)
+        : AstBranch(AstBranchType::ExitFunction), _returnCtx(ctx)
+    {}
+
+    std::shared_ptr<AstExpression> getExpression() const { return _expression; }
+    bool AddExpression(std::shared_ptr<AstExpression> expr);
+    bool hasExpression() const { return _expression != nullptr; }
+
+protected:
+    AstBranchExpression(AstBranchType branchType)
+        : AstBranch(branchType), _returnCtx(nullptr)
+    {}
+
+private:
+    std::shared_ptr<AstExpression> _expression;
+    zsharp_parserParser::Statement_returnContext* _returnCtx;
+};
+
+//
+// A branch that is conditional and optionally contains an expression
+//
+
+class AstBranchConditional : public AstBranchExpression, public AstCodeBlockSite
+{
+public:
+    AstBranchConditional(zsharp_parserParser::Statement_ifContext* ctx)
+        : AstBranchExpression(AstBranchType::Conditional),
+        _ifCtx(ctx), _elseCtx(nullptr), _elseifCtx(nullptr),
+        _subBranch(nullptr)
+    {}
+    AstBranchConditional(zsharp_parserParser::Statement_elseContext* ctx)
+        : AstBranchExpression(AstBranchType::Conditional),
+        _ifCtx(nullptr), _elseCtx(ctx), _elseifCtx(nullptr),
+        _subBranch(nullptr)
+    {}
+    AstBranchConditional(zsharp_parserParser::Statement_elseifContext* ctx)
+        : AstBranchExpression(AstBranchType::Conditional),
+        _ifCtx(nullptr), _elseCtx(nullptr), _elseifCtx(ctx),
+        _subBranch(nullptr)
+    {}
+
+    // if/else body
+    std::shared_ptr<AstCodeBlock> getCodeBlock() const { return _codeBlock; }
+    bool AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock);
+
+    // chain of else/else-if's
+    std::shared_ptr<AstBranchConditional> getSubBranch() const { return _subBranch; }
+    bool AddSubBranch(std::shared_ptr<AstBranchConditional> subBranch);
+    bool hasSubBranch() const { return _subBranch != nullptr; }
+
+    AstBranchConditional* LastSubBranch() { return hasSubBranch() ? _subBranch->LastSubBranch() : this; }
+
+private:
+    std::shared_ptr<AstCodeBlock> _codeBlock;
+    std::shared_ptr<AstBranchConditional> _subBranch;
+
+    zsharp_parserParser::Statement_ifContext* _ifCtx;
+    zsharp_parserParser::Statement_elseContext* _elseCtx;
+    zsharp_parserParser::Statement_elseifContext* _elseifCtx;
+};

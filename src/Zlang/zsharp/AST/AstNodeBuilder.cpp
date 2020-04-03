@@ -162,7 +162,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_if(zsharp_parserParser::Statement_i
 {
     auto indent = getIndent(ctx);
     auto codeBlock = findCodeBlock(indent);
-    auto branch = std::make_shared<AstBranch>(ctx);
+    auto branch = std::make_shared<AstBranchConditional>(ctx);
     bool success = codeBlock->AddItem(branch);
     guard(success);
     guard(indent == branch->getIndent());
@@ -177,12 +177,16 @@ antlrcpp::Any AstNodeBuilder::visitStatement_if(zsharp_parserParser::Statement_i
 
 antlrcpp::Any AstNodeBuilder::visitStatement_else(zsharp_parserParser::Statement_elseContext* ctx)
 {
-    auto branch = findCurrent<AstBranch>();
-    auto last = branch->Last();
+    auto branch = findCurrent<AstBranchConditional>();
+    auto subBr = std::make_shared<AstBranchConditional>(ctx);
+    branch->AddSubBranch(subBr);
 
-    setCurrent(last);
+    auto indent = ctx->indent();
+    auto retVal = visitIndent(indent);
 
-    auto any = visitChildren(ctx);
+    setCurrent(subBr);
+
+    auto any = visitChildrenExcept(ctx, indent);
     
     revertCurrent();
     return any;
@@ -190,15 +194,18 @@ antlrcpp::Any AstNodeBuilder::visitStatement_else(zsharp_parserParser::Statement
 
 antlrcpp::Any AstNodeBuilder::visitStatement_elseif(zsharp_parserParser::Statement_elseifContext* ctx)
 {
-    auto branch = findCurrent<AstBranch>();
-    auto subBr = std::make_shared<AstBranch>(ctx);
+    auto branch = findCurrent<AstBranchConditional>();
+    auto subBr = std::make_shared<AstBranchConditional>(ctx);
     branch->AddSubBranch(subBr);
 
     auto indent = ctx->indent();
     auto retVal = visitIndent(indent);
 
+    setCurrent(subBr);
+
     auto any = visitChildrenExcept(ctx, indent);
     
+    revertCurrent();
     return any;
 }
 
@@ -206,7 +213,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_return(zsharp_parserParser::Stateme
 {
     auto indent = getIndent(ctx);
     auto codeBlock = findCodeBlock(indent);
-    auto branch = std::make_shared<AstBranch>(ctx);
+    auto branch = std::make_shared<AstBranchExpression>(ctx);
     bool success = codeBlock->AddItem(branch);
     guard(success);
     guard(indent == branch->getIndent());

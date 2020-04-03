@@ -75,15 +75,15 @@ TEST(AstIndentationTests, FunctionBody_Branch)
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     
-    auto branch = std::static_pointer_cast<AstBranch>(cb->getItems().at(0));
-    EXPECT_NE(branch, nullptr);
-    EXPECT_EQ(branch->getBranchType(), AstBranchType::Conditional);
+    auto ifbranch = std::static_pointer_cast<AstBranchConditional>(cb->getItems().at(0));
+    EXPECT_NE(ifbranch, nullptr);
+    EXPECT_EQ(ifbranch->getBranchType(), AstBranchType::Conditional);
     
-    auto subBranch = std::static_pointer_cast<AstBranch>(branch->getConditionTrueCodeBlock()->getItems().at(0));
+    auto subBranch = std::static_pointer_cast<AstBranch>(ifbranch->getCodeBlock()->getItems().at(0));
     EXPECT_NE(subBranch, nullptr);
     EXPECT_EQ(subBranch->getBranchType(), AstBranchType::ExitFunction);
 
-    branch = std::static_pointer_cast<AstBranch>(cb->getItems().at(1));
+    auto branch = std::static_pointer_cast<AstBranch>(cb->getItems().at(1));
     EXPECT_NE(branch, nullptr);
     EXPECT_EQ(branch->getBranchType(), AstBranchType::ExitFunction);
 }

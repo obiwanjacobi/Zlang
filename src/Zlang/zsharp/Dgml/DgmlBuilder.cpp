@@ -85,22 +85,20 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteBranch(std::shared_ptr<AstBranch> 
     auto node = createNode(name, name, "AstBranch");
     auto link = createLink(parentId, node->Id);
 
-    auto code = branch->getConditionTrueCodeBlock();
-    if (code != nullptr)
+    auto conditional = branch->toCondtional();
+    if (conditional != nullptr)
     {
-        WriteCodeBlock(code, nullptr, node->Id);
-    }
+        auto code = conditional->getCodeBlock();
+        if (code != nullptr)
+        {
+            WriteCodeBlock(code, nullptr, node->Id);
+        }
 
-    auto subNode = node;
-    for (const auto subBranch : branch->getSubBranches())
-    {
-        subNode = WriteBranch(subBranch, subNode->Id);
-    }
-
-    code = branch->getConditionFalseCodeBlock();
-    if (code != nullptr)
-    {
-        WriteCodeBlock(code, nullptr, subNode->Id);
+        auto subBranch = conditional->getSubBranch();
+        if (subBranch != nullptr)
+        {
+            WriteBranch(subBranch, node->Id);
+        }
     }
 
     return node;

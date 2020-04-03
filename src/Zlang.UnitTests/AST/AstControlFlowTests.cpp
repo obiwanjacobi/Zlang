@@ -26,11 +26,16 @@ TEST(AstControlFlowTests, If)
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
     EXPECT_EQ(fi->getNodeType(), AstNodeType::Branch);
-    auto br = std::static_pointer_cast<AstBranch>(fi);
+    auto br = std::static_pointer_cast<AstBranchConditional>(fi);
 
     EXPECT_EQ(br->getBranchType(), AstBranchType::Conditional);
-    EXPECT_TRUE(br->hasCondition());
+    EXPECT_TRUE(br->isConditional());
+    EXPECT_TRUE(br->hasExpression());
     EXPECT_TRUE(br->hasCode());
+
+    auto esle = br->getCodeBlock();
+    auto ret = esle->getItems().at(0);
+    EXPECT_EQ(ret->getNodeType(), AstNodeType::Branch);
 }
 
 TEST(AstControlFlowTests, ElseIf)
@@ -55,13 +60,14 @@ TEST(AstControlFlowTests, ElseIf)
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
     EXPECT_EQ(fi->getNodeType(), AstNodeType::Branch);
-    auto br = std::static_pointer_cast<AstBranch>(fi);
-    EXPECT_TRUE(br->hasSubBranches());
+    auto br = std::static_pointer_cast<AstBranchConditional>(fi);
+    EXPECT_TRUE(br->hasSubBranch());
 
-    auto subBr = br->getSubBranches().at(0);
+    auto subBr = br->getSubBranch();
     EXPECT_EQ(subBr->getBranchType(), AstBranchType::Conditional);
-    EXPECT_NE(br->getConditionTrueCodeBlock(), nullptr);
-    EXPECT_TRUE(subBr->hasCondition());
+    EXPECT_NE(br->getCodeBlock(), nullptr);
+    EXPECT_TRUE(subBr->isConditional());
+    EXPECT_TRUE(subBr->hasExpression());
     EXPECT_TRUE(subBr->hasCode());
 }
 
@@ -87,12 +93,16 @@ TEST(AstControlFlowTests, Else)
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
     EXPECT_EQ(fi->getNodeType(), AstNodeType::Branch);
-    auto br = std::static_pointer_cast<AstBranch>(fi);
-    EXPECT_FALSE(br->hasSubBranches());
+    auto br = std::static_pointer_cast<AstBranchConditional>(fi);
+    EXPECT_TRUE(br->hasSubBranch());
+    EXPECT_TRUE(br->hasExpression());
 
-    auto esle = br->getConditionFalseCodeBlock();
-    auto ret = esle->getItems().at(0);
-    EXPECT_EQ(ret->getNodeType(), AstNodeType::Branch);
+    auto subBr = br->getSubBranch();
+    EXPECT_EQ(subBr->getBranchType(), AstBranchType::Conditional);
+    EXPECT_NE(br->getCodeBlock(), nullptr);
+    EXPECT_TRUE(subBr->isConditional());
+    EXPECT_FALSE(subBr->hasExpression());
+    EXPECT_TRUE(subBr->hasCode());
 }
 
 TEST(AstControlFlowTests, ElseIfElse)
@@ -117,10 +127,16 @@ TEST(AstControlFlowTests, ElseIfElse)
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
-    auto br = std::static_pointer_cast<AstBranch>(fi);
-    EXPECT_EQ(br->getConditionFalseCodeBlock(), nullptr);
-    auto subBr = br->getSubBranches().at(0);
-    EXPECT_NE(subBr->getConditionFalseCodeBlock(), nullptr);
+    auto br = std::static_pointer_cast<AstBranchConditional>(fi);
+    EXPECT_NE(br->getCodeBlock(), nullptr);
+    EXPECT_TRUE(br->hasExpression());
+    auto subBr = br->getSubBranch();
+    EXPECT_TRUE(subBr->hasExpression());
+    EXPECT_NE(subBr->getCodeBlock(), nullptr);
+
+    subBr = subBr->getSubBranch();
+    EXPECT_NE(subBr->getCodeBlock(), nullptr);
+    EXPECT_FALSE(subBr->hasExpression());
 }
 
 TEST(AstControlFlowTests, Return)
@@ -163,7 +179,7 @@ TEST(AstControlFlowTests, ReturnValue)
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
     EXPECT_EQ(fi->getNodeType(), AstNodeType::Branch);
-    auto br = std::static_pointer_cast<AstBranch>(fi);
+    auto br = std::static_pointer_cast<AstBranchExpression>(fi);
     EXPECT_EQ(br->getBranchType(), AstBranchType::ExitFunction);
     EXPECT_NE(br->getExpression(), nullptr);
     
