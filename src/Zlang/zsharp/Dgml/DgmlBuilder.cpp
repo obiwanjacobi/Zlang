@@ -4,6 +4,23 @@
 
 static const char* ContainsCategory = "Contains";
 
+std::string BranchTypeToName(AstBranchType branchType)
+{
+    switch (branchType)
+    {
+    case AstBranchType::Conditional:
+        return "If|Else";
+    case AstBranchType::ExitFunction:
+        return "Ret";
+    case AstBranchType::ExitIteration:
+        return "Cont";
+    case AstBranchType::ExitLoop:
+        return "Brk";
+    default:
+        return "-";
+    }
+}
+
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteFile(std::shared_ptr<AstFile> file)
 {
     std::string moduleName("AutoModule");
@@ -81,7 +98,7 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteAssignment(std::shared_ptr<AstAssi
 
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteBranch(std::shared_ptr<AstBranch> branch, const std::string& parentId)
 {
-    auto name = "Branch-" + std::to_string((int)branch->getBranchType());
+    auto name = "Branch-" + BranchTypeToName(branch->getBranchType());
     auto node = createNode(name, name, "AstBranch");
     auto link = createLink(parentId, node->Id);
 

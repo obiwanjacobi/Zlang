@@ -13,6 +13,7 @@ enum class AstBranchType {
     ExitFunction,       // return
 };
 
+class AstBranchExpression;
 class AstBranchConditional;
 
 class AstBranch : public AstCodeBlockItem
@@ -35,6 +36,10 @@ public:
     {}
 
     AstBranchType getBranchType() const { return _branchType; }
+    
+    bool isExpression() const { return _branchType == AstBranchType::ExitFunction || isConditional(); }
+    AstBranchExpression* toExpression() const { return isExpression() ? (AstBranchExpression*)this : nullptr; }
+    
     bool hasCode() const { return _branchType == AstBranchType::Conditional; }
     bool isConditional() const { return _branchType == AstBranchType::Conditional; }
     AstBranchConditional* toCondtional() const { return isConditional() ? (AstBranchConditional*)this : nullptr; }

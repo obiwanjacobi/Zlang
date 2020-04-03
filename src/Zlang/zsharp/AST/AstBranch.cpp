@@ -2,9 +2,6 @@
 
 bool AstBranchExpression::AddExpression(std::shared_ptr<AstExpression> expr) {
     if (_expression != nullptr) {
-        /*if (hasSubBranches()) {
-            return Last()->AddExpression(expr);
-        }*/
         return false; 
     }
     expr->setParent(this);
@@ -14,15 +11,6 @@ bool AstBranchExpression::AddExpression(std::shared_ptr<AstExpression> expr) {
 
 bool AstBranchConditional::AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
     if (_codeBlock != nullptr) { 
-        //if (hasSubBranches()) {
-        //    return Last()->AddCodeBlock(codeBlock);
-        //}
-        //else if (_codeBlock == nullptr) {
-        //    codeBlock->setIndent(getIndent() + 1);
-        //    codeBlock->setParent(this);
-        //    _falseCodeBlock = codeBlock;    // 'else' code block
-        //    return true;
-        //}
         return false; 
     }
 
@@ -34,8 +22,7 @@ bool AstBranchConditional::AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock)
 
 bool AstBranchConditional::AddSubBranch(std::shared_ptr<AstBranchConditional> subBranch)
 {
-    if (_subBranch != nullptr)
-    {
+    if (_subBranch != nullptr) {
         return false;
     }
 
