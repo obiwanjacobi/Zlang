@@ -39,6 +39,8 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteFile(std::shared_ptr<AstFile> file
         WriteFunction(function, node->Id);
     }
 
+    WriteSymbolTable(file->getSymbols(), node->Id);
+
     return node;
 }
 
@@ -47,6 +49,7 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteFunction(std::shared_ptr<AstFuncti
     auto identifier = function->getIdentifier();
     auto name = identifier->getName();
     auto node = createNode(name, name, "Function");
+    auto link = createLink(parentId, node->Id);
 
     std::string paramNames;
     for (const auto p : function->getParameters())
@@ -60,8 +63,6 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteFunction(std::shared_ptr<AstFuncti
         auto paramNode = createNode(name, paramNames, "Parameter");
         auto paramLink = createLink(node->Id, paramNode->Id, ContainsCategory);
     }
-
-    auto link = createLink(parentId, node->Id);
 
     std::shared_ptr<AstCodeBlock> prevBlock = nullptr;
     for (const auto codeBlock : function->getCodeBlocks())
@@ -93,6 +94,8 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteCodeBlock(std::shared_ptr<AstCodeB
             }
         }
     }
+
+    WriteSymbolTable(codeBlock->getSymbols(), node->Id);
 
     return node;
 }
@@ -149,6 +152,21 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteBranch(std::shared_ptr<AstBranch> 
         {
             WriteBranch(subBranch, node->Id);
         }
+    }
+
+    return node;
+}
+
+std::shared_ptr<dgml::Node> DgmlBuilder::WriteSymbolTable(std::shared_ptr<AstSymbolTable> symbolTable, const std::string& parentId)
+{
+    auto node = createNode("", "", "Symbols");
+    node->Group = DefaultGroup;
+    auto link = createLink(parentId, node->Id, ContainsCategory);
+
+    for (const auto entry : symbolTable->getSymbolEntries())
+    {
+        auto entryNode = createNode("Symbol", entry->getSymbolName().getQualifiedName(), "Symbol");
+        auto entryLink = createLink(node->Id, entryNode->Id, ContainsCategory);
     }
 
     return node;

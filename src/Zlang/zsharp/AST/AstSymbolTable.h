@@ -82,6 +82,9 @@ public:
 
     std::shared_ptr<AstSymbolTable> getParentTable() const { return _parent; }
 
+    const std::vector<std::string> getSymbolNames() const;
+    const std::vector<std::shared_ptr<AstSymbolEntry>> getSymbolEntries() const;
+
 private:
     std::shared_ptr<AstSymbolTable> _parent;
     std::map<const std::string, std::shared_ptr<AstSymbolEntry>> _table;

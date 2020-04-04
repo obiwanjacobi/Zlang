@@ -25,6 +25,7 @@ public:
     std::shared_ptr<dgml::Node> WriteCodeBlockItem(std::shared_ptr<AstCodeBlockItem> codeBlockItem, const std::string& codeBlockId);
     std::shared_ptr<dgml::Node> WriteAssignment(std::shared_ptr<AstAssignment> assignment, const std::string& parentId);
     std::shared_ptr<dgml::Node> WriteBranch(std::shared_ptr<AstBranch> branch, const std::string& parentId);
+    std::shared_ptr<dgml::Node> WriteSymbolTable(std::shared_ptr<AstSymbolTable> symbolTable, const std::string& parentId);
 
     void Serialize(std::ostream& output);
     void SaveAs(const std::string& filePath);
