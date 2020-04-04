@@ -38,6 +38,7 @@
     <ClCompile Include="zsharp\AST\AstIdentifier.cpp" />
     <ClCompile Include="zsharp\Dgml\DgmlBuilder.cpp" />
     <ClCompile Include="zsharp\Dgml\Dgml.cpp" />
+    <ClCompile Include="zsharp\Dgml\AstExtensions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -92,6 +93,7 @@
     <ClInclude Include="zsharp\Dgml\clrDgml.h" />
     <ClInclude Include="zsharp\Dgml\Dgml.h" />
     <ClInclude Include="zsharp\Dgml\XmlWriter.h" />
+    <ClInclude Include="zsharp\Dgml\AstExtensions.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="zsharp\grammar\_test\testdata.txt" />

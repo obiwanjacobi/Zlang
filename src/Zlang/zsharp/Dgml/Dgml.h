@@ -50,6 +50,7 @@ namespace dgml
     public:
         std::string Source;
         std::string Target;
+        std::string Label;
         std::string Category;
 
         void Serialize(std::ostream& output);

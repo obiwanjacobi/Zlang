@@ -39,5 +39,7 @@ private:
     std::shared_ptr<dgml::Node> createNode(const std::string& id, const std::string& label, const char* typeName = nullptr);
     std::shared_ptr<dgml::Link> createLink(const std::string& sourceId, const std::string& targetId, const char* category = nullptr);
     std::shared_ptr<dgml::Category> createCategory(const std::string& id, const std::string& label);
+
+    std::shared_ptr<dgml::Link> findLink(const std::string& sourceId, const std::string& targetId) const;
 };
 

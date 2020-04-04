@@ -39,6 +39,8 @@ public:
         _valueCtx(ctx), _operator(AstExpressionOperator::Number)
     {}
 
+    antlr4::ParserRuleContext* getContext() const;
+
     AstExpressionOperator getOperator() const { return _operator; }
     bool isOperator(AstExpressionOperator op) const { return ((int)_operator & (int)op) > 0; }
     uint32_t getPrecedence() const { return ((int)_operator & (int)AstExpressionOperator::MaskPrecedence) >> 4; }

@@ -1,8 +1,10 @@
 #include "DgmlBuilder.h"
 #include "XmlWriter.h"
 #include "../AST/AstModule.h"
+#include "AstExtensions.h"
 
 static const char* ContainsCategory = "Contains";
+static const dgml::Group DefaultGroup = dgml::Group::Collapsed;
 
 std::string BranchTypeToName(AstBranchType branchType)
 {
@@ -30,7 +32,7 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteFile(std::shared_ptr<AstFile> file
         moduleName = module->getName();
     }
 
-    auto node = createNode(moduleName, moduleName, "AstFile");
+    auto node = createNode(moduleName, moduleName, "File");
     
     for (const auto function : file->getFunctions())
     {
@@ -42,11 +44,24 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteFile(std::shared_ptr<AstFile> file
 
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteFunction(std::shared_ptr<AstFunction> function, const std::string& parentId)
 {
-    auto name = function->getIdentifier()->getName();
-    auto node = createNode(name, name, "AstFunction");
+    auto identifier = function->getIdentifier();
+    auto name = identifier->getName();
+    auto node = createNode(name, name, "Function");
 
-    auto link = createLink(parentId, node->Id, ContainsCategory);
-    link->Category = ContainsCategory;
+    std::string paramNames;
+    for (const auto p : function->getParameters())
+    {
+        if (paramNames.length() > 0) { paramNames += ", ";  }
+        paramNames += p->getIdentifier()->getName();
+    }
+    if (paramNames.length() > 0)
+    {
+        node->Group = DefaultGroup;
+        auto paramNode = createNode(name, paramNames, "Parameter");
+        auto paramLink = createLink(node->Id, paramNode->Id, ContainsCategory);
+    }
+
+    auto link = createLink(parentId, node->Id);
 
     std::shared_ptr<AstCodeBlock> prevBlock = nullptr;
     for (const auto codeBlock : function->getCodeBlocks())
@@ -61,12 +76,22 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteFunction(std::shared_ptr<AstFuncti
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock, std::shared_ptr<AstCodeBlock> prevBlock, const std::string& parentId)
 {
     std::string name = "";
-    auto node = createNode(name, name, "AstCodeBlock");
-    auto link = createLink(parentId, node->Id, ContainsCategory);
+    auto node = createNode(name, name, "CodeBlock");
+    auto link = createLink(parentId, node->Id);
 
+    uint16_t i = 0;
     for (const auto item : codeBlock->getItems())
     {
-        WriteCodeBlockItem(item, node->Id);
+        i++;
+        auto itemNode = WriteCodeBlockItem(item, node->Id);
+        if (itemNode)
+        {
+            link = findLink(node->Id, itemNode->Id);
+            if (link)
+            {
+                link->Label = std::to_string(i);
+            }
+        }
     }
 
     return node;
@@ -91,7 +116,7 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteCodeBlockItem(std::shared_ptr<AstC
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteAssignment(std::shared_ptr<AstAssignment> assignment, const std::string& parentId)
 {
     auto name = assignment->getIdentifier()->getName();
-    auto node = createNode(name, name, "AstAssignment");
+    auto node = createNode(name, name, "Assignment");
     auto link = createLink(parentId, node->Id);
     return node;
 }
@@ -99,12 +124,20 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteAssignment(std::shared_ptr<AstAssi
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteBranch(std::shared_ptr<AstBranch> branch, const std::string& parentId)
 {
     auto name = BranchTypeToName(branch->getBranchType());
-    auto node = createNode(name, name, "AstBranch");
+    auto node = createNode(name, name, "Branch");
     auto link = createLink(parentId, node->Id);
 
     auto conditional = branch->toCondtional();
     if (conditional != nullptr)
     {
+        auto expression = conditional->getExpression();
+        if (expression)
+        {
+            auto exprNode = createNode(name, ToString(expression));
+            auto exprLink = createLink(node->Id, exprNode->Id, ContainsCategory);
+            node->Group = DefaultGroup;
+        }
+
         auto code = conditional->getCodeBlock();
         if (code != nullptr)
         {
@@ -177,4 +210,17 @@ std::shared_ptr<dgml::Category> DgmlBuilder::createCategory(const std::string& i
 
     _graph->Categories.push_back(category);
     return category;
+}
+
+std::shared_ptr<dgml::Link> DgmlBuilder::findLink(const std::string& sourceId, const std::string& targetId) const
+{
+    for (const auto l : _graph->Links)
+    {
+        if (l->Source == sourceId && l->Target == targetId)
+        {
+            return l;
+        }
+    }
+
+    return nullptr;
 }

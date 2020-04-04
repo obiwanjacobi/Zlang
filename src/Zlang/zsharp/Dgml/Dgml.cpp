@@ -69,6 +69,7 @@ namespace dgml
         XmlWriter::BeginElement(output, "Link");
         XmlWriter::Attribute(output, "Source", Source);
         XmlWriter::Attribute(output, "Target", Target);
+        XmlWriter::Attribute(output, "Label", Label);
         XmlWriter::Attribute(output, "Category", Category);
         XmlWriter::EndCloseElement(output);
     }

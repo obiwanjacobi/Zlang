@@ -1,6 +1,15 @@
 #include "AstExpressionOperand.h"
 #include "AstExpression.h"
 
+antlr4::ParserRuleContext* AstExpressionOperand::getContext() const
+{
+    if (_litBoolCtx) return _litBoolCtx;
+    if (_boolCtx) return _boolCtx;
+    if (_callCtx) return _callCtx;
+    if (_varCtx) return _varCtx;
+    return nullptr;
+}
+
 const AstNode* AstExpressionOperand::getParent() const
 {
     if (_expression != nullptr) {

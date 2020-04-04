@@ -34,6 +34,7 @@ public:
     std::shared_ptr<AstExpression> getExpression() const { return _expression; }
     std::shared_ptr<AstNumeric> getNumeric() const { return _numeric; }
 
+    antlr4::ParserRuleContext* getContext() const;
     zsharp_parserParser::Literal_boolContext* getLiteralBool() const { return _litBoolCtx; }
     zsharp_parserParser::Identifier_boolContext* getBool() const { return _boolCtx; }
     zsharp_parserParser::Function_callContext* getCall() const { return _callCtx; }

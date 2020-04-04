@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="zsharp\Dgml\AstExtensions.cpp" />
     <ClCompile Include="zsharp\Dgml\Dgml.cpp" />
     <ClCompile Include="zsharp\Dgml\DgmlBuilder.cpp" />
     <ClCompile Include="zsharp\AST\AstIdentifier.cpp" />
@@ -71,6 +72,7 @@
     <None Include="zsharp\LLVM\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="zsharp\Dgml\AstExtensions.h" />
     <ClInclude Include="zsharp\Dgml\XmlWriter.h" />
     <ClInclude Include="zsharp\Dgml\clrDgml.h" />
     <ClInclude Include="zsharp\Dgml\Dgml.h" />
