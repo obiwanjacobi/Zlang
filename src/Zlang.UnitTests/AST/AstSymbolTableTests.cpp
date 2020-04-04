@@ -17,11 +17,11 @@ TEST(AstSymbolTableTests, FunctionName)
     ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
-    auto file = uut.BuildFile("", fileCtx);
+    auto file = uut.BuildFile("UnitTest", fileCtx);
     ASSERT_FALSE(uut.hasErrors());
 
     auto symbols = file->getSymbols();
-    auto entry = symbols->getEntry("MyFunction");
+    auto entry = symbols->getEntry("UnitTest.MyFunction");
     ASSERT_NE(entry, nullptr);
     ASSERT_EQ(entry->getSymbolType(), AstSymbolType::Function);
 }
@@ -38,13 +38,13 @@ TEST(AstSymbolTableTests, LocalVariableName)
     ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
-    auto file = uut.BuildFile("", fileCtx);
+    auto file = uut.BuildFile("UnitTest", fileCtx);
     ASSERT_FALSE(uut.hasErrors());
 
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     auto symbols = cb->getSymbols();
-    auto entry = symbols->getEntry("c");
+    auto entry = symbols->getEntry("UnitTest.MyFunction.c");
 
     ASSERT_NE(entry, nullptr);
     ASSERT_EQ(entry->getSymbolType(), AstSymbolType::Variable);

@@ -98,8 +98,10 @@ antlrcpp::Any AstNodeBuilder::aggregateResult(antlrcpp::Any aggregate, const ant
     return nextResult;
 }
 
+
+
 antlrcpp::Any AstNodeBuilder::visitFile(zsharp_parserParser::FileContext* ctx) {
-    auto file = std::make_shared<AstFile>(ctx);
+    auto file = std::make_shared<AstFile>(_namespace, ctx);
     setCurrent(file);
 
     auto any = base::visitChildren(ctx);
@@ -115,7 +117,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_import(zsharp_parserParser::Stateme
     auto file = GetCurrent<AstFile>();
     file->AddImport(ctx);
 
-    auto entry = file->SetSymbol(ctx->module_name()->getText(), "", AstSymbolType::NotSet, nullptr);
+    auto entry = file->AddSymbol(ctx->module_name()->getText(), AstSymbolType::NotSet, nullptr);
     entry->setSymbolLocality(AstSymbolLocality::Imported);
 
     return nullptr;
@@ -126,7 +128,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_export(zsharp_parserParser::Stateme
     auto file = GetCurrent<AstFile>();
     file->AddExport(ctx);
 
-    auto entry = file->SetSymbol(_namespace, ctx->identifier_func()->getText(), AstSymbolType::Function, nullptr);
+    auto entry = file->AddSymbol(ctx->identifier_func()->getText(), AstSymbolType::Function, nullptr);
     entry->setSymbolLocality(AstSymbolLocality::Exported);
 
     return nullptr;
@@ -144,7 +146,7 @@ antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_de
     auto identifier = ctx->identifier_func();
     auto dummy = visitIdentifier_func(identifier);
 
-    auto entry = file->SetSymbol(_namespace, function->getIdentifier()->getName(), AstSymbolType::Function, function);
+    auto entry = file->AddSymbol(function->getIdentifier()->getName(), AstSymbolType::Function, function);
 
     if (dynamic_cast<zsharp_parserParser::Function_def_exportContext*>(ctx->parent)) {
         entry->setSymbolLocality(AstSymbolLocality::Exported);
@@ -162,11 +164,18 @@ antlrcpp::Any AstNodeBuilder::visitCodeblock(zsharp_parserParser::CodeblockConte
         AddError(ctx, AstError::EmptyCodeBlock);
         return nullptr;
     }
-
-    auto stSite = GetCurrent<AstSymbolTableSite>();
-    auto codeBlock = std::make_shared<AstCodeBlock>(stSite->getSymbols(), ctx);
     
+    auto stSite = GetCurrent<AstSymbolTableSite>();
+    auto symbols = stSite->getSymbols();
+    std::string scopeName = symbols->getNamespace();
+
     auto cbSite = GetCurrent<AstCodeBlockSite>();
+    auto parent = dynamic_cast<AstFunction*>(cbSite);
+    if (parent) { 
+        scopeName = parent->getIdentifier()->getName();
+    }
+
+    auto codeBlock = std::make_shared<AstCodeBlock>(scopeName, symbols, ctx);
     bool success = cbSite->AddCodeBlock(codeBlock);
     guard(success);
 
@@ -386,7 +395,7 @@ antlrcpp::Any AstNodeBuilder::visitVariable_assign(zsharp_parserParser::Variable
     revertCurrent();
 
     auto symbols = GetCurrent<AstSymbolTableSite>();
-    auto entry = symbols->SetSymbol(_namespace, assign->getIdentifier()->getName(), AstSymbolType::Variable, assign);
+    auto entry = symbols->AddSymbol(assign->getIdentifier()->getName(), AstSymbolType::Variable, assign);
 
     return any;
 }

@@ -18,7 +18,6 @@ void AstFile::AddFunction(std::shared_ptr<AstFunction> function)
 {
     if (function != nullptr) {
         function->setParent(this);
-
         _functions.push_back(function);
     }
 }

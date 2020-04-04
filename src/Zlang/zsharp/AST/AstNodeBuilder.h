@@ -11,8 +11,8 @@ class AstNodeBuilder : public zsharp_parserBaseVisitor
     typedef zsharp_parserBaseVisitor base;
 
 public:
-    AstNodeBuilder(std::string namespace_, int defaultIndentation = 0)
-        : _namespace(namespace_), _indent(defaultIndentation)
+    AstNodeBuilder(std::string ns, int defaultIndentation = 0)
+        : _namespace(ns), _indent(defaultIndentation)
     {}
 
     antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult) override;

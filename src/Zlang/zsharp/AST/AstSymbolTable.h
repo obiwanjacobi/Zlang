@@ -69,15 +69,18 @@ private:
 class AstSymbolTable
 {
 public:
-    AstSymbolTable()
+    AstSymbolTable(std::string basename)
+        : _namespace(basename)
     {}
     AstSymbolTable(std::shared_ptr<AstSymbolTable> parentTable)
         : _parent(parentTable)
     {}
+    AstSymbolTable(std::string basename, std::shared_ptr<AstSymbolTable> parentTable)
+        : _parent(parentTable), _namespace(basename)
+    {}
 
-    std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& ns, const std::string& symbolName, 
-        AstSymbolType type, std::shared_ptr<AstNode> node);
-
+    std::shared_ptr<AstSymbolEntry> AddSymbol(
+        const std::string& symbolName, AstSymbolType type, std::shared_ptr<AstNode> node);
     std::shared_ptr<AstSymbolEntry> getEntry(const std::string qualifiedNameOrAlias) { return _table[qualifiedNameOrAlias]; }
 
     std::shared_ptr<AstSymbolTable> getParentTable() const { return _parent; }
@@ -85,7 +88,11 @@ public:
     const std::vector<std::string> getSymbolNames() const;
     const std::vector<std::shared_ptr<AstSymbolEntry>> getSymbolEntries() const;
 
+    std::string getQualifiedName() const;
+    std::string getNamespace() const { return _namespace; }
+
 private:
+    std::string _namespace;
     std::shared_ptr<AstSymbolTable> _parent;
     std::map<const std::string, std::shared_ptr<AstSymbolEntry>> _table;
 };
@@ -93,7 +100,27 @@ private:
 class AstSymbolTableSite
 {
 public:
-    virtual std::shared_ptr<AstSymbolTable> getSymbols() = 0;
-    virtual std::shared_ptr<AstSymbolEntry> SetSymbol(const std::string& ns, const std::string& symbolName,
-        AstSymbolType type, std::shared_ptr<AstNode> node) = 0;
+    std::shared_ptr<AstSymbolTable> getSymbols() { return _symbols; }
+    std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
+        AstSymbolType type, std::shared_ptr<AstNode> node)
+    {
+        return _symbols->AddSymbol(symbolName, type, node);
+    }
+
+protected:
+    AstSymbolTableSite(std::shared_ptr<AstSymbolTable> parent)
+    {
+        _symbols = std::make_shared<AstSymbolTable>(parent);
+    }
+    AstSymbolTableSite(std::string ns)
+    {
+        _symbols = std::make_shared<AstSymbolTable>(ns);
+    }
+    AstSymbolTableSite(std::string ns, std::shared_ptr<AstSymbolTable> parent)
+    {
+        _symbols = std::make_shared<AstSymbolTable>(ns, parent);
+    }
+
+private:
+    std::shared_ptr<AstSymbolTable> _symbols;
 };

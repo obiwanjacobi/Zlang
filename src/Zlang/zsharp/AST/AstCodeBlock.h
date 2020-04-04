@@ -31,11 +31,10 @@ private:
 class AstCodeBlock : public AstNode, public AstSymbolTableSite
 {
 public:
-    AstCodeBlock(std::shared_ptr<AstSymbolTable> parentSymbolTable, zsharp_parserParser::CodeblockContext* ctx)
-        : AstNode(AstNodeType::CodeBlock), _ctx(ctx), _indent(0)
-    {
-        _symbols = std::make_shared<AstSymbolTable>(parentSymbolTable);
-    }
+    AstCodeBlock(std::string scopeName, std::shared_ptr<AstSymbolTable> parentSymbolTable, zsharp_parserParser::CodeblockContext* ctx)
+        : AstNode(AstNodeType::CodeBlock), AstSymbolTableSite(scopeName, parentSymbolTable),
+        _ctx(ctx), _indent(0)
+    {}
 
     zsharp_parserParser::CodeblockContext* getContext() const { return _ctx; }
 
@@ -47,13 +46,6 @@ public:
         return true;
     }
 
-    std::shared_ptr<AstSymbolTable> getSymbols() override { return _symbols; }
-    std::shared_ptr<AstSymbolEntry> SetSymbol(const std::string& ns, const std::string& symbolName,
-        AstSymbolType type, std::shared_ptr<AstNode> node) override
-    {
-        return _symbols->AddSymbol(ns, symbolName, type, node);
-    }
-
     uint32_t getIndent() const { return _indent;  }
     void setIndent(uint32_t indent) { _indent = indent; }
 
@@ -61,7 +53,6 @@ private:
     uint32_t _indent;
     zsharp_parserParser::CodeblockContext* _ctx;
 
-    std::shared_ptr<AstSymbolTable> _symbols;
     std::vector<std::shared_ptr<AstCodeBlockItem>> _items;
 };
 

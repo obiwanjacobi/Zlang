@@ -25,7 +25,7 @@ AstSymbolType toSymbolType(AstIdentifierType idType)
 std::shared_ptr<AstSymbolEntry> AstIdentifierSite::AddSymbol(std::shared_ptr<AstIdentifier> identifier)
 {
     auto symbols = identifier->getParentRecursive<AstSymbolTableSite>();
-    return symbols->SetSymbol("", identifier->getName(),
+    return symbols->AddSymbol(identifier->getName(),
         toSymbolType(identifier->getType()), identifier);
 }
 
