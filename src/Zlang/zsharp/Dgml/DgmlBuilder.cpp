@@ -23,7 +23,7 @@ std::string BranchTypeToName(AstBranchType branchType)
 
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteFile(std::shared_ptr<AstFile> file)
 {
-    std::string moduleName("AutoModule");
+    std::string moduleName;
     auto module = (AstModule*)(file->getParent());
     if (module != nullptr)
     {
@@ -60,7 +60,7 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteFunction(std::shared_ptr<AstFuncti
 
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock, std::shared_ptr<AstCodeBlock> prevBlock, const std::string& parentId)
 {
-    std::string name = "CodeBlock";
+    std::string name = "";
     auto node = createNode(name, name, "AstCodeBlock");
     auto link = createLink(parentId, node->Id, ContainsCategory);
 
@@ -90,7 +90,7 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteCodeBlockItem(std::shared_ptr<AstC
 
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteAssignment(std::shared_ptr<AstAssignment> assignment, const std::string& parentId)
 {
-    auto name = "Assignment: " + assignment->getIdentifier()->getName();
+    auto name = assignment->getIdentifier()->getName();
     auto node = createNode(name, name, "AstAssignment");
     auto link = createLink(parentId, node->Id);
     return node;
@@ -98,7 +98,7 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteAssignment(std::shared_ptr<AstAssi
 
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteBranch(std::shared_ptr<AstBranch> branch, const std::string& parentId)
 {
-    auto name = "Branch-" + BranchTypeToName(branch->getBranchType());
+    auto name = BranchTypeToName(branch->getBranchType());
     auto node = createNode(name, name, "AstBranch");
     auto link = createLink(parentId, node->Id);
 
