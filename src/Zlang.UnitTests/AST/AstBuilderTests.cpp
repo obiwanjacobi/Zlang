@@ -13,13 +13,14 @@ TEST(AstBuilderTests, BuildFile_empty)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
-    EXPECT_NE(file, nullptr);
-    EXPECT_EQ(file->getNodeType(), AstNodeType::File);
+    ASSERT_NE(file, nullptr);
+    ASSERT_EQ(file->getNodeType(), AstNodeType::File);
 }
 
 TEST(AstBuilderTests, BuildFile_ImportsOne)
@@ -30,18 +31,19 @@ TEST(AstBuilderTests, BuildFile_ImportsOne)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
     auto imports = file->getImports();
-    EXPECT_EQ(imports.size(), 1);
+    ASSERT_EQ(imports.size(), 1);
 
     auto import = imports.at(0);
     auto modName = import->module_name();
     auto text = modName->getText();
-    EXPECT_STREQ(text.c_str(), "importmodule");
+    ASSERT_STREQ(text.c_str(), "importmodule");
 }
 
 TEST(AstBuilderTests, BuildFile_Imports)
@@ -53,23 +55,24 @@ TEST(AstBuilderTests, BuildFile_Imports)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
 
     auto imports = file->getImports();
-    EXPECT_EQ(imports.size(), 2);
+    ASSERT_EQ(imports.size(), 2);
+    ASSERT_FALSE(uut.hasErrors());
 
     auto import = imports.at(0);
     auto modName = import->module_name();
     auto text = modName->getText();
-    EXPECT_STREQ(text.c_str(), "importmodule1");
+    ASSERT_STREQ(text.c_str(), "importmodule1");
 
     import = imports.at(1);
     modName = import->module_name();
     text = modName->getText();
-    EXPECT_STREQ(text.c_str(), "importmodule2");
+    ASSERT_STREQ(text.c_str(), "importmodule2");
 }
 
 TEST(AstBuilderTests, BuildFile_ExportsOne)
@@ -80,18 +83,19 @@ TEST(AstBuilderTests, BuildFile_ExportsOne)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
     auto exports = file->getExports();
-    EXPECT_EQ(exports.size(), 1);
+    ASSERT_EQ(exports.size(), 1);
 
     auto exprt = exports.at(0);
     auto funName = exprt->identifier_func();
     auto text = funName->getText();
-    EXPECT_STREQ(text.c_str(), "myFunction");
+    ASSERT_STREQ(text.c_str(), "myFunction");
 }
 
 TEST(AstBuilderTests, BuildFile_Exports) 
@@ -103,23 +107,24 @@ TEST(AstBuilderTests, BuildFile_Exports)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
     auto exports = file->getExports();
-    EXPECT_EQ(exports.size(), 2);
+    ASSERT_EQ(exports.size(), 2);
 
     auto exprt = exports.at(0);
     auto funName = exprt->identifier_func();
     auto text = funName->getText();
-    EXPECT_STREQ(text.c_str(), "myFunction1");
+    ASSERT_STREQ(text.c_str(), "myFunction1");
 
     exprt = exports.at(1);
     funName = exprt->identifier_func();
     text = funName->getText();
-    EXPECT_STREQ(text.c_str(), "myFunction2");
+    ASSERT_STREQ(text.c_str(), "myFunction2");
 }
 
 TEST(AstBuilderTests, BuildFile_Function)
@@ -131,18 +136,19 @@ TEST(AstBuilderTests, BuildFile_Function)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
-    
+    ASSERT_FALSE(uut.hasErrors());
+
     auto functions = file->getFunctions();
-    EXPECT_EQ(functions.size(), 1);
+    ASSERT_EQ(functions.size(), 1);
 
     auto fn = functions.at(0).get();
-    EXPECT_NE(fn->getCodeBlocks().size(), 0);
+    ASSERT_NE(fn->getCodeBlocks().size(), 0);
     auto cb = fn->getCodeBlocks().at(0);
-    EXPECT_NE(cb, nullptr);
+    ASSERT_NE(cb, nullptr);
 }
 
 TEST(AstBuilderTests, BuildFile_Assignment)
@@ -154,10 +160,11 @@ TEST(AstBuilderTests, BuildFile_Assignment)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
     auto functions = file->getFunctions();
     auto fn = functions.at(0).get();
@@ -173,15 +180,16 @@ TEST(AstBuilderTests, Build_ModuleName)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     uut.Build(fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
     auto modules = uut.getModules();
-    EXPECT_EQ(modules.size(), 1);
+    ASSERT_EQ(modules.size(), 1);
 
     auto mod = modules.at(0).get();
     auto name = mod->getName();
-    EXPECT_STREQ(name.c_str(), "testmodule");
+    ASSERT_STREQ(name.c_str(), "testmodule");
 }

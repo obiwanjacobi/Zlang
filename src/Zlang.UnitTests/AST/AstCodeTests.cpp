@@ -19,9 +19,9 @@ TEST(AstCodeTests, Code1)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
-    EXPECT_FALSE(uut.hasErrors());
+    ASSERT_FALSE(uut.hasErrors());
 }

@@ -9,9 +9,6 @@
 TEST(DgmlBuilderTests, File_If)
 {
     const char* src =
-        "// comment\n"
-        "export MyFunction\n"
-        "\n"
         "MyFunction(a: U8): Bool\n"
         "    if a = 42\n"
         "        return true\n"
@@ -20,11 +17,11 @@ TEST(DgmlBuilderTests, File_If)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("UnitTest", fileCtx);
-    EXPECT_FALSE(uut.hasErrors());
+    ASSERT_FALSE(uut.hasErrors());
 
     DgmlBuilder builder;
     builder.WriteFile(file);
@@ -35,9 +32,6 @@ TEST(DgmlBuilderTests, File_If)
 TEST(DgmlBuilderTests, File_IfElse)
 {
     const char* src =
-        "// comment\n"
-        "export MyFunction\n"
-        "\n"
         "MyFunction(a: U8): Bool\n"
         "    if a = 42\n"
         "        return true\n"
@@ -47,11 +41,11 @@ TEST(DgmlBuilderTests, File_IfElse)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("UnitTest", fileCtx);
-    EXPECT_FALSE(uut.hasErrors());
+    ASSERT_FALSE(uut.hasErrors());
 
     DgmlBuilder builder;
     builder.WriteFile(file);
@@ -75,13 +69,37 @@ TEST(DgmlBuilderTests, File_IfElseIfElse)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("UnitTest", fileCtx);
-    EXPECT_FALSE(uut.hasErrors());
+    ASSERT_FALSE(uut.hasErrors());
 
     DgmlBuilder builder;
     builder.WriteFile(file);
     builder.SaveAs("DgmlBuilderTest_File_IfElseIfElse.dgml");
+}
+
+TEST(DgmlBuilderTests, File_IfNested)
+{
+    const char* src =
+        "MyFunction(a: U8): U8\n"
+        "    if a > 10\n"
+        "        if a = 42\n"
+        "            return 1\n"
+        "        return 2\n"
+        "    return 3\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("UnitTest", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    DgmlBuilder builder;
+    builder.WriteFile(file);
+    builder.SaveAs("DgmlBuilderTest_File_IfNested.dgml");
 }

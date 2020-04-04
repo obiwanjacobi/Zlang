@@ -397,7 +397,7 @@ antlrcpp::Any AstNodeBuilder::visitIndent(zsharp_parserParser::IndentContext* ct
 
     if (indent % _indent)
     {
-        AddError(ctx, AstError::IndentationMismatch);
+        AddError(ctx, AstError::IndentationInvalid);
     }
     return indent / _indent;
 }

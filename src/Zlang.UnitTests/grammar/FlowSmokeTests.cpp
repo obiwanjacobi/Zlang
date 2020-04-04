@@ -10,7 +10,7 @@ TEST(FlowSmokeTests, If) {
         "       return\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FlowSmokeTests, IfElse) {
@@ -22,7 +22,7 @@ TEST(FlowSmokeTests, IfElse) {
         "       return\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FlowSmokeTests, IfElseIfElse) {
@@ -36,7 +36,7 @@ TEST(FlowSmokeTests, IfElseIfElse) {
         "       return\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FlowSmokeTests, Loop) {
@@ -46,7 +46,7 @@ TEST(FlowSmokeTests, Loop) {
         "       x = x + 1\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FlowSmokeTests, While) {
@@ -56,7 +56,7 @@ TEST(FlowSmokeTests, While) {
         "       x = x + 1\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FlowSmokeTests, While2) {
@@ -67,5 +67,5 @@ TEST(FlowSmokeTests, While2) {
         "       x = x + 1\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }

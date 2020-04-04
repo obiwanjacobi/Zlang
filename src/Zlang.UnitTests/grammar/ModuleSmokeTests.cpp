@@ -8,7 +8,7 @@ TEST(ModuleSmokeTests, Module) {
         "module test1\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(ModuleSmokeTests, Import) {
@@ -16,7 +16,7 @@ TEST(ModuleSmokeTests, Import) {
         "import somemodule.v2\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(ModuleSmokeTests, Export) {
@@ -24,5 +24,5 @@ TEST(ModuleSmokeTests, Export) {
         "export somefunction\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }

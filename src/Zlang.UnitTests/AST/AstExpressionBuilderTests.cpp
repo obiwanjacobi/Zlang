@@ -13,19 +13,19 @@ TEST(AstExpressionBuilderTests, Arithmetic1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
-    EXPECT_NE(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getLHS()->getNumeric(), nullptr);
-    EXPECT_NE(expr->getRHS()->getNumeric(), nullptr);
-    EXPECT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
-    EXPECT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 4);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
+    ASSERT_NE(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getLHS()->getNumeric(), nullptr);
+    ASSERT_NE(expr->getRHS()->getNumeric(), nullptr);
+    ASSERT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
+    ASSERT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 4);
 }
 
 TEST(AstExpressionBuilderTests, Arithmetic2)
@@ -36,19 +36,19 @@ TEST(AstExpressionBuilderTests, Arithmetic2)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
-    EXPECT_NE(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getRHS()->getExpression(), nullptr);
-    EXPECT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Multiply);
-    EXPECT_NE(expr->getLHS()->getNumeric(), nullptr);
-    EXPECT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
+    ASSERT_NE(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getRHS()->getExpression(), nullptr);
+    ASSERT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Multiply);
+    ASSERT_NE(expr->getLHS()->getNumeric(), nullptr);
+    ASSERT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
 }
 
 TEST(AstExpressionBuilderTests, ArithmeticUnary1)
@@ -59,17 +59,17 @@ TEST(AstExpressionBuilderTests, ArithmeticUnary1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Negate);
-    EXPECT_EQ(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getRHS()->getNumeric(), nullptr);
-    EXPECT_EQ(expr->getRHS()->getNumeric()->getUnsignedInt(), 4);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Negate);
+    ASSERT_EQ(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getRHS()->getNumeric(), nullptr);
+    ASSERT_EQ(expr->getRHS()->getNumeric()->getUnsignedInt(), 4);
 }
 
 TEST(AstExpressionBuilderTests, ArithmeticUnary2)
@@ -80,19 +80,19 @@ TEST(AstExpressionBuilderTests, ArithmeticUnary2)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
-    EXPECT_NE(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getRHS()->getExpression(), nullptr);
-    EXPECT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Negate);
-    EXPECT_NE(expr->getLHS()->getNumeric(), nullptr);
-    EXPECT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
+    ASSERT_NE(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getRHS()->getExpression(), nullptr);
+    ASSERT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Negate);
+    ASSERT_NE(expr->getLHS()->getNumeric(), nullptr);
+    ASSERT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
 }
 
 TEST(AstExpressionBuilderTests, ArithmeticParenth)
@@ -103,19 +103,19 @@ TEST(AstExpressionBuilderTests, ArithmeticParenth)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Multiply);
-    EXPECT_NE(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getRHS()->getNumeric(), nullptr);
-    EXPECT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 6);
-    EXPECT_NE(expr->getLHS()->getExpression(), nullptr);
-    EXPECT_EQ(expr->getLHS()->getExpression()->getOperator(), AstExpressionOperator::Plus);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Multiply);
+    ASSERT_NE(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getRHS()->getNumeric(), nullptr);
+    ASSERT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 6);
+    ASSERT_NE(expr->getLHS()->getExpression(), nullptr);
+    ASSERT_EQ(expr->getLHS()->getExpression()->getOperator(), AstExpressionOperator::Plus);
 }
 
 
@@ -127,22 +127,22 @@ TEST(AstExpressionBuilderTests, ArithmeticNestedParenth)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Modulo);
-    EXPECT_NE(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getRHS()->getNumeric(), nullptr);
-    EXPECT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 3);
-    EXPECT_NE(expr->getLHS()->getExpression(), nullptr);
-    EXPECT_EQ(expr->getLHS()->getExpression()->getOperator(), AstExpressionOperator::Divide);
-    EXPECT_NE(expr->getLHS()->getExpression()->getLHS(), nullptr);
-    EXPECT_NE(expr->getLHS()->getExpression()->getLHS()->getExpression(), nullptr);
-    EXPECT_EQ(expr->getLHS()->getExpression()->getLHS()->getExpression()->getOperator(), AstExpressionOperator::Plus);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Modulo);
+    ASSERT_NE(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getRHS()->getNumeric(), nullptr);
+    ASSERT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 3);
+    ASSERT_NE(expr->getLHS()->getExpression(), nullptr);
+    ASSERT_EQ(expr->getLHS()->getExpression()->getOperator(), AstExpressionOperator::Divide);
+    ASSERT_NE(expr->getLHS()->getExpression()->getLHS(), nullptr);
+    ASSERT_NE(expr->getLHS()->getExpression()->getLHS()->getExpression(), nullptr);
+    ASSERT_EQ(expr->getLHS()->getExpression()->getLHS()->getExpression()->getOperator(), AstExpressionOperator::Plus);
 }
 
 TEST(AstExpressionBuilderTests, ArithmeticUnaryParenth1)
@@ -153,19 +153,19 @@ TEST(AstExpressionBuilderTests, ArithmeticUnaryParenth1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
-    EXPECT_NE(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getRHS()->getExpression(), nullptr);
-    EXPECT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Negate);
-    EXPECT_NE(expr->getLHS()->getNumeric(), nullptr);
-    EXPECT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
+    ASSERT_NE(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getRHS()->getExpression(), nullptr);
+    ASSERT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Negate);
+    ASSERT_NE(expr->getLHS()->getNumeric(), nullptr);
+    ASSERT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
 }
 
 
@@ -177,19 +177,19 @@ TEST(AstExpressionBuilderTests, Comparison1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Greater);
-    EXPECT_NE(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getLHS()->getNumeric(), nullptr);
-    EXPECT_NE(expr->getRHS()->getNumeric(), nullptr);
-    EXPECT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
-    EXPECT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 4);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Greater);
+    ASSERT_NE(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getLHS()->getNumeric(), nullptr);
+    ASSERT_NE(expr->getRHS()->getNumeric(), nullptr);
+    ASSERT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
+    ASSERT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 4);
 }
 
 TEST(AstExpressionBuilderTests, ComparisonEqualAssign)
@@ -200,19 +200,19 @@ TEST(AstExpressionBuilderTests, ComparisonEqualAssign)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Equal);
-    EXPECT_NE(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getLHS()->getNumeric(), nullptr);
-    EXPECT_NE(expr->getRHS()->getNumeric(), nullptr);
-    EXPECT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
-    EXPECT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 4);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Equal);
+    ASSERT_NE(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getLHS()->getNumeric(), nullptr);
+    ASSERT_NE(expr->getRHS()->getNumeric(), nullptr);
+    ASSERT_EQ(expr->getLHS()->getNumeric()->getSignedInt(), 2);
+    ASSERT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 4);
 }
 
 TEST(AstExpressionBuilderTests, Logical1)
@@ -223,16 +223,16 @@ TEST(AstExpressionBuilderTests, Logical1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Not);
-    EXPECT_EQ(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getRHS()->getLiteralBool(), nullptr);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Not);
+    ASSERT_EQ(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getRHS()->getLiteralBool(), nullptr);
 }
 
 TEST(AstExpressionBuilderTests, LogicalComparison1)
@@ -243,17 +243,17 @@ TEST(AstExpressionBuilderTests, LogicalComparison1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Not);
-    EXPECT_EQ(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getRHS()->getExpression(), nullptr);
-    EXPECT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Greater);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Not);
+    ASSERT_EQ(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getRHS()->getExpression(), nullptr);
+    ASSERT_EQ(expr->getRHS()->getExpression()->getOperator(), AstExpressionOperator::Greater);
 }
 
 TEST(AstExpressionBuilderTests, Assignment1)
@@ -264,15 +264,15 @@ TEST(AstExpressionBuilderTests, Assignment1)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstExpressionBuilder uut;
     auto expr = uut.Test(sourceCtx);
 
-    EXPECT_NE(expr, nullptr);
-    EXPECT_EQ(expr->getOperator(), AstExpressionOperator::Number);
-    EXPECT_EQ(expr->getLHS(), nullptr);
-    EXPECT_NE(expr->getRHS(), nullptr);
-    EXPECT_NE(expr->getRHS()->getNumeric(), nullptr);
-    EXPECT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 2);
+    ASSERT_NE(expr, nullptr);
+    ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Number);
+    ASSERT_EQ(expr->getLHS(), nullptr);
+    ASSERT_NE(expr->getRHS(), nullptr);
+    ASSERT_NE(expr->getRHS()->getNumeric(), nullptr);
+    ASSERT_EQ(expr->getRHS()->getNumeric()->getSignedInt(), 2);
 }

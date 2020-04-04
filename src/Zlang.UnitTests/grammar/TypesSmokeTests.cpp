@@ -8,7 +8,7 @@ TEST(TypesSmokeTests, Bit) {
         "b: Bit<4>\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(TypesSmokeTests, BitInit) {
@@ -16,7 +16,7 @@ TEST(TypesSmokeTests, BitInit) {
         "b: Bit<4> = 12\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(TypesSmokeTests, BitBig) {
@@ -24,7 +24,7 @@ TEST(TypesSmokeTests, BitBig) {
         "b: Bit<1024>\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 
@@ -33,7 +33,7 @@ TEST(TypesSmokeTests, Ptr) {
         "p: Ptr<U8>\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 
@@ -42,7 +42,7 @@ TEST(TypesSmokeTests, TypeDef) {
         "MyType: Map<Str, U8> _\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(TypesSmokeTests, TypeAlias) {
@@ -50,5 +50,5 @@ TEST(TypesSmokeTests, TypeAlias) {
         "MyType = Map<Str, U8>\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }

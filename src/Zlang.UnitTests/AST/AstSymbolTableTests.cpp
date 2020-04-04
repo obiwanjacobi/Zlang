@@ -14,16 +14,16 @@ TEST(AstSymbolTableTests, FunctionName)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
-    EXPECT_FALSE(uut.hasErrors());
+    ASSERT_FALSE(uut.hasErrors());
 
     auto symbols = file->getSymbols();
     auto entry = symbols->getEntry("MyFunction");
-    EXPECT_NE(entry, nullptr);
-    EXPECT_EQ(entry->getSymbolType(), AstSymbolType::Function);
+    ASSERT_NE(entry, nullptr);
+    ASSERT_EQ(entry->getSymbolType(), AstSymbolType::Function);
 }
 
 TEST(AstSymbolTableTests, LocalVariableName)
@@ -35,17 +35,17 @@ TEST(AstSymbolTableTests, LocalVariableName)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
-    EXPECT_FALSE(uut.hasErrors());
+    ASSERT_FALSE(uut.hasErrors());
 
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     auto symbols = cb->getSymbols();
     auto entry = symbols->getEntry("c");
 
-    EXPECT_NE(entry, nullptr);
-    EXPECT_EQ(entry->getSymbolType(), AstSymbolType::Variable);
+    ASSERT_NE(entry, nullptr);
+    ASSERT_EQ(entry->getSymbolType(), AstSymbolType::Variable);
 }

@@ -7,7 +7,7 @@ TEST(VariablesSmokeTests, GlobalAutoVariable) {
         "g = 42\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(VariablesSmokeTests, GlobalTypedVariable) {
@@ -15,7 +15,7 @@ TEST(VariablesSmokeTests, GlobalTypedVariable) {
         "g: U8\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(VariablesSmokeTests, GlobalTypedVariableInit) {
@@ -23,7 +23,7 @@ TEST(VariablesSmokeTests, GlobalTypedVariableInit) {
         "g: U8 = 42\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(VariablesSmokeTests, LocalAutoVariable) {
@@ -32,7 +32,7 @@ TEST(VariablesSmokeTests, LocalAutoVariable) {
         "   l = 42\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(VariablesSmokeTests, LocalTypedVariable) {
@@ -41,7 +41,7 @@ TEST(VariablesSmokeTests, LocalTypedVariable) {
         "   l: U8\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(VariablesSmokeTests, LocalTypedVariableInit) {
@@ -50,6 +50,6 @@ TEST(VariablesSmokeTests, LocalTypedVariableInit) {
         "   l: U8 = 42\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 

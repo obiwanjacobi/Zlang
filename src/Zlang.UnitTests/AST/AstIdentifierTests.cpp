@@ -16,16 +16,16 @@ TEST(AstIndentifierTests, FunctionName)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
-    EXPECT_FALSE(uut.hasErrors());
+    ASSERT_FALSE(uut.hasErrors());
 
     auto fn = file->getFunctions().at(0);
     auto identifier = fn->getIdentifier();
-    EXPECT_NE(identifier, nullptr);
-    EXPECT_STREQ(identifier->getName().c_str(), "MyFunction");
+    ASSERT_NE(identifier, nullptr);
+    ASSERT_STREQ(identifier->getName().c_str(), "MyFunction");
 }
 
 TEST(AstIndentifierTests, FunctionParameterName)
@@ -37,20 +37,20 @@ TEST(AstIndentifierTests, FunctionParameterName)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
-    EXPECT_FALSE(uut.hasErrors());
+    ASSERT_FALSE(uut.hasErrors());
 
     auto fn = file->getFunctions().at(0);
     auto identifier = fn->getIdentifier();
-    EXPECT_NE(identifier, nullptr);
-    EXPECT_STREQ(identifier->getName().c_str(), "MyFunction");
+    ASSERT_NE(identifier, nullptr);
+    ASSERT_STREQ(identifier->getName().c_str(), "MyFunction");
     auto param = fn->getParameters().at(0);
     auto pid = param->getIdentifier();
-    EXPECT_NE(pid, nullptr);
-    EXPECT_STREQ(pid->getName().c_str(), "a");
+    ASSERT_NE(pid, nullptr);
+    ASSERT_STREQ(pid->getName().c_str(), "a");
 }
 
 TEST(AstIndentifierTests, VarAssignment)
@@ -62,18 +62,18 @@ TEST(AstIndentifierTests, VarAssignment)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
-    EXPECT_FALSE(uut.hasErrors());
+    ASSERT_FALSE(uut.hasErrors());
 
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     auto codeItems = cb->getItems();
     auto ci = std::static_pointer_cast<AstAssignment>(codeItems.at(0));
     auto identifier = ci->getIdentifier();
-    EXPECT_NE(identifier, nullptr);
-    EXPECT_STREQ(identifier->getName().c_str(), "c");
+    ASSERT_NE(identifier, nullptr);
+    ASSERT_STREQ(identifier->getName().c_str(), "c");
 }
 

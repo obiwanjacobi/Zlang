@@ -61,6 +61,7 @@
     <None Include=".gitignore" />
     <None Include="zsharp\grammar\parser\zsharp_parser.tokens" />
     <None Include="zsharp\grammar\parser\zsharp_parserLexer.tokens" />
+    <None Include="zsharp\grammar\readme.md" />
     <None Include="zsharp\grammar\zsharp_parser.g4" />
     <None Include="zsharp\grammar\_test\antlr.debug.zs" />
     <None Include="zsharp\grammar\_test\parser\testlexer.tokens" />

@@ -8,7 +8,7 @@ TEST(EnumSmokeTests, DefaultOptionsLine) {
         "    opt1, opt2, opt3\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(EnumSmokeTests, DefaultOptions) {
@@ -19,7 +19,7 @@ TEST(EnumSmokeTests, DefaultOptions) {
         "    opt3,\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(EnumSmokeTests, ExplicitOptions) {
@@ -30,7 +30,7 @@ TEST(EnumSmokeTests, ExplicitOptions) {
         "    opt3 = 2\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(EnumSmokeTests, StrOptions) {
@@ -41,7 +41,7 @@ TEST(EnumSmokeTests, StrOptions) {
         "    opt3 = \"3\",\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(EnumSmokeTests, E_NoCommas) {
@@ -52,7 +52,7 @@ TEST(EnumSmokeTests, E_NoCommas) {
         ;
 
     // TODO: Error not detected! Works in debugger in VScode.
-    //EXPECT_FALSE(ParserSmokeTest(src));
+    //ASSERT_FALSE(ParserSmokeTest(src));
 }
 
 TEST(EnumSmokeTests, E_NoOptions) {
@@ -60,5 +60,5 @@ TEST(EnumSmokeTests, E_NoOptions) {
         "MyEnum\n"
         ;
 
-    EXPECT_FALSE(ParserSmokeTest(src));
+    ASSERT_FALSE(ParserSmokeTest(src));
 }

@@ -16,26 +16,27 @@ TEST(AstControlFlowTests, If)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
-    EXPECT_NE(file, nullptr);
+    ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
-    EXPECT_EQ(fi->getNodeType(), AstNodeType::Branch);
+    ASSERT_EQ(fi->getNodeType(), AstNodeType::Branch);
     auto br = std::static_pointer_cast<AstBranchConditional>(fi);
 
-    EXPECT_EQ(br->getBranchType(), AstBranchType::Conditional);
-    EXPECT_TRUE(br->isConditional());
-    EXPECT_TRUE(br->hasExpression());
-    EXPECT_TRUE(br->hasCode());
+    ASSERT_EQ(br->getBranchType(), AstBranchType::Conditional);
+    ASSERT_TRUE(br->isConditional());
+    ASSERT_TRUE(br->hasExpression());
+    ASSERT_TRUE(br->hasCode());
 
     auto esle = br->getCodeBlock();
     auto ret = esle->getItems().at(0);
-    EXPECT_EQ(ret->getNodeType(), AstNodeType::Branch);
+    ASSERT_EQ(ret->getNodeType(), AstNodeType::Branch);
 }
 
 TEST(AstControlFlowTests, ElseIf)
@@ -50,25 +51,26 @@ TEST(AstControlFlowTests, ElseIf)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
-    EXPECT_NE(file, nullptr);
+    ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
-    EXPECT_EQ(fi->getNodeType(), AstNodeType::Branch);
+    ASSERT_EQ(fi->getNodeType(), AstNodeType::Branch);
     auto br = std::static_pointer_cast<AstBranchConditional>(fi);
-    EXPECT_TRUE(br->hasSubBranch());
+    ASSERT_TRUE(br->hasSubBranch());
 
     auto subBr = br->getSubBranch();
-    EXPECT_EQ(subBr->getBranchType(), AstBranchType::Conditional);
-    EXPECT_NE(br->getCodeBlock(), nullptr);
-    EXPECT_TRUE(subBr->isConditional());
-    EXPECT_TRUE(subBr->hasExpression());
-    EXPECT_TRUE(subBr->hasCode());
+    ASSERT_EQ(subBr->getBranchType(), AstBranchType::Conditional);
+    ASSERT_NE(br->getCodeBlock(), nullptr);
+    ASSERT_TRUE(subBr->isConditional());
+    ASSERT_TRUE(subBr->hasExpression());
+    ASSERT_TRUE(subBr->hasCode());
 }
 
 TEST(AstControlFlowTests, Else)
@@ -83,26 +85,27 @@ TEST(AstControlFlowTests, Else)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
-    EXPECT_NE(file, nullptr);
+    ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
-    EXPECT_EQ(fi->getNodeType(), AstNodeType::Branch);
+    ASSERT_EQ(fi->getNodeType(), AstNodeType::Branch);
     auto br = std::static_pointer_cast<AstBranchConditional>(fi);
-    EXPECT_TRUE(br->hasSubBranch());
-    EXPECT_TRUE(br->hasExpression());
+    ASSERT_TRUE(br->hasSubBranch());
+    ASSERT_TRUE(br->hasExpression());
 
     auto subBr = br->getSubBranch();
-    EXPECT_EQ(subBr->getBranchType(), AstBranchType::Conditional);
-    EXPECT_NE(br->getCodeBlock(), nullptr);
-    EXPECT_TRUE(subBr->isConditional());
-    EXPECT_FALSE(subBr->hasExpression());
-    EXPECT_TRUE(subBr->hasCode());
+    ASSERT_EQ(subBr->getBranchType(), AstBranchType::Conditional);
+    ASSERT_NE(br->getCodeBlock(), nullptr);
+    ASSERT_TRUE(subBr->isConditional());
+    ASSERT_FALSE(subBr->hasExpression());
+    ASSERT_TRUE(subBr->hasCode());
 }
 
 TEST(AstControlFlowTests, ElseIfElse)
@@ -119,24 +122,56 @@ TEST(AstControlFlowTests, ElseIfElse)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
-    EXPECT_NE(file, nullptr);
+    ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
     auto br = std::static_pointer_cast<AstBranchConditional>(fi);
-    EXPECT_NE(br->getCodeBlock(), nullptr);
-    EXPECT_TRUE(br->hasExpression());
+    ASSERT_NE(br->getCodeBlock(), nullptr);
+    ASSERT_TRUE(br->hasExpression());
     auto subBr = br->getSubBranch();
-    EXPECT_TRUE(subBr->hasExpression());
-    EXPECT_NE(subBr->getCodeBlock(), nullptr);
+    ASSERT_TRUE(subBr->hasExpression());
+    ASSERT_NE(subBr->getCodeBlock(), nullptr);
 
     subBr = subBr->getSubBranch();
-    EXPECT_NE(subBr->getCodeBlock(), nullptr);
-    EXPECT_FALSE(subBr->hasExpression());
+    ASSERT_NE(subBr->getCodeBlock(), nullptr);
+    ASSERT_FALSE(subBr->hasExpression());
+}
+
+TEST(AstControlFlowTests, IfNested)
+{
+    const char* src =
+        "MyFunction()\n"
+        "    if c = 0\n"
+        "        if c = 0\n"
+        "            return\n"
+        "        return\n"
+        "    return\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    ASSERT_NE(file, nullptr);
+    auto fn = file->getFunctions().at(0);
+    auto cb = fn->getCodeBlocks().at(0);
+    auto br = std::static_pointer_cast<AstBranchConditional>(cb->getItems().at(0));
+
+    auto br2 = std::static_pointer_cast<AstBranchConditional>(br->getCodeBlock()->getItems().at(0));
+    ASSERT_TRUE(br->isConditional());
+    ASSERT_TRUE(br->hasExpression());
+    ASSERT_TRUE(br->hasCode());
 }
 
 TEST(AstControlFlowTests, Return)
@@ -148,17 +183,19 @@ TEST(AstControlFlowTests, Return)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
-    EXPECT_NE(file, nullptr);
+    ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
-    EXPECT_EQ(fi->getNodeType(), AstNodeType::Branch);
+    ASSERT_EQ(fi->getNodeType(), AstNodeType::Branch);
     auto br = std::static_pointer_cast<AstBranch>(fi);
-    EXPECT_EQ(br->getBranchType(), AstBranchType::ExitFunction);
+    ASSERT_EQ(br->getBranchType(), AstBranchType::ExitFunction);
 }
 
 TEST(AstControlFlowTests, ReturnValue)
@@ -170,17 +207,19 @@ TEST(AstControlFlowTests, ReturnValue)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
 
-    EXPECT_NE(file, nullptr);
+    ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlocks().at(0);
     auto fi = cb->getItems().at(0);
-    EXPECT_EQ(fi->getNodeType(), AstNodeType::Branch);
+    ASSERT_EQ(fi->getNodeType(), AstNodeType::Branch);
     auto br = std::static_pointer_cast<AstBranchExpression>(fi);
-    EXPECT_EQ(br->getBranchType(), AstBranchType::ExitFunction);
-    EXPECT_NE(br->getExpression(), nullptr);
+    ASSERT_EQ(br->getBranchType(), AstBranchType::ExitFunction);
+    ASSERT_NE(br->getExpression(), nullptr);
     
 }

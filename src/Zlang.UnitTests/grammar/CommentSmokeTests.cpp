@@ -7,7 +7,7 @@ TEST(CommentSmokeTests, StartOfLine) {
         "// comment\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(CommentSmokeTests, AfterInstruction) {
@@ -15,7 +15,7 @@ TEST(CommentSmokeTests, AfterInstruction) {
         "g: U8 = 42       // comment\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(CommentSmokeTests, ThreeSlashes) {
@@ -23,7 +23,7 @@ TEST(CommentSmokeTests, ThreeSlashes) {
         "/// comment\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(CommentSmokeTests, WhitespaceAfter) {
@@ -31,6 +31,6 @@ TEST(CommentSmokeTests, WhitespaceAfter) {
         "// comment      \t    \n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 

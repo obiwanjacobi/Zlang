@@ -11,7 +11,7 @@ TEST(StructSmokeTests, DefaultWithFields) {
         "    fld3: Str\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(StructSmokeTests, DerivedWithFields) {
@@ -22,7 +22,7 @@ TEST(StructSmokeTests, DerivedWithFields) {
         "    fld3: Str\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(StructSmokeTests, DefaultWithTypeParam1) {
@@ -33,5 +33,5 @@ TEST(StructSmokeTests, DefaultWithTypeParam1) {
         "    fld3: Str\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }

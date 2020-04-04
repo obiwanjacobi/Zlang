@@ -9,7 +9,7 @@ TEST(ExpressionSmokeTests, ArithemeticLiterals) {
         "x = 2 + 3\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(ExpressionSmokeTests, ArithemeticLiteralVariable) {
@@ -17,7 +17,7 @@ TEST(ExpressionSmokeTests, ArithemeticLiteralVariable) {
         "x = 2 + a\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(ExpressionSmokeTests, ArithemeticVariables) {
@@ -25,7 +25,7 @@ TEST(ExpressionSmokeTests, ArithemeticVariables) {
         "x = a + b\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(ExpressionSmokeTests, ArithemeticLiteralVariable2) {
@@ -33,7 +33,7 @@ TEST(ExpressionSmokeTests, ArithemeticLiteralVariable2) {
         "x = 2 + a / 2\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 // --- Comparison ---
@@ -43,7 +43,7 @@ TEST(ExpressionSmokeTests, ComparisonLiteralVariable) {
         "b = 2 < a\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(ExpressionSmokeTests, ComparisonLogicalLiteralVariable) {
@@ -51,7 +51,7 @@ TEST(ExpressionSmokeTests, ComparisonLogicalLiteralVariable) {
         "b = 2 < a and 10 > b\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(ExpressionSmokeTests, ArithmeticComparisonLogicalLiteralVariable) {
@@ -59,7 +59,7 @@ TEST(ExpressionSmokeTests, ArithmeticComparisonLogicalLiteralVariable) {
         "b = not ((2 + 7) / 8) > 4\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(ExpressionSmokeTests, ArithmeticBitwiseLiteralVariable) {
@@ -67,7 +67,7 @@ TEST(ExpressionSmokeTests, ArithmeticBitwiseLiteralVariable) {
         "b = 42 * (x + 7) >> 4\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(ExpressionSmokeTests, BitwiseArithmetic) {
@@ -75,6 +75,6 @@ TEST(ExpressionSmokeTests, BitwiseArithmetic) {
         "b = 42 * (x >> 7) / 4\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 

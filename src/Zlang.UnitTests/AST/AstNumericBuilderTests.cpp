@@ -13,13 +13,13 @@ TEST(AstNumericBuilderTests, Binary)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstNumericBuilder uut;
     auto numeric = uut.Test(sourceCtx);
 
-    EXPECT_NE(numeric, nullptr);
-    EXPECT_EQ(numeric->getUnsignedInt(), (uint64_t)0x00F0);
+    ASSERT_NE(numeric, nullptr);
+    ASSERT_EQ(numeric->getUnsignedInt(), (uint64_t)0x00F0);
 }
 
 TEST(AstNumericBuilderTests, Octal)
@@ -30,13 +30,13 @@ TEST(AstNumericBuilderTests, Octal)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstNumericBuilder uut;
     auto numeric = uut.Test(sourceCtx);
 
-    EXPECT_NE(numeric, nullptr);
-    EXPECT_EQ(numeric->getUnsignedInt(), (uint64_t)8);
+    ASSERT_NE(numeric, nullptr);
+    ASSERT_EQ(numeric->getUnsignedInt(), (uint64_t)8);
 }
 
 TEST(AstNumericBuilderTests, Decimal)
@@ -47,13 +47,13 @@ TEST(AstNumericBuilderTests, Decimal)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstNumericBuilder uut;
     auto numeric = uut.Test(sourceCtx);
 
-    EXPECT_NE(numeric, nullptr);
-    EXPECT_EQ(numeric->getUnsignedInt(), (uint64_t)42);
+    ASSERT_NE(numeric, nullptr);
+    ASSERT_EQ(numeric->getUnsignedInt(), (uint64_t)42);
 }
 
 TEST(AstNumericBuilderTests, DecimalPrefix)
@@ -64,13 +64,13 @@ TEST(AstNumericBuilderTests, DecimalPrefix)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstNumericBuilder uut;
     auto numeric = uut.Test(sourceCtx);
 
-    EXPECT_NE(numeric, nullptr);
-    EXPECT_EQ(numeric->getUnsignedInt(), (uint64_t)4242);
+    ASSERT_NE(numeric, nullptr);
+    ASSERT_EQ(numeric->getUnsignedInt(), (uint64_t)4242);
 }
 
 TEST(AstNumericBuilderTests, Hexadecimal)
@@ -81,11 +81,11 @@ TEST(AstNumericBuilderTests, Hexadecimal)
 
     ZsharpParser parser;
     auto sourceCtx = parser.parseText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstNumericBuilder uut;
     auto numeric = uut.Test(sourceCtx);
 
-    EXPECT_NE(numeric, nullptr);
-    EXPECT_EQ(numeric->getUnsignedInt(), (uint64_t)0x42);
+    ASSERT_NE(numeric, nullptr);
+    ASSERT_EQ(numeric->getUnsignedInt(), (uint64_t)0x42);
 }

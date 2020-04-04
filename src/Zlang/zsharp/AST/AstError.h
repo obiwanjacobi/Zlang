@@ -17,6 +17,7 @@ public:
 
     static const char* EmptyCodeBlock;
     static const char* IndentationMismatch;
+    static const char* IndentationInvalid;
 
 private:
     antlr4::ParserRuleContext* _ctx;

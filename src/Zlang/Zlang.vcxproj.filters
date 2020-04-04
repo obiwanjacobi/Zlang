@@ -50,6 +50,7 @@
     <None Include="zsharp\grammar\_test\parser\testlexer.tokens" />
     <None Include="zsharp\grammar\_test\parser\testparser.tokens" />
     <None Include="zsharp\LLVM\readme.md" />
+    <None Include="zsharp\grammar\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="zsharp\grammar\ZsharpParser.h" />

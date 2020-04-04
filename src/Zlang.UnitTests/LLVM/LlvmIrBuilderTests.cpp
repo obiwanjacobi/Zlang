@@ -16,10 +16,12 @@ TEST(LlvmIrBuilderTests, BuildFile)
 
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
-    EXPECT_FALSE(parser.hasErrors());
+    ASSERT_FALSE(parser.hasErrors());
 
     AstBuilder uut;
     uut.Build(fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
     auto modules = uut.getModules();
 
     LlvmIrBuilder builder;

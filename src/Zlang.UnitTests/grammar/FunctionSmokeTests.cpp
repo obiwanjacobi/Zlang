@@ -9,7 +9,7 @@ TEST(FunctionSmokeTests, Export) {
         "    return\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FunctionSmokeTests, Void) {
@@ -18,7 +18,7 @@ TEST(FunctionSmokeTests, Void) {
         "    return\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FunctionSmokeTests, ParamVoid) {
@@ -27,7 +27,7 @@ TEST(FunctionSmokeTests, ParamVoid) {
         "    return\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FunctionSmokeTests, Param2Void) {
@@ -36,7 +36,7 @@ TEST(FunctionSmokeTests, Param2Void) {
         "    return\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FunctionSmokeTests, RetVal) {
@@ -45,7 +45,7 @@ TEST(FunctionSmokeTests, RetVal) {
         "    return true\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FunctionSmokeTests, ParamRetVal) {
@@ -54,7 +54,7 @@ TEST(FunctionSmokeTests, ParamRetVal) {
         "    return true\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 
@@ -64,7 +64,7 @@ TEST(FunctionSmokeTests, Param2RetVal) {
         "    return true\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FunctionSmokeTests, Call) {
@@ -73,7 +73,7 @@ TEST(FunctionSmokeTests, Call) {
         "    FnCall()\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FunctionSmokeTests, CallWithParam) {
@@ -82,7 +82,7 @@ TEST(FunctionSmokeTests, CallWithParam) {
         "    FnCall(42)\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
 
 TEST(FunctionSmokeTests, CallWithParam2) {
@@ -91,5 +91,5 @@ TEST(FunctionSmokeTests, CallWithParam2) {
         "    FnCall(42, \"Hello World\")\n"
         ;
 
-    EXPECT_TRUE(ParserSmokeTest(src));
+    ASSERT_TRUE(ParserSmokeTest(src));
 }
