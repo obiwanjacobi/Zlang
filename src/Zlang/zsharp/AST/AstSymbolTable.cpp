@@ -58,7 +58,8 @@ void AstSymbolEntry::AddNode(std::shared_ptr<AstNode> node)
     }
 }
 
-std::shared_ptr<AstSymbolEntry> AstSymbolTable::AddSymbol(const std::string& ns, const std::string& symbolName, AstSymbolType type, std::shared_ptr<AstNode> node)
+std::shared_ptr<AstSymbolEntry> AstSymbolTable::AddSymbol(const std::string& ns, 
+    const std::string& symbolName, AstSymbolType type, std::shared_ptr<AstNode> node)
 {
     auto entry = std::make_shared<AstSymbolEntry>(ns, symbolName, type);
     entry->AddNode(node);

@@ -49,36 +49,28 @@ public:
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
     antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) override;
 
-    antlrcpp::Any visitIndent(zsharp_parserParser::IndentContext* ctx) override;
-
     bool hasErrors() const { return _errors.size() == 0; }
     const std::vector<std::shared_ptr<AstError>>& getErrors() const { return _errors; }
 
 protected:
     antlrcpp::Any visitChildrenExcept(antlr4::ParserRuleContext* node, const antlr4::ParserRuleContext* except);
 
-    template<class T>
-    bool AddIdentifier(T ctx);
+    template<class T> bool AddIdentifier(T ctx);
 
 private:
-    AstCodeBlock* findCodeBlock(uint32_t indent) const;
-    template <class T> 
-    T* findCurrent() const;
-    template <class T>
-    T* getCurrent() const { return dynamic_cast<T*>(_current.front()); }
+    std::string _namespace;
+
+    AstCodeBlock* GetCodeBlock(uint32_t indent) const;
+    template <class T> T* GetCurrent() const;
+    
     template <class T> 
     void setCurrent(std::shared_ptr<T> current) { setCurrent(current.get()); }
     void setCurrent(AstNode* current) { _current.push_front(current); }
     void revertCurrent() { _current.pop_front(); }
     std::deque<AstNode*> _current;
 
-    std::string _namespace;
-
     int _indent;
-    template <class T>
-    uint32_t getIndent(T ctx) {
-        return visitIndent(ctx->indent()).as<uint64_t>();
-    }
+    template <class T> uint32_t CheckIndent(T ctx);
 
     std::shared_ptr<AstError> AddError(antlr4::ParserRuleContext* ctx, const char* text);
     std::vector<std::shared_ptr<AstError>> _errors;
