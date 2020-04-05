@@ -24,11 +24,23 @@ class AstSymbolEntry;
 class AstIdentifierSite
 {
 public:
-    virtual bool AddIdentifier(std::shared_ptr<AstIdentifier> identifier) = 0;
+    virtual bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) = 0;
+    std::shared_ptr<AstIdentifier> getIdentifier() const { return _identifier; }
 
 protected:
     // walk parents up and test for AstSymbolTableSite
     std::shared_ptr<AstSymbolEntry> AddSymbol(std::shared_ptr<AstIdentifier> identifier);
+
+    bool AssignIdentifier(std::shared_ptr<AstIdentifier> identifier) {
+        if (_identifier == nullptr && identifier != nullptr) {
+            _identifier = identifier;
+            return true;
+        }
+        return false;
+    }
+
+private:
+    std::shared_ptr<AstIdentifier> _identifier;
 };
 
 class AstIdentifier : public AstNode

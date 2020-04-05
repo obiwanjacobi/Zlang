@@ -18,17 +18,14 @@ public:
     // no identifier if true
     bool isSelf() const { return _selfCtx != nullptr; }
 
-    const std::shared_ptr<AstIdentifier> getIdentifier() const { return _identifier; }
-    bool AddIdentifier(std::shared_ptr<AstIdentifier> identifier) override;
+    bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override;
 
 private:
-    std::shared_ptr<AstIdentifier> _identifier;
-
     zsharp_parserParser::Function_parameterContext* _paramCtx;
     zsharp_parserParser::Function_parameter_selfContext* _selfCtx;
 };
 
-class AstFunction : public AstNode, public AstCodeBlockSite, public AstIdentifierSite
+class AstFunction : public AstNode, public AstCodeBlockSite, public AstIdentifierSite, public AstSymbolTableSite
 {
     friend class AstNodeBuilder;
 
@@ -39,27 +36,29 @@ public:
 
     zsharp_parserParser::Function_defContext* getContext() const { return _function; }
 
-    bool AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
-        codeBlock->setIndent(1);
-        _codeblocks.push_back(codeBlock);
-        return true;
-    }
-    const std::vector<std::shared_ptr<AstCodeBlock>>& getCodeBlocks() const { return _codeblocks; }
+    bool SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) override;
+    std::shared_ptr<AstCodeBlock> getCodeBlock() const { return _codeblock; }
 
-    const std::shared_ptr<AstIdentifier> getIdentifier() const { return _identifier; }
-    bool AddIdentifier(std::shared_ptr<AstIdentifier> identifier) override;
+    bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override;
 
     const std::vector<std::shared_ptr<AstFunctionParameter>>& getParameters() const { return _parameters; }
     bool AddParameter(std::shared_ptr<AstFunctionParameter> param) {
-        _parameters.push_back(param);
-        param->setParent(this);
-        return true;
+        if (param) {
+            param->setParent(this);
+            _parameters.push_back(param);
+            return true;
+        }
+        return false;
     }
 
+    std::shared_ptr<AstSymbolTable> getSymbols() override;
+    std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
+        AstSymbolType type, std::shared_ptr<AstNode> node) override;
 private:
-    std::vector<std::shared_ptr<AstCodeBlock>> _codeblocks;
-    std::shared_ptr<AstIdentifier> _identifier;
+    std::shared_ptr<AstCodeBlock> _codeblock;
     std::vector<std::shared_ptr<AstFunctionParameter>> _parameters;
 
     zsharp_parserParser::Function_defContext* _function;
+
+    void AddFunctionSymbols();
 };

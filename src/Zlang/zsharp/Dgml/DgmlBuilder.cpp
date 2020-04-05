@@ -64,17 +64,16 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteFunction(std::shared_ptr<AstFuncti
         auto paramLink = createLink(node->Id, paramNode->Id, ContainsCategory);
     }
 
-    std::shared_ptr<AstCodeBlock> prevBlock = nullptr;
-    for (const auto codeBlock : function->getCodeBlocks())
+    auto codeBlock = function->getCodeBlock();
+    if (codeBlock)
     {
-        WriteCodeBlock(codeBlock, prevBlock, node->Id);
-        prevBlock = codeBlock;
+        WriteCodeBlock(codeBlock, node->Id);
     }
 
     return node;
 }
 
-std::shared_ptr<dgml::Node> DgmlBuilder::WriteCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock, std::shared_ptr<AstCodeBlock> prevBlock, const std::string& parentId)
+std::shared_ptr<dgml::Node> DgmlBuilder::WriteCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock, const std::string& parentId)
 {
     std::string name = "";
     auto node = createNode(name, name, "CodeBlock");
@@ -144,7 +143,7 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteBranch(std::shared_ptr<AstBranch> 
         auto code = conditional->getCodeBlock();
         if (code != nullptr)
         {
-            WriteCodeBlock(code, nullptr, node->Id);
+            WriteCodeBlock(code, node->Id);
         }
 
         auto subBranch = conditional->getSubBranch();

@@ -25,7 +25,7 @@ TEST(AstIndentationTests, FunctionBody)
 
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     auto assign = cb->getItems().at(0);
     ASSERT_NE(assign, nullptr);
     auto branch = cb->getItems().at(1);
@@ -73,7 +73,7 @@ TEST(AstIndentationTests, FunctionBody_Branch)
 
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     
     auto ifbranch = std::static_pointer_cast<AstBranchConditional>(cb->getItems().at(0));
     ASSERT_NE(ifbranch, nullptr);

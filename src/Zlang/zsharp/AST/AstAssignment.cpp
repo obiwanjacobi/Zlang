@@ -11,13 +11,11 @@ bool AstAssignment::AddExpression(std::shared_ptr<AstExpression> expr)
     return false;
 }
 
-bool AstAssignment::AddIdentifier(std::shared_ptr<AstIdentifier> identifier)
+bool AstAssignment::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
 {
-    if (_identifier == nullptr) {
-        _identifier = identifier;
+    if (AssignIdentifier(identifier)) {
         identifier->setParent(this);
         return true;
     }
-
     return false;
 }

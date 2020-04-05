@@ -1,7 +1,7 @@
 #include "AstBranch.h"
 
 bool AstBranchExpression::AddExpression(std::shared_ptr<AstExpression> expr) {
-    if (_expression != nullptr) {
+    if (_expression || !expr) {
         return false; 
     }
     expr->setParent(this);
@@ -9,8 +9,8 @@ bool AstBranchExpression::AddExpression(std::shared_ptr<AstExpression> expr) {
     return true;
 }
 
-bool AstBranchConditional::AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
-    if (_codeBlock != nullptr) { 
+bool AstBranchConditional::SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
+    if (_codeBlock || !codeBlock) { 
         return false; 
     }
 
@@ -22,7 +22,7 @@ bool AstBranchConditional::AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock)
 
 bool AstBranchConditional::AddSubBranch(std::shared_ptr<AstBranchConditional> subBranch)
 {
-    if (_subBranch != nullptr) {
+    if (_subBranch || !subBranch) {
         return false;
     }
 

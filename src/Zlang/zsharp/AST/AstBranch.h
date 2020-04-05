@@ -109,7 +109,7 @@ public:
 
     // if/else body
     std::shared_ptr<AstCodeBlock> getCodeBlock() const { return _codeBlock; }
-    bool AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock);
+    bool SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) override;
 
     // chain of else/else-if's
     std::shared_ptr<AstBranchConditional> getSubBranch() const { return _subBranch; }

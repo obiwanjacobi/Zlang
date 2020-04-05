@@ -24,7 +24,7 @@ TEST(AstControlFlowTests, If)
 
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     auto fi = cb->getItems().at(0);
     ASSERT_EQ(fi->getNodeType(), AstNodeType::Branch);
     auto br = std::static_pointer_cast<AstBranchConditional>(fi);
@@ -59,7 +59,7 @@ TEST(AstControlFlowTests, ElseIf)
 
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     auto fi = cb->getItems().at(0);
     ASSERT_EQ(fi->getNodeType(), AstNodeType::Branch);
     auto br = std::static_pointer_cast<AstBranchConditional>(fi);
@@ -93,7 +93,7 @@ TEST(AstControlFlowTests, Else)
 
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     auto fi = cb->getItems().at(0);
     ASSERT_EQ(fi->getNodeType(), AstNodeType::Branch);
     auto br = std::static_pointer_cast<AstBranchConditional>(fi);
@@ -130,7 +130,7 @@ TEST(AstControlFlowTests, ElseIfElse)
 
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     auto fi = cb->getItems().at(0);
     auto br = std::static_pointer_cast<AstBranchConditional>(fi);
     ASSERT_NE(br->getCodeBlock(), nullptr);
@@ -165,7 +165,7 @@ TEST(AstControlFlowTests, IfNested)
 
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     auto br = std::static_pointer_cast<AstBranchConditional>(cb->getItems().at(0));
 
     auto br2 = std::static_pointer_cast<AstBranchConditional>(br->getCodeBlock()->getItems().at(0));
@@ -191,7 +191,7 @@ TEST(AstControlFlowTests, Return)
 
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     auto fi = cb->getItems().at(0);
     ASSERT_EQ(fi->getNodeType(), AstNodeType::Branch);
     auto br = std::static_pointer_cast<AstBranch>(fi);
@@ -215,7 +215,7 @@ TEST(AstControlFlowTests, ReturnValue)
 
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     auto fi = cb->getItems().at(0);
     ASSERT_EQ(fi->getNodeType(), AstNodeType::Branch);
     auto br = std::static_pointer_cast<AstBranchExpression>(fi);

@@ -81,7 +81,9 @@ public:
 
     std::shared_ptr<AstSymbolEntry> AddSymbol(
         const std::string& symbolName, AstSymbolType type, std::shared_ptr<AstNode> node);
-    std::shared_ptr<AstSymbolEntry> getEntry(const std::string qualifiedNameOrAlias) { return _table[qualifiedNameOrAlias]; }
+    std::shared_ptr<AstSymbolEntry> getEntry(const std::string qualifiedNameOrAlias) { 
+        return _table[qualifiedNameOrAlias];
+    }
 
     std::shared_ptr<AstSymbolTable> getParentTable() const { return _parent; }
 
@@ -100,24 +102,29 @@ private:
 class AstSymbolTableSite
 {
 public:
-    std::shared_ptr<AstSymbolTable> getSymbols() { return _symbols; }
+    virtual std::shared_ptr<AstSymbolTable> getSymbols() = 0;
+    virtual std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
+        AstSymbolType type, std::shared_ptr<AstNode> node) = 0;
+};
+
+class AstSymbolTableSiteImpl : public AstSymbolTableSite
+{
+public:
+    std::shared_ptr<AstSymbolTable> getSymbols() override { return _symbols; }
     std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
-        AstSymbolType type, std::shared_ptr<AstNode> node)
+        AstSymbolType type, std::shared_ptr<AstNode> node) override
     {
         return _symbols->AddSymbol(symbolName, type, node);
     }
 
 protected:
-    AstSymbolTableSite(std::shared_ptr<AstSymbolTable> parent)
-    {
+    AstSymbolTableSiteImpl(std::shared_ptr<AstSymbolTable> parent) {
         _symbols = std::make_shared<AstSymbolTable>(parent);
     }
-    AstSymbolTableSite(std::string ns)
-    {
+    AstSymbolTableSiteImpl(std::string ns) {
         _symbols = std::make_shared<AstSymbolTable>(ns);
     }
-    AstSymbolTableSite(std::string ns, std::shared_ptr<AstSymbolTable> parent)
-    {
+    AstSymbolTableSiteImpl(std::string ns, std::shared_ptr<AstSymbolTable> parent) {
         _symbols = std::make_shared<AstSymbolTable>(ns, parent);
     }
 

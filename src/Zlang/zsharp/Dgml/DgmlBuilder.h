@@ -21,7 +21,7 @@ public:
 
     std::shared_ptr<dgml::Node> WriteFile(std::shared_ptr<AstFile> file);
     std::shared_ptr<dgml::Node> WriteFunction(std::shared_ptr<AstFunction> function, const std::string& parentId);
-    std::shared_ptr<dgml::Node> WriteCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock, std::shared_ptr<AstCodeBlock> prevBlock, const std::string& parentId);
+    std::shared_ptr<dgml::Node> WriteCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock, const std::string& parentId);
     std::shared_ptr<dgml::Node> WriteCodeBlockItem(std::shared_ptr<AstCodeBlockItem> codeBlockItem, const std::string& codeBlockId);
     std::shared_ptr<dgml::Node> WriteAssignment(std::shared_ptr<AstAssignment> assignment, const std::string& parentId);
     std::shared_ptr<dgml::Node> WriteBranch(std::shared_ptr<AstBranch> branch, const std::string& parentId);

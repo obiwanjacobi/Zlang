@@ -10,7 +10,7 @@ class AstCodeBlock;
 class AstCodeBlockSite
 {
 public:
-    virtual bool AddCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) = 0;
+    virtual bool SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) = 0;
 };
 
 class AstCodeBlockItem : public AstNode
@@ -28,11 +28,11 @@ private:
     uint32_t _indent;
 };
 
-class AstCodeBlock : public AstNode, public AstSymbolTableSite
+class AstCodeBlock : public AstNode, public AstSymbolTableSiteImpl
 {
 public:
     AstCodeBlock(std::string scopeName, std::shared_ptr<AstSymbolTable> parentSymbolTable, zsharp_parserParser::CodeblockContext* ctx)
-        : AstNode(AstNodeType::CodeBlock), AstSymbolTableSite(scopeName, parentSymbolTable),
+        : AstNode(AstNodeType::CodeBlock), AstSymbolTableSiteImpl(scopeName, parentSymbolTable),
         _ctx(ctx), _indent(0)
     {}
 
@@ -55,4 +55,3 @@ private:
 
     std::vector<std::shared_ptr<AstCodeBlockItem>> _items;
 };
-

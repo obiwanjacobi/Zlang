@@ -146,8 +146,7 @@ TEST(AstBuilderTests, BuildFile_Function)
     ASSERT_EQ(functions.size(), 1);
 
     auto fn = functions.at(0).get();
-    ASSERT_NE(fn->getCodeBlocks().size(), 0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     ASSERT_NE(cb, nullptr);
 }
 
@@ -168,7 +167,7 @@ TEST(AstBuilderTests, BuildFile_Assignment)
 
     auto functions = file->getFunctions();
     auto fn = functions.at(0).get();
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     auto ci = cb->getItems().at(0);
 }
 

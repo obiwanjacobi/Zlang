@@ -5,11 +5,11 @@
 #include "AstSymbolTable.h"
 #include "../grammar/parser/zsharp_parserParser.h"
 
-class AstFile : public AstNode, public AstSymbolTableSite
+class AstFile : public AstNode, public AstSymbolTableSiteImpl
 {
 public:
     AstFile(std::string scopeName, zsharp_parserParser::FileContext* fileCtx)
-        : AstNode(AstNodeType::File), AstSymbolTableSite(scopeName),
+        : AstNode(AstNodeType::File), AstSymbolTableSiteImpl(scopeName),
         _fileCtx(fileCtx)
     {}
 
@@ -19,10 +19,10 @@ public:
     
     const std::vector<std::shared_ptr<AstFunction>>& getFunctions() const { return _functions; }
 
-    void AddImport(zsharp_parserParser::Statement_importContext* importCtx);
-    void AddExport(zsharp_parserParser::Statement_exportContext* exportCtx);
+    bool AddImport(zsharp_parserParser::Statement_importContext* importCtx);
+    bool AddExport(zsharp_parserParser::Statement_exportContext* exportCtx);
     
-    void AddFunction(std::shared_ptr<AstFunction> function);
+    bool AddFunction(std::shared_ptr<AstFunction> function);
 
 private:
     
@@ -31,4 +31,3 @@ private:
     std::vector<zsharp_parserParser::Statement_exportContext*> _exports;
     std::vector<std::shared_ptr<AstFunction>> _functions;
 };
-

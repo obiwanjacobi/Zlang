@@ -139,7 +139,9 @@ antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_de
     auto file = GetCurrent<AstFile>();
     auto function = std::make_shared<AstFunction>(ctx);
     
-    file->AddFunction(function);
+    bool success = file->AddFunction(function);
+    guard(success);
+
     setCurrent(function);
 
     // process identifier first (needed for symbol)
@@ -176,7 +178,7 @@ antlrcpp::Any AstNodeBuilder::visitCodeblock(zsharp_parserParser::CodeblockConte
     }
 
     auto codeBlock = std::make_shared<AstCodeBlock>(scopeName, symbols, ctx);
-    bool success = cbSite->AddCodeBlock(codeBlock);
+    bool success = cbSite->SetCodeBlock(codeBlock);
     guard(success);
 
     setCurrent(codeBlock);
@@ -288,7 +290,7 @@ bool AstNodeBuilder::AddIdentifier(T ctx)
     auto namedObj = GetCurrent<AstIdentifierSite>();
     if (namedObj) {
         auto identifier = std::make_shared<AstIdentifier>(ctx);
-        return namedObj->AddIdentifier(identifier);
+        return namedObj->SetIdentifier(identifier);
     }
     return false;
 }

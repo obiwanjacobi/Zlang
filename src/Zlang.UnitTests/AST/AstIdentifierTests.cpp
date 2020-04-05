@@ -69,7 +69,7 @@ TEST(AstIndentifierTests, VarAssignment)
     ASSERT_FALSE(uut.hasErrors());
 
     auto fn = file->getFunctions().at(0);
-    auto cb = fn->getCodeBlocks().at(0);
+    auto cb = fn->getCodeBlock();
     auto codeItems = cb->getItems();
     auto ci = std::static_pointer_cast<AstAssignment>(codeItems.at(0));
     auto identifier = ci->getIdentifier();
