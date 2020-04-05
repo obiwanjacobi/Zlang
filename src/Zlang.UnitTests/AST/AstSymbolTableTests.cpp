@@ -23,7 +23,7 @@ TEST(AstSymbolTableTests, FunctionName)
     auto symbols = file->getSymbols();
     auto entry = symbols->getEntry("UnitTest.MyFunction");
     ASSERT_NE(entry, nullptr);
-    ASSERT_EQ(entry->getSymbolType(), AstSymbolType::Function);
+    ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Function);
 }
 
 TEST(AstSymbolTableTests, FunctionParameterName)
@@ -47,7 +47,7 @@ TEST(AstSymbolTableTests, FunctionParameterName)
     auto entry = symbols->getEntry("UnitTest.MyFunction.c");
 
     ASSERT_NE(entry, nullptr);
-    ASSERT_EQ(entry->getSymbolType(), AstSymbolType::Parameter);
+    ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Parameter);
 }
 
 TEST(AstSymbolTableTests, LocalVariableName)
@@ -71,5 +71,5 @@ TEST(AstSymbolTableTests, LocalVariableName)
     auto entry = symbols->getEntry("UnitTest.MyFunction.c");
 
     ASSERT_NE(entry, nullptr);
-    ASSERT_EQ(entry->getSymbolType(), AstSymbolType::Variable);
+    ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Variable);
 }

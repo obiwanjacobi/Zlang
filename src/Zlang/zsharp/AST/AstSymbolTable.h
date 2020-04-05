@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-enum class AstSymbolType
+enum class AstSymbolKind
 {
     NotSet,
     Function,
@@ -43,12 +43,12 @@ private:
 class AstSymbolEntry
 {
 public:
-    AstSymbolEntry(std::string ns, std::string symbolName, AstSymbolType type)
-        : _type(type), _name(ns, symbolName), _locality(AstSymbolLocality::Private)
+    AstSymbolEntry(std::string ns, std::string symbolName, AstSymbolKind kind)
+        : _kind(kind), _name(ns, symbolName), _locality(AstSymbolLocality::Private)
     {}
 
-    AstSymbolType getSymbolType() const { return _type; }
-    void setSymbolType(AstSymbolType type) { _type = type; }
+    AstSymbolKind getSymbolKind() const { return _kind; }
+    void setSymbolKind(AstSymbolKind kind) { _kind = kind; }
 
     AstSymbolLocality getSymbolLocality() const { return _locality; }
     void setSymbolLocality(AstSymbolLocality loc) { _locality = loc; }
@@ -59,7 +59,7 @@ public:
     void AddNode(std::shared_ptr<AstNode> node);
 
 private:
-    AstSymbolType _type;
+    AstSymbolKind _kind;
     AstSymbolName _name;
     AstSymbolLocality _locality;
     std::shared_ptr<AstNode> _definition;
@@ -80,7 +80,7 @@ public:
     {}
 
     std::shared_ptr<AstSymbolEntry> AddSymbol(
-        const std::string& symbolName, AstSymbolType type, std::shared_ptr<AstNode> node);
+        const std::string& symbolName, AstSymbolKind type, std::shared_ptr<AstNode> node);
     std::shared_ptr<AstSymbolEntry> getEntry(const std::string qualifiedNameOrAlias) { 
         return _table[qualifiedNameOrAlias];
     }
@@ -104,7 +104,7 @@ class AstSymbolTableSite
 public:
     virtual std::shared_ptr<AstSymbolTable> getSymbols() = 0;
     virtual std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
-        AstSymbolType type, std::shared_ptr<AstNode> node) = 0;
+        AstSymbolKind type, std::shared_ptr<AstNode> node) = 0;
 };
 
 class AstSymbolTableSiteImpl : public AstSymbolTableSite
@@ -112,9 +112,9 @@ class AstSymbolTableSiteImpl : public AstSymbolTableSite
 public:
     std::shared_ptr<AstSymbolTable> getSymbols() override { return _symbols; }
     std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
-        AstSymbolType type, std::shared_ptr<AstNode> node) override
+        AstSymbolKind kind, std::shared_ptr<AstNode> node) override
     {
-        return _symbols->AddSymbol(symbolName, type, node);
+        return _symbols->AddSymbol(symbolName, kind, node);
     }
 
 protected:

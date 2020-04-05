@@ -2,23 +2,23 @@
 #include "AstSymbolTable.h"
 
 
-AstSymbolType toSymbolType(AstIdentifierType idType)
+AstSymbolKind toSymbolKind(AstIdentifierType idType)
 {
     switch (idType) {
     case AstIdentifierType::Bool:
     case AstIdentifierType::Variable:
-        return AstSymbolType::Variable;
+        return AstSymbolKind::Variable;
     case AstIdentifierType::EnumOption:
     case AstIdentifierType::Field:
-        return AstSymbolType::Field;
+        return AstSymbolKind::Field;
     case AstIdentifierType::Function:
-        return AstSymbolType::Function;
+        return AstSymbolKind::Function;
     case AstIdentifierType::Parameter:
-        return AstSymbolType::Parameter;
+        return AstSymbolKind::Parameter;
     case AstIdentifierType::Type:
-        return AstSymbolType::Type;
+        return AstSymbolKind::Type;
     default:
-        return AstSymbolType::NotSet;
+        return AstSymbolKind::NotSet;
     }
 }
 
@@ -26,7 +26,7 @@ std::shared_ptr<AstSymbolEntry> AstIdentifierSite::AddSymbol(std::shared_ptr<Ast
 {
     auto symbols = identifier->getParentRecursive<AstSymbolTableSite>();
     return symbols->AddSymbol(identifier->getName(),
-        toSymbolType(identifier->getType()), identifier);
+        toSymbolKind(identifier->getType()), identifier);
 }
 
 const std::string AstIdentifier::getName() const

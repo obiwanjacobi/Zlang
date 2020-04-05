@@ -17,12 +17,12 @@ const std::string AstSymbolName::getQualifiedName() const
 
 void AstSymbolEntry::AddNode(std::shared_ptr<AstNode> node)
 {
-    if (_type == AstSymbolType::Function &&
+    if (_kind == AstSymbolKind::Function &&
         dynamic_cast<AstFunction*>(node.get()))
     {
         _definition = node;
     } 
-    else if (_type == AstSymbolType::Parameter &&
+    else if (_kind == AstSymbolKind::Parameter &&
         dynamic_cast<AstFunctionParameter*>(node.get()))
     {
         _definition = node;
@@ -59,7 +59,7 @@ void AstSymbolEntry::AddNode(std::shared_ptr<AstNode> node)
 }
 
 std::shared_ptr<AstSymbolEntry> AstSymbolTable::AddSymbol(
-    const std::string& symbolName, AstSymbolType type, std::shared_ptr<AstNode> node)
+    const std::string& symbolName, AstSymbolKind type, std::shared_ptr<AstNode> node)
 {
     auto entry = std::make_shared<AstSymbolEntry>(getQualifiedName(), symbolName, type);
     entry->AddNode(node);

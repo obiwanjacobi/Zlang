@@ -53,7 +53,7 @@ public:
 
     std::shared_ptr<AstSymbolTable> getSymbols() override;
     std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
-        AstSymbolType type, std::shared_ptr<AstNode> node) override;
+        AstSymbolKind type, std::shared_ptr<AstNode> node) override;
 private:
     std::shared_ptr<AstCodeBlock> _codeblock;
     std::vector<std::shared_ptr<AstFunctionParameter>> _parameters;

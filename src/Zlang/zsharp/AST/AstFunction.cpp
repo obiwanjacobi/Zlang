@@ -39,7 +39,7 @@ std::shared_ptr<AstSymbolTable> AstFunction::getSymbols()
 }
 
 std::shared_ptr<AstSymbolEntry> AstFunction::AddSymbol(const std::string& symbolName,
-    AstSymbolType type, std::shared_ptr<AstNode> node)
+    AstSymbolKind type, std::shared_ptr<AstNode> node)
 {
     auto symbols = getSymbols();
     if (symbols) {
