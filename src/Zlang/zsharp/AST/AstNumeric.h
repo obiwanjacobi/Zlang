@@ -26,7 +26,6 @@ public:
     int64_t getSignedInt() const { return (int64_t)_intValue; }
     
     AstNumericSign getSign() const { return _sign; }
-    // BitSize getBitSize() => return the number of bits required
 
 protected:
     void setValue(uint64_t value) { _intValue = value; }

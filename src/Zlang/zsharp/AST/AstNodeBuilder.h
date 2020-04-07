@@ -49,6 +49,9 @@ public:
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
     antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) override;
 
+    antlrcpp::Any visitType_ref(zsharp_parserParser::Type_refContext* ctx) override;
+
+
     bool hasErrors() const { return _errors.size() == 0; }
     const std::vector<std::shared_ptr<AstError>>& getErrors() const { return _errors; }
 

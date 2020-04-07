@@ -2,7 +2,7 @@
 
 bool AstFunctionParameter::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
 {
-    if (AssignIdentifier(identifier)) {
+    if (AstIdentifierSite::SetIdentifier(identifier)) {
         identifier->setParent(this);
         return true;
     }
@@ -11,7 +11,7 @@ bool AstFunctionParameter::SetIdentifier(std::shared_ptr<AstIdentifier> identifi
 
 bool AstFunction::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
 {
-    if (AssignIdentifier(identifier)) {
+    if (AstIdentifierSite::SetIdentifier(identifier)) {
         identifier->setParent(this);
         return true;
     }

@@ -7,6 +7,7 @@
 #include "AstExpressionBuilder.h"
 #include "../grammar/parser/zsharp_parserParser.h"
 #include "../../Utils.h"
+#include "AstType.h"
 
 bool isEmpty(const antlr4::ParserRuleContext* ctx) {
     return ctx->children.size() == 0;
@@ -424,5 +425,16 @@ antlrcpp::Any AstNodeBuilder::visitExpression_logic(zsharp_parserParser::Express
         bool success = site->AddExpression(expr);
         guard(success);
     }
+    return nullptr;
+}
+
+antlrcpp::Any AstNodeBuilder::visitType_ref(zsharp_parserParser::Type_refContext* ctx)
+{
+    auto trSite = GetCurrent<AstTypeReferenceSite>();
+    guard(trSite);
+
+    auto type = std::make_shared<AstTypeReference>(ctx);
+    trSite->SetTypeReference(type);
+    
     return nullptr;
 }

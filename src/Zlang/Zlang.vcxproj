@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="zsharp\AST\AstType.cpp" />
     <ClCompile Include="zsharp\Dgml\AstExtensions.cpp" />
     <ClCompile Include="zsharp\Dgml\Dgml.cpp" />
     <ClCompile Include="zsharp\Dgml\DgmlBuilder.cpp" />
@@ -42,7 +43,6 @@
     <ClCompile Include="zsharp\AST\AstModule.cpp" />
     <ClCompile Include="zsharp\AST\AstNode.cpp" />
     <ClCompile Include="zsharp\AST\AstBuilder.cpp" />
-    <ClCompile Include="zsharp\grammar\IndentChecker.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="zsharp\grammar\parser\zsharp_parserBaseListener.cpp" />
     <ClCompile Include="zsharp\grammar\parser\zsharp_parserBaseVisitor.cpp" />
@@ -72,6 +72,7 @@
     <None Include="zsharp\LLVM\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="zsharp\AST\AstType.h" />
     <ClInclude Include="zsharp\Dgml\AstExtensions.h" />
     <ClInclude Include="zsharp\Dgml\XmlWriter.h" />
     <ClInclude Include="zsharp\Dgml\clrDgml.h" />
@@ -98,7 +99,6 @@
     <ClInclude Include="zsharp\AST\AstModule.h" />
     <ClInclude Include="zsharp\AST\AstNode.h" />
     <ClInclude Include="zsharp\AST\AstBuilder.h" />
-    <ClInclude Include="zsharp\grammar\IndentChecker.h" />
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserBaseListener.h" />
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserBaseVisitor.h" />
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserLexer.h" />

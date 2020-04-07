@@ -3,9 +3,10 @@
 #include "AstNode.h"
 #include "AstCodeBlock.h"
 #include "AstIdentifier.h"
+#include "AstType.h"
 #include "../grammar/parser/zsharp_parserParser.h"
 
-class AstFunctionParameter : public AstNode, public AstIdentifierSite
+class AstFunctionParameter : public AstNode, public AstIdentifierSite, public AstTypeReferenceSite
 {
 public:
     AstFunctionParameter(zsharp_parserParser::Function_parameterContext* ctx)
@@ -25,7 +26,8 @@ private:
     zsharp_parserParser::Function_parameter_selfContext* _selfCtx;
 };
 
-class AstFunction : public AstNode, public AstCodeBlockSite, public AstIdentifierSite, public AstSymbolTableSite
+class AstFunction : public AstNode, public AstCodeBlockSite, public AstIdentifierSite, 
+    public AstSymbolTableSite, public AstTypeReferenceSite
 {
     friend class AstNodeBuilder;
 

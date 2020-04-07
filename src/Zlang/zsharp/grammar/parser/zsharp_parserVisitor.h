@@ -131,7 +131,7 @@ public:
 
     virtual antlrcpp::Any visitType_alias(zsharp_parserParser::Type_aliasContext *context) = 0;
 
-    virtual antlrcpp::Any visitType_decl(zsharp_parserParser::Type_declContext *context) = 0;
+    virtual antlrcpp::Any visitType_ref(zsharp_parserParser::Type_refContext *context) = 0;
 
     virtual antlrcpp::Any visitType_any(zsharp_parserParser::Type_anyContext *context) = 0;
 

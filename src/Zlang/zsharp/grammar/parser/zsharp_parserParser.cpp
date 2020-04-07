@@ -3065,8 +3065,8 @@ zsharp_parserParser::Function_parameter_listContext* zsharp_parserParser::Functi
   return getRuleContext<zsharp_parserParser::Function_parameter_listContext>(0);
 }
 
-zsharp_parserParser::Type_declContext* zsharp_parserParser::Function_defContext::type_decl() {
-  return getRuleContext<zsharp_parserParser::Type_declContext>(0);
+zsharp_parserParser::Type_refContext* zsharp_parserParser::Function_defContext::type_ref() {
+  return getRuleContext<zsharp_parserParser::Type_refContext>(0);
 }
 
 
@@ -3126,7 +3126,7 @@ zsharp_parserParser::Function_defContext* zsharp_parserParser::function_def() {
     _la = _input->LA(1);
     if (_la == zsharp_parserParser::COLON) {
       setState(467);
-      type_decl();
+      type_ref();
     }
     setState(470);
     newline();
@@ -3334,8 +3334,8 @@ zsharp_parserParser::Identifier_paramContext* zsharp_parserParser::Function_para
   return getRuleContext<zsharp_parserParser::Identifier_paramContext>(0);
 }
 
-zsharp_parserParser::Type_declContext* zsharp_parserParser::Function_parameterContext::type_decl() {
-  return getRuleContext<zsharp_parserParser::Type_declContext>(0);
+zsharp_parserParser::Type_refContext* zsharp_parserParser::Function_parameterContext::type_ref() {
+  return getRuleContext<zsharp_parserParser::Type_refContext>(0);
 }
 
 
@@ -3375,7 +3375,7 @@ zsharp_parserParser::Function_parameterContext* zsharp_parserParser::function_pa
     setState(489);
     identifier_param();
     setState(490);
-    type_decl();
+    type_ref();
    
   }
   catch (RecognitionException &e) {
@@ -3397,8 +3397,8 @@ tree::TerminalNode* zsharp_parserParser::Function_parameter_selfContext::SELF() 
   return getToken(zsharp_parserParser::SELF, 0);
 }
 
-zsharp_parserParser::Type_declContext* zsharp_parserParser::Function_parameter_selfContext::type_decl() {
-  return getRuleContext<zsharp_parserParser::Type_declContext>(0);
+zsharp_parserParser::Type_refContext* zsharp_parserParser::Function_parameter_selfContext::type_ref() {
+  return getRuleContext<zsharp_parserParser::Type_refContext>(0);
 }
 
 
@@ -3444,7 +3444,7 @@ zsharp_parserParser::Function_parameter_selfContext* zsharp_parserParser::functi
     _la = _input->LA(1);
     if (_la == zsharp_parserParser::COLON) {
       setState(493);
-      type_decl();
+      type_ref();
     }
    
   }
@@ -3898,8 +3898,8 @@ zsharp_parserParser::Identifier_varContext* zsharp_parserParser::Variable_def_ty
   return getRuleContext<zsharp_parserParser::Identifier_varContext>(0);
 }
 
-zsharp_parserParser::Type_declContext* zsharp_parserParser::Variable_def_typedContext::type_decl() {
-  return getRuleContext<zsharp_parserParser::Type_declContext>(0);
+zsharp_parserParser::Type_refContext* zsharp_parserParser::Variable_def_typedContext::type_ref() {
+  return getRuleContext<zsharp_parserParser::Type_refContext>(0);
 }
 
 
@@ -3939,7 +3939,7 @@ zsharp_parserParser::Variable_def_typedContext* zsharp_parserParser::variable_de
     setState(531);
     identifier_var();
     setState(532);
-    type_decl();
+    type_ref();
    
   }
   catch (RecognitionException &e) {
@@ -3961,8 +3961,8 @@ zsharp_parserParser::Identifier_varContext* zsharp_parserParser::Variable_def_ty
   return getRuleContext<zsharp_parserParser::Identifier_varContext>(0);
 }
 
-zsharp_parserParser::Type_declContext* zsharp_parserParser::Variable_def_typed_initContext::type_decl() {
-  return getRuleContext<zsharp_parserParser::Type_declContext>(0);
+zsharp_parserParser::Type_refContext* zsharp_parserParser::Variable_def_typed_initContext::type_ref() {
+  return getRuleContext<zsharp_parserParser::Type_refContext>(0);
 }
 
 std::vector<tree::TerminalNode *> zsharp_parserParser::Variable_def_typed_initContext::SP() {
@@ -4018,7 +4018,7 @@ zsharp_parserParser::Variable_def_typed_initContext* zsharp_parserParser::variab
     setState(534);
     identifier_var();
     setState(535);
-    type_decl();
+    type_ref();
     setState(536);
     match(zsharp_parserParser::SP);
     setState(537);
@@ -4204,8 +4204,8 @@ zsharp_parserParser::Type_param_listContext* zsharp_parserParser::Struct_defCont
   return getRuleContext<zsharp_parserParser::Type_param_listContext>(0);
 }
 
-zsharp_parserParser::Type_declContext* zsharp_parserParser::Struct_defContext::type_decl() {
-  return getRuleContext<zsharp_parserParser::Type_declContext>(0);
+zsharp_parserParser::Type_refContext* zsharp_parserParser::Struct_defContext::type_ref() {
+  return getRuleContext<zsharp_parserParser::Type_refContext>(0);
 }
 
 
@@ -4259,7 +4259,7 @@ zsharp_parserParser::Struct_defContext* zsharp_parserParser::struct_def() {
     _la = _input->LA(1);
     if (_la == zsharp_parserParser::COLON) {
       setState(554);
-      type_decl();
+      type_ref();
     }
 
     setState(557);
@@ -4369,8 +4369,8 @@ zsharp_parserParser::Identifier_fieldContext* zsharp_parserParser::Struct_field_
   return getRuleContext<zsharp_parserParser::Identifier_fieldContext>(0);
 }
 
-zsharp_parserParser::Type_declContext* zsharp_parserParser::Struct_field_defContext::type_decl() {
-  return getRuleContext<zsharp_parserParser::Type_declContext>(0);
+zsharp_parserParser::Type_refContext* zsharp_parserParser::Struct_field_defContext::type_ref() {
+  return getRuleContext<zsharp_parserParser::Type_refContext>(0);
 }
 
 zsharp_parserParser::NewlineContext* zsharp_parserParser::Struct_field_defContext::newline() {
@@ -4416,7 +4416,7 @@ zsharp_parserParser::Struct_field_defContext* zsharp_parserParser::struct_field_
     setState(566);
     identifier_field();
     setState(567);
-    type_decl();
+    type_ref();
     setState(568);
     newline();
    
@@ -5111,8 +5111,8 @@ zsharp_parserParser::Identifier_typeContext* zsharp_parserParser::Type_defContex
   return getRuleContext<zsharp_parserParser::Identifier_typeContext>(0);
 }
 
-zsharp_parserParser::Type_declContext* zsharp_parserParser::Type_defContext::type_decl() {
-  return getRuleContext<zsharp_parserParser::Type_declContext>(0);
+zsharp_parserParser::Type_refContext* zsharp_parserParser::Type_defContext::type_ref() {
+  return getRuleContext<zsharp_parserParser::Type_refContext>(0);
 }
 
 tree::TerminalNode* zsharp_parserParser::Type_defContext::SP() {
@@ -5177,7 +5177,7 @@ zsharp_parserParser::Type_defContext* zsharp_parserParser::type_def() {
       type_param_list();
     }
     setState(640);
-    type_decl();
+    type_ref();
     setState(641);
     match(zsharp_parserParser::SP);
     setState(642);
@@ -5295,52 +5295,52 @@ zsharp_parserParser::Type_aliasContext* zsharp_parserParser::type_alias() {
   return _localctx;
 }
 
-//----------------- Type_declContext ------------------------------------------------------------------
+//----------------- Type_refContext ------------------------------------------------------------------
 
-zsharp_parserParser::Type_declContext::Type_declContext(ParserRuleContext *parent, size_t invokingState)
+zsharp_parserParser::Type_refContext::Type_refContext(ParserRuleContext *parent, size_t invokingState)
   : ParserRuleContext(parent, invokingState) {
 }
 
-tree::TerminalNode* zsharp_parserParser::Type_declContext::COLON() {
+tree::TerminalNode* zsharp_parserParser::Type_refContext::COLON() {
   return getToken(zsharp_parserParser::COLON, 0);
 }
 
-tree::TerminalNode* zsharp_parserParser::Type_declContext::SP() {
+tree::TerminalNode* zsharp_parserParser::Type_refContext::SP() {
   return getToken(zsharp_parserParser::SP, 0);
 }
 
-zsharp_parserParser::Type_anyContext* zsharp_parserParser::Type_declContext::type_any() {
+zsharp_parserParser::Type_anyContext* zsharp_parserParser::Type_refContext::type_any() {
   return getRuleContext<zsharp_parserParser::Type_anyContext>(0);
 }
 
 
-size_t zsharp_parserParser::Type_declContext::getRuleIndex() const {
-  return zsharp_parserParser::RuleType_decl;
+size_t zsharp_parserParser::Type_refContext::getRuleIndex() const {
+  return zsharp_parserParser::RuleType_ref;
 }
 
-void zsharp_parserParser::Type_declContext::enterRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Type_refContext::enterRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->enterType_decl(this);
+    parserListener->enterType_ref(this);
 }
 
-void zsharp_parserParser::Type_declContext::exitRule(tree::ParseTreeListener *listener) {
+void zsharp_parserParser::Type_refContext::exitRule(tree::ParseTreeListener *listener) {
   auto parserListener = dynamic_cast<zsharp_parserListener *>(listener);
   if (parserListener != nullptr)
-    parserListener->exitType_decl(this);
+    parserListener->exitType_ref(this);
 }
 
 
-antlrcpp::Any zsharp_parserParser::Type_declContext::accept(tree::ParseTreeVisitor *visitor) {
+antlrcpp::Any zsharp_parserParser::Type_refContext::accept(tree::ParseTreeVisitor *visitor) {
   if (auto parserVisitor = dynamic_cast<zsharp_parserVisitor*>(visitor))
-    return parserVisitor->visitType_decl(this);
+    return parserVisitor->visitType_ref(this);
   else
     return visitor->visitChildren(this);
 }
 
-zsharp_parserParser::Type_declContext* zsharp_parserParser::type_decl() {
-  Type_declContext *_localctx = _tracker.createInstance<Type_declContext>(_ctx, getState());
-  enterRule(_localctx, 112, zsharp_parserParser::RuleType_decl);
+zsharp_parserParser::Type_refContext* zsharp_parserParser::type_ref() {
+  Type_refContext *_localctx = _tracker.createInstance<Type_refContext>(_ctx, getState());
+  enterRule(_localctx, 112, zsharp_parserParser::RuleType_ref);
 
   auto onExit = finally([=] {
     exitRule();
@@ -6649,8 +6649,8 @@ tree::TerminalNode* zsharp_parserParser::Type_param_typeContext::SMALL_ANGLEopen
   return getToken(zsharp_parserParser::SMALL_ANGLEopen, 0);
 }
 
-zsharp_parserParser::Type_nameContext* zsharp_parserParser::Type_param_typeContext::type_name() {
-  return getRuleContext<zsharp_parserParser::Type_nameContext>(0);
+zsharp_parserParser::Type_anyContext* zsharp_parserParser::Type_param_typeContext::type_any() {
+  return getRuleContext<zsharp_parserParser::Type_anyContext>(0);
 }
 
 tree::TerminalNode* zsharp_parserParser::Type_param_typeContext::GREAT_ANGLEclose() {
@@ -6694,7 +6694,7 @@ zsharp_parserParser::Type_param_typeContext* zsharp_parserParser::type_param_typ
     setState(723);
     match(zsharp_parserParser::SMALL_ANGLEopen);
     setState(724);
-    type_name();
+    type_any();
     setState(725);
     match(zsharp_parserParser::GREAT_ANGLEclose);
    
@@ -9116,7 +9116,7 @@ std::vector<std::string> zsharp_parserParser::_ruleNames = {
   "variable_def_typed", "variable_def_typed_init", "variable_assign_auto", 
   "variable_assign", "struct_def", "struct_field_def_list", "struct_field_def", 
   "enum_def", "enum_option_def_listline", "enum_option_def_list", "enum_option_def", 
-  "enum_option_value", "enum_base_type", "type_def", "type_alias", "type_decl", 
+  "enum_option_value", "enum_base_type", "type_def", "type_alias", "type_ref", 
   "type_any", "type_name", "known_types", "type_U8", "type_U16", "type_U24", 
   "type_U32", "type_I8", "type_I16", "type_I24", "type_I32", "type_F16", 
   "type_F32", "type_Str", "type_Bool", "type_Bit", "type_Ptr", "type_param_number", 
@@ -9673,7 +9673,7 @@ zsharp_parserParser::Initializer::Initializer() {
     0x2, 0x2d0, 0x95, 0x3, 0x2, 0x2, 0x2, 0x2d1, 0x2d2, 0x7, 0x30, 0x2, 
     0x2, 0x2d2, 0x2d3, 0x5, 0xb4, 0x5b, 0x2, 0x2d3, 0x2d4, 0x7, 0x2f, 0x2, 
     0x2, 0x2d4, 0x97, 0x3, 0x2, 0x2, 0x2, 0x2d5, 0x2d6, 0x7, 0x30, 0x2, 
-    0x2, 0x2d6, 0x2d7, 0x5, 0x76, 0x3c, 0x2, 0x2d7, 0x2d8, 0x7, 0x2f, 0x2, 
+    0x2, 0x2d6, 0x2d7, 0x5, 0x74, 0x3b, 0x2, 0x2d7, 0x2d8, 0x7, 0x2f, 0x2, 
     0x2, 0x2d8, 0x99, 0x3, 0x2, 0x2, 0x2, 0x2d9, 0x2da, 0x7, 0x30, 0x2, 
     0x2, 0x2da, 0x2db, 0x5, 0x9c, 0x4f, 0x2, 0x2db, 0x2dc, 0x7, 0x2f, 0x2, 
     0x2, 0x2dc, 0x9b, 0x3, 0x2, 0x2, 0x2, 0x2dd, 0x2e3, 0x5, 0x9e, 0x50, 

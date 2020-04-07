@@ -184,8 +184,8 @@ public:
   virtual void enterType_alias(zsharp_parserParser::Type_aliasContext * /*ctx*/) override { }
   virtual void exitType_alias(zsharp_parserParser::Type_aliasContext * /*ctx*/) override { }
 
-  virtual void enterType_decl(zsharp_parserParser::Type_declContext * /*ctx*/) override { }
-  virtual void exitType_decl(zsharp_parserParser::Type_declContext * /*ctx*/) override { }
+  virtual void enterType_ref(zsharp_parserParser::Type_refContext * /*ctx*/) override { }
+  virtual void exitType_ref(zsharp_parserParser::Type_refContext * /*ctx*/) override { }
 
   virtual void enterType_any(zsharp_parserParser::Type_anyContext * /*ctx*/) override { }
   virtual void exitType_any(zsharp_parserParser::Type_anyContext * /*ctx*/) override { }

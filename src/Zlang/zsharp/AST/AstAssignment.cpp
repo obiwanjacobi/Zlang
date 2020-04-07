@@ -13,7 +13,7 @@ bool AstAssignment::AddExpression(std::shared_ptr<AstExpression> expr)
 
 bool AstAssignment::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
 {
-    if (AssignIdentifier(identifier)) {
+    if (AstIdentifierSite::SetIdentifier(identifier)) {
         identifier->setParent(this);
         return true;
     }

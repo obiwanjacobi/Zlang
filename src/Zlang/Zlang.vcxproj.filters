@@ -9,7 +9,6 @@
     <ClCompile Include="zsharp\grammar\parser\zsharp_parserParser.cpp" />
     <ClCompile Include="zsharp\grammar\parser\zsharp_parserVisitor.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="zsharp\grammar\IndentChecker.cpp" />
     <ClCompile Include="zsharp\grammar\_test\parser\testlexer.cpp" />
     <ClCompile Include="zsharp\grammar\_test\parser\testparser.cpp" />
     <ClCompile Include="zsharp\grammar\_test\parser\testparserBaseListener.cpp" />
@@ -39,6 +38,7 @@
     <ClCompile Include="zsharp\Dgml\DgmlBuilder.cpp" />
     <ClCompile Include="zsharp\Dgml\Dgml.cpp" />
     <ClCompile Include="zsharp\Dgml\AstExtensions.cpp" />
+    <ClCompile Include="zsharp\AST\AstType.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -61,7 +61,6 @@
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserListener.h" />
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserParser.h" />
     <ClInclude Include="zsharp\grammar\parser\zsharp_parserVisitor.h" />
-    <ClInclude Include="zsharp\grammar\IndentChecker.h" />
     <ClInclude Include="zsharp\grammar\_test\parser\testlexer.h" />
     <ClInclude Include="zsharp\grammar\_test\parser\testparser.h" />
     <ClInclude Include="zsharp\grammar\_test\parser\testparserBaseListener.h" />
@@ -94,6 +93,7 @@
     <ClInclude Include="zsharp\Dgml\Dgml.h" />
     <ClInclude Include="zsharp\Dgml\XmlWriter.h" />
     <ClInclude Include="zsharp\Dgml\AstExtensions.h" />
+    <ClInclude Include="zsharp\AST\AstType.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="zsharp\grammar\_test\testdata.txt" />

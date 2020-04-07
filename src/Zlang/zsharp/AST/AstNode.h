@@ -8,6 +8,7 @@ enum class AstNodeType {
     Function,       // File::*
     Struct,         // File::*
     Enum,           // File::*
+    Type,           // File::*, Var:[1], Param:[1]
 
     CodeBlock,      // File::*
     Assignment,     // CodeBlock::*

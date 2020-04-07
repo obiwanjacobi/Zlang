@@ -48,7 +48,6 @@ public:
     {}
 
     AstSymbolKind getSymbolKind() const { return _kind; }
-    void setSymbolKind(AstSymbolKind kind) { _kind = kind; }
 
     AstSymbolLocality getSymbolLocality() const { return _locality; }
     void setSymbolLocality(AstSymbolLocality loc) { _locality = loc; }

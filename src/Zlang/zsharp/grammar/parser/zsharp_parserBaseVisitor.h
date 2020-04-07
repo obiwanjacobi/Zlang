@@ -239,7 +239,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitType_decl(zsharp_parserParser::Type_declContext *ctx) override {
+  virtual antlrcpp::Any visitType_ref(zsharp_parserParser::Type_refContext *ctx) override {
     return visitChildren(ctx);
   }
 

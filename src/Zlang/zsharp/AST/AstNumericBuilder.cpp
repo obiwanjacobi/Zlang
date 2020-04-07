@@ -1,7 +1,7 @@
 #include "AstNumericBuilder.h"
 #include "../../Utils.h"
 
-uint64_t parseNumber(int offset, int radix, std::string& text) {
+uint64_t parseNumber(int offset, int radix, const std::string& text) {
     auto val = text.substr(offset);
     ReplaceAll(val, "_", "");   // remove numerical separators
     return strtoul(val.c_str(), nullptr, radix);
