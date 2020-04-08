@@ -101,7 +101,7 @@ private:
 class AstSymbolTableSite
 {
 public:
-    virtual std::shared_ptr<AstSymbolTable> getSymbols() = 0;
+    virtual std::shared_ptr<AstSymbolTable> getSymbols() const = 0;
     virtual std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
         AstSymbolKind type, std::shared_ptr<AstNode> node) = 0;
 };
@@ -109,7 +109,7 @@ public:
 class AstSymbolTableSiteImpl : public AstSymbolTableSite
 {
 public:
-    std::shared_ptr<AstSymbolTable> getSymbols() override { return _symbols; }
+    std::shared_ptr<AstSymbolTable> getSymbols() const override { return _symbols; }
     std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
         AstSymbolKind kind, std::shared_ptr<AstNode> node) override
     {

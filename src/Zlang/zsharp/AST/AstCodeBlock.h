@@ -5,14 +5,6 @@
 #include "../grammar/parser/zsharp_parserParser.h"
 #include <memory>
 
-class AstCodeBlock;
-
-class AstCodeBlockSite
-{
-public:
-    virtual bool SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) = 0;
-};
-
 class AstCodeBlockItem : public AstNode
 {
 public:
@@ -27,6 +19,7 @@ protected:
 private:
     uint32_t _indent;
 };
+
 
 class AstCodeBlock : public AstNode, public AstSymbolTableSiteImpl
 {
@@ -54,4 +47,22 @@ private:
     zsharp_parserParser::CodeblockContext* _ctx;
 
     std::vector<std::shared_ptr<AstCodeBlockItem>> _items;
+};
+
+
+class AstCodeBlockSite
+{
+public:
+    virtual bool SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
+        if (!_codeBlock && codeBlock) {
+            _codeBlock = codeBlock;
+            return true;
+        }
+        return false;
+    }
+
+    std::shared_ptr<AstCodeBlock> getCodeBlock() const { return _codeBlock; }
+
+private:
+    std::shared_ptr<AstCodeBlock> _codeBlock;
 };

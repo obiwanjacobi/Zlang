@@ -1,13 +1,11 @@
 #include "AstAssignment.h"
 
-bool AstAssignment::AddExpression(std::shared_ptr<AstExpression> expr)
+bool AstAssignment::SetExpression(std::shared_ptr<AstExpression> expr)
 {
-    if (_expression == nullptr) {
-        _expression = expr;
+    if (AstExpressionSite::SetExpression(expr)) {
         expr->setParent(this);
         return true;
     }
-
     return false;
 }
 

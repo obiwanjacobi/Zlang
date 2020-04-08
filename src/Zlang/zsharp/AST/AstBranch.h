@@ -70,9 +70,8 @@ public:
         : AstBranch(AstBranchType::ExitFunction), _returnCtx(ctx)
     {}
 
-    std::shared_ptr<AstExpression> getExpression() const { return _expression; }
-    bool AddExpression(std::shared_ptr<AstExpression> expr);
-    bool hasExpression() const { return _expression != nullptr; }
+    bool SetExpression(std::shared_ptr<AstExpression> expr);
+    bool hasExpression() const { return getExpression() != nullptr; }
 
 protected:
     AstBranchExpression(AstBranchType branchType)
@@ -80,7 +79,6 @@ protected:
     {}
 
 private:
-    std::shared_ptr<AstExpression> _expression;
     zsharp_parserParser::Statement_returnContext* _returnCtx;
 };
 
@@ -108,7 +106,6 @@ public:
     {}
 
     // if/else body
-    std::shared_ptr<AstCodeBlock> getCodeBlock() const { return _codeBlock; }
     bool SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) override;
 
     // chain of else/else-if's
@@ -119,7 +116,6 @@ public:
     AstBranchConditional* LastSubBranch() { return hasSubBranch() ? _subBranch->LastSubBranch() : this; }
 
 private:
-    std::shared_ptr<AstCodeBlock> _codeBlock;
     std::shared_ptr<AstBranchConditional> _subBranch;
 
     zsharp_parserParser::Statement_ifContext* _ifCtx;

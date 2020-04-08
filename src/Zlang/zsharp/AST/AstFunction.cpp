@@ -19,20 +19,19 @@ bool AstFunction::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
 }
 
 bool AstFunction::SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
-    if (!_codeblock && codeBlock) {
+    if (AstCodeBlockSite::SetCodeBlock(codeBlock)) {
         codeBlock->setIndent(1);
-        _codeblock = codeBlock;
-
         AddFunctionSymbols();
         return true;
     }
     return false;
 }
 
-std::shared_ptr<AstSymbolTable> AstFunction::getSymbols()
+std::shared_ptr<AstSymbolTable> AstFunction::getSymbols() const
 {
-    if (_codeblock) {
-        return _codeblock->getSymbols();
+    auto codeBlock = getCodeBlock();
+    if (codeBlock) {
+        return codeBlock->getSymbols();
     }
     
     return getParent<AstSymbolTableSite>()->getSymbols();

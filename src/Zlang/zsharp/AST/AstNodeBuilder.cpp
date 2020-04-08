@@ -410,7 +410,7 @@ antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Express
     if (expr != nullptr)
     {
         auto site = GetCurrent<AstExpressionSite>();
-        bool success = site->AddExpression(expr);
+        bool success = site->SetExpression(expr);
         guard(success);
     }
     return nullptr;
@@ -422,7 +422,7 @@ antlrcpp::Any AstNodeBuilder::visitExpression_logic(zsharp_parserParser::Express
     if (expr != nullptr)
     {
         auto site = GetCurrent<AstExpressionSite>();
-        bool success = site->AddExpression(expr);
+        bool success = site->SetExpression(expr);
         guard(success);
     }
     return nullptr;

@@ -17,34 +17,6 @@ enum class AstIdentifierType
     EnumOption
 };
 
-
-class AstIdentifier;
-class AstSymbolEntry;
-
-class AstIdentifierSite
-{
-public:
-    virtual bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) {
-        if (!_identifier && identifier) {
-            _identifier = identifier;
-            return true;
-        }
-        return false;
-    }
-    std::shared_ptr<AstIdentifier> getIdentifier() const { return _identifier; }
-
-protected:
-    AstIdentifierSite()
-        : _identifier(nullptr)
-    {}
-
-    // walk parents up and test for AstSymbolTableSite
-    std::shared_ptr<AstSymbolEntry> AddSymbol(std::shared_ptr<AstIdentifier> identifier);
-
-private:
-    std::shared_ptr<AstIdentifier> _identifier;
-};
-
 class AstIdentifier : public AstNode
 {
 public:
@@ -98,4 +70,27 @@ private:
     zsharp_parserParser::Identifier_funcContext* _funcCtx;
     zsharp_parserParser::Identifier_fieldContext* _fieldCtx;
     zsharp_parserParser::Identifier_enumoptionContext* _enumOptCtx;
+};
+
+
+class AstSymbolEntry;
+
+class AstIdentifierSite
+{
+public:
+    virtual bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) {
+        if (!_identifier && identifier) {
+            _identifier = identifier;
+            return true;
+        }
+        return false;
+    }
+    std::shared_ptr<AstIdentifier> getIdentifier() const { return _identifier; }
+
+protected:
+    // walk parents up and test for AstSymbolTableSite
+    std::shared_ptr<AstSymbolEntry> AddSymbol(std::shared_ptr<AstIdentifier> identifier);
+
+private:
+    std::shared_ptr<AstIdentifier> _identifier;
 };

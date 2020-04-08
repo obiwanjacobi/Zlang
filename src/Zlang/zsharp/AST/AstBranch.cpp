@@ -1,33 +1,29 @@
 #include "AstBranch.h"
 
-bool AstBranchExpression::AddExpression(std::shared_ptr<AstExpression> expr) {
-    if (_expression || !expr) {
-        return false; 
+bool AstBranchExpression::SetExpression(std::shared_ptr<AstExpression> expr) {
+    if (AstExpressionSite::SetExpression(expr)) {
+        expr->setParent(this);
+        return true;
     }
-    expr->setParent(this);
-    _expression = expr;
-    return true;
+    return false;
 }
 
 bool AstBranchConditional::SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
-    if (_codeBlock || !codeBlock) { 
-        return false; 
+    if (AstCodeBlockSite::SetCodeBlock(codeBlock)) {
+        codeBlock->setIndent(getIndent() + 1);
+        codeBlock->setParent(this);
+        return true;
     }
-
-    codeBlock->setIndent(getIndent() + 1);
-    codeBlock->setParent(this);
-    _codeBlock = codeBlock;
-    return true;
+    return false;
 }
 
 bool AstBranchConditional::AddSubBranch(std::shared_ptr<AstBranchConditional> subBranch)
 {
-    if (_subBranch || !subBranch) {
-        return false;
+    if (!_subBranch && subBranch) {
+        _subBranch = subBranch;
+        _subBranch->setParent(this);
+        _subBranch->setIndent(getIndent());
+        return true;
     }
-
-    _subBranch = subBranch;
-    _subBranch->setParent(this);
-    _subBranch->setIndent(getIndent());
-    return true;
+    return false;
 }

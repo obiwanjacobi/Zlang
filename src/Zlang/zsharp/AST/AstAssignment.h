@@ -12,14 +12,10 @@ public:
         : AstCodeBlockItem(AstNodeType::Assignment), _ctx(ctx)
     {}
 
-    bool AddExpression(std::shared_ptr<AstExpression> expr) override;
-    const std::shared_ptr<AstExpression>& getExpression() const { return _expression; }
-
+    bool SetExpression(std::shared_ptr<AstExpression> expr) override;
     bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override;
 
 private:
-    std::shared_ptr<AstExpression> _expression;
-
     zsharp_parserParser::Variable_assignContext* _ctx;
 };
 

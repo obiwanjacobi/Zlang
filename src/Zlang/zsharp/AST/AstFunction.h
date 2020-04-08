@@ -39,8 +39,6 @@ public:
     zsharp_parserParser::Function_defContext* getContext() const { return _function; }
 
     bool SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) override;
-    std::shared_ptr<AstCodeBlock> getCodeBlock() const { return _codeblock; }
-
     bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override;
 
     const std::vector<std::shared_ptr<AstFunctionParameter>>& getParameters() const { return _parameters; }
@@ -53,11 +51,10 @@ public:
         return false;
     }
 
-    std::shared_ptr<AstSymbolTable> getSymbols() override;
+    std::shared_ptr<AstSymbolTable> getSymbols() const override;
     std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
         AstSymbolKind type, std::shared_ptr<AstNode> node) override;
 private:
-    std::shared_ptr<AstCodeBlock> _codeblock;
     std::vector<std::shared_ptr<AstFunctionParameter>> _parameters;
 
     zsharp_parserParser::Function_defContext* _function;
