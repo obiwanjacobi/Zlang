@@ -16,7 +16,7 @@ public:
         : AstNode(AstNodeType::FunctionParameter), _paramCtx(nullptr), _selfCtx(ctx)
     {}
 
-    // no identifier if true
+    // possible no identifier if true
     bool isSelf() const { return _selfCtx != nullptr; }
 
     bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override;

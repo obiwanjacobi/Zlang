@@ -44,14 +44,61 @@ TEST(AstIndentifierTests, FunctionParameterName)
     ASSERT_FALSE(uut.hasErrors());
 
     auto fn = file->getFunctions().at(0);
-    auto identifier = fn->getIdentifier();
-    ASSERT_NE(identifier, nullptr);
-    ASSERT_STREQ(identifier->getName().c_str(), "MyFunction");
     auto param = fn->getParameters().at(0);
     auto pid = param->getIdentifier();
     ASSERT_NE(pid, nullptr);
     ASSERT_STREQ(pid->getName().c_str(), "a");
 }
+
+TEST(AstIndentifierTests, FunctionParameterSelf)
+{
+    const char* src =
+        "MyFunction(self)\n"
+        "    c = 0\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto fn = file->getFunctions().at(0);
+    auto param = fn->getParameters().at(0);
+    auto pid = param->getIdentifier();
+    ASSERT_NE(pid, nullptr);
+    ASSERT_STREQ(pid->getName().c_str(), "self");
+    auto type = param->getTypeReference();
+    ASSERT_EQ(type, nullptr);
+}
+
+TEST(AstIndentifierTests, FunctionParameterTypedSelf)
+{
+    const char* src =
+        "MyFunction(self: U8)\n"
+        "    c = 0\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto fn = file->getFunctions().at(0);
+    auto param = fn->getParameters().at(0);
+    auto pid = param->getIdentifier();
+    ASSERT_NE(pid, nullptr);
+    ASSERT_STREQ(pid->getName().c_str(), "self");
+    auto type = param->getTypeReference();
+    ASSERT_NE(type, nullptr);
+    ASSERT_STREQ(type->getIdentifier()->getName().c_str(), "U8");
+}
+
 
 TEST(AstIndentifierTests, VarAssignment)
 {

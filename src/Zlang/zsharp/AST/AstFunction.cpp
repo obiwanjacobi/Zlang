@@ -52,6 +52,9 @@ void AstFunction::AddFunctionSymbols()
     // deferred registration of function parameter symbols in the codeblock's symbol table
     for (const auto param : _parameters)
     {
-        AstIdentifierSite::AddSymbol(param->getIdentifier());
+        auto identifier = param->getIdentifier();
+        if (identifier) {
+            AstIdentifierSite::AddSymbol(identifier);
+        }
     }
 }

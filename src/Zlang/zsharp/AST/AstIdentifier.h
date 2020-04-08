@@ -59,9 +59,15 @@ public:
         _paramCtx(nullptr), _funcCtx(nullptr), _fieldCtx(nullptr), _enumOptCtx(ctx)
     {}
 
-    const std::string getName() const;
-    const AstIdentifierType getType() const;
+    virtual const std::string getName() const;
+    virtual const AstIdentifierType getType() const;
 
+protected:
+    AstIdentifier()
+        : AstNode(AstNodeType::Identifier),
+        _boolCtx(nullptr), _typeCtx(nullptr), _varCtx(nullptr),
+        _paramCtx(nullptr), _funcCtx(nullptr), _fieldCtx(nullptr), _enumOptCtx(nullptr)
+    {}
 private:
     zsharp_parserParser::Identifier_boolContext* _boolCtx;
     zsharp_parserParser::Identifier_typeContext* _typeCtx;
@@ -70,6 +76,22 @@ private:
     zsharp_parserParser::Identifier_funcContext* _funcCtx;
     zsharp_parserParser::Identifier_fieldContext* _fieldCtx;
     zsharp_parserParser::Identifier_enumoptionContext* _enumOptCtx;
+};
+
+
+class AstIdentifierIntrinsic : public AstIdentifier
+{
+public:
+    AstIdentifierIntrinsic(const std::string name, AstIdentifierType type)
+        : _name(name), _type(type)
+    {}
+
+    const std::string getName() const override { return _name; }
+    const AstIdentifierType getType() const override { return _type; }
+
+private:
+    std::string _name;
+    AstIdentifierType _type;
 };
 
 

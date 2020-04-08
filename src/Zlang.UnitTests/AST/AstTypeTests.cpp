@@ -26,8 +26,8 @@ TEST(AstTypeTests, FunctionType)
     ASSERT_NE(type, nullptr);
     ASSERT_FALSE(type->getIsOptional());
     ASSERT_FALSE(type->getIsError());
-    // TODO: known_types not implemented yet
-    ASSERT_EQ(type->getIdentifier(), nullptr);
+    ASSERT_NE(type->getIdentifier(), nullptr);
+    ASSERT_STREQ(type->getIdentifier()->getName().c_str(), "U8");
 }
 
 TEST(AstTypeTests, FunctionOptionalErrorType)
@@ -50,8 +50,8 @@ TEST(AstTypeTests, FunctionOptionalErrorType)
     ASSERT_NE(type, nullptr);
     ASSERT_TRUE(type->getIsOptional());
     ASSERT_TRUE(type->getIsError());
-    // TODO: known_types not implemented yet
-    ASSERT_EQ(type->getIdentifier(), nullptr);
+    ASSERT_NE(type->getIdentifier(), nullptr);
+    ASSERT_STREQ(type->getIdentifier()->getName().c_str(), "U8");
 }
 
 TEST(AstTypeTests, FunctionParameterType)
@@ -75,8 +75,8 @@ TEST(AstTypeTests, FunctionParameterType)
     ASSERT_NE(type, nullptr);
     ASSERT_FALSE(type->getIsOptional());
     ASSERT_FALSE(type->getIsError());
-    // TODO: known_types not implemented yet
-    ASSERT_EQ(type->getIdentifier(), nullptr);
+    ASSERT_NE(type->getIdentifier(), nullptr);
+    ASSERT_STREQ(type->getIdentifier()->getName().c_str(), "U8");
 }
 
 TEST(AstTypeTests, FunctionParameterCustomType)

@@ -9,26 +9,19 @@
 class AstType : public AstNode, public AstIdentifierSite
 {
 public:
-    AstType(zsharp_parserParser::Type_anyContext* ctx)
-        : AstNode(AstNodeType::Type), _context(ctx)
-    {
-        _isOptional = (ctx->QUESTION() != nullptr);
-        _isError = (ctx->ERROR() != nullptr);
-
-        guard(ctx->type_name());
-        if (ctx->type_name()->identifier_type())
-        {
-            auto idCtx = ctx->type_name()->identifier_type();
-            auto identifier = std::make_shared<AstIdentifier>(idCtx);
-            SetIdentifier(identifier);
-        }
-        // TODO: known_types
-    }
-
     zsharp_parserParser::Type_anyContext* getContext() const { return _context; }
 
     bool getIsOptional() const { return _isOptional; }
     bool getIsError() const { return _isError; }
+
+protected:
+    AstType(zsharp_parserParser::Type_anyContext* ctx)
+        : AstNode(AstNodeType::Type), _context(ctx),
+        _isOptional(ctx->QUESTION() != nullptr),
+        _isError(ctx->ERROR() != nullptr)
+    {}
+
+    static void Construct(std::shared_ptr<AstType> instance, zsharp_parserParser::Type_anyContext* ctx);
 
 private:
     zsharp_parserParser::Type_anyContext* _context;
@@ -41,14 +34,12 @@ private:
 class AstTypeReference : public AstType
 {
 public:
+    static std::shared_ptr<AstTypeReference> Create(zsharp_parserParser::Type_refContext* ctx);
+
+    // Do not use (needed for std::make_shared)
     AstTypeReference(zsharp_parserParser::Type_refContext* ctx)
-        : AstType(ctx->type_any()), _context(ctx)
+        : AstType(ctx->type_any())
     {}
-
-    zsharp_parserParser::Type_refContext* getRefContext() const { return _context; }
-
-private:
-    zsharp_parserParser::Type_refContext* _context;
 };
 
 

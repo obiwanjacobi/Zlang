@@ -370,6 +370,7 @@ antlrcpp::Any AstNodeBuilder::visitFunction_parameter(zsharp_parserParser::Funct
 antlrcpp::Any AstNodeBuilder::visitFunction_parameter_self(zsharp_parserParser::Function_parameter_selfContext* ctx) {
     auto function = GetCurrent<AstFunction>();
     auto funcParam = std::make_shared<AstFunctionParameter>(ctx);
+    funcParam->SetIdentifier(std::make_shared<AstIdentifierIntrinsic>("self", AstIdentifierType::Parameter));
     function->AddParameter(funcParam);
 
     setCurrent(funcParam);
@@ -433,7 +434,7 @@ antlrcpp::Any AstNodeBuilder::visitType_ref(zsharp_parserParser::Type_refContext
     auto trSite = GetCurrent<AstTypeReferenceSite>();
     guard(trSite);
 
-    auto type = std::make_shared<AstTypeReference>(ctx);
+    auto type = AstTypeReference::Create(ctx);
     trSite->SetTypeReference(type);
     
     return nullptr;
