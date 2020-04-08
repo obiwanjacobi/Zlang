@@ -68,25 +68,22 @@ std::shared_ptr<AstSymbolEntry> AstSymbolTable::AddSymbol(
     return entry;
 }
 
-const std::vector<std::string> AstSymbolTable::getSymbolNames() const
+std::shared_ptr<AstSymbolEntry> AstSymbolTable::getEntry(const std::string qualifiedNameOrAlias, AstSymbolKind kind)
 {
-    std::vector<std::string> keys;
-
-    for (auto it = _table.begin(); it != _table.end(); ++it) {
-        keys.push_back(it->first);
+    if (qualifiedNameOrAlias.find_first_of('.') == std::string::npos) {
+        // alias search
     }
 
-    return keys;
+    auto key = qualifiedNameOrAlias + std::to_string((int)kind);
+    return _table[key];
 }
 
 const std::vector<std::shared_ptr<AstSymbolEntry>> AstSymbolTable::getSymbolEntries() const
 {
     std::vector<std::shared_ptr<AstSymbolEntry>> entries;
-
     for (auto it = _table.begin(); it != _table.end(); ++it) {
         entries.push_back(it->second);
     }
-
     return entries;
 }
 
@@ -95,6 +92,5 @@ std::string AstSymbolTable::getQualifiedName() const
     if (_parent) {
         return _parent->getQualifiedName() + "." + _namespace;
     }
-
     return _namespace;
 }

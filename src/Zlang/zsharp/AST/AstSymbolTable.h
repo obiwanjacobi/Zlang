@@ -53,7 +53,7 @@ public:
     void setSymbolLocality(AstSymbolLocality loc) { _locality = loc; }
 
     const AstSymbolName& getSymbolName() const { return _name; }
-    const std::string getKey() const { return _name.getQualifiedName(); }
+    const std::string getKey() const { return _name.getQualifiedName() + std::to_string((int)_kind); }
 
     void AddNode(std::shared_ptr<AstNode> node);
 
@@ -80,13 +80,9 @@ public:
 
     std::shared_ptr<AstSymbolEntry> AddSymbol(
         const std::string& symbolName, AstSymbolKind type, std::shared_ptr<AstNode> node);
-    std::shared_ptr<AstSymbolEntry> getEntry(const std::string qualifiedNameOrAlias) { 
-        return _table[qualifiedNameOrAlias];
-    }
+    std::shared_ptr<AstSymbolEntry> getEntry(const std::string qualifiedNameOrAlias, AstSymbolKind kind);
 
     std::shared_ptr<AstSymbolTable> getParentTable() const { return _parent; }
-
-    const std::vector<std::string> getSymbolNames() const;
     const std::vector<std::shared_ptr<AstSymbolEntry>> getSymbolEntries() const;
 
     std::string getQualifiedName() const;

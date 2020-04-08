@@ -124,3 +124,31 @@ TEST(AstIndentifierTests, VarAssignment)
     ASSERT_STREQ(identifier->getName().c_str(), "c");
 }
 
+TEST(AstIndentifierTests, ParameterAssignment)
+{
+    const char* src =
+        "MyFunction(c: U8)\n"
+        "    c = 0\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto fn = file->getFunctions().at(0);
+    auto cb = fn->getCodeBlock();
+    auto codeItems = cb->getItems();
+    auto ci = std::static_pointer_cast<AstAssignment>(codeItems.at(0));
+    auto identifier = ci->getIdentifier();
+    ASSERT_NE(identifier, nullptr);
+    ASSERT_STREQ(identifier->getName().c_str(), "c");
+
+    auto st = cb->getSymbols();
+    ASSERT_NE(st->getEntry(".MyFunction.c", AstSymbolKind::Parameter), nullptr);
+    ASSERT_NE(st->getEntry(".MyFunction.c", AstSymbolKind::Variable), nullptr);
+}
+
