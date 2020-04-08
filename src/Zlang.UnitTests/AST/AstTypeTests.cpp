@@ -105,3 +105,30 @@ TEST(AstTypeTests, FunctionParameterCustomType)
     ASSERT_NE(identifier, nullptr);
     ASSERT_STREQ(identifier->getName().c_str(), "SomeType");
 }
+
+TEST(AstTypeTests, FunctionParameterOptionalCustomType)
+{
+    const char* src =
+        "MyFunction(p: SomeType?)\n"
+        "    return\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto fn = file->getFunctions().at(0);
+    auto param = fn->getParameters().at(0);
+    auto type = param->getTypeReference();
+    ASSERT_NE(type, nullptr);
+    ASSERT_TRUE(type->getIsOptional());
+    ASSERT_FALSE(type->getIsError());
+
+    auto identifier = type->getIdentifier();
+    ASSERT_NE(identifier, nullptr);
+    ASSERT_STREQ(identifier->getName().c_str(), "SomeType");
+}
