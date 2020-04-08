@@ -49,6 +49,7 @@
     <ClCompile Include="AST\AstNumericBuilderTests.cpp" />
     <ClCompile Include="AST\AstSymbolTableTests.cpp" />
     <ClCompile Include="AST\AstCodeTests.cpp" />
+    <ClCompile Include="AST\AstTypeTests.cpp" />
     <ClCompile Include="Dgml\DgmlBuilderTests.cpp" />
     <ClCompile Include="grammar\CommentSmokeTests.cpp" />
     <ClCompile Include="grammar\EnumSmokeTests.cpp" />

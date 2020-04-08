@@ -28,10 +28,7 @@ public:
     zsharp_parserParser::Type_anyContext* getContext() const { return _context; }
 
     bool getIsOptional() const { return _isOptional; }
-    void setIsOptional(bool isOptional) { _isOptional = isOptional; }
-
     bool getIsError() const { return _isError; }
-    void setIsError(bool isError) { _isError = isError; }
 
 private:
     zsharp_parserParser::Type_anyContext* _context;
