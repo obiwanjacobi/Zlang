@@ -17,7 +17,7 @@ public:
         if (val.isNull()) {
             return BuildExpression(0);
         }
-        return val.as< std::shared_ptr<AstExpression>>();
+        return val.as<std::shared_ptr<AstExpression>>();
     }
 
     std::shared_ptr<AstExpression> Build(zsharp_parserParser::Expression_logicContext* expressionCtx) {
@@ -25,7 +25,7 @@ public:
         if (val.isNull()) {
             return BuildExpression(0);
         }
-        return val.as< std::shared_ptr<AstExpression>>();
+        return val.as<std::shared_ptr<AstExpression>>();
     }
 
     std::shared_ptr<AstExpression> Test(antlr4::ParserRuleContext* ctx) {
@@ -33,7 +33,7 @@ public:
         if (val.isNull()) {
             return BuildExpression(0);
         }
-        return val.as< std::shared_ptr<AstExpression>>();
+        return val.as<std::shared_ptr<AstExpression>>();
     }
 
 protected:

@@ -1,6 +1,6 @@
 #include "AstExpressionBuilder.h"
 #include "AstNumericBuilder.h"
-
+#include "AstVariable.h"
 
 bool isOperand(zsharp_parserParser::Expression_arithmeticContext* ctx)
 {
@@ -18,7 +18,7 @@ bool isOperand(zsharp_parserParser::Expression_comparisonContext* ctx)
 }
 
 template<class T>
-antlrcpp::Any  AstExpressionBuilder::ProcessExpression(T ctx)
+antlrcpp::Any AstExpressionBuilder::ProcessExpression(T ctx)
 {
 
     if (ctx->PARENopen()) {
@@ -178,7 +178,8 @@ antlrcpp::Any AstExpressionBuilder::visitFunction_call(zsharp_parserParser::Func
 
 antlrcpp::Any AstExpressionBuilder::visitVariable_ref(zsharp_parserParser::Variable_refContext* ctx)
 {
-    return std::make_shared<AstExpressionOperand>(ctx);
+    auto varRef = std::make_shared<AstVariableReference>(ctx);
+    return std::make_shared<AstExpressionOperand>(varRef);
 }
 
 antlrcpp::Any AstExpressionBuilder::visitNumber(zsharp_parserParser::NumberContext* ctx)
