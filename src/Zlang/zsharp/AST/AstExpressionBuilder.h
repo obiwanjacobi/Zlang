@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AstExpression.h"
-
+#include "AstBuilderContext.h"
 #include "../grammar/parser/zsharp_parserBaseVisitor.h"
 #include "../grammar/parser/zsharp_parserParser.h"
 #include <antlr4-runtime.h>
@@ -12,6 +12,10 @@ class AstExpressionBuilder : protected zsharp_parserBaseVisitor
     typedef zsharp_parserBaseVisitor base;
 
 public:
+    AstExpressionBuilder(AstBuilderContext* builderCtx)
+        : _builderContext(builderCtx)
+    {}
+
     std::shared_ptr<AstExpression> Build(zsharp_parserParser::Expression_valueContext* expressionCtx) {
         auto val = visitExpression_value(expressionCtx);
         if (val.isNull()) {
@@ -72,5 +76,7 @@ private:
 
     std::stack<std::shared_ptr<AstExpressionOperand>> _values;
     std::stack<std::shared_ptr<AstExpression>> _operators;
+
+    AstBuilderContext* _builderContext;
 };
 

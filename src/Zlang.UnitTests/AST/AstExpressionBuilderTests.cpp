@@ -15,8 +15,10 @@ TEST(AstExpressionBuilderTests, Arithmetic1)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
@@ -38,8 +40,10 @@ TEST(AstExpressionBuilderTests, Arithmetic2)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
@@ -61,8 +65,10 @@ TEST(AstExpressionBuilderTests, ArithmeticUnary1)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Negate);
@@ -82,8 +88,10 @@ TEST(AstExpressionBuilderTests, ArithmeticUnary2)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
@@ -105,8 +113,10 @@ TEST(AstExpressionBuilderTests, ArithmeticParenth)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Multiply);
@@ -129,8 +139,10 @@ TEST(AstExpressionBuilderTests, ArithmeticNestedParenth)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Modulo);
@@ -155,8 +167,10 @@ TEST(AstExpressionBuilderTests, ArithmeticUnaryParenth1)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
@@ -179,8 +193,10 @@ TEST(AstExpressionBuilderTests, Comparison1)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Greater);
@@ -202,8 +218,10 @@ TEST(AstExpressionBuilderTests, ComparisonEqualAssign)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Equal);
@@ -225,8 +243,10 @@ TEST(AstExpressionBuilderTests, Logical1)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Not);
@@ -245,8 +265,10 @@ TEST(AstExpressionBuilderTests, LogicalComparison1)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Not);
@@ -266,8 +288,10 @@ TEST(AstExpressionBuilderTests, Assignment1)
     auto sourceCtx = parser.parseText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstExpressionBuilder uut;
+    AstBuilderContext ctx(0);
+    AstExpressionBuilder uut(&ctx);
     auto expr = uut.Test(sourceCtx);
+    ASSERT_FALSE(ctx.hasErrors());
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Number);

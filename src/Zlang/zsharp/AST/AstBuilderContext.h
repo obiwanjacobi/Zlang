@@ -58,7 +58,7 @@ public:
 
 
     std::shared_ptr<AstError> AddError(antlr4::ParserRuleContext* ctx, const char* text);
-    bool hasErrors() const { return _errors.size() == 0; }
+    bool hasErrors() const { return _errors.size() > 0; }
     const std::vector<std::shared_ptr<AstError>>& getErrors() const { return _errors; }
 
 private:

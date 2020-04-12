@@ -348,7 +348,7 @@ antlrcpp::Any AstNodeBuilder::visitVariable_assign(zsharp_parserParser::Variable
 
 antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx)
 {
-    AstExpressionBuilder builder;
+    AstExpressionBuilder builder(this);
     auto expr = builder.Build(ctx);
     if (expr != nullptr)
     {
@@ -360,7 +360,7 @@ antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Express
 }
 
 antlrcpp::Any AstNodeBuilder::visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) {
-    AstExpressionBuilder builder;
+    AstExpressionBuilder builder(this);
     auto expr = builder.Build(ctx);
     if (expr != nullptr)
     {
