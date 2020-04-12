@@ -46,3 +46,5 @@
 > build in extra grammar/semantics for verifying correctness of the compiler. Inline unit tests.
 
 > TBD: Compiler reports each 'issue' based on config. A compiler-profile can make an 'issue' a warning or error etc.
+
+> TBD: Macros/meta programming based on AST of compiler.

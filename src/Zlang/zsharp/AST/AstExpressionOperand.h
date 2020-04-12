@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AstNode.h"
+#include "../grammar/parser/zsharp_parserParser.h"
 #include <memory>
 
 class AstExpression;

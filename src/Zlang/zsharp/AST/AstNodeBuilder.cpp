@@ -13,64 +13,6 @@ bool isEmpty(const antlr4::ParserRuleContext* ctx) {
     return ctx->children.size() == 0;
 }
 
-AstCodeBlock* AstNodeBuilder::GetCodeBlock(uint32_t indent) const
-{
-    AstCodeBlock* p = nullptr;
-
-    for (auto c : _current) {
-        p = dynamic_cast<AstCodeBlock*>(c);
-        if (p && p->getIndent() == indent) {
-            break;
-        }
-    }
-
-    guard(p != nullptr);
-    return p;
-}
-
-template <class T>
-T* AstNodeBuilder::GetCurrent() const
-{
-    T* p = nullptr;
-
-    for (auto c : _current) {
-        p = dynamic_cast<T*>(c);
-        if (p) {
-            break;
-        }
-    }
-
-    guard(p != nullptr);
-    return p;
-}
-
-template<class T>
-uint32_t AstNodeBuilder::CheckIndent(T ctx)
-{
-    auto indentCtx = ctx->indent();
-    auto indent = indentCtx->getText().length();
-    assert(std::numeric_limits<int32_t>::max() > indent);
-
-    if (_indent == 0) {
-        _indent = indent;
-    }
-
-    if (indent % _indent) {
-        AddError(ctx, AstError::IndentationInvalid);
-        // guess where it should go
-        return std::lroundf(indent / _indent);
-    }
-
-    return indent / _indent;
-}
-
-std::shared_ptr<AstError> AstNodeBuilder::AddError(antlr4::ParserRuleContext* ctx, const char* text)
-{
-    auto error = std::make_shared<AstError>(ctx);
-    error->setText(text);
-    _errors.push_back(error);
-    return error;
-}
 
 antlrcpp::Any AstNodeBuilder::visitChildrenExcept(antlr4::ParserRuleContext* node, const antlr4::ParserRuleContext* except)
 {
@@ -108,7 +50,7 @@ antlrcpp::Any AstNodeBuilder::visitFile(zsharp_parserParser::FileContext* ctx) {
     auto any = base::visitChildren(ctx);
 
     revertCurrent();
-    guard(_current.size() == 0);
+    //guard(_current.size() == 0);
 
     return file;
 }

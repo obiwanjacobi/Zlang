@@ -27,6 +27,12 @@ some variable
 my-type
 ```
 
+## Case Sensitivty
+
+Type identifiers start with an upper case letter. Variables and Function Parameters must have a lower case first letter. Function names can use either.
+
+> Are identifier defenition and reference matched case sensitive? (full name, or just the first letter match?)
+
 ## Discard
 
 Using a discard `_` in an identifier is ignored during matching.

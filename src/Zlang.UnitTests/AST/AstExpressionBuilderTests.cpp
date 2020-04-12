@@ -232,7 +232,7 @@ TEST(AstExpressionBuilderTests, Logical1)
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Not);
     ASSERT_EQ(expr->getLHS(), nullptr);
     ASSERT_NE(expr->getRHS(), nullptr);
-    ASSERT_NE(expr->getRHS()->getLiteralBool(), nullptr);
+    ASSERT_NE(expr->getRHS()->getLiteralBoolContext(), nullptr);
 }
 
 TEST(AstExpressionBuilderTests, LogicalComparison1)

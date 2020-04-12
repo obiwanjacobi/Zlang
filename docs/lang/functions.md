@@ -376,6 +376,8 @@ loop [0..3]
 
 support recursion? Let compiler check for exit condition.
 
+---
+
 anonymous functions/lambda/in-place syntax (no capture)
 
 ```csharp
@@ -397,7 +399,24 @@ sum = 0     // this must be captured => is not supported!
 arr.ForEach((v) => sum = sum + v)   // error! no capture supported
 ```
 
+---
+
 pure functions (functional) / higher order functions?
+
+> Should we name pure-functions 'functions' and side-effect routines 'procedures' (or similar)?
+
+> The compiler needs to recognize a pure function for optimization. We may need a specific syntax...?
+
+```csharp
+// define
+proc(p: U8): U8
+    ...
+~fn(p:U8): U8
+    ...
+// call
+a = proc(42)
+a = ~fn(42)
+```
 
 ```csharp
 // a function that returns a function

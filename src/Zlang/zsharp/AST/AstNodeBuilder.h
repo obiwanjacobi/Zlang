@@ -3,16 +3,17 @@
 #include "AstNode.h"
 #include "AstError.h"
 #include "AstCodeBlock.h"
+#include "AstBuilderContext.h"
 #include "../grammar/parser/zsharp_parserBaseVisitor.h"
 #include <antlr4-runtime.h>
 
-class AstNodeBuilder : public zsharp_parserBaseVisitor
+class AstNodeBuilder : public zsharp_parserBaseVisitor, private AstBuilderContext
 {
     typedef zsharp_parserBaseVisitor base;
 
 public:
     AstNodeBuilder(std::string ns, int defaultIndentation = 0)
-        : _namespace(ns), _indent(defaultIndentation)
+        : AstBuilderContext(defaultIndentation), _namespace(ns)
     {}
 
     antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult) override;
@@ -52,8 +53,8 @@ public:
     antlrcpp::Any visitType_ref(zsharp_parserParser::Type_refContext* ctx) override;
 
 
-    bool hasErrors() const { return _errors.size() == 0; }
-    const std::vector<std::shared_ptr<AstError>>& getErrors() const { return _errors; }
+    bool hasErrors() const { return AstBuilderContext::hasErrors(); }
+    const std::vector<std::shared_ptr<AstError>>& getErrors() const { return AstBuilderContext::getErrors(); }
 
 protected:
     antlrcpp::Any visitChildrenExcept(antlr4::ParserRuleContext* node, const antlr4::ParserRuleContext* except);
@@ -62,20 +63,5 @@ protected:
 
 private:
     std::string _namespace;
-
-    AstCodeBlock* GetCodeBlock(uint32_t indent) const;
-    template <class T> T* GetCurrent() const;
-    
-    template <class T> 
-    void setCurrent(std::shared_ptr<T> current) { setCurrent(current.get()); }
-    void setCurrent(AstNode* current) { _current.push_front(current); }
-    void revertCurrent() { _current.pop_front(); }
-    std::deque<AstNode*> _current;
-
-    int _indent;
-    template <class T> uint32_t CheckIndent(T ctx);
-
-    std::shared_ptr<AstError> AddError(antlr4::ParserRuleContext* ctx, const char* text);
-    std::vector<std::shared_ptr<AstError>> _errors;
 };
 
