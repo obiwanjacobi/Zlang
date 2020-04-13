@@ -5,13 +5,16 @@
 #include "AstSymbolTable.h"
 #include "../grammar/parser/zsharp_parserParser.h"
 
-class AstFile : public AstNode, public AstSymbolTableSiteImpl
+class AstFile : public AstNode, public AstSymbolTableSiteImpl, public AstCodeBlockSite
 {
 public:
     AstFile(std::string scopeName, zsharp_parserParser::FileContext* fileCtx)
         : AstNode(AstNodeType::File), AstSymbolTableSiteImpl(scopeName),
         _fileCtx(fileCtx)
-    {}
+    {
+        auto codeBlock = std::make_shared<AstCodeBlock>(scopeName, nullptr, nullptr);
+        SetCodeBlock(codeBlock);
+    }
 
     const zsharp_parserParser::FileContext* getContext() const { return _fileCtx; }
     const std::vector<zsharp_parserParser::Statement_importContext*>& getImports() const { return _imports; }

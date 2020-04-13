@@ -101,9 +101,6 @@ public:
   virtual void enterExpression_bool(zsharp_parserParser::Expression_boolContext *ctx) = 0;
   virtual void exitExpression_bool(zsharp_parserParser::Expression_boolContext *ctx) = 0;
 
-  virtual void enterIdentifier_bool(zsharp_parserParser::Identifier_boolContext *ctx) = 0;
-  virtual void exitIdentifier_bool(zsharp_parserParser::Identifier_boolContext *ctx) = 0;
-
   virtual void enterFunction_call(zsharp_parserParser::Function_callContext *ctx) = 0;
   virtual void exitFunction_call(zsharp_parserParser::Function_callContext *ctx) = 0;
 

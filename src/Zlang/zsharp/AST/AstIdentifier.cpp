@@ -5,7 +5,6 @@
 AstSymbolKind toSymbolKind(AstIdentifierType idType)
 {
     switch (idType) {
-    case AstIdentifierType::Bool:
     case AstIdentifierType::Variable:
         return AstSymbolKind::Variable;
     case AstIdentifierType::EnumOption:
@@ -31,9 +30,6 @@ std::shared_ptr<AstSymbolEntry> AstIdentifierSite::AddSymbol(std::shared_ptr<Ast
 
 const std::string AstIdentifier::getName() const
 {
-    if (_boolCtx) {
-        return _boolCtx->variable_ref()->identifier_var()->getText();
-    }
     if (_typeCtx) {
         return _typeCtx->getText();
     }
@@ -58,9 +54,6 @@ const std::string AstIdentifier::getName() const
 
 const AstIdentifierType AstIdentifier::getType() const
 {
-    if (_boolCtx) {
-        return AstIdentifierType::Bool;
-    }
     if (_typeCtx) {
         return AstIdentifierType::Type;
     }

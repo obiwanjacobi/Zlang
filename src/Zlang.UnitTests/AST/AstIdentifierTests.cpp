@@ -119,7 +119,7 @@ TEST(AstIndentifierTests, VarAssignment)
     auto cb = fn->getCodeBlock();
     auto codeItems = cb->getItems();
     auto ci = std::static_pointer_cast<AstAssignment>(codeItems.at(0));
-    auto identifier = ci->getIdentifier();
+    auto identifier = ci->getVariable()->getIdentifier();
     ASSERT_NE(identifier, nullptr);
     ASSERT_STREQ(identifier->getName().c_str(), "c");
 }
@@ -143,7 +143,7 @@ TEST(AstIndentifierTests, ParameterAssignment)
     auto cb = fn->getCodeBlock();
     auto codeItems = cb->getItems();
     auto ci = std::static_pointer_cast<AstAssignment>(codeItems.at(0));
-    auto identifier = ci->getIdentifier();
+    auto identifier = ci->getVariable()->getIdentifier();
     ASSERT_NE(identifier, nullptr);
     ASSERT_STREQ(identifier->getName().c_str(), "c");
 

@@ -427,6 +427,25 @@ pureFn(arr: Arr<U8>): Fn<(U8): U8>
 v = pureFn([1,2])(42)
 ```
 
+---
+
+Piping Operator
+
+To make nested function calls more readable. More 'functional'.
+
+```csharp
+a = fn1(fn2(fn3(42)))
+b = fn3(42) |> fn2() |> fn1()
+```
+
+Eval LeftHandSide, parse RightHandSide and inject left result into right parse tree.
+
+Subsequent function calls (after `|>`) will have their 1st param missing. That looks a strange.
+
+Does this only work for functions?
+
+---
+
 simulate properties? thru type-bound functions?
 Get\<T>/Set\<T>/Notify\<T>/Watch\<T[]>
 

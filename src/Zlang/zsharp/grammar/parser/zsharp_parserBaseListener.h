@@ -103,9 +103,6 @@ public:
   virtual void enterExpression_bool(zsharp_parserParser::Expression_boolContext * /*ctx*/) override { }
   virtual void exitExpression_bool(zsharp_parserParser::Expression_boolContext * /*ctx*/) override { }
 
-  virtual void enterIdentifier_bool(zsharp_parserParser::Identifier_boolContext * /*ctx*/) override { }
-  virtual void exitIdentifier_bool(zsharp_parserParser::Identifier_boolContext * /*ctx*/) override { }
-
   virtual void enterFunction_call(zsharp_parserParser::Function_callContext * /*ctx*/) override { }
   virtual void exitFunction_call(zsharp_parserParser::Function_callContext * /*ctx*/) override { }
 

@@ -3,6 +3,7 @@
 #include "AstNode.h"
 #include "AstCodeBlock.h"
 #include "AstError.h"
+#include "AstIdentifier.h"
 #include "../../Utils.h"
 #include <antlr4-runtime.h>
 #include <memory>
@@ -18,6 +19,7 @@ public:
     void setCurrent(std::shared_ptr<T> current) { setCurrent(current.get()); }
     void setCurrent(AstNode* current) { _current.push_front(current); }
     void revertCurrent() { _current.pop_front(); }
+    AstCodeBlock* GetCodeBlock() const;
     AstCodeBlock* GetCodeBlock(uint32_t indent) const;
 
     template <class T>
@@ -56,6 +58,16 @@ public:
         return indent / _indent;
     }
 
+    template<class T>
+    bool AddIdentifier(T ctx)
+    {
+        auto namedObj = GetCurrent<AstIdentifierSite>();
+        if (namedObj) {
+            auto identifier = std::make_shared<AstIdentifier>(ctx);
+            return namedObj->SetIdentifier(identifier);
+        }
+        return false;
+    }
 
     std::shared_ptr<AstError> AddError(antlr4::ParserRuleContext* ctx, const char* text);
     bool hasErrors() const { return _errors.size() > 0; }

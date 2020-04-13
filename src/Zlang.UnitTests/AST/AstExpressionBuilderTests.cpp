@@ -1,6 +1,9 @@
 #include "pch.h"
 
-#include "../../Zlang/zsharp/AST/AstExpressionBuilder.h"
+#include "../../Zlang/zsharp/AST/AstBuilder.h"
+#include "../../Zlang/zsharp/AST/AstAssignment.h"
+#include "../../Zlang/zsharp/AST/AstCodeBlock.h"
+#include "../../Zlang/zsharp/AST/AstExpression.h"
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
 #include <gtest/gtest.h>
@@ -12,13 +15,16 @@ TEST(AstExpressionBuilderTests, Arithmetic1)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
@@ -37,13 +43,16 @@ TEST(AstExpressionBuilderTests, Arithmetic2)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
@@ -62,13 +71,16 @@ TEST(AstExpressionBuilderTests, ArithmeticUnary1)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Negate);
@@ -85,13 +97,16 @@ TEST(AstExpressionBuilderTests, ArithmeticUnary2)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
@@ -110,13 +125,16 @@ TEST(AstExpressionBuilderTests, ArithmeticParenth)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Multiply);
@@ -136,13 +154,16 @@ TEST(AstExpressionBuilderTests, ArithmeticNestedParenth)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Modulo);
@@ -164,13 +185,16 @@ TEST(AstExpressionBuilderTests, ArithmeticUnaryParenth1)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Plus);
@@ -190,13 +214,16 @@ TEST(AstExpressionBuilderTests, Comparison1)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Greater);
@@ -215,13 +242,16 @@ TEST(AstExpressionBuilderTests, ComparisonEqualAssign)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Equal);
@@ -240,13 +270,16 @@ TEST(AstExpressionBuilderTests, Logical1)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Not);
@@ -262,13 +295,16 @@ TEST(AstExpressionBuilderTests, LogicalComparison1)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Not);
@@ -285,13 +321,16 @@ TEST(AstExpressionBuilderTests, Assignment1)
         ;
 
     ZsharpParser parser;
-    auto sourceCtx = parser.parseText(src);
+    auto sourceCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
 
-    AstBuilderContext ctx(0);
-    AstExpressionBuilder uut(&ctx);
-    auto expr = uut.Test(sourceCtx);
-    ASSERT_FALSE(ctx.hasErrors());
+    AstBuilder uut;
+    auto file = uut.BuildFile("", sourceCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto codeItem = file->getCodeBlock()->getItems().at(0);
+    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
     ASSERT_EQ(expr->getOperator(), AstExpressionOperator::Number);

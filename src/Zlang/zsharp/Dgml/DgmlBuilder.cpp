@@ -117,7 +117,7 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteCodeBlockItem(std::shared_ptr<AstC
 
 std::shared_ptr<dgml::Node> DgmlBuilder::WriteAssignment(std::shared_ptr<AstAssignment> assignment, const std::string& parentId)
 {
-    auto name = assignment->getIdentifier()->getName();
+    auto name = assignment->getVariable()->getIdentifier()->getName();
     auto node = createNode(name, name, "Assignment");
     auto link = createLink(parentId, node->Id);
     return node;

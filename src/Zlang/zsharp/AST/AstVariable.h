@@ -1,11 +1,13 @@
 #pragma once
 
+#include "AstNode.h"
 #include "AstIdentifier.h"
 
-class AstVariable : public AstIdentifierSite
+class AstVariable : public AstNode, public AstIdentifierSite
 {
 public:
     AstVariable()
+        : AstNode(AstNodeType::Variable)
     {}
 };
 

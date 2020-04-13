@@ -8,12 +8,3 @@ bool AstAssignment::SetExpression(std::shared_ptr<AstExpression> expr)
     }
     return false;
 }
-
-bool AstAssignment::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
-{
-    if (AstIdentifierSite::SetIdentifier(identifier)) {
-        identifier->setParent(this);
-        return true;
-    }
-    return false;
-}

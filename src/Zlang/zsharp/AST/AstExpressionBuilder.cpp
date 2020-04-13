@@ -166,11 +166,6 @@ antlrcpp::Any AstExpressionBuilder::visitLiteral_bool(zsharp_parserParser::Liter
     return std::make_shared<AstExpressionOperand>(ctx);
 }
 
-antlrcpp::Any AstExpressionBuilder::visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx)
-{
-    return std::make_shared<AstExpressionOperand>(ctx);
-}
-
 antlrcpp::Any AstExpressionBuilder::visitFunction_call(zsharp_parserParser::Function_callContext* ctx)
 {
     return std::make_shared<AstExpressionOperand>(ctx);
@@ -179,6 +174,13 @@ antlrcpp::Any AstExpressionBuilder::visitFunction_call(zsharp_parserParser::Func
 antlrcpp::Any AstExpressionBuilder::visitVariable_ref(zsharp_parserParser::Variable_refContext* ctx)
 {
     auto varRef = std::make_shared<AstVariableReference>(ctx);
+
+    _builderContext->setCurrent(varRef);
+
+    visitChildren(ctx);
+
+    _builderContext->revertCurrent();
+    
     return std::make_shared<AstExpressionOperand>(varRef);
 }
 
@@ -247,4 +249,38 @@ antlrcpp::Any AstExpressionBuilder::visitOperator_bits_unary(zsharp_parserParser
 {
     if (ctx->BIT_NOT()) return AstExpressionOperator::BitNegate;
     return AstExpressionOperator::NotSet;
+}
+
+
+
+antlrcpp::Any AstExpressionBuilder::visitIdentifier_type(zsharp_parserParser::Identifier_typeContext* ctx)
+{
+    bool success = _builderContext->AddIdentifier(ctx);
+    guard(success);
+
+    return nullptr;
+}
+
+antlrcpp::Any AstExpressionBuilder::visitIdentifier_var(zsharp_parserParser::Identifier_varContext* ctx)
+{
+    bool success = _builderContext->AddIdentifier(ctx);
+    guard(success);
+
+    return nullptr;
+}
+
+antlrcpp::Any AstExpressionBuilder::visitIdentifier_param(zsharp_parserParser::Identifier_paramContext* ctx)
+{
+    bool success = _builderContext->AddIdentifier(ctx);
+    guard(success);
+
+    return nullptr;
+}
+
+antlrcpp::Any AstExpressionBuilder::visitIdentifier_func(zsharp_parserParser::Identifier_funcContext* ctx)
+{
+    bool success = _builderContext->AddIdentifier(ctx);
+    guard(success);
+
+    return nullptr;
 }

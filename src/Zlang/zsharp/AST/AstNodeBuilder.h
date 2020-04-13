@@ -22,9 +22,6 @@ public:
     antlrcpp::Any visitStatement_import(zsharp_parserParser::Statement_importContext* ctx) override;
     antlrcpp::Any visitStatement_export(zsharp_parserParser::Statement_exportContext* ctx) override;
 
-    // WIP: block iteration for now - not implemented yet
-    antlrcpp::Any visitVariable_def_top(zsharp_parserParser::Variable_def_topContext* ctx) override { return nullptr; }
-
     antlrcpp::Any visitFunction_def(zsharp_parserParser::Function_defContext* ctx) override;
     antlrcpp::Any visitCodeblock(zsharp_parserParser::CodeblockContext* ctx) override;
 
@@ -35,7 +32,6 @@ public:
     antlrcpp::Any visitStatement_break(zsharp_parserParser::Statement_breakContext* ctx) override;
     antlrcpp::Any visitStatement_continue(zsharp_parserParser::Statement_continueContext* ctx) override;
 
-    antlrcpp::Any visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx) override;
     antlrcpp::Any visitIdentifier_type(zsharp_parserParser::Identifier_typeContext* ctx) override;
     antlrcpp::Any visitIdentifier_var(zsharp_parserParser::Identifier_varContext* ctx) override;
     antlrcpp::Any visitIdentifier_param(zsharp_parserParser::Identifier_paramContext* ctx) override;
@@ -47,6 +43,8 @@ public:
     antlrcpp::Any visitFunction_parameter_self(zsharp_parserParser::Function_parameter_selfContext* ctx) override;
 
     antlrcpp::Any visitVariable_assign(zsharp_parserParser::Variable_assignContext* ctx) override;
+    antlrcpp::Any visitVariable_assign_auto(zsharp_parserParser::Variable_assign_autoContext* ctx) override;
+    
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
     antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) override;
 
@@ -59,9 +57,6 @@ public:
 protected:
     antlrcpp::Any visitChildrenExcept(antlr4::ParserRuleContext* node, const antlr4::ParserRuleContext* except);
 
-    template<class T> bool AddIdentifier(T ctx);
-
 private:
     std::string _namespace;
 };
-

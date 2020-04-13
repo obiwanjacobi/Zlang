@@ -77,8 +77,6 @@ public:
 
     virtual antlrcpp::Any visitExpression_bool(zsharp_parserParser::Expression_boolContext *context) = 0;
 
-    virtual antlrcpp::Any visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext *context) = 0;
-
     virtual antlrcpp::Any visitFunction_call(zsharp_parserParser::Function_callContext *context) = 0;
 
     virtual antlrcpp::Any visitFunction_def(zsharp_parserParser::Function_defContext *context) = 0;

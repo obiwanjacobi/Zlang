@@ -131,10 +131,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitFunction_call(zsharp_parserParser::Function_callContext *ctx) override {
     return visitChildren(ctx);
   }

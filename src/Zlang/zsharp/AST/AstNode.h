@@ -18,6 +18,7 @@ enum class AstNodeType {
 
     Identifier,     // Function::1, Struct::1, Enum::1, Assignment::1
 
+    Variable,
     FunctionParameter,
 };
 

@@ -51,7 +51,6 @@ protected:
 
     // operands
     antlrcpp::Any visitLiteral_bool(zsharp_parserParser::Literal_boolContext* ctx) override;
-    antlrcpp::Any visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx) override;
     antlrcpp::Any visitFunction_call(zsharp_parserParser::Function_callContext* ctx) override;
     antlrcpp::Any visitVariable_ref(zsharp_parserParser::Variable_refContext* ctx) override;
     antlrcpp::Any visitNumber(zsharp_parserParser::NumberContext* ctx) override;
@@ -64,6 +63,12 @@ protected:
     antlrcpp::Any visitOperator_comparison(zsharp_parserParser::Operator_comparisonContext* ctx) override;
     antlrcpp::Any visitOperator_bits(zsharp_parserParser::Operator_bitsContext* ctx) override;
     antlrcpp::Any visitOperator_bits_unary(zsharp_parserParser::Operator_bits_unaryContext* ctx) override;
+
+    // indentifiers
+    antlrcpp::Any visitIdentifier_type(zsharp_parserParser::Identifier_typeContext* ctx) override;
+    antlrcpp::Any visitIdentifier_var(zsharp_parserParser::Identifier_varContext* ctx) override;
+    antlrcpp::Any visitIdentifier_param(zsharp_parserParser::Identifier_paramContext* ctx) override;
+    antlrcpp::Any visitIdentifier_func(zsharp_parserParser::Identifier_funcContext* ctx) override;
 
 private:
     template<class T> antlrcpp::Any ProcessExpression(T ctx);

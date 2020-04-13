@@ -50,7 +50,7 @@ antlrcpp::Any AstNodeBuilder::visitFile(zsharp_parserParser::FileContext* ctx) {
     auto any = base::visitChildren(ctx);
 
     revertCurrent();
-    //guard(_current.size() == 0);
+    //guard(!hasCurrent());
 
     return file;
 }
@@ -227,31 +227,12 @@ antlrcpp::Any AstNodeBuilder::visitStatement_continue(zsharp_parserParser::State
 }
 
 
-template<class T>
-bool AstNodeBuilder::AddIdentifier(T ctx)
-{
-    auto namedObj = GetCurrent<AstIdentifierSite>();
-    if (namedObj) {
-        auto identifier = std::make_shared<AstIdentifier>(ctx);
-        return namedObj->SetIdentifier(identifier);
-    }
-    return false;
-}
-
-antlrcpp::Any AstNodeBuilder::visitIdentifier_bool(zsharp_parserParser::Identifier_boolContext* ctx)
-{
-    bool success = AddIdentifier(ctx);
-    guard(success);
-
-    return visitChildren(ctx);
-}
-
 antlrcpp::Any AstNodeBuilder::visitIdentifier_type(zsharp_parserParser::Identifier_typeContext* ctx)
 {
     bool success = AddIdentifier(ctx);
     guard(success);
 
-    return visitChildren(ctx);
+    return nullptr;
 }
 
 antlrcpp::Any AstNodeBuilder::visitIdentifier_var(zsharp_parserParser::Identifier_varContext* ctx)
@@ -259,7 +240,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_var(zsharp_parserParser::Identifie
     bool success = AddIdentifier(ctx);
     guard(success);
 
-    return visitChildren(ctx);
+    return nullptr;
 }
 
 antlrcpp::Any AstNodeBuilder::visitIdentifier_param(zsharp_parserParser::Identifier_paramContext* ctx)
@@ -267,7 +248,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_param(zsharp_parserParser::Identif
     bool success = AddIdentifier(ctx);
     guard(success);
 
-    return visitChildren(ctx);
+    return nullptr;
 }
 
 antlrcpp::Any AstNodeBuilder::visitIdentifier_func(zsharp_parserParser::Identifier_funcContext* ctx)
@@ -275,7 +256,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_func(zsharp_parserParser::Identifi
     bool success = AddIdentifier(ctx);
     guard(success);
 
-    return visitChildren(ctx);
+    return nullptr;
 }
 
 antlrcpp::Any AstNodeBuilder::visitIdentifier_field(zsharp_parserParser::Identifier_fieldContext* ctx)
@@ -283,7 +264,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_field(zsharp_parserParser::Identif
     bool success = AddIdentifier(ctx);
     guard(success);
 
-    return visitChildren(ctx);
+    return nullptr;
 }
 
 antlrcpp::Any AstNodeBuilder::visitIdentifier_enumoption(zsharp_parserParser::Identifier_enumoptionContext* ctx)
@@ -291,7 +272,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_enumoption(zsharp_parserParser::Id
     bool success = AddIdentifier(ctx);
     guard(success);
 
-    return visitChildren(ctx);
+    return nullptr;
 }
 
 
@@ -324,25 +305,39 @@ antlrcpp::Any AstNodeBuilder::visitFunction_parameter_self(zsharp_parserParser::
 }
 
 
+antlrcpp::Any AstNodeBuilder::visitVariable_assign_auto(zsharp_parserParser::Variable_assign_autoContext* ctx)
+{
+    auto assign = std::make_shared<AstAssignment>(ctx);
+    auto codeBlock = GetCodeBlock();
+    bool success = codeBlock->AddItem(assign);
+    guard(success);
+    setCurrent(assign);
+
+    auto variable = std::make_shared<AstVariable>();
+    assign->SetVariable(variable);
+    setCurrent(variable);
+
+    auto any = visitChildren(ctx);
+
+    revertCurrent();
+    revertCurrent();
+
+    auto symbols = GetCurrent<AstSymbolTableSite>();
+    auto entry = symbols->AddSymbol(variable->getIdentifier()->getName(), AstSymbolKind::Variable, assign);
+
+    return any;
+}
 
 antlrcpp::Any AstNodeBuilder::visitVariable_assign(zsharp_parserParser::Variable_assignContext* ctx)
 {
     auto indent = CheckIndent(ctx);
     auto codeBlock = GetCodeBlock(indent);
 
-    auto assign = std::make_shared<AstAssignment>(ctx);
-    bool success = codeBlock->AddItem(assign);
-    guard(success);
+    setCurrent(codeBlock);
 
-    setCurrent(assign);
-
-    auto any = visitChildren(ctx);
+    auto any = visitVariable_assign_auto(ctx->variable_assign_auto());
 
     revertCurrent();
-
-    auto symbols = GetCurrent<AstSymbolTableSite>();
-    auto entry = symbols->AddSymbol(assign->getIdentifier()->getName(), AstSymbolKind::Variable, assign);
-
     return any;
 }
 

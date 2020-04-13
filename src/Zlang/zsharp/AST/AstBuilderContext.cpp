@@ -1,5 +1,18 @@
 #include "AstBuilderContext.h"
 
+AstCodeBlock* AstBuilderContext::GetCodeBlock() const
+{
+    for (auto c : _current) {
+        auto p = dynamic_cast<AstCodeBlock*>(c);
+        if (p) {
+            return p;
+        }
+    }
+
+    auto site = GetCurrent<AstCodeBlockSite>();
+    return site->getCodeBlock().get();
+}
+
 AstCodeBlock* AstBuilderContext::GetCodeBlock(uint32_t indent) const
 {
     AstCodeBlock* p = nullptr;

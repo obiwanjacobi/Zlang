@@ -58,8 +58,7 @@ expression_comparison:
     | comparison_operand;
 comparison_operand: expression_arithmetic | function_call | variable_ref | literal;
 
-expression_bool: literal_bool | identifier_bool;
-identifier_bool: variable_ref;
+expression_bool: literal_bool | variable_ref;
 
 // functions
 function_call: indent identifier_func PARENopen function_parameter_uselist? PARENclose newline;
