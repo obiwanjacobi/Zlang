@@ -22,7 +22,7 @@ public:
     AstCodeBlock* GetCodeBlock() const;
     AstCodeBlock* GetCodeBlock(uint32_t indent) const;
 
-    template <class T>
+    template<class T>
     T* GetCurrent() const
     {
         T* p = nullptr;

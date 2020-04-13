@@ -7,11 +7,13 @@ class ParseTreeNavigator
 public:
     zsharp_parserParser::Module_statementContext* ToModuleStatement(zsharp_parserParser::FileContext* fileCtx)
     {
-        assert(fileCtx != nullptr);
+        assert(fileCtx);
 
         for (zsharp_parserParser::SourceContext* src : fileCtx->source()) {
             auto modStat = src->module_statement();
-            if (modStat != nullptr) { return modStat; }
+            if (modStat) { 
+                return modStat; 
+            }
         }
 
         return nullptr;
@@ -21,7 +23,7 @@ public:
     {
         auto moduleStatement = ToModuleStatement(fileCtx);
 
-        if (moduleStatement != nullptr) {
+        if (moduleStatement) {
             return moduleStatement->statement_module();
         }
 

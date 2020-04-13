@@ -32,7 +32,12 @@ public:
     zsharp_parserParser::CodeblockContext* getContext() const { return _ctx; }
 
     const std::vector<std::shared_ptr<AstCodeBlockItem>>& getItems() const { return _items; }
+    template<class T>
+    std::shared_ptr<T> getItemAt(size_t index) {
+        return std::static_pointer_cast<T>(_items.at(index));
+    }
     bool AddItem(std::shared_ptr<AstCodeBlockItem> item) { 
+        if (!item) return false;
         _items.push_back(item);
         item->setIndent(_indent);
         item->setParent(this);

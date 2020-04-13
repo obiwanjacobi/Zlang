@@ -6,6 +6,7 @@
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
 #include "../../Zlang/zsharp/AST/AstBranch.h"
 #include <gtest/gtest.h>
+#include "../../Zlang/zsharp/AST/AstAssignment.h"
 
 TEST(AstIndentationTests, FunctionBody)
 {
@@ -26,9 +27,9 @@ TEST(AstIndentationTests, FunctionBody)
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlock();
-    auto assign = cb->getItems().at(0);
+    auto assign = cb->getItemAt<AstAssignment>(0);
     ASSERT_NE(assign, nullptr);
-    auto branch = cb->getItems().at(1);
+    auto branch = cb->getItemAt<AstBranch>(1);
     ASSERT_NE(branch, nullptr);
 }
 
@@ -75,15 +76,14 @@ TEST(AstIndentationTests, FunctionBody_Branch)
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlock();
     
-    auto ifbranch = std::static_pointer_cast<AstBranchConditional>(cb->getItems().at(0));
+    auto ifbranch = cb->getItemAt<AstBranchConditional>(0);
     ASSERT_NE(ifbranch, nullptr);
-    ASSERT_EQ(ifbranch->getBranchType(), AstBranchType::Conditional);
     
-    auto subBranch = std::static_pointer_cast<AstBranch>(ifbranch->getCodeBlock()->getItems().at(0));
+    auto subBranch = ifbranch->getCodeBlock()->getItemAt<AstBranch>(0);
     ASSERT_NE(subBranch, nullptr);
     ASSERT_EQ(subBranch->getBranchType(), AstBranchType::ExitFunction);
 
-    auto branch = std::static_pointer_cast<AstBranch>(cb->getItems().at(1));
+    auto branch = cb->getItemAt<AstBranch>(1);
     ASSERT_NE(branch, nullptr);
     ASSERT_EQ(branch->getBranchType(), AstBranchType::ExitFunction);
 }

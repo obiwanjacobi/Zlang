@@ -4,6 +4,7 @@
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
 #include <gtest/gtest.h>
+#include "../../Zlang/zsharp/AST/AstAssignment.h"
 
 TEST(AstBuilderTests, BuildFile_empty)
 {
@@ -168,7 +169,8 @@ TEST(AstBuilderTests, BuildFile_Assignment)
     auto functions = file->getFunctions();
     auto fn = functions.at(0).get();
     auto cb = fn->getCodeBlock();
-    auto ci = cb->getItems().at(0);
+    auto assign = cb->getItemAt<AstAssignment>(0);
+    ASSERT_NE(assign, nullptr);
 }
 
 TEST(AstBuilderTests, Build_ModuleName)

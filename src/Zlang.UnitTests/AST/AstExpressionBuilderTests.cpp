@@ -22,8 +22,7 @@ TEST(AstExpressionBuilderTests, Arithmetic1)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -50,8 +49,7 @@ TEST(AstExpressionBuilderTests, Arithmetic2)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -78,8 +76,7 @@ TEST(AstExpressionBuilderTests, ArithmeticUnary1)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -104,8 +101,7 @@ TEST(AstExpressionBuilderTests, ArithmeticUnary2)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -132,8 +128,7 @@ TEST(AstExpressionBuilderTests, ArithmeticParenth)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -161,8 +156,7 @@ TEST(AstExpressionBuilderTests, ArithmeticNestedParenth)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -192,8 +186,7 @@ TEST(AstExpressionBuilderTests, ArithmeticUnaryParenth1)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -221,8 +214,7 @@ TEST(AstExpressionBuilderTests, Comparison1)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -249,8 +241,7 @@ TEST(AstExpressionBuilderTests, ComparisonEqualAssign)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -277,8 +268,7 @@ TEST(AstExpressionBuilderTests, Logical1)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -302,8 +292,7 @@ TEST(AstExpressionBuilderTests, LogicalComparison1)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
@@ -328,8 +317,7 @@ TEST(AstExpressionBuilderTests, Assignment1)
     auto file = uut.BuildFile("", sourceCtx);
     ASSERT_FALSE(uut.hasErrors());
 
-    auto codeItem = file->getCodeBlock()->getItems().at(0);
-    auto assign = std::static_pointer_cast<AstAssignment>(codeItem);
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
     auto expr = assign->getExpression();
 
     ASSERT_NE(expr, nullptr);
