@@ -20,8 +20,9 @@ bool AstFile::AddExport(zsharp_parserParser::Statement_exportContext* exportCtx)
 
 bool AstFile::AddFunction(std::shared_ptr<AstFunction> function)
 {
-    if (function != nullptr) {
-        function->setParent(this);
+    auto codeBlock = getCodeBlock();
+
+    if (codeBlock->AddItem(function)) {
         _functions.push_back(function);
         return true;
     }

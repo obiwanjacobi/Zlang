@@ -6,6 +6,7 @@
 #include "AstType.h"
 #include "../grammar/parser/zsharp_parserParser.h"
 
+
 class AstFunctionParameter : public AstNode, public AstIdentifierSite, public AstTypeReferenceSite
 {
 public:
@@ -26,17 +27,16 @@ private:
     zsharp_parserParser::Function_parameter_selfContext* _selfCtx;
 };
 
-class AstFunction : public AstNode, public AstCodeBlockSite, public AstIdentifierSite, 
+
+class AstFunction : public AstCodeBlockItem, public AstCodeBlockSite, public AstIdentifierSite,
     public AstSymbolTableSite, public AstTypeReferenceSite
 {
-    friend class AstNodeBuilder;
-
 public:
     AstFunction(zsharp_parserParser::Function_defContext* function)
-        : AstNode(AstNodeType::Function), _function(function)
+        : AstCodeBlockItem(AstNodeType::Function), _context(function)
     {}
 
-    zsharp_parserParser::Function_defContext* getContext() const { return _function; }
+    zsharp_parserParser::Function_defContext* getContext() const { return _context; }
 
     bool SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) override;
     bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override;
@@ -57,7 +57,7 @@ public:
 private:
     std::vector<std::shared_ptr<AstFunctionParameter>> _parameters;
 
-    zsharp_parserParser::Function_defContext* _function;
+    zsharp_parserParser::Function_defContext* _context;
 
     void AddFunctionSymbols();
 };

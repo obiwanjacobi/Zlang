@@ -1,10 +1,56 @@
 #include "pch.h"
 
 #include "../../Zlang/zsharp/AST/AstBuilder.h"
+#include "../../Zlang/zsharp/AST/AstVariable.h"
+#include "../../Zlang/zsharp/AST/AstAssignment.h"
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
 #include <gtest/gtest.h>
-#include "../../Zlang/zsharp/AST/AstVariable.h"
+
+TEST(AstSymbolTableTests, TopVariableDefInit)
+{
+    const char* src =
+        "c: U8 = 0\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("UnitTest", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto symbols = file->getSymbols();
+    auto entry = symbols->getEntry("UnitTest.c", AstSymbolKind::Variable);
+    ASSERT_NE(entry, nullptr);
+    ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Variable);
+    auto def = entry->getDefinition<AstVariableDefinition>();
+    ASSERT_NE(def, nullptr);
+    auto typeRef = def->getTypeReference();
+    ASSERT_NE(typeRef, nullptr);
+    ASSERT_STREQ(typeRef->getIdentifier()->getName().c_str(), "U8");
+}
+
+TEST(AstSymbolTableTests, TopVariableName)
+{
+    const char* src =
+        "c = 0\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("UnitTest", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto symbols = file->getSymbols();
+    auto entry = symbols->getEntry("UnitTest.c", AstSymbolKind::Variable);
+    ASSERT_NE(entry, nullptr);
+    ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Variable);
+}
 
 TEST(AstSymbolTableTests, FunctionName)
 {
@@ -49,6 +95,28 @@ TEST(AstSymbolTableTests, FunctionParameterName)
 
     ASSERT_NE(entry, nullptr);
     ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Parameter);
+}
+
+TEST(AstSymbolTableTests, FunctionParameterTypedSelf)
+{
+    const char* src =
+        "MyFunction(self: U8)\n"
+        "    c = 0\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto fn = file->getFunctions().at(0);
+    auto param = fn->getParameters().at(0);
+    auto type = param->getTypeReference();
+    ASSERT_NE(type, nullptr);
+    ASSERT_STREQ(type->getIdentifier()->getName().c_str(), "U8");
 }
 
 TEST(AstSymbolTableTests, LocalVariableName)

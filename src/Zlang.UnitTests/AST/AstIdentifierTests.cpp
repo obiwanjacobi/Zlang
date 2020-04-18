@@ -7,6 +7,26 @@
 #include <gtest/gtest.h>
 #include <memory>
 
+TEST(AstIndentifierTests, TopVariableName)
+{
+    const char* src =
+        "c = 0\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto assign = file->getCodeBlock()->getItemAt<AstAssignment>(0);
+    auto identifier = assign->getVariable()->getIdentifier();
+    ASSERT_NE(identifier, nullptr);
+    ASSERT_STREQ(identifier->getName().c_str(), "c");
+}
+
 TEST(AstIndentifierTests, FunctionName)
 {
     const char* src =
@@ -94,9 +114,6 @@ TEST(AstIndentifierTests, FunctionParameterTypedSelf)
     auto pid = param->getIdentifier();
     ASSERT_NE(pid, nullptr);
     ASSERT_STREQ(pid->getName().c_str(), "self");
-    auto type = param->getTypeReference();
-    ASSERT_NE(type, nullptr);
-    ASSERT_STREQ(type->getIdentifier()->getName().c_str(), "U8");
 }
 
 
