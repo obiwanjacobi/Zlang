@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AstNode.h"
+#include "AstIdentifier.h"
 #include <map>
 #include <memory>
 #include <string>
@@ -56,6 +57,12 @@ public:
     const std::string getKey() const { return _name.getQualifiedName() + std::to_string((int)_kind); }
 
     void AddNode(std::shared_ptr<AstNode> node);
+    template<class T> std::shared_ptr<T> getDefinition() const {
+        return std::dynamic_pointer_cast<T>(_definition);
+    }
+    const std::vector<std::shared_ptr<AstNode>>& getReferences() const {
+        return _references;
+    }
 
 private:
     AstSymbolKind _kind;
@@ -79,8 +86,8 @@ public:
     {}
 
     std::shared_ptr<AstSymbolEntry> AddSymbol(
-        const std::string& symbolName, AstSymbolKind type, std::shared_ptr<AstNode> node);
-    std::shared_ptr<AstSymbolEntry> getEntry(const std::string qualifiedNameOrAlias, AstSymbolKind kind);
+        const std::string& symbolName, AstSymbolKind kind, std::shared_ptr<AstNode> node);
+    std::shared_ptr<AstSymbolEntry> getEntry(const std::string& qualifiedNameOrAlias, AstSymbolKind kind);
 
     std::shared_ptr<AstSymbolTable> getParentTable() const { return _parent; }
     const std::vector<std::shared_ptr<AstSymbolEntry>> getSymbolEntries() const;
@@ -99,7 +106,17 @@ class AstSymbolTableSite
 public:
     virtual std::shared_ptr<AstSymbolTable> getSymbols() const = 0;
     virtual std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
-        AstSymbolKind type, std::shared_ptr<AstNode> node) = 0;
+        AstSymbolKind kind, std::shared_ptr<AstNode> node) = 0;
+    
+    std::shared_ptr<AstSymbolEntry> AddSymbol(std::shared_ptr<AstIdentifier> identifier,
+        AstSymbolKind kind, std::shared_ptr<AstNode> node) {
+        return AddSymbol(identifier->getName(), kind, node);
+    }
+    
+    std::shared_ptr<AstSymbolEntry> AddSymbol(std::shared_ptr<AstIdentifierSite> identifierSite,
+        AstSymbolKind kind, std::shared_ptr<AstNode> node) {
+        return AddSymbol(identifierSite->getIdentifier()->getName(), kind, node);
+    }
 };
 
 class AstSymbolTableSiteImpl : public AstSymbolTableSite

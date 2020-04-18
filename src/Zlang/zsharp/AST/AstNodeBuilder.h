@@ -44,7 +44,10 @@ public:
 
     antlrcpp::Any visitVariable_assign(zsharp_parserParser::Variable_assignContext* ctx) override;
     antlrcpp::Any visitVariable_assign_auto(zsharp_parserParser::Variable_assign_autoContext* ctx) override;
-    
+    antlrcpp::Any visitVariable_def(zsharp_parserParser::Variable_defContext* ctx) override;
+    antlrcpp::Any visitVariable_def_typed(zsharp_parserParser::Variable_def_typedContext* ctx) override;
+    antlrcpp::Any visitVariable_def_typed_init(zsharp_parserParser::Variable_def_typed_initContext* ctx) override;
+
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
     antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) override;
 

@@ -9,7 +9,12 @@ class AstAssignment : public AstCodeBlockItem, public AstExpressionSite
 {
 public:
     AstAssignment(zsharp_parserParser::Variable_assign_autoContext* ctx)
-        : AstCodeBlockItem(AstNodeType::Assignment), _ctx(ctx)
+        : AstCodeBlockItem(AstNodeType::Assignment), 
+        _ctx(ctx), _typedCtx(nullptr)
+    {}
+    AstAssignment(zsharp_parserParser::Variable_def_typed_initContext* ctx)
+        : AstCodeBlockItem(AstNodeType::Assignment),
+        _ctx(nullptr), _typedCtx(ctx)
     {}
 
     bool SetExpression(std::shared_ptr<AstExpression> expr) override;
@@ -18,6 +23,7 @@ public:
     bool SetVariable(std::shared_ptr<AstVariable> variable) {
         if (!_variable && variable) {
             _variable = variable;
+            _variable->setParent(variable.get());
             return true;
         }
         return false;
@@ -25,6 +31,7 @@ public:
 
 private:
     zsharp_parserParser::Variable_assign_autoContext* _ctx;
+    zsharp_parserParser::Variable_def_typed_initContext* _typedCtx;
     std::shared_ptr<AstVariable> _variable;
 };
 

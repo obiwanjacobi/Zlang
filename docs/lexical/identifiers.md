@@ -7,9 +7,9 @@ Identifiers name program entities such as variable, functions and types. These n
 - Cannot contain operator characters (+-/*).
 - Cannot start with a digit.
 -
-- Can start with `_` (but this has special meaning).
+- Can contain `_`.
 - Can contain alpha-numeric characters.
-- Are case sensitive.
+- Valid characters lie in the ASCII range (no unicode).
 
 Here are examples of valid identifiers:
 
@@ -27,13 +27,17 @@ some variable
 my-type
 ```
 
-## Case Sensitivty
+## Case Sensitivity
 
 Type identifiers start with an upper case letter. Variables and Function Parameters must have a lower case first letter. Function names can use either.
 
-> Are identifier defenition and reference matched case sensitive? (full name, or just the first letter match?)
+Identifiers are the same when:
 
-## Discard
+- The first letter matches exactly (case sensitive)
+- All other letters match (case insensitive)
+- `_` are ignored (removed) when comparing.
+
+### Discard
 
 Using a discard `_` in an identifier is ignored during matching.
 
@@ -41,22 +45,26 @@ Using a discard `_` in an identifier is ignored during matching.
 My_Function(p: U8)
     ...
 
-MyFunction(42)  // calls My_Function
+Myfunction(42)  // calls My_Function
 
 //----
 
-MyFunction(p: U8)
+Myfunction(p: U8)
     ...
 
-My_Function(42)  // calls MyFunction
+My_Function(42)  // calls Myfunction
 ```
 
-> When an identifier starts with a discard `_` ...?
+When an identifier starts with a discard `_` it indicates the symbol is not used.
 
 ```csharp
-_myFn(p: U8)
+myFn(_p: U8): U8    // param p not used
     ...
+_a = myFn(42)       // return value named but not used
+
 ```
+
+Or when it ends with an `_`? => Invalid?
 
 ## Fully Qualified Names
 

@@ -59,6 +59,7 @@ protected:
         _typeCtx(nullptr), _varCtx(nullptr),
         _paramCtx(nullptr), _funcCtx(nullptr), _fieldCtx(nullptr), _enumOptCtx(nullptr)
     {}
+
 private:
     zsharp_parserParser::Identifier_typeContext* _typeCtx;
     zsharp_parserParser::Identifier_varContext* _varCtx;

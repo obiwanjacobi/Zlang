@@ -73,14 +73,20 @@ well_behaved_code
 
 > A `#` symbol not at the start of the current scope indent position, does not start a new scope.
 
-> TBD: A file level scope 'options' pragma that executes all pragmas for that file.
+A scope level 'options' pragma that executes all pragmas for that scope.
 
 ```C#
-# options()
+# push()
     enable(Checks.Bounds)
     enable(Checks.Overflow)
 
 ...     // rest of code file
+```
+
+At the end of the scope the options are `pop`ed automatically and previous settings are restored. Before the end of the scope the `pop` pragma can be used to restore the settings manually.
+
+```csharp
+# pop() _
 ```
 
 ## Compile-Time Code

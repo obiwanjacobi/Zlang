@@ -206,6 +206,20 @@ e = MyEnum.MagicValue
 b = e.IsMagicValue()        // true
 ```
 
+> TBD: Allow leaving of `()` when no bound function has no other parameters?
+
+```csharp
+Struct
+    ...
+fn(self: Struct)
+    ...
+
+s: Struct
+s.fn        // calls fn(s)
+```
+
+Call this the poor-man's property syntax.
+
 ## Local Functions
 
 A local function is a function that is defined inside another function and is local to that scope - it cannot be used (seen) outside the function its defined in.
@@ -407,6 +421,8 @@ pure functions (functional) / higher order functions?
 
 > The compiler needs to recognize a pure function for optimization. We may need a specific syntax...?
 
+Do 'functions' always return a value? => yes. A function takes input (parameters) and produces output (return value). If it did not have a return value, a pure function (without side effects) would have no reason to exist.
+
 ```csharp
 // define
 proc(p: U8): U8
@@ -432,17 +448,49 @@ v = pureFn([1,2])(42)
 Piping Operator
 
 To make nested function calls more readable. More 'functional'.
+Would make line-breaks in long statements (chains) a lot more readable?
 
 ```csharp
 a = fn1(fn2(fn3(42)))
 b = fn3(42) |> fn2() |> fn1()
 ```
 
-Eval LeftHandSide, parse RightHandSide and inject left result into right parse tree.
+Evaluate LeftHandSide, parse RightHandSide and inject left result into right parse tree.
 
 Subsequent function calls (after `|>`) will have their 1st param missing. That looks a strange.
 
-Does this only work for functions?
+Does this only work for functions? (concatenation?)
+
+```csharp
+[0..5] |> fn()  // called 5 times or passed in array?
+```
+
+Could also have a 'backward' piping operator? `<|` going the other way...
+
+```csharp
+fn1() <| fn2() <| fn3()
+```
+
+As concatenation?
+
+```csharp
+// C++ style output?
+yourName = "Arthur";
+outStream <| "Hello " <| yourName
+
+// C++ style input?
+inStream |> yourName
+```
+
+---
+
+Interpret the function parameters `(param: U8)` as a tuple. That means that all functions only have only one actual param, which is a single tuple and is passed by reference (as an optimization), but by value conceptually.
+
+All the parameters need to be read-only (which is a bit odd because they may not use the `Imm<T>` type). This does not mean you cannot pass a pointer and change the content that it points too - that still works.
+
+What is the overhead in building the tuple at the call-site?
+
+Function params are specified in order at call-site, we are steering away from by-order for tuples/deconstruction. That would mean that function parameters are to be specified by name only, which can get very verbose.
 
 ---
 
