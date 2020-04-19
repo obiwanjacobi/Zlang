@@ -40,6 +40,8 @@ public:
     AstTypeReference(zsharp_parserParser::Type_refContext* ctx)
         : AstType(ctx->type_any())
     {}
+
+    void Accept(AstVisitor* visitor) override;
 };
 
 

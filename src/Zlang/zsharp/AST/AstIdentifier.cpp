@@ -1,5 +1,10 @@
 #include "AstIdentifier.h"
 #include "AstSymbolTable.h"
+#include "AstVisitor.h"
+
+void AstIdentifier::Accept(AstVisitor* visitor) {
+    visitor->VisitIdentifier(this);
+}
 
 
 AstSymbolKind toSymbolKind(AstIdentifierType idType)

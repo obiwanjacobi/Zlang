@@ -43,7 +43,9 @@ public:
     bool hasCode() const { return _branchType == AstBranchType::Conditional; }
     bool isConditional() const { return _branchType == AstBranchType::Conditional; }
     AstBranchConditional* toCondtional() const { return isConditional() ? (AstBranchConditional*)this : nullptr; }
-    
+
+    void Accept(AstVisitor* visitor) override;
+
 protected:
     AstBranch(AstBranchType branchType)
         : AstCodeBlockItem(AstNodeType::Branch),
@@ -72,6 +74,8 @@ public:
 
     bool SetExpression(std::shared_ptr<AstExpression> expr);
     bool hasExpression() const { return getExpression() != nullptr; }
+
+    void Accept(AstVisitor* visitor) override;
 
 protected:
     AstBranchExpression(AstBranchType branchType)
@@ -114,6 +118,8 @@ public:
     bool hasSubBranch() const { return _subBranch != nullptr; }
 
     AstBranchConditional* LastSubBranch() { return hasSubBranch() ? _subBranch->LastSubBranch() : this; }
+
+    void Accept(AstVisitor* visitor) override;
 
 private:
     std::shared_ptr<AstBranchConditional> _subBranch;

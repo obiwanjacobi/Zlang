@@ -29,6 +29,9 @@ public:
         return false;
     }
 
+
+    void Accept(AstVisitor* visitor) override;
+
 private:
     zsharp_parserParser::Variable_assign_autoContext* _ctx;
     zsharp_parserParser::Variable_def_typed_initContext* _typedCtx;

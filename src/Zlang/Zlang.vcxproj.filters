@@ -41,6 +41,8 @@
     <ClCompile Include="zsharp\AST\AstType.cpp" />
     <ClCompile Include="zsharp\AST\AstVariable.cpp" />
     <ClCompile Include="zsharp\AST\AstBuilderContext.cpp" />
+    <ClCompile Include="zsharp\AST\AstVisitable.h" />
+    <ClCompile Include="zsharp\AST\AstVisitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -98,6 +100,7 @@
     <ClInclude Include="zsharp\AST\AstType.h" />
     <ClInclude Include="zsharp\AST\AstVariable.h" />
     <ClInclude Include="zsharp\AST\AstBuilderContext.h" />
+    <ClInclude Include="zsharp\AST\AstVisitor.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="zsharp\grammar\_test\testdata.txt" />

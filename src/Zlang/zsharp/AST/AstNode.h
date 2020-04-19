@@ -1,5 +1,7 @@
 #pragma once
 
+#include "AstVisitable.h"
+
 enum class AstNodeType {
     None,
     Module,         // root
@@ -14,6 +16,7 @@ enum class AstNodeType {
     Assignment,     // CodeBlock::*
     Branch,         // CodeBlock::*
     Expression,     // CodeBlock::*, Branch::[1]
+    Operand,        // Expression::1|2
     Numeric,        // Expression::1
 
     Identifier,     // Function::1, Struct::1, Enum::1, Assignment::1
@@ -22,7 +25,7 @@ enum class AstNodeType {
     FunctionParameter,
 };
 
-class AstNode
+class AstNode : public AstVisitable
 {
 public:
     AstNodeType getNodeType() const { return _nodeType; }

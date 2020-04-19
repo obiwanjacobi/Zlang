@@ -1,4 +1,18 @@
 #include "AstBranch.h"
+#include "AstVisitor.h"
+
+void AstBranch::Accept(AstVisitor* visitor) {
+    visitor->VisitBranch(this);
+}
+
+void AstBranchExpression::Accept(AstVisitor* visitor) {
+    visitor->VisitBranchExpression(this);
+}
+
+void AstBranchConditional::Accept(AstVisitor* visitor) {
+    visitor->VisitBranchConditional(this);
+}
+
 
 bool AstBranchExpression::SetExpression(std::shared_ptr<AstExpression> expr) {
     if (AstExpressionSite::SetExpression(expr)) {

@@ -53,6 +53,8 @@ public:
     virtual const std::string getName() const;
     virtual const AstIdentifierType getType() const;
 
+    void Accept(AstVisitor* visitor) override;
+
 protected:
     AstIdentifier()
         : AstNode(AstNodeType::Identifier),

@@ -22,6 +22,8 @@ public:
 
     bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override;
 
+    void Accept(AstVisitor* visitor) override;
+
 private:
     zsharp_parserParser::Function_parameterContext* _paramCtx;
     zsharp_parserParser::Function_parameter_selfContext* _selfCtx;
@@ -54,6 +56,9 @@ public:
     std::shared_ptr<AstSymbolTable> getSymbols() const override;
     std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
         AstSymbolKind type, std::shared_ptr<AstNode> node) override;
+
+    void Accept(AstVisitor* visitor) override;
+
 private:
     std::vector<std::shared_ptr<AstFunctionParameter>> _parameters;
 

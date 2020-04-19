@@ -42,6 +42,8 @@ public:
     std::shared_ptr<AstExpressionOperand> getLHS() const { return _lhs; }
     std::shared_ptr<AstExpressionOperand> getRHS() const { return _rhs; }
 
+    void Accept(AstVisitor* visitor) override;
+
 protected:
     bool Add(std::shared_ptr<AstExpressionOperand> child);
     bool Add(std::shared_ptr<AstExpression> child) { return Add(std::make_shared<AstExpressionOperand>(child)); }

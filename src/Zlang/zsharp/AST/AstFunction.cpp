@@ -1,4 +1,12 @@
 #include "AstFunction.h"
+#include "AstVisitor.h"
+
+void AstFunction::Accept(AstVisitor* visitor) {
+    visitor->VisitFunction(this);
+}
+void AstFunctionParameter::Accept(AstVisitor* visitor) {
+    visitor->VisitFunctionParameter(this);
+}
 
 bool AstFunctionParameter::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
 {

@@ -16,6 +16,8 @@ protected:
         : AstNode(nodeType), _indent(0)
     {}
 
+    void Accept(AstVisitor* visitor) override;
+
 private:
     uint32_t _indent;
 };
@@ -46,6 +48,8 @@ public:
 
     uint32_t getIndent() const { return _indent;  }
     void setIndent(uint32_t indent) { _indent = indent; }
+
+    void Accept(AstVisitor* visitor) override;
 
 private:
     uint32_t _indent;

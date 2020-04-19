@@ -8,27 +8,31 @@ class AstExpression;
 class AstNumeric;
 class AstVariableReference;
 
-class AstExpressionOperand
+class AstExpressionOperand : public AstNode
 {
 public:
     AstExpressionOperand(std::shared_ptr<AstExpression> expr)
-        : _expression(expr),
+        : AstNode(AstNodeType::Operand),
+        _expression(expr),
         _litBoolCtx(nullptr), _callCtx(nullptr)
     {}
     AstExpressionOperand(std::shared_ptr<AstNumeric> num)
-        : _numeric(num),
+        : AstNode(AstNodeType::Operand),
+        _numeric(num),
         _litBoolCtx(nullptr), _callCtx(nullptr)
     {}
     AstExpressionOperand(std::shared_ptr<AstVariableReference> variable)
-        : _variable(variable),
+        : AstNode(AstNodeType::Operand),
+        _variable(variable),
         _litBoolCtx(nullptr), _callCtx(nullptr)
     {}
-
     AstExpressionOperand(zsharp_parserParser::Literal_boolContext* ctx)
-        : _litBoolCtx(ctx), _callCtx(nullptr)
+        : AstNode(AstNodeType::Operand),
+        _litBoolCtx(ctx), _callCtx(nullptr)
     {}
     AstExpressionOperand(zsharp_parserParser::Function_callContext* ctx)
-        : _litBoolCtx(nullptr), _callCtx(ctx)
+        : AstNode(AstNodeType::Operand),
+        _litBoolCtx(nullptr), _callCtx(ctx)
     {}
 
     std::shared_ptr<AstExpression> getExpression() const { return _expression; }
@@ -41,6 +45,8 @@ public:
     
     const AstNode* getParent() const;
     void setParent(AstNode* parent);
+
+    void Accept(AstVisitor* visitor) override;
 
 private:
     std::shared_ptr<AstExpression> _expression;

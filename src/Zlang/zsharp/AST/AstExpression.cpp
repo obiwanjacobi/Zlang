@@ -1,4 +1,9 @@
 #include "AstExpression.h"
+#include "AstVisitor.h"
+
+void AstExpression::Accept(AstVisitor* visitor) {
+    visitor->VisitExpression(this);
+}
 
 antlr4::ParserRuleContext* AstExpression::getContext() const
 {

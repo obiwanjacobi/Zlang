@@ -1,4 +1,9 @@
 #include "AstAssignment.h"
+#include "AstVisitor.h"
+
+void AstAssignment::Accept(AstVisitor* visitor) {
+    visitor->VisitAssignment(this);
+}
 
 bool AstAssignment::SetExpression(std::shared_ptr<AstExpression> expr)
 {

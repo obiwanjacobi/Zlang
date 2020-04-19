@@ -30,6 +30,8 @@ public:
         : _typedCtx(nullptr), _typedInitCtx(nullptr), _assignCtx(ctx)
     {}
 
+    void Accept(AstVisitor* visitor) override;
+
 private:
     zsharp_parserParser::Variable_def_typedContext* _typedCtx;
     zsharp_parserParser::Variable_def_typed_initContext* _typedInitCtx;
@@ -47,6 +49,8 @@ public:
     AstVariableReference(zsharp_parserParser::Variable_assign_autoContext* ctx)
         : _refContext(nullptr), _assignCtx(ctx)
     {}
+
+    void Accept(AstVisitor* visitor) override;
 
 private:
     zsharp_parserParser::Variable_assign_autoContext* _assignCtx;

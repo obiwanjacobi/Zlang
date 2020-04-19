@@ -1,4 +1,9 @@
 #include "AstModule.h"
+#include "AstVisitor.h"
+
+void AstModule::Accept(AstVisitor* visitor) {
+    visitor->VisitModule(this);
+}
 
 void AstModule::AddModule(zsharp_parserParser::Statement_moduleContext* moduleCtx)
 {

@@ -27,6 +27,8 @@ public:
     
     AstNumericSign getSign() const { return _sign; }
 
+    void Accept(AstVisitor* visitor) override;
+
 protected:
     void setValue(uint64_t value) { _intValue = value; }
 
