@@ -13,6 +13,7 @@ public:
         _fileCtx(fileCtx)
     {
         auto codeBlock = std::make_shared<AstCodeBlock>(scopeName, nullptr, nullptr);
+        codeBlock->setParent(this);
         SetCodeBlock(codeBlock);
     }
 

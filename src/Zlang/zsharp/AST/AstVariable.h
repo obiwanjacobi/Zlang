@@ -8,6 +8,15 @@
 
 class AstVariable : public AstCodeBlockItem, public AstIdentifierSite
 {
+public:
+    bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override {
+        if (AstIdentifierSite::SetIdentifier(identifier)) {
+            identifier->setParent(this);
+            return true;
+        }
+        return false;
+    }
+
 protected:
     AstVariable()
         : AstCodeBlockItem(AstNodeType::Variable)

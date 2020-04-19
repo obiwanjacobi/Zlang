@@ -37,6 +37,7 @@ bool AstFunction::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
 
 bool AstFunction::SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
     if (AstCodeBlockSite::SetCodeBlock(codeBlock)) {
+        codeBlock->setParent(this);
         codeBlock->setIndent(1);
         AddFunctionSymbols();
         return true;

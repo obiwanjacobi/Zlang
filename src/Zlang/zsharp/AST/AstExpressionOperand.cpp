@@ -1,5 +1,6 @@
 #include "AstExpressionOperand.h"
 #include "AstExpression.h"
+#include "AstVariable.h"
 #include "AstVisitor.h"
 
 void AstExpressionOperand::Accept(AstVisitor* visitor) {
@@ -11,6 +12,9 @@ void AstExpressionOperand::VisitChildren(AstVisitor* visitor) {
     }
     if (_numeric) {
         _numeric->Accept(visitor);
+    }
+    if (_variable) {
+        _variable->Accept(visitor);
     }
 }
 
@@ -29,6 +33,9 @@ const AstNode* AstExpressionOperand::getParent() const
     if (_numeric) {
         return _numeric->getParent();
     }
+    if (_variable) {
+        return _variable->getParent();
+    }
     return nullptr;
 }
 
@@ -39,5 +46,8 @@ void AstExpressionOperand::setParent(AstNode* parent)
     }
     if (_numeric) {
         _numeric->setParent(parent);
+    }
+    if (_variable) {
+        _variable->setParent(parent);
     }
 }

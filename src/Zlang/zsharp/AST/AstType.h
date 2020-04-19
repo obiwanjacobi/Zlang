@@ -14,6 +14,14 @@ public:
     bool getIsOptional() const { return _isOptional; }
     bool getIsError() const { return _isError; }
 
+    bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override {
+        if (AstIdentifierSite::SetIdentifier(identifier)) {
+            identifier->setParent(this);
+            return true;
+        }
+        return false;
+    }
+
 protected:
     AstType(zsharp_parserParser::Type_anyContext* ctx)
         : AstNode(AstNodeType::Type), _context(ctx),
