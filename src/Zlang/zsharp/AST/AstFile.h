@@ -28,6 +28,7 @@ public:
     bool AddFunction(std::shared_ptr<AstFunction> function);
 
     void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
 
 private:
     

@@ -43,6 +43,7 @@ public:
     std::shared_ptr<AstExpressionOperand> getRHS() const { return _rhs; }
 
     void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
 
 protected:
     bool Add(std::shared_ptr<AstExpressionOperand> child);

@@ -58,6 +58,7 @@ public:
         AstSymbolKind type, std::shared_ptr<AstNode> node) override;
 
     void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
 
 private:
     std::vector<std::shared_ptr<AstFunctionParameter>> _parameters;

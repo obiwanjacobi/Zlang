@@ -31,6 +31,7 @@ public:
 
 
     void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
 
 private:
     zsharp_parserParser::Variable_assign_autoContext* _ctx;

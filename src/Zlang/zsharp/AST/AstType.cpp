@@ -4,6 +4,9 @@
 void AstTypeReference::Accept(AstVisitor* visitor) {
     visitor->VisitTypeReference(this);
 }
+void AstTypeReference::VisitChildren(AstVisitor* visitor) {
+    getIdentifier()->Accept(visitor);
+}
 
 static const std::shared_ptr<AstIdentifierIntrinsic> U8 = std::make_shared<AstIdentifierIntrinsic>("U8", AstIdentifierType::Type);
 static const std::shared_ptr<AstIdentifierIntrinsic> U16 = std::make_shared<AstIdentifierIntrinsic>("U16", AstIdentifierType::Type);

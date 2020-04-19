@@ -47,6 +47,7 @@ public:
     void setParent(AstNode* parent);
 
     void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
 
 private:
     std::shared_ptr<AstExpression> _expression;

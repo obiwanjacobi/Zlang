@@ -4,6 +4,11 @@
 void AstModule::Accept(AstVisitor* visitor) {
     visitor->VisitModule(this);
 }
+void AstModule::VisitChildren(AstVisitor* visitor) {
+    for (auto file : _files) {
+        file->Accept(visitor);
+    }
+}
 
 void AstModule::AddModule(zsharp_parserParser::Statement_moduleContext* moduleCtx)
 {

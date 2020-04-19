@@ -5,6 +5,14 @@
 void AstExpressionOperand::Accept(AstVisitor* visitor) {
     visitor->VisitExpressionOperand(this);
 }
+void AstExpressionOperand::VisitChildren(AstVisitor* visitor) {
+    if (_expression) {
+        _expression->Accept(visitor);
+    }
+    if (_numeric) {
+        _numeric->Accept(visitor);
+    }
+}
 
 antlr4::ParserRuleContext* AstExpressionOperand::getContext() const
 {
@@ -15,10 +23,10 @@ antlr4::ParserRuleContext* AstExpressionOperand::getContext() const
 
 const AstNode* AstExpressionOperand::getParent() const
 {
-    if (_expression != nullptr) {
+    if (_expression) {
         return _expression->getParent();
     }
-    if (_numeric != nullptr) {
+    if (_numeric) {
         return _numeric->getParent();
     }
     return nullptr;
@@ -26,10 +34,10 @@ const AstNode* AstExpressionOperand::getParent() const
 
 void AstExpressionOperand::setParent(AstNode* parent)
 {
-    if (_expression != nullptr) {
+    if (_expression) {
         _expression->setParent(parent);
     }
-    if (_numeric != nullptr) {
+    if (_numeric) {
         _numeric->setParent(parent);
     }
 }

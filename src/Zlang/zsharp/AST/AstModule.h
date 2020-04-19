@@ -18,6 +18,7 @@ public:
     const std::vector<std::shared_ptr<AstFile>>& getFiles() const { return _files; }
 
     void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
 
 protected:
     void AddModule(zsharp_parserParser::Statement_moduleContext* moduleCtx);

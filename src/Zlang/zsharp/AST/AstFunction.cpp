@@ -2,8 +2,17 @@
 #include "AstVisitor.h"
 
 void AstFunction::Accept(AstVisitor* visitor) {
+    AstCodeBlockItem::Accept(visitor);
     visitor->VisitFunction(this);
 }
+void AstFunction::VisitChildren(AstVisitor* visitor) {
+    getIdentifier()->Accept(visitor);
+    for (auto param : _parameters) {
+        param->Accept(visitor);
+    }
+    getCodeBlock()->Accept(visitor);
+}
+
 void AstFunctionParameter::Accept(AstVisitor* visitor) {
     visitor->VisitFunctionParameter(this);
 }

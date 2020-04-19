@@ -4,6 +4,14 @@
 void AstExpression::Accept(AstVisitor* visitor) {
     visitor->VisitExpression(this);
 }
+void AstExpression::VisitChildren(AstVisitor* visitor) {
+    if (_rhs) {
+        _rhs->Accept(visitor);
+    }
+    if (_lhs) {
+        _lhs->Accept(visitor);
+    }
+}
 
 antlr4::ParserRuleContext* AstExpression::getContext() const
 {
@@ -16,12 +24,12 @@ antlr4::ParserRuleContext* AstExpression::getContext() const
 
 bool AstExpression::Add(std::shared_ptr<AstExpressionOperand> op)
 {
-    if (_rhs == nullptr) {
+    if (!_rhs) {
         _rhs = op;
         return true;
     }
 
-    if (_lhs == nullptr &&
+    if (!_lhs &&
         !isOperator(AstExpressionOperator::MaskUnary)) {
         _lhs = op;
         return true;

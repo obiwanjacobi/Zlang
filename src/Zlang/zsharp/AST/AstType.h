@@ -42,6 +42,7 @@ public:
     {}
 
     void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
 };
 
 

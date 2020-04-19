@@ -76,6 +76,7 @@ public:
     bool hasExpression() const { return getExpression() != nullptr; }
 
     void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
 
 protected:
     AstBranchExpression(AstBranchType branchType)
@@ -120,6 +121,7 @@ public:
     AstBranchConditional* LastSubBranch() { return hasSubBranch() ? _subBranch->LastSubBranch() : this; }
 
     void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
 
 private:
     std::shared_ptr<AstBranchConditional> _subBranch;

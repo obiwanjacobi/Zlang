@@ -2,15 +2,27 @@
 #include "AstVisitor.h"
 
 void AstBranch::Accept(AstVisitor* visitor) {
+    AstCodeBlockItem::Accept(visitor);
     visitor->VisitBranch(this);
 }
 
 void AstBranchExpression::Accept(AstVisitor* visitor) {
+    AstCodeBlockItem::Accept(visitor);
     visitor->VisitBranchExpression(this);
+}
+void AstBranchExpression::VisitChildren(AstVisitor* visitor) {
+    getExpression()->Accept(visitor);
 }
 
 void AstBranchConditional::Accept(AstVisitor* visitor) {
+    AstCodeBlockItem::Accept(visitor);
     visitor->VisitBranchConditional(this);
+}
+void AstBranchConditional::VisitChildren(AstVisitor* visitor) {
+    AstBranchExpression::VisitChildren(visitor);
+    if (hasSubBranch()) {
+        _subBranch->Accept(visitor);
+    }
 }
 
 

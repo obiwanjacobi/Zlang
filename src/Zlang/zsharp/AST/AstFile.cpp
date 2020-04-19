@@ -4,6 +4,11 @@
 void AstFile::Accept(AstVisitor* visitor) {
     visitor->VisitFile(this);
 }
+void AstFile::VisitChildren(AstVisitor* visitor) {
+    for (auto fn : _functions) {
+        fn->Accept(visitor);
+    }
+}
 
 bool AstFile::AddImport(zsharp_parserParser::Statement_importContext* importCtx)
 {
