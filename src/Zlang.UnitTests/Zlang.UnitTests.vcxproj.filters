@@ -13,7 +13,6 @@
     <ClCompile Include="grammar\CommentSmokeTests.cpp" />
     <ClCompile Include="grammar\TypesSmokeTests.cpp" />
     <ClCompile Include="AST\AstBuilderTests.cpp" />
-    <ClCompile Include="LLVM\LlvmIrBuilderTests.cpp" />
     <ClCompile Include="AST\AstNumericBuilderTests.cpp" />
     <ClCompile Include="AST\AstExpressionBuilderTests.cpp" />
     <ClCompile Include="AST\AstControlFlowTests.cpp" />

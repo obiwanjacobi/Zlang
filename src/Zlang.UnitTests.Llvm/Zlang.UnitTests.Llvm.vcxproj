@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4873c98a-4b75-48a6-98b5-98f412f2b099}</ProjectGuid>
+    <ProjectGuid>{09C87E02-5C63-4A01-9C16-B591F38C2001}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
@@ -37,30 +37,10 @@
     <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(SolutionDir)Zlang\$(Platform)\$(Configuration);$(SolutionDir)..\..\..\llvm\llvm-lib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
-    <ClInclude Include="Utils.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AST\AstBuilderTests.cpp" />
-    <ClCompile Include="AST\AstControlFlowTests.cpp" />
-    <ClCompile Include="AST\AstExpressionBuilderTests.cpp" />
-    <ClCompile Include="AST\AstIdentifierTests.cpp" />
-    <ClCompile Include="AST\AstIndentationTests.cpp" />
-    <ClCompile Include="AST\AstNumericBuilderTests.cpp" />
-    <ClCompile Include="AST\AstSymbolTableTests.cpp" />
-    <ClCompile Include="AST\AstCodeTests.cpp" />
-    <ClCompile Include="AST\AstTypeTests.cpp" />
-    <ClCompile Include="Dgml\DgmlBuilderTests.cpp" />
-    <ClCompile Include="grammar\CommentSmokeTests.cpp" />
-    <ClCompile Include="grammar\EnumSmokeTests.cpp" />
-    <ClCompile Include="grammar\ExpressionSmokeTests.cpp" />
-    <ClCompile Include="grammar\FlowSmokeTests.cpp" />
-    <ClCompile Include="grammar\FunctionSmokeTests.cpp" />
-    <ClCompile Include="grammar\ModuleSmokeTests.cpp" />
-    <ClCompile Include="grammar\StructSmokeTests.cpp" />
-    <ClCompile Include="grammar\TypesSmokeTests.cpp" />
-    <ClCompile Include="grammar\VariablesSmokeTests.cpp" />
-    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="LLVM\LlvmIrBuilderTests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -110,7 +90,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstBuilderContext.obj;AstFile.obj;AstFunction.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;AstNumeric.obj;AstNumericBuilder.obj;AstExpression.obj;AstExpressionOperand.obj;AstExpressionBuilder.obj;AstBranch.obj;AstCodeBlock.obj;AstAssignment.obj;AstError.obj;AstSymbolTable.obj;AstIdentifier.obj;AstExtensions.obj;AstType.obj;Dgml.obj;DgmlBuilder.obj;Utils.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstBuilderContext.obj;AstFile.obj;AstFunction.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;AstNumeric.obj;AstNumericBuilder.obj;AstExpression.obj;AstExpressionOperand.obj;AstExpressionBuilder.obj;AstBranch.obj;AstCodeBlock.obj;AstAssignment.obj;AstError.obj;AstSymbolTable.obj;AstIdentifier.obj;AstExtensions.obj;AstType.obj;Dgml.obj;DgmlBuilder.obj;LlvmIrBuilder.obj;Utils.obj;LLVMCore.lib;LLVMRemarks.lib;LLVMBitstreamReader.lib;LLVMBinaryFormat.lib;LLVMSupport.lib;LLVMDemangle.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
     </Link>
   </ItemDefinitionGroup>

@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zlang", "Zlang\Zlang.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zlang.UnitTests", "Zlang.UnitTests\Zlang.UnitTests.vcxproj", "{4873C98A-4B75-48A6-98B5-98F412F2B099}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Zlang.UnitTests.Llvm", "Zlang.UnitTests.Llvm\Zlang.UnitTests.Llvm.vcxproj", "{09C87E02-5C63-4A01-9C16-B591F38C2001}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Release|x64.Build.0 = Release|x64
 		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Release|x86.ActiveCfg = Release|Win32
 		{4873C98A-4B75-48A6-98B5-98F412F2B099}.Release|x86.Build.0 = Release|Win32
+		{09C87E02-5C63-4A01-9C16-B591F38C2001}.Debug|x64.ActiveCfg = Debug|x64
+		{09C87E02-5C63-4A01-9C16-B591F38C2001}.Debug|x64.Build.0 = Debug|x64
+		{09C87E02-5C63-4A01-9C16-B591F38C2001}.Debug|x86.ActiveCfg = Debug|Win32
+		{09C87E02-5C63-4A01-9C16-B591F38C2001}.Debug|x86.Build.0 = Debug|Win32
+		{09C87E02-5C63-4A01-9C16-B591F38C2001}.Release|x64.ActiveCfg = Release|x64
+		{09C87E02-5C63-4A01-9C16-B591F38C2001}.Release|x64.Build.0 = Release|x64
+		{09C87E02-5C63-4A01-9C16-B591F38C2001}.Release|x86.ActiveCfg = Release|Win32
+		{09C87E02-5C63-4A01-9C16-B591F38C2001}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
