@@ -83,7 +83,7 @@ antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_de
     auto function = std::make_shared<AstFunction>(ctx);
     
     bool success = file->AddFunction(function);
-    guard(success);
+    guard(success && "AddFunction() failed");
 
     setCurrent(function);
 
@@ -91,7 +91,8 @@ antlrcpp::Any AstNodeBuilder::visitFunction_def(zsharp_parserParser::Function_de
     auto identifier = ctx->identifier_func();
     auto dummy = visitIdentifier_func(identifier);
 
-    auto entry = file->AddSymbol(function->getIdentifier()->getName(), AstSymbolKind::Function, function);
+    auto symbolTable = GetCurrent<AstSymbolTableSite>();
+    auto entry = symbolTable->AddSymbol(function->getIdentifier()->getName(), AstSymbolKind::Function, function);
 
     if (dynamic_cast<zsharp_parserParser::Function_def_exportContext*>(ctx->parent)) {
         entry->setSymbolLocality(AstSymbolLocality::Exported);
@@ -122,7 +123,7 @@ antlrcpp::Any AstNodeBuilder::visitCodeblock(zsharp_parserParser::CodeblockConte
 
     auto codeBlock = std::make_shared<AstCodeBlock>(scopeName, symbols, ctx);
     bool success = cbSite->SetCodeBlock(codeBlock);
-    guard(success);
+    guard(success && "SetCodeBlock() failed");
 
     setCurrent(codeBlock);
     
@@ -139,7 +140,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_if(zsharp_parserParser::Statement_i
 
     auto branch = std::make_shared<AstBranchConditional>(ctx);
     bool success = codeBlock->AddItem(branch);
-    guard(success);
+    guard(success && "AddCodeBlockItem() failed");
 
     setCurrent(branch);
 
@@ -153,11 +154,11 @@ antlrcpp::Any AstNodeBuilder::visitStatement_else(zsharp_parserParser::Statement
 {
     auto indent = CheckIndent(ctx);
     auto branch = GetCurrent<AstBranchConditional>();
-    guard(indent == branch->getIndent());
+    guard(indent == branch->getIndent() && "Indentation mismatch CodeBlock <=> Branch");
 
     auto subBr = std::make_shared<AstBranchConditional>(ctx);
     bool success = branch->AddSubBranch(subBr);
-    guard(success);
+    guard(success && "AddSubBranch() failed");
 
     setCurrent(subBr);
 
@@ -171,11 +172,11 @@ antlrcpp::Any AstNodeBuilder::visitStatement_elseif(zsharp_parserParser::Stateme
 {
     auto indent = CheckIndent(ctx);
     auto branch = GetCurrent<AstBranchConditional>();
-    guard(indent == branch->getIndent());
+    guard(indent == branch->getIndent() && "Indentation mismatch CodeBlock <=> Branch");
 
     auto subBr = std::make_shared<AstBranchConditional>(ctx);
     bool success = branch->AddSubBranch(subBr);
-    guard(success);
+    guard(success && "AddSubBranch() failed");
 
     setCurrent(subBr);
 
@@ -192,7 +193,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_return(zsharp_parserParser::Stateme
 
     auto branch = std::make_shared<AstBranchExpression>(ctx);
     bool success = codeBlock->AddItem(branch);
-    guard(success);
+    guard(success && "AddCodeBlockItem() failed");
 
     setCurrent(branch);
 
@@ -209,7 +210,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_break(zsharp_parserParser::Statemen
 
     auto branch = std::make_shared<AstBranch>(ctx);
     bool success = codeBlock->AddItem(branch);
-    guard(success);
+    guard(success && "AddCodeBlockItem() failed");
 
     return visitChildren(ctx);
 }
@@ -221,7 +222,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_continue(zsharp_parserParser::State
 
     auto branch = std::make_shared<AstBranch>(ctx);
     bool success = codeBlock->AddItem(branch);
-    guard(success);
+    guard(success && "AddCodeBlockItem() failed");
 
     return visitChildren(ctx);
 }
@@ -230,7 +231,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_continue(zsharp_parserParser::State
 antlrcpp::Any AstNodeBuilder::visitIdentifier_type(zsharp_parserParser::Identifier_typeContext* ctx)
 {
     bool success = AddIdentifier(ctx);
-    guard(success);
+    guard(success && "AddIdentifier(Type) failed");
 
     return nullptr;
 }
@@ -238,7 +239,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_type(zsharp_parserParser::Identifi
 antlrcpp::Any AstNodeBuilder::visitIdentifier_var(zsharp_parserParser::Identifier_varContext* ctx)
 {
     bool success = AddIdentifier(ctx);
-    guard(success);
+    guard(success && "AddIdentifier(Variable) failed");
 
     return nullptr;
 }
@@ -246,7 +247,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_var(zsharp_parserParser::Identifie
 antlrcpp::Any AstNodeBuilder::visitIdentifier_param(zsharp_parserParser::Identifier_paramContext* ctx)
 {
     bool success = AddIdentifier(ctx);
-    guard(success);
+    guard(success && "AddIdentifier(Parameter) failed");
 
     return nullptr;
 }
@@ -254,7 +255,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_param(zsharp_parserParser::Identif
 antlrcpp::Any AstNodeBuilder::visitIdentifier_func(zsharp_parserParser::Identifier_funcContext* ctx)
 {
     bool success = AddIdentifier(ctx);
-    guard(success);
+    guard(success && "AddIdentifier(Function) failed");
 
     return nullptr;
 }
@@ -262,7 +263,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_func(zsharp_parserParser::Identifi
 antlrcpp::Any AstNodeBuilder::visitIdentifier_field(zsharp_parserParser::Identifier_fieldContext* ctx)
 {
     bool success = AddIdentifier(ctx);
-    guard(success);
+    guard(success && "AddIdentifier(Field) failed");
 
     return nullptr;
 }
@@ -270,7 +271,7 @@ antlrcpp::Any AstNodeBuilder::visitIdentifier_field(zsharp_parserParser::Identif
 antlrcpp::Any AstNodeBuilder::visitIdentifier_enumoption(zsharp_parserParser::Identifier_enumoptionContext* ctx)
 {
     bool success = AddIdentifier(ctx);
-    guard(success);
+    guard(success && "AddIdentifier(EnumOption) failed");
 
     return nullptr;
 }
@@ -317,7 +318,7 @@ antlrcpp::Any AstNodeBuilder::visitVariable_def_typed(zsharp_parserParser::Varia
     auto variable = std::make_shared<AstVariableDefinition>(ctx);
     auto codeBlock = GetCodeBlock();
     bool success = codeBlock->AddItem(variable);
-    guard(success); 
+    guard(success && "AddCodeBlockItem() failed");
     setCurrent(variable);
 
     auto any = visitChildren(ctx);
@@ -334,12 +335,12 @@ antlrcpp::Any AstNodeBuilder::visitVariable_def_typed_init(zsharp_parserParser::
     auto assign = std::make_shared<AstAssignment>(ctx);
     auto codeBlock = GetCodeBlock();
     bool success = codeBlock->AddItem(assign);
-    guard(success);
+    guard(success && "AddCodeBlockItem() failed");
     setCurrent(assign);
 
     auto variable = std::make_shared<AstVariableDefinition>(ctx);
     success = assign->SetVariable(variable);
-    guard(success);
+    guard(success && "SetVariable() failed");
     setCurrent(variable);
 
     auto any = visitChildren(ctx);
@@ -358,7 +359,7 @@ antlrcpp::Any AstNodeBuilder::visitVariable_assign_auto(zsharp_parserParser::Var
     auto assign = std::make_shared<AstAssignment>(ctx);
     auto codeBlock = GetCodeBlock();
     bool success = codeBlock->AddItem(assign);
-    guard(success);
+    guard(success && "AddCodeBlockItem() failed");
     setCurrent(assign);
 
     std::shared_ptr<AstVariable> variable;
@@ -370,7 +371,7 @@ antlrcpp::Any AstNodeBuilder::visitVariable_assign_auto(zsharp_parserParser::Var
     }
 
     success = assign->SetVariable(variable);
-    guard(success);
+    guard(success && "SetVariable() failed");
     setCurrent(variable);
 
     auto any = visitChildren(ctx);
@@ -405,7 +406,7 @@ antlrcpp::Any AstNodeBuilder::visitExpression_value(zsharp_parserParser::Express
     {
         auto site = GetCurrent<AstExpressionSite>();
         bool success = site->SetExpression(expr);
-        guard(success);
+        guard(success && "SetExpression() failed");
     }
     return nullptr;
 }
@@ -417,18 +418,15 @@ antlrcpp::Any AstNodeBuilder::visitExpression_logic(zsharp_parserParser::Express
     {
         auto site = GetCurrent<AstExpressionSite>();
         bool success = site->SetExpression(expr);
-        guard(success);
+        guard(success && "SetExpression() failed");
     }
     return nullptr;
 }
 
 antlrcpp::Any AstNodeBuilder::visitType_ref(zsharp_parserParser::Type_refContext* ctx)
 {
-    auto trSite = GetCurrent<AstTypeReferenceSite>();
-    guard(trSite);
-
     auto type = AstTypeReference::Create(ctx);
+    auto trSite = GetCurrent<AstTypeReferenceSite>();
     trSite->SetTypeReference(type);
-    
     return nullptr;
 }

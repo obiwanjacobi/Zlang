@@ -24,7 +24,7 @@ AstCodeBlock* AstBuilderContext::GetCodeBlock(uint32_t indent) const
         }
     }
 
-    guard(p != nullptr);
+    guard(p != nullptr && "GetCodeBlock => nullptr");
     return p;
 }
 

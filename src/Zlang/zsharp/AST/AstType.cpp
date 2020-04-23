@@ -59,9 +59,9 @@ void AstType::Construct(std::shared_ptr<AstType> instance, zsharp_parserParser::
         identifier = SelectKnownIdentifier(knownCtx);
     }
 
-    guard(identifier);
+    guard(identifier && "Identifier failed.");
     bool success = instance->SetIdentifier(identifier);
-    guard(success);
+    guard(success && "SetIdentifier() failed");
 }
 
 

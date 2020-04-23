@@ -1,17 +1,17 @@
 #include "pch.h"
 
-#include "../../Zlang/zsharp/AST/AstBuilder.h"
-#include "../../Zlang/zsharp/grammar/ZsharpParser.h"
-#include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
-#include "../../Zlang/zsharp/LLVM/LlvmIrBuilder.h"
+#include "../Zlang/zsharp/AST/AstBuilder.h"
+#include "../Zlang/zsharp/grammar/ZsharpParser.h"
+#include "../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
+#include "../Zlang/zsharp/LLVM/LlvmIrBuilder.h"
 #include <gtest/gtest.h>
 
 TEST(LlvmIrBuilderTests, BuildFile) 
 {
     const char* src =
         "module mod1\n"
-        "fn()\n"
-        "    return\n"
+        "fn(p1: U8, p2: U16): U8\n"
+        "    return p2 >> p1\n"
         ;
 
     ZsharpParser parser;
@@ -25,7 +25,7 @@ TEST(LlvmIrBuilderTests, BuildFile)
     auto modules = uut.getModules();
 
     LlvmIrBuilder builder;
-    auto llvmModule = builder.Build(modules.at(0));
+    auto llvmModule = builder.Build(modules.at(0).get());
 
     llvmModule->dump();
 }

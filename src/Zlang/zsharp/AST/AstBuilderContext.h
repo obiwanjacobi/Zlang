@@ -34,7 +34,7 @@ public:
             }
         }
 
-        guard(p != nullptr);
+        guard(p != nullptr && "GetCurrent() => nullptr");
         return p;
     }
 

@@ -256,7 +256,7 @@ antlrcpp::Any AstExpressionBuilder::visitOperator_bits_unary(zsharp_parserParser
 antlrcpp::Any AstExpressionBuilder::visitIdentifier_type(zsharp_parserParser::Identifier_typeContext* ctx)
 {
     bool success = _builderContext->AddIdentifier(ctx);
-    guard(success);
+    guard(success && "AddIdentifier(Type) failed");
 
     return nullptr;
 }
@@ -264,7 +264,7 @@ antlrcpp::Any AstExpressionBuilder::visitIdentifier_type(zsharp_parserParser::Id
 antlrcpp::Any AstExpressionBuilder::visitIdentifier_var(zsharp_parserParser::Identifier_varContext* ctx)
 {
     bool success = _builderContext->AddIdentifier(ctx);
-    guard(success);
+    guard(success && "AddIdentifier(Variable) failed");
 
     return nullptr;
 }
@@ -272,7 +272,7 @@ antlrcpp::Any AstExpressionBuilder::visitIdentifier_var(zsharp_parserParser::Ide
 antlrcpp::Any AstExpressionBuilder::visitIdentifier_param(zsharp_parserParser::Identifier_paramContext* ctx)
 {
     bool success = _builderContext->AddIdentifier(ctx);
-    guard(success);
+    guard(success && "AddIdentifier(Parameter) failed");
 
     return nullptr;
 }
@@ -280,7 +280,7 @@ antlrcpp::Any AstExpressionBuilder::visitIdentifier_param(zsharp_parserParser::I
 antlrcpp::Any AstExpressionBuilder::visitIdentifier_func(zsharp_parserParser::Identifier_funcContext* ctx)
 {
     bool success = _builderContext->AddIdentifier(ctx);
-    guard(success);
+    guard(success && "AddIdentifier(Function) failed");
 
     return nullptr;
 }

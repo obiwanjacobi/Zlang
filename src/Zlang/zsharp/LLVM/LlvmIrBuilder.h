@@ -1,23 +1,53 @@
 #pragma once
 
 #include "../AST/AstModule.h"
+#include "../AST/AstVisitor.h"
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/IRBuilder.h>
 #include <llvm/IR/Function.h>
 
-class LlvmIrBuilder
+class LlvmIrBuilder : protected AstVisitor
 {
 public:
     LlvmIrBuilder()
-        : _irBuilder(_context)
+        : _irBuilder(_context), 
+        _module(nullptr), _function(nullptr)
     {}
 
-    llvm::Module* Build(std::shared_ptr<AstModule> module);
+    llvm::Module* Build(AstModule* module);
 
-    void BuildFile(llvm::Module* module, std::shared_ptr<AstFile> astFile);
-    llvm::Function* BuildFunction(llvm::Module* module, std::shared_ptr<AstFunction> astFunction);
+
+protected:
+    void VisitAssignment(AstAssignment* assign) override;
+    void VisitBranch(AstBranch* branch) override;
+    void VisitBranchExpression(AstBranchExpression* branch) override;
+    void VisitBranchConditional(AstBranchConditional* branch) override;
+    void VisitCodeBlock(AstCodeBlock* codeBlock) override;
+    void VisitCodeBlockItem(AstCodeBlockItem* codeBlockItem) override;
+    void VisitExpression(AstExpression* expression) override;
+    void VisitExpressionOperand(AstExpressionOperand* operand) override;
+    void VisitFile(AstFile* file) override;
+    void VisitFunction(AstFunction* function) override;
+    void VisitFunctionParameter(AstFunctionParameter* parameter) override;
+    void VisitIdentifier(AstIdentifier* identifier) override;
+    void VisitModule(AstModule* module) override;
+    void VisitNumeric(AstNumeric* numeric) override;
+    void VisitTypeReference(AstTypeReference* type) override;
+    void VisitVariableDefinition(AstVariableDefinition* variable) override;
+    void VisitVariableReference(AstVariableReference* variable) override;
+
+    llvm::Type* getType(const AstType* type);
+
+    void setModule(llvm::Module* module) { _module = module; }
+    llvm::Module* getModule() { return _module; }
+    void setFunction(llvm::Function* function) { _function = function; }
+    llvm::Function* getFunction() { return _function; }
+
 private:
     llvm::LLVMContext _context;
     llvm::IRBuilder<llvm::ConstantFolder, llvm::IRBuilderDefaultInserter> _irBuilder;
+    
+    llvm::Module* _module;
+    llvm::Function* _function;
 };
 

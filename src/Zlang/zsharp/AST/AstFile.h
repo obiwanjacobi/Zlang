@@ -5,11 +5,11 @@
 #include "AstSymbolTable.h"
 #include "../grammar/parser/zsharp_parserParser.h"
 
-class AstFile : public AstNode, public AstSymbolTableSiteImpl, public AstCodeBlockSite
+class AstFile : public AstNode, public AstSymbolTableSite, public AstCodeBlockSite
 {
 public:
     AstFile(std::string scopeName, zsharp_parserParser::FileContext* fileCtx)
-        : AstNode(AstNodeType::File), AstSymbolTableSiteImpl(scopeName),
+        : AstNode(AstNodeType::File),
         _fileCtx(fileCtx)
     {
         auto codeBlock = std::make_shared<AstCodeBlock>(scopeName, nullptr, nullptr);
@@ -30,6 +30,15 @@ public:
 
     void Accept(AstVisitor* visitor) override;
     void VisitChildren(AstVisitor* visitor) override;
+
+    std::shared_ptr<AstSymbolTable> getSymbols() const override {
+        return getCodeBlock()->getSymbols();
+    }
+
+    std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
+        AstSymbolKind kind, std::shared_ptr<AstNode> node) override {
+        return getCodeBlock()->getSymbols()->AddSymbol(symbolName, kind, node);
+    }
 
 private:
     
