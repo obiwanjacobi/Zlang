@@ -24,3 +24,7 @@ What is better in Z# than other languages?
 - Less noise. No unnecessary keywords and no brackets or semi-colons.
 - Focus on compile-time benefits. Do as much at compile-time as possible.
 - Just data and functions. You can do sort of OO but not full OOP. Makes it simpler to learn and the resulting constructs translate easier to (simpler/smaller/faster) machine code.
+
+
+Goals
+- Stable syntax for refactoring code units to other scopes. Lifting a local function out => making it public (export) etc.

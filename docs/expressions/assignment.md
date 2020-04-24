@@ -184,3 +184,18 @@ y = 101
 // x = 101
 // y = 42
 ```
+
+---
+
+> TBD
+
+Make type decl and assignment distinct.
+
+```csharp
+a: U8       // declare typed var (default init)
+a: U8 = 1   // declare typed and init
+a:= 1       // declare inferred-type and init
+a = 1       // assign - 'a' must already be declared
+```
+
+Could this help improving variable assignments?

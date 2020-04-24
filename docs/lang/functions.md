@@ -236,6 +236,10 @@ MyFunc(): U8
 
 > Not sure if local variables of the containing function can be captured in the local function...
 
+> Can Local Functions be declared at the end of the containing function?
+
+> Limit on how many nesting levels?
+
 ## Fluent Functions
 
 Fluent functions are possible with type-bound functions that return self or another types where another set of bound function is available for.
@@ -413,6 +417,42 @@ sum = 0     // this must be captured => is not supported!
 arr.ForEach((v) => sum = sum + v)   // error! no capture supported
 ```
 
+> Idea: Make all functions have to declare (capture) any dependencies on global vars
+
+nice tracking of global state dependencies and a way to tell of a function has side-effects
+
+```csharp
+globalVar = 42
+
+// old syntax
+fn(p: U8): Bool
+    return globalVar = p    // implicit use of global variable
+
+// new syntax (specific syntax TBD)
+fn(p: U8): Bool [globalVar] // explicit capture of global var
+    return globalVar = p    // uses global variable
+
+// do global captures have to flow?
+otherFn(p: U8): Bool        // error!: uses fn that requires global var
+    return fn(p)
+```
+
+> Alternate Syntax: \<name>: \<type> {capture} implementation.
+
+```csharp
+globalVar = 42
+anotherVar = 101
+
+fn: (p: U8): Bool {globalVar}
+    return globalVar = p
+
+otherFn(p: U8): Bool {globalVar, anotherVar}
+    return fn(p) && anotherVar <> 0
+
+```
+
+For function decls and interfaces no captures are specified. A capture is an implementation requirement.
+
 ---
 
 pure functions (functional) / higher order functions?
@@ -462,7 +502,7 @@ Subsequent function calls (after `|>`) will have their 1st param missing. That l
 Does this only work for functions? (concatenation?)
 
 ```csharp
-[0..5] |> fn()  // called 5 times or passed in array?
+[0..5] |> fn()  // passed in array
 ```
 
 Could also have a 'backward' piping operator? `<|` going the other way...

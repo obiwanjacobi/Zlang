@@ -147,7 +147,7 @@ il: ImperialLength = 200    // 200 feet
 loa = ml + il               // error: cannot add different data types
 ```
 
-Operators of the underlying type can **NOT**  be used. Data Types are always more specific and restrictive than the underlying type. New operator implementations have to created using the dedicated function names mapped to each operator. It is a compile error if such a function is not found for the operator in use.
+Operators of the underlying type can **NOT**  be used. Data Types are always more specific and restrictive than the underlying type. New operator implementations have to be created using the dedicated function names mapped to each operator. It is a compile error if such a function is not found for the operator in use.
 
 ```csharp
 Age: U8 _
@@ -262,7 +262,8 @@ changeByRef(Ptr<U8> ptr)
 ```C#
 ptr: Ptr<U8>        // must be initialized or optional
 v = ptr()           // deref? v => U8
-ptr() = 42          // change pointed to value?
+ptr() = 42          // change pointed to value? #1
+ptr(42)             // change pointed to value? #2
 ```
 
 This does align nicely with ptr-to-fn syntax and how to call a function using a ptr-to-fn: `retval = ptr_to_fn(param1)`
@@ -273,6 +274,16 @@ Template Access
 changeByRef<T>(Ptr<T> ptr, val: T)
     x = ptr.value<T>()  // compatibility checked at compile time
     ptr.value<T>(val)
+```
+
+> TBD: pointers using operators?
+
+```csharp
+a = 42
+ptr: U8*    // type
+ptr = &a    // address of
+x = ^ptr    // deref
+// x = 42
 ```
 
 ### Static Ptr Helper
@@ -324,7 +335,7 @@ p: Ptr<U8>              // Ptr<U8>
 pp = p.Ptr()            // Ptr<Ptr<u8>>
 ```
 
-> Only two levels allowed?
+> Only two levels allowed? => yes
 
 ### Pointer to Arrays
 
@@ -465,7 +476,7 @@ y: U8 = typedRet()  // type forwarding?
 z = typedRet()      // Error! cannot determine type
 ```
 
-> Are template parameters simply normal parameters know at compile time?
+> Are template parameters simply normal parameters known at compile time?
 
 ### Restricting Template Type Parameters
 
@@ -492,6 +503,9 @@ typedFn<OtherStruct>(o)     // derived type explicit
 // non-type template params?
 FixedArray<T, count: U8>
     arr: Array<T>(count)
+// use type params?
+FixedArray<T>(count: U8)    // hard to distinguish from function
+    arr: Array<T>(count)
 
 // restricting on metadata?
 TemplateType<T#bits=8>  // '=' conflicts with parameter default
@@ -513,7 +527,7 @@ t = TemplateType
 ```C#
 typedFn<T>(p: T)
     ...
-typedFn<Bool>(p: Bool)
+typedFn<Bool>(p: Bool)  // how do we know this is a specialization of typedFn<T>? By name?
     ...
 
 typedFn(42)         // generic typedFn<T> called
@@ -573,9 +587,10 @@ MyStruct: Struct1 and Struct2
 
 Laid out in memory in order.
 
-> How to move the 'this' pointer?
+> How to move the 'self' pointer?
 
 ```csharp
+MyStruct: Struct1 and Struct2
 structFn(self: Struct2, U8)
     ...
 
@@ -658,23 +673,26 @@ A variant instance cannot change type during its lifetime.
 
 A way to export a handle to an instance of a private type.
 
+Purpose is to not expose internal structures that are allocated on behalf of clients/callers.
+
+Use a type-less `Ptr`.
+
 ```csharp
-// both ok
-export outFn(p: U8): Otr<MyStruct>
-export outFn(p: U8): Otr<Ptr<MyStruct>>
+export outFn(p: U8): Ptr
     s: MyStruct
         ...
+    // can't be Ptr(), that would yield Ptr<MyStruct>
     return s.Otr()  // cast/convert
+    return s.PtrNoType()    // ??
 
-export inFn(p: Otr<MyStruct>): U8
-export inFn(p: Otr<Ptr<MyStruct>>): U8
+export inFn(p: Ptr): U8
     s = p.value<MyStruct>()
     s = p.value<OtherStruct>()  // error! not the correct type
     ...
 
 // usage
-import outFn // pseudo
-import inFn // pseudo
+import outFn    // pseudo
+import inFn     // pseudo
 
 o = outFn(42)   // o => Otr?
 o.x             // error! Otr does not allow member access
@@ -706,9 +724,13 @@ if d.MyFunc(42)
     ...
 ```
 
-> Do we need (global!) event handlers for Dynamic-Not-Found events?
+Calling non-existent functions should raise an (runtime) Error.
+Accessing non-existing fields returns 0? -or- always requires a check in the same scope (like optional)?
+
+> Can fields be removed?
 
 ```csharp
-FieldNotFound(self: Dyn, Str name)
-FunctionNotFound(self: Dyn, Str name)
+d: Dyn
+d.prop1 = 42    // now you see it
+d.prop1 = _     // now you don't
 ```
