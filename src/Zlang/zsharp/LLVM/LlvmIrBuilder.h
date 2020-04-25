@@ -10,8 +10,8 @@ class LlvmIrBuilder : protected AstVisitor
 {
 public:
     LlvmIrBuilder()
-        : _irBuilder(_context), 
-        _module(nullptr), _function(nullptr)
+        : _irBuilder(_context), name_index(0),
+        _module(nullptr), _function(nullptr), _basicBlock(nullptr)
     {}
 
     llvm::Module* Build(AstModule* module);
@@ -36,12 +36,22 @@ protected:
     void VisitVariableDefinition(AstVariableDefinition* variable) override;
     void VisitVariableReference(AstVariableReference* variable) override;
 
-    llvm::Type* getType(const AstType* type);
+    llvm::Type* createType(const AstType* type);
 
     void setModule(llvm::Module* module) { _module = module; }
     llvm::Module* getModule() { return _module; }
-    void setFunction(llvm::Function* function) { _function = function; }
+    
+    void setFunction(llvm::Function* function) {
+        _function = function;
+        name_index = 0;
+    }
     llvm::Function* getFunction() { return _function; }
+
+    void setBasicBlock(llvm::BasicBlock* basicBlock) {
+        _basicBlock = basicBlock;
+        _irBuilder.SetInsertPoint(_basicBlock);
+    }
+    llvm::BasicBlock* getBasicBlock() const { return _basicBlock; }
 
 private:
     llvm::LLVMContext _context;
@@ -49,5 +59,9 @@ private:
     
     llvm::Module* _module;
     llvm::Function* _function;
+    llvm::BasicBlock* _basicBlock;
+
+    uint32_t name_index;
+    std::string getNextName();
 };
 
