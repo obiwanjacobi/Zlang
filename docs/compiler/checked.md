@@ -75,3 +75,18 @@ Check Flags:
 checkFn<T>(arr: Array<T>, index: U8)
     ...
 ```
+
+---
+
+> A generic mechanism to pre (post?) check function calls at compile time? (at runtime too?)
+
+```csharp
+MyFunction(p: U8): Bool
+    ...
+
+#check MyFunction: CheckMyFunction
+
+// is passed the arguments of MyFunctions, can raise an Error if validation fails. May be included conditionally (Debug build).
+#! CheckMyFunction(p:U8): Error?
+    ...
+```

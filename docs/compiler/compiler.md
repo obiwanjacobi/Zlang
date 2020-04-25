@@ -23,6 +23,8 @@
 
 > Compiler as linker (linker map file, late optimizations)
 
+> Compiler as (language supported) build system.
+
 > Compiler as REPL (because we support Meta)
 
 > Compiler as Language VM? (used by REPL) - zs-script

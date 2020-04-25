@@ -68,3 +68,5 @@ Operators never allocate memory!
 ---
 
 > TBD
+
+- using two single quotes for a character `'x'` is nice and symmetrical but also redundant. Is there a shorter way to specify characters: `'x`? Only really need to address this if we want to use `'` for something else...
