@@ -4,13 +4,12 @@
 #include "AstNumeric.h"
 #include "AstExpressionOperand.h"
 #include "AstExpressionOperator.h"
+#include "AstType.h"
 #include "../grammar/parser/zsharp_parserParser.h"
 #include <memory>
 
-class AstExpression : public AstNode
+class AstExpression : public AstNode, public AstTypeReferenceSite
 {
-    friend class AstExpressionBuilder;
-
 public:
     AstExpression(zsharp_parserParser::Expression_arithmeticContext* ctx)
         : AstNode(AstNodeType::Expression),
@@ -42,14 +41,13 @@ public:
     std::shared_ptr<AstExpressionOperand> getLHS() const { return _lhs; }
     std::shared_ptr<AstExpressionOperand> getRHS() const { return _rhs; }
 
-    void Accept(AstVisitor* visitor) override;
-    void VisitChildren(AstVisitor* visitor) override;
-
-protected:
     bool Add(std::shared_ptr<AstExpressionOperand> child);
     bool Add(std::shared_ptr<AstExpression> child) { return Add(std::make_shared<AstExpressionOperand>(child)); }
     bool Add(std::shared_ptr<AstNumeric> child) { return Add(std::make_shared<AstExpressionOperand>(child)); }
     void setOperator(AstExpressionOperator op) { _operator = op; }
+
+    void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
 
 private:
     std::shared_ptr<AstExpressionOperand> _lhs;

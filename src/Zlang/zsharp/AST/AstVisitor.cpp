@@ -57,6 +57,9 @@ void AstVisitor::VisitNumeric(AstNumeric* numeric) {
 void AstVisitor::VisitTypeReference(AstTypeReference* type) {
     VisitChildren(type);
 }
+void AstVisitor::VisitTypeDefinition(AstTypeDefinition* type) {
+    VisitChildren(type);
+}
 void AstVisitor::VisitVariableDefinition(AstVariableDefinition* variable) {
     VisitChildren(variable);
 }

@@ -17,6 +17,7 @@ class AstIdentifier;
 class AstModule;
 class AstNumeric;
 class AstTypeReference;
+class AstTypeDefinition;
 class AstVariableDefinition;
 class AstVariableReference;
 
@@ -43,6 +44,7 @@ public:
     virtual void VisitModule(AstModule* module);
     virtual void VisitNumeric(AstNumeric* numeric);
     virtual void VisitTypeReference(AstTypeReference* type);
+    virtual void VisitTypeDefinition(AstTypeDefinition* type);
     virtual void VisitVariableDefinition(AstVariableDefinition* variable);
     virtual void VisitVariableReference(AstVariableReference* variable);
 
