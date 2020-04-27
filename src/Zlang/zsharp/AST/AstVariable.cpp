@@ -7,7 +7,11 @@ void AstVariableDefinition::Accept(AstVisitor* visitor) {
 }
 void AstVariableDefinition::VisitChildren(AstVisitor* visitor) {
     getIdentifier()->Accept(visitor);
-    getTypeReference()->Accept(visitor);
+
+    auto typeRef = getTypeReference();
+    if (typeRef) {
+        typeRef->Accept(visitor);
+    }
 }
 
 void AstVariableReference::Accept(AstVisitor* visitor) {
