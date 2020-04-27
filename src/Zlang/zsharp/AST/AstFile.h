@@ -8,11 +8,11 @@
 class AstFile : public AstNode, public AstSymbolTableSite, public AstCodeBlockSite
 {
 public:
-    AstFile(std::string scopeName, zsharp_parserParser::FileContext* fileCtx)
+    AstFile(std::string scopeName, std::shared_ptr<AstSymbolTable> parentTable, zsharp_parserParser::FileContext* fileCtx)
         : AstNode(AstNodeType::File),
         _fileCtx(fileCtx)
     {
-        auto codeBlock = std::make_shared<AstCodeBlock>(scopeName, nullptr, nullptr);
+        auto codeBlock = std::make_shared<AstCodeBlock>(scopeName, parentTable, nullptr);
         codeBlock->setParent(this);
         SetCodeBlock(codeBlock);
     }
@@ -34,7 +34,6 @@ public:
     std::shared_ptr<AstSymbolTable> getSymbols() const override {
         return getCodeBlock()->getSymbols();
     }
-
     std::shared_ptr<AstSymbolEntry> AddSymbol(const std::string& symbolName,
         AstSymbolKind kind, std::shared_ptr<AstNode> node) override {
         return getCodeBlock()->getSymbols()->AddSymbol(symbolName, kind, node);

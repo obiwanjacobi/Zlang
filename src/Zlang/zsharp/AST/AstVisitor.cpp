@@ -65,5 +65,4 @@ void AstVisitor::VisitVariableDefinition(AstVariableDefinition* variable) {
 }
 void AstVisitor::VisitVariableReference(AstVariableReference* variable) {
     VisitChildren(variable);
-
 }

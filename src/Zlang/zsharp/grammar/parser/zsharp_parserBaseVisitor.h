@@ -235,11 +235,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitType_ref(zsharp_parserParser::Type_refContext *ctx) override {
+  virtual antlrcpp::Any visitType_ref_use(zsharp_parserParser::Type_ref_useContext *ctx) override {
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitType_any(zsharp_parserParser::Type_anyContext *ctx) override {
+  virtual antlrcpp::Any visitType_ref(zsharp_parserParser::Type_refContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -248,54 +248,6 @@ public:
   }
 
   virtual antlrcpp::Any visitKnown_types(zsharp_parserParser::Known_typesContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_U8(zsharp_parserParser::Type_U8Context *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_U16(zsharp_parserParser::Type_U16Context *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_U24(zsharp_parserParser::Type_U24Context *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_U32(zsharp_parserParser::Type_U32Context *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_I8(zsharp_parserParser::Type_I8Context *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_I16(zsharp_parserParser::Type_I16Context *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_I24(zsharp_parserParser::Type_I24Context *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_I32(zsharp_parserParser::Type_I32Context *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_F16(zsharp_parserParser::Type_F16Context *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_F32(zsharp_parserParser::Type_F32Context *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_Str(zsharp_parserParser::Type_StrContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual antlrcpp::Any visitType_Bool(zsharp_parserParser::Type_BoolContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -311,10 +263,6 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitType_param_type(zsharp_parserParser::Type_param_typeContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual antlrcpp::Any visitType_param_list(zsharp_parserParser::Type_param_listContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -323,7 +271,11 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual antlrcpp::Any visitType_param_anytype(zsharp_parserParser::Type_param_anytypeContext *ctx) override {
+  virtual antlrcpp::Any visitType_param_type_use(zsharp_parserParser::Type_param_type_useContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual antlrcpp::Any visitType_param_type(zsharp_parserParser::Type_param_typeContext *ctx) override {
     return visitChildren(ctx);
   }
 

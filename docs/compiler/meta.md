@@ -106,6 +106,10 @@ m = MyStruct
 
 #! compTime(m)
 compTime(m)     // error! `#type` attr is not available
+
+// alternate: use a #run pragma
+# run
+    compTime(m)
 ```
 
 Some `#` compiler attributes may require the code to be `#!` compile time code.

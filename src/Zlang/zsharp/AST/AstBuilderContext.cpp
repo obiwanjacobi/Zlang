@@ -1,4 +1,5 @@
 #include "AstBuilderContext.h"
+#include "AstType.h"
 
 AstCodeBlock* AstBuilderContext::GetCodeBlock() const
 {
@@ -34,4 +35,11 @@ std::shared_ptr<AstError> AstBuilderContext::AddError(antlr4::ParserRuleContext*
     error->setText(text);
     _errors.push_back(error);
     return error;
+}
+
+std::shared_ptr<AstSymbolTable> AstBuilderContext::CreateIntrinsicSymbols()
+{
+    auto symbols = std::make_shared<AstSymbolTable>();
+    AstTypeIntrinsic::AddAll(symbols);
+    return symbols;
 }

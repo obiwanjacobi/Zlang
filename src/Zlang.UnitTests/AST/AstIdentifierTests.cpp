@@ -163,9 +163,4 @@ TEST(AstIndentifierTests, ParameterAssignment)
     auto identifier = ci->getVariable()->getIdentifier();
     ASSERT_NE(identifier, nullptr);
     ASSERT_STREQ(identifier->getName().c_str(), "c");
-
-    auto st = cb->getSymbols();
-    ASSERT_NE(st->getEntry(".MyFunction.c", AstSymbolKind::Parameter), nullptr);
-    ASSERT_NE(st->getEntry(".MyFunction.c", AstSymbolKind::Variable), nullptr);
 }
-

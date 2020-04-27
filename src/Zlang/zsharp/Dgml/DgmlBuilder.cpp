@@ -164,7 +164,7 @@ std::shared_ptr<dgml::Node> DgmlBuilder::WriteSymbolTable(std::shared_ptr<AstSym
 
     for (const auto entry : symbolTable->getSymbolEntries())
     {
-        auto entryNode = createNode("Symbol", entry->getSymbolName().getQualifiedName(), "Symbol");
+        auto entryNode = createNode("Symbol", entry->getSymbolName(), "Symbol");
         auto entryLink = createLink(node->Id, entryNode->Id, ContainsCategory);
     }
 

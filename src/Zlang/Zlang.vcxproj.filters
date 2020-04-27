@@ -43,6 +43,7 @@
     <ClCompile Include="zsharp\AST\AstBuilderContext.cpp" />
     <ClCompile Include="zsharp\AST\AstVisitable.h" />
     <ClCompile Include="zsharp\AST\AstVisitor.cpp" />
+    <ClCompile Include="zsharp\Semantics\ResolveTypes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -56,6 +57,7 @@
     <None Include="zsharp\grammar\_test\parser\testparser.tokens" />
     <None Include="zsharp\LLVM\readme.md" />
     <None Include="zsharp\grammar\readme.md" />
+    <None Include="zsharp\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="zsharp\grammar\ZsharpParser.h" />
@@ -101,6 +103,7 @@
     <ClInclude Include="zsharp\AST\AstVariable.h" />
     <ClInclude Include="zsharp\AST\AstBuilderContext.h" />
     <ClInclude Include="zsharp\AST\AstVisitor.h" />
+    <ClInclude Include="zsharp\Semantics\ResolveTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="zsharp\grammar\_test\testdata.txt" />

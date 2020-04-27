@@ -179,53 +179,17 @@ public:
   virtual void enterType_alias(zsharp_parserParser::Type_aliasContext *ctx) = 0;
   virtual void exitType_alias(zsharp_parserParser::Type_aliasContext *ctx) = 0;
 
+  virtual void enterType_ref_use(zsharp_parserParser::Type_ref_useContext *ctx) = 0;
+  virtual void exitType_ref_use(zsharp_parserParser::Type_ref_useContext *ctx) = 0;
+
   virtual void enterType_ref(zsharp_parserParser::Type_refContext *ctx) = 0;
   virtual void exitType_ref(zsharp_parserParser::Type_refContext *ctx) = 0;
-
-  virtual void enterType_any(zsharp_parserParser::Type_anyContext *ctx) = 0;
-  virtual void exitType_any(zsharp_parserParser::Type_anyContext *ctx) = 0;
 
   virtual void enterType_name(zsharp_parserParser::Type_nameContext *ctx) = 0;
   virtual void exitType_name(zsharp_parserParser::Type_nameContext *ctx) = 0;
 
   virtual void enterKnown_types(zsharp_parserParser::Known_typesContext *ctx) = 0;
   virtual void exitKnown_types(zsharp_parserParser::Known_typesContext *ctx) = 0;
-
-  virtual void enterType_U8(zsharp_parserParser::Type_U8Context *ctx) = 0;
-  virtual void exitType_U8(zsharp_parserParser::Type_U8Context *ctx) = 0;
-
-  virtual void enterType_U16(zsharp_parserParser::Type_U16Context *ctx) = 0;
-  virtual void exitType_U16(zsharp_parserParser::Type_U16Context *ctx) = 0;
-
-  virtual void enterType_U24(zsharp_parserParser::Type_U24Context *ctx) = 0;
-  virtual void exitType_U24(zsharp_parserParser::Type_U24Context *ctx) = 0;
-
-  virtual void enterType_U32(zsharp_parserParser::Type_U32Context *ctx) = 0;
-  virtual void exitType_U32(zsharp_parserParser::Type_U32Context *ctx) = 0;
-
-  virtual void enterType_I8(zsharp_parserParser::Type_I8Context *ctx) = 0;
-  virtual void exitType_I8(zsharp_parserParser::Type_I8Context *ctx) = 0;
-
-  virtual void enterType_I16(zsharp_parserParser::Type_I16Context *ctx) = 0;
-  virtual void exitType_I16(zsharp_parserParser::Type_I16Context *ctx) = 0;
-
-  virtual void enterType_I24(zsharp_parserParser::Type_I24Context *ctx) = 0;
-  virtual void exitType_I24(zsharp_parserParser::Type_I24Context *ctx) = 0;
-
-  virtual void enterType_I32(zsharp_parserParser::Type_I32Context *ctx) = 0;
-  virtual void exitType_I32(zsharp_parserParser::Type_I32Context *ctx) = 0;
-
-  virtual void enterType_F16(zsharp_parserParser::Type_F16Context *ctx) = 0;
-  virtual void exitType_F16(zsharp_parserParser::Type_F16Context *ctx) = 0;
-
-  virtual void enterType_F32(zsharp_parserParser::Type_F32Context *ctx) = 0;
-  virtual void exitType_F32(zsharp_parserParser::Type_F32Context *ctx) = 0;
-
-  virtual void enterType_Str(zsharp_parserParser::Type_StrContext *ctx) = 0;
-  virtual void exitType_Str(zsharp_parserParser::Type_StrContext *ctx) = 0;
-
-  virtual void enterType_Bool(zsharp_parserParser::Type_BoolContext *ctx) = 0;
-  virtual void exitType_Bool(zsharp_parserParser::Type_BoolContext *ctx) = 0;
 
   virtual void enterType_Bit(zsharp_parserParser::Type_BitContext *ctx) = 0;
   virtual void exitType_Bit(zsharp_parserParser::Type_BitContext *ctx) = 0;
@@ -236,17 +200,17 @@ public:
   virtual void enterType_param_number(zsharp_parserParser::Type_param_numberContext *ctx) = 0;
   virtual void exitType_param_number(zsharp_parserParser::Type_param_numberContext *ctx) = 0;
 
-  virtual void enterType_param_type(zsharp_parserParser::Type_param_typeContext *ctx) = 0;
-  virtual void exitType_param_type(zsharp_parserParser::Type_param_typeContext *ctx) = 0;
-
   virtual void enterType_param_list(zsharp_parserParser::Type_param_listContext *ctx) = 0;
   virtual void exitType_param_list(zsharp_parserParser::Type_param_listContext *ctx) = 0;
 
   virtual void enterType_param_name_list(zsharp_parserParser::Type_param_name_listContext *ctx) = 0;
   virtual void exitType_param_name_list(zsharp_parserParser::Type_param_name_listContext *ctx) = 0;
 
-  virtual void enterType_param_anytype(zsharp_parserParser::Type_param_anytypeContext *ctx) = 0;
-  virtual void exitType_param_anytype(zsharp_parserParser::Type_param_anytypeContext *ctx) = 0;
+  virtual void enterType_param_type_use(zsharp_parserParser::Type_param_type_useContext *ctx) = 0;
+  virtual void exitType_param_type_use(zsharp_parserParser::Type_param_type_useContext *ctx) = 0;
+
+  virtual void enterType_param_type(zsharp_parserParser::Type_param_typeContext *ctx) = 0;
+  virtual void exitType_param_type(zsharp_parserParser::Type_param_typeContext *ctx) = 0;
 
   virtual void enterIdentifier_type(zsharp_parserParser::Identifier_typeContext *ctx) = 0;
   virtual void exitIdentifier_type(zsharp_parserParser::Identifier_typeContext *ctx) = 0;

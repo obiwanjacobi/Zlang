@@ -129,37 +129,13 @@ public:
 
     virtual antlrcpp::Any visitType_alias(zsharp_parserParser::Type_aliasContext *context) = 0;
 
-    virtual antlrcpp::Any visitType_ref(zsharp_parserParser::Type_refContext *context) = 0;
+    virtual antlrcpp::Any visitType_ref_use(zsharp_parserParser::Type_ref_useContext *context) = 0;
 
-    virtual antlrcpp::Any visitType_any(zsharp_parserParser::Type_anyContext *context) = 0;
+    virtual antlrcpp::Any visitType_ref(zsharp_parserParser::Type_refContext *context) = 0;
 
     virtual antlrcpp::Any visitType_name(zsharp_parserParser::Type_nameContext *context) = 0;
 
     virtual antlrcpp::Any visitKnown_types(zsharp_parserParser::Known_typesContext *context) = 0;
-
-    virtual antlrcpp::Any visitType_U8(zsharp_parserParser::Type_U8Context *context) = 0;
-
-    virtual antlrcpp::Any visitType_U16(zsharp_parserParser::Type_U16Context *context) = 0;
-
-    virtual antlrcpp::Any visitType_U24(zsharp_parserParser::Type_U24Context *context) = 0;
-
-    virtual antlrcpp::Any visitType_U32(zsharp_parserParser::Type_U32Context *context) = 0;
-
-    virtual antlrcpp::Any visitType_I8(zsharp_parserParser::Type_I8Context *context) = 0;
-
-    virtual antlrcpp::Any visitType_I16(zsharp_parserParser::Type_I16Context *context) = 0;
-
-    virtual antlrcpp::Any visitType_I24(zsharp_parserParser::Type_I24Context *context) = 0;
-
-    virtual antlrcpp::Any visitType_I32(zsharp_parserParser::Type_I32Context *context) = 0;
-
-    virtual antlrcpp::Any visitType_F16(zsharp_parserParser::Type_F16Context *context) = 0;
-
-    virtual antlrcpp::Any visitType_F32(zsharp_parserParser::Type_F32Context *context) = 0;
-
-    virtual antlrcpp::Any visitType_Str(zsharp_parserParser::Type_StrContext *context) = 0;
-
-    virtual antlrcpp::Any visitType_Bool(zsharp_parserParser::Type_BoolContext *context) = 0;
 
     virtual antlrcpp::Any visitType_Bit(zsharp_parserParser::Type_BitContext *context) = 0;
 
@@ -167,13 +143,13 @@ public:
 
     virtual antlrcpp::Any visitType_param_number(zsharp_parserParser::Type_param_numberContext *context) = 0;
 
-    virtual antlrcpp::Any visitType_param_type(zsharp_parserParser::Type_param_typeContext *context) = 0;
-
     virtual antlrcpp::Any visitType_param_list(zsharp_parserParser::Type_param_listContext *context) = 0;
 
     virtual antlrcpp::Any visitType_param_name_list(zsharp_parserParser::Type_param_name_listContext *context) = 0;
 
-    virtual antlrcpp::Any visitType_param_anytype(zsharp_parserParser::Type_param_anytypeContext *context) = 0;
+    virtual antlrcpp::Any visitType_param_type_use(zsharp_parserParser::Type_param_type_useContext *context) = 0;
+
+    virtual antlrcpp::Any visitType_param_type(zsharp_parserParser::Type_param_typeContext *context) = 0;
 
     virtual antlrcpp::Any visitIdentifier_type(zsharp_parserParser::Identifier_typeContext *context) = 0;
 

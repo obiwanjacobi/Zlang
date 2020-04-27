@@ -36,7 +36,7 @@ public:
     const std::vector<std::shared_ptr<AstCodeBlockItem>>& getItems() const { return _items; }
     template<class T>
     std::shared_ptr<T> getItemAt(size_t index) {
-        return std::static_pointer_cast<T>(_items.at(index));
+        return std::dynamic_pointer_cast<T>(_items.at(index));
     }
     bool AddItem(std::shared_ptr<AstCodeBlockItem> item) { 
         if (!item) return false;

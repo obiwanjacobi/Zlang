@@ -1,6 +1,8 @@
 #include "pch.h"
 
 #include "../../Zlang/zsharp/AST/AstBuilder.h"
+#include "../../Zlang/zsharp/AST/AstAssignment.h"
+#include "../../Zlang/zsharp/AST/AstVariable.h"
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
 #include <gtest/gtest.h>
@@ -131,4 +133,27 @@ TEST(AstTypeTests, FunctionParameterOptionalCustomType)
     auto identifier = type->getIdentifier();
     ASSERT_NE(identifier, nullptr);
     ASSERT_STREQ(identifier->getName().c_str(), "SomeType");
+}
+
+TEST(AstTypeTests, TopVariableType)
+{
+    const char* src =
+        "x: U8\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto cb = file->getCodeBlock();
+    auto symbols = cb->getSymbols();
+    auto var = cb->getItemAt<AstVariableDefinition>(0);
+    auto varEntry = symbols->getEntry(var->getIdentifier()->getName(), AstSymbolKind::Variable);
+    auto typeRef = var->getTypeReference();
+    auto typeEntry = symbols->getEntry(typeRef->getIdentifier()->getName(), AstSymbolKind::Type);
+    auto typeDef = typeRef->getTypeDefinition();
 }

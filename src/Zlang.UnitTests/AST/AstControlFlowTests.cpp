@@ -207,7 +207,7 @@ TEST(AstControlFlowTests, ReturnValue)
     ASSERT_NE(file, nullptr);
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlock();
-    auto br = cb->getItemAt<AstBranchConditional>(0);
+    auto br = cb->getItemAt<AstBranchExpression>(0);
     ASSERT_EQ(br->getBranchType(), AstBranchType::ExitFunction);
     ASSERT_NE(br->getExpression(), nullptr);
     

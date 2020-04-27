@@ -19,6 +19,7 @@ llvm::Type* LlvmIrBuilder::createType(const AstType* type)
     if (name == "U16") {
         return Builder.getInt16Ty();
     }
+    return nullptr;
 }
 
 std::string LlvmIrBuilder::getNextName()

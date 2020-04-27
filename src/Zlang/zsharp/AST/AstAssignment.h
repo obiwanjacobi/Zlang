@@ -23,12 +23,11 @@ public:
     bool SetVariable(std::shared_ptr<AstVariable> variable) {
         if (!_variable && variable) {
             _variable = variable;
-            _variable->setParent(variable.get());
+            _variable->setParent(this);
             return true;
         }
         return false;
     }
-
 
     void Accept(AstVisitor* visitor) override;
     void VisitChildren(AstVisitor* visitor) override;

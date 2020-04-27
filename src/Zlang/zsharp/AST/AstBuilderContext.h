@@ -13,7 +13,9 @@ class AstBuilderContext
 public:
     AstBuilderContext(int indent)
         : _indent(indent)
-    {}
+    {
+        _intrinsicSymbols = CreateIntrinsicSymbols();
+    }
 
     template <class T>
     void setCurrent(std::shared_ptr<T> current) { setCurrent(current.get()); }
@@ -73,8 +75,13 @@ public:
     bool hasErrors() const { return _errors.size() > 0; }
     const std::vector<std::shared_ptr<AstError>>& getErrors() const { return _errors; }
 
+    std::shared_ptr<AstSymbolTable> getSymbols() const { return _intrinsicSymbols; }
+
 private:
     int _indent;
     std::deque<AstNode*> _current;
     std::vector<std::shared_ptr<AstError>> _errors;
+    std::shared_ptr<AstSymbolTable> _intrinsicSymbols;
+
+    static std::shared_ptr<AstSymbolTable> CreateIntrinsicSymbols();
 };

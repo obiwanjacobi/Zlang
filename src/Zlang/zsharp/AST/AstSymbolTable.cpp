@@ -2,56 +2,50 @@
 #include "AstFunction.h"
 #include "AstVariable.h"
 
-const std::string AstSymbolName::getQualifiedName() const
-{
-    bool hasName = _name.size() > 0;
-    bool hasNamespace = _namespace.size() > 0;
-
-    if (hasNamespace) {
-        if (!hasName) {
-            return _namespace;
-        }
-        return _namespace + "." + _name;
-    }
-    return _name;
-}
-
 void AstSymbolEntry::AddNode(std::shared_ptr<AstNode> node)
 {
+    guard(node);
+
     if (_kind == AstSymbolKind::Function &&
         dynamic_cast<AstFunction*>(node.get()))
     {
+        guard(!_definition);
         _definition = node;
-    } 
+    }
     else if (_kind == AstSymbolKind::Parameter &&
         dynamic_cast<AstFunctionParameter*>(node.get()))
     {
+        guard(!_definition);
         _definition = node;
     }
     else if (_kind == AstSymbolKind::Variable &&
         dynamic_cast<AstVariableDefinition*>(node.get()))
     {
+        guard(!_definition);
         _definition = node;
     }
     else if(_kind == AstSymbolKind::Type && 
-        !dynamic_cast<AstTypeReference*>(node.get()) && 
-        dynamic_cast<AstType*>(node.get()))
+        dynamic_cast<AstTypeDefinition*>(node.get()))
     {
+        guard(!_definition);
         _definition = node;
     }
     //else if (_kind == AstSymbolKind::Struct &&
     //    dynamic_cast<AstStruct*>(node.get()))
     //{
+    //     guard(!_definition);
     //    _definition = node;
     //}
     //else if (_kind == AstSymbolKind::Enum &&
     //    dynamic_cast<AstEnum*>(node.get()))
     //{
+    //     guard(!_definition);
     //    _definition = node;
     //}
     //else if (_kind == AstSymbolKind::Field &&
     //    dynamic_cast<AstField*>(node.get()))
     //{
+    //     guard(!_definition);
     //    _definition = node;
     //}
     else
@@ -65,23 +59,31 @@ std::shared_ptr<AstSymbolEntry> AstSymbolTable::AddSymbol(
 {
     auto entry = getEntry(symbolName, kind);
     if (!entry) {
-        entry = std::make_shared<AstSymbolEntry>(getQualifiedName(), symbolName, kind);
+        entry = std::make_shared<AstSymbolEntry>(symbolName, kind);
+        _table[entry->getKey()] = entry;
     }
-    entry->AddNode(node);
-
-    _table[entry->getKey()] = entry;
+    
+    if (node) {
+        entry->AddNode(node);
+    }
     return entry;
 }
 
-std::shared_ptr<AstSymbolEntry> AstSymbolTable::getEntry(const std::string& qualifiedNameOrAlias, AstSymbolKind kind)
+std::shared_ptr<AstSymbolEntry> AstSymbolTable::getEntry(const std::string& name, AstSymbolKind kind)
 {
-    if (qualifiedNameOrAlias.find_first_of('.') == std::string::npos) {
-        auto key = getQualifiedName() + "." + qualifiedNameOrAlias + std::to_string((int)kind);
-        return _table[key];
+    if (name.find_first_of('.') != std::string::npos) {
+        guard(false && "Parsing dot-names is not implemented yet.");
     }
 
-    auto key = qualifiedNameOrAlias + std::to_string((int)kind);
-    return _table[key];
+    auto key = AstSymbolEntry::makeKey(name, kind);
+    auto keyEntry = _table.find(key);
+    if (keyEntry == _table.end() && _parent) {
+        return _parent->getEntry(name, kind);
+    }
+    if (keyEntry != _table.end()) {
+        return keyEntry->second;
+    }
+    return nullptr;
 }
 
 const std::vector<std::shared_ptr<AstSymbolEntry>> AstSymbolTable::getSymbolEntries() const
@@ -93,10 +95,10 @@ const std::vector<std::shared_ptr<AstSymbolEntry>> AstSymbolTable::getSymbolEntr
     return entries;
 }
 
-std::string AstSymbolTable::getQualifiedName() const
+std::string AstSymbolTable::getNamespace() const
 {
     if (_parent) {
-        return _parent->getQualifiedName() + "." + _namespace;
+        return _parent->getNamespace() + "." + _name;
     }
-    return _namespace;
+    return _name;
 }

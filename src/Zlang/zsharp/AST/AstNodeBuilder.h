@@ -7,13 +7,13 @@
 #include "../grammar/parser/zsharp_parserBaseVisitor.h"
 #include <antlr4-runtime.h>
 
-class AstNodeBuilder : public zsharp_parserBaseVisitor, private AstBuilderContext
+class AstNodeBuilder : public zsharp_parserBaseVisitor
 {
     typedef zsharp_parserBaseVisitor base;
 
 public:
-    AstNodeBuilder(std::string ns, int defaultIndentation = 0)
-        : AstBuilderContext(defaultIndentation), _namespace(ns)
+    AstNodeBuilder(AstBuilderContext* context, std::string ns)
+        : _builderCtx(context) , _namespace(ns)
     {}
 
     antlrcpp::Any aggregateResult(antlrcpp::Any aggregate, const antlrcpp::Any& nextResult) override;
@@ -51,15 +51,16 @@ public:
     antlrcpp::Any visitExpression_value(zsharp_parserParser::Expression_valueContext* ctx) override;
     antlrcpp::Any visitExpression_logic(zsharp_parserParser::Expression_logicContext* ctx) override;
 
-    antlrcpp::Any visitType_ref(zsharp_parserParser::Type_refContext* ctx) override;
+    antlrcpp::Any visitType_ref_use(zsharp_parserParser::Type_ref_useContext* ctx) override;
 
 
-    bool hasErrors() const { return AstBuilderContext::hasErrors(); }
-    const std::vector<std::shared_ptr<AstError>>& getErrors() const { return AstBuilderContext::getErrors(); }
+    bool hasErrors() const { return _builderCtx->hasErrors(); }
+    const std::vector<std::shared_ptr<AstError>>& getErrors() const { return _builderCtx->getErrors(); }
 
 protected:
     antlrcpp::Any visitChildrenExcept(antlr4::ParserRuleContext* node, const antlr4::ParserRuleContext* except);
 
 private:
     std::string _namespace;
+    AstBuilderContext* _builderCtx;
 };

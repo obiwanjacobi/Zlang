@@ -38,29 +38,7 @@ private:
 };
 
 
-class AstTypeReference : public AstType
-{
-public:
-    static std::shared_ptr<AstTypeReference> Create(zsharp_parserParser::Type_refContext* ctx);
-
-    // Do not use (needed for std::make_shared)
-    AstTypeReference(zsharp_parserParser::Type_refContext* ctx)
-        : AstType(ctx->type_any()->type_name()),
-        _isOptional(ctx->type_any()->QUESTION() != nullptr),
-        _isError(ctx->type_any()->ERROR() != nullptr)
-    {}
-
-    bool getIsOptional() const { return _isOptional; }
-    bool getIsError() const { return _isError; }
-
-    void Accept(AstVisitor* visitor) override;
-    void VisitChildren(AstVisitor* visitor) override;
-
-private:
-    bool _isOptional;
-    bool _isError;
-};
-
+class AstTypeReference;
 
 class AstTypeDefinition : public AstType
 {
@@ -69,10 +47,11 @@ public:
 
     // Do not use (needed for std::make_shared)
     AstTypeDefinition(zsharp_parserParser::Type_defContext* ctx)
-        : AstType(ctx->type_ref()->type_any()->type_name()),
+        : AstType(ctx->type_ref_use()->type_ref()->type_name()),
         _context(ctx)
     {}
 
+    // can be null
     std::shared_ptr<AstTypeReference> getBaseType() const { return _baseType; }
 
     void Accept(AstVisitor* visitor) override;
@@ -89,12 +68,50 @@ private:
 };
 
 
+class AstTypeReference : public AstType
+{
+public:
+    static std::shared_ptr<AstTypeReference> Create(zsharp_parserParser::Type_ref_useContext* ctx);
+
+    // Do not use (needed for std::make_shared)
+    AstTypeReference(zsharp_parserParser::Type_ref_useContext* ctx)
+        : AstType(ctx->type_ref()->type_name()),
+        _isOptional(ctx->type_ref()->QUESTION() != nullptr),
+        _isError(ctx->type_ref()->ERROR() != nullptr)
+    {}
+
+    bool getIsOptional() const { return _isOptional; }
+    bool getIsError() const { return _isError; }
+
+    bool setTypeDefinition(std::shared_ptr<AstTypeDefinition> typeDefinition) {
+        if (!_typeDefinition && typeDefinition) {
+            _typeDefinition = typeDefinition;
+            return true;
+        }
+        return false;
+    }
+    std::shared_ptr<AstTypeDefinition> getTypeDefinition() const { return _typeDefinition; }
+
+    void Accept(AstVisitor* visitor) override;
+    void VisitChildren(AstVisitor* visitor) override;
+
+private:
+    std::shared_ptr<AstTypeDefinition> _typeDefinition;
+    bool _isOptional;
+    bool _isError;
+};
+
+class AstSymbolTable;
+
 class AstTypeIntrinsic : public AstTypeDefinition
 {
 public:
+    // Do not use (needed for std::make_shared)
     AstTypeIntrinsic(std::shared_ptr<AstIdentifier> identifier)
         : AstTypeDefinition(identifier)
     {}
+
+    static void AddAll(std::shared_ptr<AstSymbolTable> symbols);
 };
 
 

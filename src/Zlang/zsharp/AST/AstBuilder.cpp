@@ -21,12 +21,10 @@ void AstBuilder::Build(zsharp_parserParser::FileContext* fileCtx)
     module->AddFile(file);
 }
 
-std::shared_ptr<AstFile> AstBuilder::BuildFile(std::string moduleName, zsharp_parserParser::FileContext* fileCtx)
+std::shared_ptr<AstFile> AstBuilder::BuildFile(const std::string& moduleName, zsharp_parserParser::FileContext* fileCtx)
 {
-    AstNodeBuilder builder(moduleName);
+    AstNodeBuilder builder(this, moduleName);
     auto file = builder.visitFile(fileCtx);
     
-    AddErrors(builder.getErrors());
-
     return file.as<std::shared_ptr<AstFile>>();
 }

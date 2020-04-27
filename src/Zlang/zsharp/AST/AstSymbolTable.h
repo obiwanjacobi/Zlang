@@ -26,26 +26,14 @@ enum class AstSymbolLocality
     Imported,
 };
 
-class AstSymbolName
-{
-public:
-    AstSymbolName(const std::string& ns, const std::string& name)
-        : _namespace(ns), _name(name)
-    {}
-
-    const std::string getQualifiedName() const;
-
-private:
-    std::string _namespace;
-    std::string _name;
-    std::vector<std::string> _aliases;
-};
 
 class AstSymbolEntry
 {
+    friend class AstSymbolTable;
+
 public:
-    AstSymbolEntry(std::string ns, std::string symbolName, AstSymbolKind kind)
-        : _kind(kind), _name(ns, symbolName), _locality(AstSymbolLocality::Private)
+    AstSymbolEntry(std::string symbolName, AstSymbolKind kind)
+        : _kind(kind), _name(symbolName), _locality(AstSymbolLocality::Private)
     {}
 
     AstSymbolKind getSymbolKind() const { return _kind; }
@@ -53,8 +41,8 @@ public:
     AstSymbolLocality getSymbolLocality() const { return _locality; }
     void setSymbolLocality(AstSymbolLocality loc) { _locality = loc; }
 
-    const AstSymbolName& getSymbolName() const { return _name; }
-    const std::string getKey() const { return _name.getQualifiedName() + std::to_string((int)_kind); }
+    const std::string& getSymbolName() const { return _name; }
+    const std::string getKey() const { return makeKey(_name, _kind); }
 
     void AddNode(std::shared_ptr<AstNode> node);
     template<class T> std::shared_ptr<T> getDefinition() const {
@@ -66,37 +54,43 @@ public:
 
 private:
     AstSymbolKind _kind;
-    AstSymbolName _name;
+    std::string _name;
     AstSymbolLocality _locality;
     std::shared_ptr<AstNode> _definition;
     std::vector<std::shared_ptr<AstNode>> _references;
+
+    static std::string makeKey(const std::string& name, AstSymbolKind kind) {
+        return name + std::to_string((int)kind);
+    }
 };
+
 
 class AstSymbolTable
 {
 public:
-    AstSymbolTable(std::string basename)
-        : _namespace(basename)
+    AstSymbolTable()
+    {}
+    AstSymbolTable(const std::string& name)
+        : _name(name)
     {}
     AstSymbolTable(std::shared_ptr<AstSymbolTable> parentTable)
         : _parent(parentTable)
     {}
-    AstSymbolTable(std::string basename, std::shared_ptr<AstSymbolTable> parentTable)
-        : _parent(parentTable), _namespace(basename)
+    AstSymbolTable(const std::string& name, std::shared_ptr<AstSymbolTable> parentTable)
+        : _parent(parentTable), _name(name)
     {}
 
     std::shared_ptr<AstSymbolEntry> AddSymbol(
         const std::string& symbolName, AstSymbolKind kind, std::shared_ptr<AstNode> node);
-    std::shared_ptr<AstSymbolEntry> getEntry(const std::string& qualifiedNameOrAlias, AstSymbolKind kind);
-
+    std::shared_ptr<AstSymbolEntry> getEntry(const std::string& name, AstSymbolKind kind);
     std::shared_ptr<AstSymbolTable> getParentTable() const { return _parent; }
     const std::vector<std::shared_ptr<AstSymbolEntry>> getSymbolEntries() const;
 
-    std::string getQualifiedName() const;
-    std::string getNamespace() const { return _namespace; }
+    std::string getName() const { return _name; }
+    std::string getNamespace() const;
 
 private:
-    std::string _namespace;
+    std::string _name;
     std::shared_ptr<AstSymbolTable> _parent;
     std::map<const std::string, std::shared_ptr<AstSymbolEntry>> _table;
 };

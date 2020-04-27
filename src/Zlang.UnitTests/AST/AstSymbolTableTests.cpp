@@ -1,11 +1,22 @@
 #include "pch.h"
 
 #include "../../Zlang/zsharp/AST/AstBuilder.h"
-#include "../../Zlang/zsharp/AST/AstVariable.h"
 #include "../../Zlang/zsharp/AST/AstAssignment.h"
+#include "../../Zlang/zsharp/AST/AstVariable.h"
+#include "../../Zlang/zsharp/AST/AstSymbolTable.h"
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
 #include <gtest/gtest.h>
+
+
+bool hasEmptyEntry(std::shared_ptr<AstSymbolTable> symbolTable)
+{
+    for (const auto entry : symbolTable->getSymbolEntries())
+    {
+        if (!entry) return true;
+    }
+    return false;
+}
 
 TEST(AstSymbolTableTests, TopVariableDefInit)
 {
@@ -22,7 +33,9 @@ TEST(AstSymbolTableTests, TopVariableDefInit)
     ASSERT_FALSE(uut.hasErrors());
 
     auto symbols = file->getSymbols();
-    auto entry = symbols->getEntry("UnitTest.c", AstSymbolKind::Variable);
+    ASSERT_FALSE(hasEmptyEntry(symbols));
+    
+    auto entry = symbols->getEntry("c", AstSymbolKind::Variable);
     ASSERT_NE(entry, nullptr);
     ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Variable);
     auto def = entry->getDefinition<AstVariableDefinition>();
@@ -47,7 +60,9 @@ TEST(AstSymbolTableTests, TopVariableName)
     ASSERT_FALSE(uut.hasErrors());
 
     auto symbols = file->getSymbols();
-    auto entry = symbols->getEntry("UnitTest.c", AstSymbolKind::Variable);
+    ASSERT_FALSE(hasEmptyEntry(symbols));
+
+    auto entry = symbols->getEntry("c", AstSymbolKind::Variable);
     ASSERT_NE(entry, nullptr);
     ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Variable);
 }
@@ -68,7 +83,9 @@ TEST(AstSymbolTableTests, FunctionName)
     ASSERT_FALSE(uut.hasErrors());
 
     auto symbols = file->getSymbols();
-    auto entry = symbols->getEntry("UnitTest.MyFunction", AstSymbolKind::Function);
+    ASSERT_FALSE(hasEmptyEntry(symbols));
+
+    auto entry = symbols->getEntry("MyFunction", AstSymbolKind::Function);
     ASSERT_NE(entry, nullptr);
     ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Function);
 }
@@ -88,11 +105,15 @@ TEST(AstSymbolTableTests, FunctionParameterName)
     auto file = uut.BuildFile("UnitTest", fileCtx);
     ASSERT_FALSE(uut.hasErrors());
 
+    auto symbols = file->getSymbols();
+    ASSERT_FALSE(hasEmptyEntry(symbols));
+
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlock();
-    auto symbols = cb->getSymbols();
-    auto entry = symbols->getEntry("UnitTest.MyFunction.c", AstSymbolKind::Parameter);
+    symbols = cb->getSymbols();
+    ASSERT_FALSE(hasEmptyEntry(symbols));
 
+    auto entry = symbols->getEntry("c", AstSymbolKind::Parameter);
     ASSERT_NE(entry, nullptr);
     ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Parameter);
 }
@@ -112,11 +133,41 @@ TEST(AstSymbolTableTests, FunctionParameterTypedSelf)
     auto file = uut.BuildFile("", fileCtx);
     ASSERT_FALSE(uut.hasErrors());
 
+    auto symbols = file->getSymbols();
+    ASSERT_FALSE(hasEmptyEntry(symbols));
+
     auto fn = file->getFunctions().at(0);
     auto param = fn->getParameters().at(0);
     auto type = param->getTypeReference();
     ASSERT_NE(type, nullptr);
     ASSERT_STREQ(type->getIdentifier()->getName().c_str(), "U8");
+}
+
+TEST(AstSymbolTableTests, ParameterAssignment)
+{
+    const char* src =
+        "MyFunction(c: U8)\n"
+        "    c = 0\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    auto symbols = file->getSymbols();
+    ASSERT_FALSE(hasEmptyEntry(symbols));
+
+    auto fn = file->getFunctions().at(0);
+    auto cb = fn->getCodeBlock();
+
+    symbols = cb->getSymbols();
+    ASSERT_FALSE(hasEmptyEntry(symbols));
+    ASSERT_NE(symbols->getEntry("c", AstSymbolKind::Parameter), nullptr);
+    ASSERT_NE(symbols->getEntry("c", AstSymbolKind::Variable), nullptr);
 }
 
 TEST(AstSymbolTableTests, LocalVariableName)
@@ -134,11 +185,15 @@ TEST(AstSymbolTableTests, LocalVariableName)
     auto file = uut.BuildFile("UnitTest", fileCtx);
     ASSERT_FALSE(uut.hasErrors());
 
+    auto symbols = file->getSymbols();
+    ASSERT_FALSE(hasEmptyEntry(symbols));
+
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlock();
-    auto symbols = cb->getSymbols();
-    auto entry = symbols->getEntry("UnitTest.MyFunction.c", AstSymbolKind::Variable);
+    symbols = cb->getSymbols();
+    ASSERT_FALSE(hasEmptyEntry(symbols));
 
+    auto entry = symbols->getEntry("c", AstSymbolKind::Variable);
     ASSERT_NE(entry, nullptr);
     ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Variable);
 }
@@ -159,10 +214,15 @@ TEST(AstSymbolTableTests, LocalVariableDefAndUse)
     auto file = uut.BuildFile("UnitTest", fileCtx);
     ASSERT_FALSE(uut.hasErrors());
 
+    auto symbols = file->getSymbols();
+    ASSERT_FALSE(hasEmptyEntry(symbols));
+
     auto fn = file->getFunctions().at(0);
     auto cb = fn->getCodeBlock();
-    auto symbols = cb->getSymbols();
-    auto entry = symbols->getEntry("UnitTest.MyFunction.c", AstSymbolKind::Variable);
+    symbols = cb->getSymbols();
+    ASSERT_FALSE(hasEmptyEntry(symbols));
+
+    auto entry = symbols->getEntry("c", AstSymbolKind::Variable);
     ASSERT_NE(entry, nullptr);
     ASSERT_EQ(entry->getSymbolKind(), AstSymbolKind::Variable);
 

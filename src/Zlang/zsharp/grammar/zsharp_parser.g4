@@ -62,11 +62,11 @@ expression_bool: literal_bool | variable_ref;
 
 // functions
 function_call: indent identifier_func PARENopen function_parameter_uselist? PARENclose newline;
-function_def: identifier_func PARENopen function_parameter_list? PARENclose type_ref? newline codeblock;
+function_def: identifier_func PARENopen function_parameter_list? PARENclose type_ref_use? newline codeblock;
 function_def_export: EXPORT SP function_def;
 function_parameter_list: (function_parameter | function_parameter_self) (COMMA SP function_parameter)*;
-function_parameter: identifier_param type_ref;
-function_parameter_self: SELF type_ref?;
+function_parameter: identifier_param type_ref_use;
+function_parameter_self: SELF type_ref_use?;
 function_parameter_uselist: function_param_use (COMMA SP function_param_use)*;
 function_param_use: expression_value (COMMA SP expression_value)*;
 
@@ -74,15 +74,15 @@ function_param_use: expression_value (COMMA SP expression_value)*;
 variable_ref: identifier_var;
 variable_def_top: (variable_def_typed | variable_def_typed_init | variable_assign_auto) newline;
 variable_def: indent (variable_def_typed | variable_def_typed_init | variable_assign_auto) newline;
-variable_def_typed: identifier_var type_ref;
-variable_def_typed_init: identifier_var type_ref SP EQ_ASSIGN SP expression_value;
+variable_def_typed: identifier_var type_ref_use;
+variable_def_typed_init: identifier_var type_ref_use SP EQ_ASSIGN SP expression_value;
 variable_assign_auto: identifier_var SP EQ_ASSIGN SP expression_value;
 variable_assign: indent variable_assign_auto;
 
 // structs
-struct_def: identifier_type type_param_list? (type_ref)? (newline struct_field_def_list);
+struct_def: identifier_type type_param_list? (type_ref_use)? (newline struct_field_def_list);
 struct_field_def_list: struct_field_def+;
-struct_field_def: indent identifier_field type_ref newline;
+struct_field_def: indent identifier_field type_ref_use newline;
 
 // enums
 enum_def: identifier_type (COLON SP enum_base_type)? newline (enum_option_def_list | enum_option_def_listline);
@@ -90,46 +90,34 @@ enum_option_def_listline: indent (identifier_enumoption COMMA SP)* identifier_en
 enum_option_def_list: (enum_option_def COMMA newline)* enum_option_def COMMA? newline;
 enum_option_def: indent identifier_enumoption enum_option_value?;
 enum_option_value: SP EQ_ASSIGN SP comptime_expression_value;
-enum_base_type:       
-      type_Bit | type_Str
-    | type_F16 | type_F32 
-    | type_I16 | type_I24 | type_I32 | type_I8  
-    | type_U16 | type_U24 | type_U32 | type_U8;
+enum_base_type: type_Bit 
+    | STR
+    | F16 | F32 
+    | I16 | I24 | I32 | I8
+    | U16 | U24 | U32 | U8;
 
 // types
-type_def: identifier_type type_param_list? type_ref SP UNUSED newline;
-type_alias: identifier_type type_param_list? SP EQ_ASSIGN SP type_any newline;
-type_ref: COLON SP type_any;
-type_any: type_name ERROR? QUESTION?;
+type_def: identifier_type type_param_list? type_ref_use SP UNUSED newline;
+type_alias: identifier_type type_param_list? SP EQ_ASSIGN SP type_ref newline;
+type_ref_use: COLON SP type_ref;
+type_ref: type_name ERROR? QUESTION?;
 
 type_name: known_types | identifier_type type_param_list?;
-known_types: 
-      type_Bit | type_Ptr
-    | type_Bool | type_Str
-    | type_F16 | type_F32 
-    | type_I16 | type_I24 | type_I32 | type_I8  
-    | type_U16 | type_U24 | type_U32 | type_U8;
+known_types:
+    type_Bit | type_Ptr
+    | BOOL | STR
+    | F16 | F32 
+    | I16 | I24 | I32 | I8  
+    | U16 | U24 | U32 | U8;
 
-type_U8: U8;
-type_U16: U16;
-type_U24: U24;
-type_U32: U32;
-type_I8: I8;
-type_I16: I16;
-type_I24: I24;
-type_I32: I32;
-type_F16: F16;
-type_F32: F32;
-type_Str: STR;
-type_Bool: BOOL;
 type_Bit: BIT type_param_number;
-type_Ptr: PTR type_param_type;
+type_Ptr: PTR type_param_type_use;
 
 type_param_number: SMALL_ANGLEopen number GREAT_ANGLEclose;
-type_param_type: SMALL_ANGLEopen type_any GREAT_ANGLEclose;
 type_param_list: SMALL_ANGLEopen type_param_name_list GREAT_ANGLEclose;
-type_param_name_list: type_param_anytype (COMMA SP type_param_anytype)*;
-type_param_anytype: type_name | number;
+type_param_name_list: type_param_type (COMMA SP type_param_type)*;
+type_param_type_use: SMALL_ANGLEopen type_param_type GREAT_ANGLEclose;
+type_param_type: type_name | number;
 
 // identifiers
 identifier_type: IDENTIFIERupper;

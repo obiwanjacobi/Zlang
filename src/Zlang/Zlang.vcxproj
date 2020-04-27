@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="zsharp\Semantics\ResolveTypes.cpp" />
     <ClCompile Include="zsharp\AST\AstVisitable.h" />
     <ClCompile Include="zsharp\AST\AstBuilderContext.cpp" />
     <ClCompile Include="zsharp\AST\AstVariable.cpp" />
@@ -74,8 +75,10 @@
     <None Include="zsharp\grammar\_test\testlexer.g4" />
     <None Include="zsharp\grammar\_test\testparser.g4" />
     <None Include="zsharp\LLVM\readme.md" />
+    <None Include="zsharp\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="zsharp\Semantics\ResolveTypes.h" />
     <ClInclude Include="zsharp\AST\AstVisitor.h" />
     <ClInclude Include="zsharp\AST\AstBuilderContext.h" />
     <ClInclude Include="zsharp\AST\AstVariable.h" />
