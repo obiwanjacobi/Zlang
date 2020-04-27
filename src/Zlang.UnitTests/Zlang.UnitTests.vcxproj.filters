@@ -23,6 +23,7 @@
     <ClCompile Include="Dgml\DgmlBuilderTests.cpp" />
     <ClCompile Include="AST\AstTypeTests.cpp" />
     <ClCompile Include="AST\AstVisitorTests.cpp" />
+    <ClCompile Include="Semantics\ResolveTypesTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

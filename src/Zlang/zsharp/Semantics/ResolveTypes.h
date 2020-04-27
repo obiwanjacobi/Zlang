@@ -12,6 +12,9 @@ public:
     void Apply(AstModule* module) {
         VisitModule(module);
     }
+    void Apply(AstFile* file) {
+        VisitFile(file);
+    }
 
     void VisitTypeReference(AstTypeReference* type) override;
     void VisitCodeBlock(AstCodeBlock* codeBlock) override;

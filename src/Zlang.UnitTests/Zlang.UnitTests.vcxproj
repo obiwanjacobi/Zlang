@@ -61,6 +61,7 @@
     <ClCompile Include="grammar\StructSmokeTests.cpp" />
     <ClCompile Include="grammar\TypesSmokeTests.cpp" />
     <ClCompile Include="grammar\VariablesSmokeTests.cpp" />
+    <ClCompile Include="Semantics\ResolveTypesTests.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -111,7 +112,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstBuilderContext.obj;AstFile.obj;AstFunction.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;AstNumeric.obj;AstNumericBuilder.obj;AstExpression.obj;AstExpressionOperand.obj;AstExpressionBuilder.obj;AstBranch.obj;AstCodeBlock.obj;AstAssignment.obj;AstError.obj;AstSymbolTable.obj;AstIdentifier.obj;AstExtensions.obj;AstType.obj;AstVariable.obj;AstVisitor.obj;Dgml.obj;DgmlBuilder.obj;Utils.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>antlr4-runtime.lib;zsharp_parserLexer.obj;zsharp_parserParser.obj;ZsharpParser.obj;AstBuilder.obj;AstBuilderContext.obj;AstFile.obj;AstFunction.obj;AstModule.obj;AstNode.obj;AstNodeBuilder.obj;AstNumeric.obj;AstNumericBuilder.obj;AstExpression.obj;AstExpressionOperand.obj;AstExpressionBuilder.obj;AstBranch.obj;AstCodeBlock.obj;AstAssignment.obj;AstError.obj;AstSymbolTable.obj;AstIdentifier.obj;AstExtensions.obj;AstType.obj;AstVariable.obj;AstVisitor.obj;ResolveTypes.obj;Dgml.obj;DgmlBuilder.obj;Utils.obj;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
     </Link>
   </ItemDefinitionGroup>

@@ -5,8 +5,8 @@ void AstFile::Accept(AstVisitor* visitor) {
     visitor->VisitFile(this);
 }
 void AstFile::VisitChildren(AstVisitor* visitor) {
-    for (auto fn : _functions) {
-        fn->Accept(visitor);
+    for (auto ci : getCodeBlock()->getItems()) {
+        ci->Accept(visitor);
     }
 }
 

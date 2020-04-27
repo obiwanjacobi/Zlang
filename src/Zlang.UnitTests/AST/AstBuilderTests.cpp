@@ -19,7 +19,7 @@ TEST(AstBuilderTests, BuildFile_empty)
     AstBuilder uut;
     auto file = uut.BuildFile("", fileCtx);
     ASSERT_FALSE(uut.hasErrors());
-
+    
     ASSERT_NE(file, nullptr);
     ASSERT_EQ(file->getNodeType(), AstNodeType::File);
 }

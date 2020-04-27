@@ -13,14 +13,18 @@ void ResolveTypes::VisitTypeReference(AstTypeReference* type)
     if (entry) {
         type->setTypeDefinition(entry->getDefinition<AstTypeDefinition>());
     }
+
+    VisitChildren(type);
 }
 
 void ResolveTypes::VisitCodeBlock(AstCodeBlock* codeBlock)
 {
     _symbolTable = codeBlock->getSymbols();
+    VisitChildren(codeBlock);
 }
 
 void ResolveTypes::VisitFile(AstFile* file)
 {
     _symbolTable = file->getSymbols();
+    VisitChildren(file);
 }

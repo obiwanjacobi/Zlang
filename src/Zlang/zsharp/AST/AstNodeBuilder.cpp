@@ -71,7 +71,7 @@ antlrcpp::Any AstNodeBuilder::visitStatement_export(zsharp_parserParser::Stateme
     auto file = _builderCtx->GetCurrent<AstFile>();
     file->AddExport(ctx);
 
-    auto entry = file->AddSymbol(ctx->identifier_func()->getText(), AstSymbolKind::Function, nullptr);
+    auto entry = file->AddSymbol(ctx->identifier_func()->getText(), AstSymbolKind::NotSet, nullptr);
     entry->setSymbolLocality(AstSymbolLocality::Exported);
 
     return nullptr;

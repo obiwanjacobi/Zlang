@@ -152,8 +152,13 @@ TEST(AstTypeTests, TopVariableType)
     auto cb = file->getCodeBlock();
     auto symbols = cb->getSymbols();
     auto var = cb->getItemAt<AstVariableDefinition>(0);
+    ASSERT_NE(var, nullptr);
     auto varEntry = symbols->getEntry(var->getIdentifier()->getName(), AstSymbolKind::Variable);
+    ASSERT_NE(varEntry, nullptr);
+    ASSERT_NE(varEntry->getDefinition<AstVariableDefinition>(), nullptr);
     auto typeRef = var->getTypeReference();
+    ASSERT_NE(typeRef, nullptr);
     auto typeEntry = symbols->getEntry(typeRef->getIdentifier()->getName(), AstSymbolKind::Type);
-    auto typeDef = typeRef->getTypeDefinition();
+    ASSERT_NE(typeEntry, nullptr);
+    ASSERT_NE(typeEntry->getDefinition<AstTypeDefinition>(), nullptr);
 }
