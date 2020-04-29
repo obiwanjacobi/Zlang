@@ -4,7 +4,7 @@
 
 // --- Arithmetic ---
 
-TEST(ExpressionSmokeTests, ArithemeticLiterals) {
+TEST(SmokeExpressionTests, ArithemeticLiterals) {
     const char* src =
         "x = 2 + 3\n"
         ;
@@ -12,7 +12,7 @@ TEST(ExpressionSmokeTests, ArithemeticLiterals) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(ExpressionSmokeTests, ArithemeticLiteralVariable) {
+TEST(SmokeExpressionTests, ArithemeticLiteralVariable) {
     const char* src =
         "x = 2 + a\n"
         ;
@@ -20,7 +20,7 @@ TEST(ExpressionSmokeTests, ArithemeticLiteralVariable) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(ExpressionSmokeTests, ArithemeticVariables) {
+TEST(SmokeExpressionTests, ArithemeticVariables) {
     const char* src =
         "x = a + b\n"
         ;
@@ -28,7 +28,7 @@ TEST(ExpressionSmokeTests, ArithemeticVariables) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(ExpressionSmokeTests, ArithemeticLiteralVariable2) {
+TEST(SmokeExpressionTests, ArithemeticLiteralVariable2) {
     const char* src =
         "x = 2 + a / 2\n"
         ;
@@ -38,7 +38,7 @@ TEST(ExpressionSmokeTests, ArithemeticLiteralVariable2) {
 
 // --- Comparison ---
 
-TEST(ExpressionSmokeTests, ComparisonLiteralVariable) {
+TEST(SmokeExpressionTests, ComparisonLiteralVariable) {
     const char* src =
         "b = 2 < a\n"
         ;
@@ -46,7 +46,7 @@ TEST(ExpressionSmokeTests, ComparisonLiteralVariable) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(ExpressionSmokeTests, ComparisonLogicalLiteralVariable) {
+TEST(SmokeExpressionTests, ComparisonLogicalLiteralVariable) {
     const char* src =
         "b = 2 < a and 10 > b\n"
         ;
@@ -54,7 +54,7 @@ TEST(ExpressionSmokeTests, ComparisonLogicalLiteralVariable) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(ExpressionSmokeTests, ArithmeticComparisonLogicalLiteralVariable) {
+TEST(SmokeExpressionTests, ArithmeticComparisonLogicalLiteralVariable) {
     const char* src =
         "b = not ((2 + 7) / 8) > 4\n"
         ;
@@ -62,7 +62,7 @@ TEST(ExpressionSmokeTests, ArithmeticComparisonLogicalLiteralVariable) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(ExpressionSmokeTests, ArithmeticBitwiseLiteralVariable) {
+TEST(SmokeExpressionTests, ArithmeticBitwiseLiteralVariable) {
     const char* src =
         "b = 42 * (x + 7) >> 4\n"
         ;
@@ -70,7 +70,7 @@ TEST(ExpressionSmokeTests, ArithmeticBitwiseLiteralVariable) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(ExpressionSmokeTests, BitwiseArithmetic) {
+TEST(SmokeExpressionTests, BitwiseArithmetic) {
     const char* src =
         "b = 42 * (x >> 7) / 4\n"
         ;

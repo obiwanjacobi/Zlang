@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 
-TEST(TypesSmokeTests, Bit) {
+TEST(SmokeTypesTests, Bit) {
     const char* src =
         "b: Bit<4>\n"
         ;
@@ -11,7 +11,7 @@ TEST(TypesSmokeTests, Bit) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(TypesSmokeTests, BitInit) {
+TEST(SmokeTypesTests, BitInit) {
     const char* src =
         "b: Bit<4> = 12\n"
         ;
@@ -19,7 +19,7 @@ TEST(TypesSmokeTests, BitInit) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(TypesSmokeTests, BitBig) {
+TEST(SmokeTypesTests, BitBig) {
     const char* src =
         "b: Bit<1024>\n"
         ;
@@ -28,7 +28,7 @@ TEST(TypesSmokeTests, BitBig) {
 }
 
 
-TEST(TypesSmokeTests, Ptr) {
+TEST(SmokeTypesTests, Ptr) {
     const char* src =
         "p: Ptr<U8>\n"
         ;
@@ -37,7 +37,7 @@ TEST(TypesSmokeTests, Ptr) {
 }
 
 
-TEST(TypesSmokeTests, TypeDef) {
+TEST(SmokeTypesTests, TypeDef) {
     const char* src =
         "MyType: Map<Str, U8> _\n"
         ;
@@ -45,7 +45,7 @@ TEST(TypesSmokeTests, TypeDef) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(TypesSmokeTests, TypeAlias) {
+TEST(SmokeTypesTests, TypeAlias) {
     const char* src =
         "MyType = Map<Str, U8>\n"
         ;

@@ -2,7 +2,7 @@
 #include "../Utils.h"
 #include <gtest/gtest.h>
 
-TEST(VariablesSmokeTests, GlobalAutoVariable) {
+TEST(SmokeVariablesTests, GlobalAutoVariable) {
     const char* src =
         "g = 42\n"
         ;
@@ -10,7 +10,7 @@ TEST(VariablesSmokeTests, GlobalAutoVariable) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(VariablesSmokeTests, GlobalTypedVariable) {
+TEST(SmokeVariablesTests, GlobalTypedVariable) {
     const char* src =
         "g: U8\n"
         ;
@@ -18,7 +18,7 @@ TEST(VariablesSmokeTests, GlobalTypedVariable) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(VariablesSmokeTests, GlobalTypedVariableInit) {
+TEST(SmokeVariablesTests, GlobalTypedVariableInit) {
     const char* src =
         "g: U8 = 42\n"
         ;
@@ -26,7 +26,7 @@ TEST(VariablesSmokeTests, GlobalTypedVariableInit) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(VariablesSmokeTests, LocalAutoVariable) {
+TEST(SmokeVariablesTests, LocalAutoVariable) {
     const char* src =
         "fn()\n"
         "   l = 42\n"
@@ -35,7 +35,7 @@ TEST(VariablesSmokeTests, LocalAutoVariable) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(VariablesSmokeTests, LocalTypedVariable) {
+TEST(SmokeVariablesTests, LocalTypedVariable) {
     const char* src =
         "fn()\n"
         "   l: U8\n"
@@ -44,7 +44,7 @@ TEST(VariablesSmokeTests, LocalTypedVariable) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(VariablesSmokeTests, LocalTypedVariableInit) {
+TEST(SmokeVariablesTests, LocalTypedVariableInit) {
     const char* src =
         "fn()\n"
         "   l: U8 = 42\n"

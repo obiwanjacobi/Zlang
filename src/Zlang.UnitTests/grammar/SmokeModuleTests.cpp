@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 
-TEST(ModuleSmokeTests, Module) {
+TEST(SmokeModuleTests, Module) {
     const char* src = 
         "module test1\n"
         ;
@@ -11,7 +11,7 @@ TEST(ModuleSmokeTests, Module) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(ModuleSmokeTests, Import) {
+TEST(SmokeModuleTests, Import) {
     const char* src = 
         "import somemodule.v2\n"
         ;
@@ -19,7 +19,7 @@ TEST(ModuleSmokeTests, Import) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(ModuleSmokeTests, Export) {
+TEST(SmokeModuleTests, Export) {
     const char* src = 
         "export somefunction\n"
         ;

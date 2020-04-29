@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 
-TEST(FunctionSmokeTests, Export) {
+TEST(SmokeFunctionTests, Export) {
     const char* src =
         "export MyFunction()\n"
         "    return\n"
@@ -12,7 +12,7 @@ TEST(FunctionSmokeTests, Export) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FunctionSmokeTests, Void) {
+TEST(SmokeFunctionTests, Void) {
     const char* src = 
         "MyFunction()\n"
         "    return\n"
@@ -21,7 +21,7 @@ TEST(FunctionSmokeTests, Void) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FunctionSmokeTests, ParamVoid) {
+TEST(SmokeFunctionTests, ParamVoid) {
     const char* src = 
         "MyFunction(p: U8)\n"
         "    return\n"
@@ -30,7 +30,7 @@ TEST(FunctionSmokeTests, ParamVoid) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FunctionSmokeTests, Param2Void) {
+TEST(SmokeFunctionTests, Param2Void) {
     const char* src =
         "MyFunction(p: U8, s: Str)\n"
         "    return\n"
@@ -39,7 +39,7 @@ TEST(FunctionSmokeTests, Param2Void) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FunctionSmokeTests, RetVal) {
+TEST(SmokeFunctionTests, RetVal) {
     const char* src = 
         "MyFunction(): Bool\n"
         "    return true\n"
@@ -48,7 +48,7 @@ TEST(FunctionSmokeTests, RetVal) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FunctionSmokeTests, ParamRetVal) {
+TEST(SmokeFunctionTests, ParamRetVal) {
     const char* src = 
         "MyFunction(p: Str): Bool\n"
         "    return true\n"
@@ -58,7 +58,7 @@ TEST(FunctionSmokeTests, ParamRetVal) {
 }
 
 
-TEST(FunctionSmokeTests, Param2RetVal) {
+TEST(SmokeFunctionTests, Param2RetVal) {
     const char* src =
         "MyFunction(p: U8, s: Str): Bool\n"
         "    return true\n"
@@ -67,7 +67,7 @@ TEST(FunctionSmokeTests, Param2RetVal) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FunctionSmokeTests, Call) {
+TEST(SmokeFunctionTests, Call) {
     const char* src =
         "Container()\n"
         "    FnCall()\n"
@@ -76,7 +76,7 @@ TEST(FunctionSmokeTests, Call) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FunctionSmokeTests, CallWithParam) {
+TEST(SmokeFunctionTests, CallWithParam) {
     const char* src =
         "Container()\n"
         "    FnCall(42)\n"
@@ -85,7 +85,7 @@ TEST(FunctionSmokeTests, CallWithParam) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FunctionSmokeTests, CallWithParam2) {
+TEST(SmokeFunctionTests, CallWithParam2) {
     const char* src =
         "Container()\n"
         "    FnCall(42, \"Hello World\")\n"

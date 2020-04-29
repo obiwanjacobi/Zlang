@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 
-TEST(StructSmokeTests, DefaultWithFields) {
+TEST(SmokeStructTests, DefaultWithFields) {
     const char* src = 
         "MyStruct\n"
         "    fld1: U8\n"
@@ -14,7 +14,7 @@ TEST(StructSmokeTests, DefaultWithFields) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(StructSmokeTests, DerivedWithFields) {
+TEST(SmokeStructTests, DerivedWithFields) {
     const char* src = 
         "MyStruct: OtherStruct\n"
         "    fld1: U8\n"
@@ -25,7 +25,7 @@ TEST(StructSmokeTests, DerivedWithFields) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(StructSmokeTests, DefaultWithTypeParam1) {
+TEST(SmokeStructTests, DefaultWithTypeParam1) {
     const char* src =
         "MyStruct<T>\n"
         "    fld1: T\n"

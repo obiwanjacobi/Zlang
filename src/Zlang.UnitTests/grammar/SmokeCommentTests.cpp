@@ -2,7 +2,7 @@
 #include "../Utils.h"
 #include <gtest/gtest.h>
 
-TEST(CommentSmokeTests, StartOfLine) {
+TEST(SmokeCommentTests, StartOfLine) {
     const char* src =
         "// comment\n"
         ;
@@ -10,7 +10,7 @@ TEST(CommentSmokeTests, StartOfLine) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(CommentSmokeTests, AfterInstruction) {
+TEST(SmokeCommentTests, AfterInstruction) {
     const char* src =
         "g: U8 = 42       // comment\n"
         ;
@@ -18,7 +18,7 @@ TEST(CommentSmokeTests, AfterInstruction) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(CommentSmokeTests, ThreeSlashes) {
+TEST(SmokeCommentTests, ThreeSlashes) {
     const char* src =
         "/// comment\n"
         ;
@@ -26,7 +26,7 @@ TEST(CommentSmokeTests, ThreeSlashes) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(CommentSmokeTests, WhitespaceAfter) {
+TEST(SmokeCommentTests, WhitespaceAfter) {
     const char* src =
         "// comment      \t    \n"
         ;

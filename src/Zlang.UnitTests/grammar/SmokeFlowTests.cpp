@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 
-TEST(FlowSmokeTests, If) {
+TEST(SmokeFlowTests, If) {
     const char* src = 
         "fn()\n"
         "    if true\n"
@@ -13,7 +13,7 @@ TEST(FlowSmokeTests, If) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FlowSmokeTests, IfElse) {
+TEST(SmokeFlowTests, IfElse) {
     const char* src = 
         "fn()\n"
         "    if true\n"
@@ -25,7 +25,7 @@ TEST(FlowSmokeTests, IfElse) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FlowSmokeTests, IfElseIfElse) {
+TEST(SmokeFlowTests, IfElseIfElse) {
     const char* src =
         "fn()\n"
         "    if true\n"
@@ -39,7 +39,7 @@ TEST(FlowSmokeTests, IfElseIfElse) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FlowSmokeTests, Loop) {
+TEST(SmokeFlowTests, Loop) {
     const char* src =
         "fn()\n"
         "    loop\n"
@@ -49,7 +49,7 @@ TEST(FlowSmokeTests, Loop) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FlowSmokeTests, While) {
+TEST(SmokeFlowTests, While) {
     const char* src =
         "fn()\n"
         "    loop x < 65535\n"
@@ -59,7 +59,7 @@ TEST(FlowSmokeTests, While) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(FlowSmokeTests, While2) {
+TEST(SmokeFlowTests, While2) {
     const char* src =
         "fn()\n"
         "    x: U8 = 42\n"

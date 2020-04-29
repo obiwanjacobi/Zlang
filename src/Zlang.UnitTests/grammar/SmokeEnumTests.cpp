@@ -2,7 +2,7 @@
 #include "../Utils.h"
 #include <gtest/gtest.h>
 
-TEST(EnumSmokeTests, DefaultOptionsLine) {
+TEST(SmokeEnumTests, DefaultOptionsLine) {
     const char* src =
         "MyEnum\n"
         "    opt1, opt2, opt3\n"
@@ -11,7 +11,7 @@ TEST(EnumSmokeTests, DefaultOptionsLine) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(EnumSmokeTests, DefaultOptions) {
+TEST(SmokeEnumTests, DefaultOptions) {
     const char* src = 
         "MyEnum\n"
         "    opt1,\n"
@@ -22,7 +22,7 @@ TEST(EnumSmokeTests, DefaultOptions) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(EnumSmokeTests, ExplicitOptions) {
+TEST(SmokeEnumTests, ExplicitOptions) {
     const char* src = 
         "MyEnum\n"
         "    opt1 = 0,\n"
@@ -33,7 +33,7 @@ TEST(EnumSmokeTests, ExplicitOptions) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(EnumSmokeTests, StrOptions) {
+TEST(SmokeEnumTests, StrOptions) {
     const char* src = 
         "MyEnum: Str\n"
         "    opt1 = \"1\",\n"
@@ -44,7 +44,7 @@ TEST(EnumSmokeTests, StrOptions) {
     ASSERT_TRUE(ParserSmokeTest(src));
 }
 
-TEST(EnumSmokeTests, E_NoCommas) {
+TEST(SmokeEnumTests, E_NoCommas) {
     const char* src =
         "MyEnum\n"
         "    Opt1\n"
@@ -55,7 +55,7 @@ TEST(EnumSmokeTests, E_NoCommas) {
     //ASSERT_FALSE(ParserSmokeTest(src));
 }
 
-TEST(EnumSmokeTests, E_NoOptions) {
+TEST(SmokeEnumTests, E_NoOptions) {
     const char* src = 
         "MyEnum\n"
         ;
