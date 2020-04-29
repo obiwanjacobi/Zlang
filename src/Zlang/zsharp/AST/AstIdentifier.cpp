@@ -80,3 +80,10 @@ const AstIdentifierType AstIdentifier::getType() const
 
     return AstIdentifierType::Unknown;
 }
+
+std::shared_ptr<AstIdentifier> AstIdentifier::Clone() const
+{
+    auto identifier = std::make_shared<AstIdentifier>();
+    CopyTo(identifier);
+    return identifier;
+}

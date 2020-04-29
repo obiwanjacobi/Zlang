@@ -1,6 +1,7 @@
 #pragma once
 
 #include "AstNode.h"
+#include "AstType.h"
 #include "../grammar/parser/zsharp_parserParser.h"
 #include <memory>
 
@@ -8,7 +9,7 @@ class AstExpression;
 class AstNumeric;
 class AstVariableReference;
 
-class AstExpressionOperand : public AstNode
+class AstExpressionOperand : public AstNode, public AstTypeReferenceSite
 {
 public:
     AstExpressionOperand(std::shared_ptr<AstExpression> expr)
@@ -45,6 +46,14 @@ public:
     
     const AstNode* getParent() const;
     void setParent(AstNode* parent);
+
+    bool SetTypeReference(std::shared_ptr<AstTypeReference> type) override {
+        if (AstTypeReferenceSite::SetTypeReference(type)) {
+            type->setParent(this);
+            return true;
+        }
+        return false;
+    }
 
     void Accept(AstVisitor* visitor) override;
     void VisitChildren(AstVisitor* visitor) override;

@@ -4,6 +4,7 @@
 #include "AstCodeBlock.h"
 #include "AstExpression.h"
 #include "AstVariable.h"
+#include <memory>
 
 class AstAssignment : public AstCodeBlockItem, public AstExpressionSite
 {
@@ -20,6 +21,8 @@ public:
     bool SetExpression(std::shared_ptr<AstExpression> expr) override;
 
     std::shared_ptr<AstVariable> getVariable() const { return _variable; }
+    template<class T>
+    std::shared_ptr<T> getVariable() const { return std::dynamic_pointer_cast<T>(_variable); }
     bool SetVariable(std::shared_ptr<AstVariable> variable) {
         if (!_variable && variable) {
             _variable = variable;

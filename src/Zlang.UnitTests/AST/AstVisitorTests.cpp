@@ -82,6 +82,10 @@ public:
         ASSERT_NE(type->getParent(), nullptr);
         VisitChildren(type);
     }
+    void VisitTypeDefinition(AstTypeDefinition* type) override {
+        ASSERT_NE(type->getParent(), nullptr);
+        VisitChildren(type);
+    }
     void VisitVariableDefinition(AstVariableDefinition* variable) override {
         ASSERT_NE(variable->getParent(), nullptr);
         VisitChildren(variable);

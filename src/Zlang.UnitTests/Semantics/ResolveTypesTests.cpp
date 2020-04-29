@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "../../Zlang/zsharp/AST/AstBuilder.h"
+#include "../../Zlang/zsharp/AST/AstAssignment.h"
 #include "../../Zlang/zsharp/AST/AstVariable.h"
 #include "../../Zlang/zsharp/Semantics/ResolveTypes.h"
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
@@ -29,6 +30,36 @@ TEST(ResolveTypesTests, TopVariableTypeDef)
     auto symbols = cb->getSymbols();
     auto var = cb->getItemAt<AstVariableDefinition>(0);
     auto typeRef = var->getTypeReference();
+    ASSERT_NE(typeRef, nullptr);
+    auto typeEntry = symbols->getEntry(typeRef->getIdentifier()->getName(), AstSymbolKind::Type);
+    auto typeDef = typeRef->getTypeDefinition();
+    ASSERT_NE(typeDef, nullptr);
+}
+
+
+TEST(ResolveTypesTests, TopVariableInferType)
+{
+    const char* src =
+        "a = 42\n"
+        ;
+
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    ResolveTypes resolver;
+    resolver.Apply(file.get());
+
+    auto cb = file->getCodeBlock();
+    auto symbols = cb->getSymbols();
+    auto assign = cb->getItemAt<AstAssignment>(0);
+    auto var = std::static_pointer_cast<AstVariableDefinition>(assign->getVariable());
+    auto typeRef = var->getTypeReference();
+    ASSERT_NE(typeRef, nullptr);
     auto typeEntry = symbols->getEntry(typeRef->getIdentifier()->getName(), AstSymbolKind::Type);
     auto typeDef = typeRef->getTypeDefinition();
     ASSERT_NE(typeDef, nullptr);

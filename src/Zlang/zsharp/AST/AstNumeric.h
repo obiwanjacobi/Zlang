@@ -25,6 +25,7 @@ public:
     int64_t getSignedInt() const { return (int64_t)_intValue; }
     
     AstNumericSign getSign() const { return _sign; }
+    uint32_t getBitCount() const;
 
     void Accept(AstVisitor* visitor) override;
 

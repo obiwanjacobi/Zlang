@@ -47,18 +47,24 @@ std::shared_ptr<AstIdentifier> SelectKnownIdentifier(zsharp_parserParser::Known_
     //if (ctx->type_Bit()) return Bit;
     //if (ctx->type_Ptr()) return Ptr;
 
-    if (ctx->BOOL()) return Bool;
-    if (ctx->STR()) return Str;
-    if (ctx->F16()) return F16;
-    if (ctx->F32()) return F32;
-    if (ctx->I8()) return I8;
-    if (ctx->I16()) return I16;
-    if (ctx->I24()) return I24;
-    if (ctx->I32()) return I32;
-    if (ctx->U8()) return U8;
-    if (ctx->U16()) return U16;
-    if (ctx->U24()) return U24;
-    if (ctx->U32()) return U32;
+    std::shared_ptr<AstIdentifier> identifier;
+
+    if (ctx->BOOL()) identifier = Bool;
+    if (ctx->STR()) identifier = Str;
+    if (ctx->F16()) identifier = F16;
+    if (ctx->F32()) identifier = F32;
+    if (ctx->I8()) identifier = I8;
+    if (ctx->I16()) identifier = I16;
+    if (ctx->I24()) identifier = I24;
+    if (ctx->I32()) identifier = I32;
+    if (ctx->U8()) identifier = U8;
+    if (ctx->U16()) identifier = U16;
+    if (ctx->U24()) identifier = U24;
+    if (ctx->U32()) identifier = U32;
+
+    if (identifier) {
+        return identifier->Clone();
+    }
 
     return nullptr;
 }
@@ -120,11 +126,39 @@ std::shared_ptr<AstTypeDefinition> AstTypeDefinition::Create(zsharp_parserParser
 
 std::shared_ptr<AstTypeReference> AstTypeReference::Create(zsharp_parserParser::Type_ref_useContext* ctx)
 {
+    guard(ctx && "AstTypeReference::Create is passed a nullptr");
     auto typeRef = std::make_shared<AstTypeReference>(ctx);
     AstType::Construct(typeRef, ctx->type_ref()->type_name());
     return typeRef;
 }
+std::shared_ptr<AstTypeReference> AstTypeReference::Create(std::shared_ptr<AstTypeReference> inferredFrom)
+{
+    guard(inferredFrom && "AstTypeReference::Create on AstTypeReference is passed a nullptr");
+    auto typeRef = std::make_shared<AstTypeReference>(inferredFrom);
+    auto identifier = inferredFrom->getIdentifier()->Clone();
+    typeRef->SetIdentifier(identifier);
+    bool success = typeRef->setTypeDefinition(inferredFrom->getTypeDefinition());
+    guard(success && "AstTypeReference.Create setTypeDefinition (inferred) failed.");
 
+    return typeRef;
+}
+std::shared_ptr<AstTypeReference> AstTypeReference::Create(std::shared_ptr<AstNode> typeSource, std::shared_ptr<AstTypeDefinition> typeDef)
+{
+    guard(typeDef && "AstTypeReference::Create on AstTypeReference is passed a nullptr");
+    auto typeRef = std::make_shared<AstTypeReference>();
+    auto identifier = typeDef->getIdentifier()->Clone();
+    
+    bool success = typeRef->SetIdentifier(identifier);
+    guard(success && "AstTypeReference.Create SetIdentifier failed.");
+
+    success = typeRef->setTypeDefinition(typeDef);
+    guard(success && "AstTypeReference.Create SetTypeDefinition failed.");
+
+    success = typeRef->setTypeSource(std::static_pointer_cast<AstNode>(typeSource));
+    guard(success && "AstTypeReference.Create SetTypeSource failed.");
+
+    return typeRef;
+}
 
 void AddIntrinsicSymbol(std::shared_ptr<AstSymbolTable> symbols, std::shared_ptr<AstTypeIntrinsic> type)
 {

@@ -35,6 +35,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)..\lib\antlr\include;$(SolutionDIr)..\..\..\llvm\llvm-lib\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\lib\antlr\debug;$(SolutionDir)Zlang\$(Platform)\$(Configuration);$(SolutionDir)..\..\..\llvm\llvm-lib\lib;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

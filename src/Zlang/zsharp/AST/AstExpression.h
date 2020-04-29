@@ -46,6 +46,14 @@ public:
     bool Add(std::shared_ptr<AstNumeric> child) { return Add(std::make_shared<AstExpressionOperand>(child)); }
     void setOperator(AstExpressionOperator op) { _operator = op; }
 
+    bool SetTypeReference(std::shared_ptr<AstTypeReference> type) override {
+        if (AstTypeReferenceSite::SetTypeReference(type)) {
+            type->setParent(this);
+            return true;
+        }
+        return false;
+    }
+
     void Accept(AstVisitor* visitor) override;
     void VisitChildren(AstVisitor* visitor) override;
 

@@ -49,18 +49,35 @@ public:
         _typeCtx(nullptr), _varCtx(nullptr),
         _paramCtx(nullptr), _funcCtx(nullptr), _fieldCtx(nullptr), _enumOptCtx(ctx)
     {}
+    // Do not use (needed for make_shared)
+    AstIdentifier()
+        : AstNode(AstNodeType::Identifier),
+        _typeCtx(nullptr), _varCtx(nullptr),
+        _paramCtx(nullptr), _funcCtx(nullptr), _fieldCtx(nullptr), _enumOptCtx(nullptr)
+    {}
 
     virtual const std::string getName() const;
     virtual const AstIdentifierType getType() const;
 
     void Accept(AstVisitor* visitor) override;
 
+    virtual std::shared_ptr<AstIdentifier> Clone() const;
+    
+    virtual bool IsEqual(std::shared_ptr<AstIdentifier> that) const {
+        if (!that) return false;
+        return getName() == that->getName() && 
+            getType() == that->getType();
+    }
+
 protected:
-    AstIdentifier()
-        : AstNode(AstNodeType::Identifier),
-        _typeCtx(nullptr), _varCtx(nullptr),
-        _paramCtx(nullptr), _funcCtx(nullptr), _fieldCtx(nullptr), _enumOptCtx(nullptr)
-    {}
+    void CopyTo(std::shared_ptr<AstIdentifier> target) const {
+        target->_enumOptCtx = _enumOptCtx;
+        target->_fieldCtx = _fieldCtx;
+        target->_funcCtx = _funcCtx;
+        target->_paramCtx = _paramCtx;
+        target->_typeCtx = _typeCtx;
+        target->_varCtx = _varCtx;
+    }
 
 private:
     zsharp_parserParser::Identifier_typeContext* _typeCtx;
@@ -81,6 +98,10 @@ public:
 
     const std::string getName() const override { return _name; }
     const AstIdentifierType getType() const override { return _type; }
+
+    std::shared_ptr<AstIdentifier> Clone() const override {
+        return std::make_shared<AstIdentifierIntrinsic>(_name, _type);
+    }
 
 private:
     std::string _name;

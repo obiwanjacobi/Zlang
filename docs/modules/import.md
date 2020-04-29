@@ -47,7 +47,16 @@ module MyModule.MyFunc          // module #2
 
 module UsingModule              // module #3
 import MyModule.MyFunc          // imports module #2
-import Alias = MyModule.MyFunc  // imports module #1
+import Alias = MyModule.MyFunc  // imports module #1 - MyFunc
 ```
 
 > TBD: how does the import find the module?
+
+> TBD: Use 'scope' to prevent to having to repeat the keyword?
+
+```csharp
+import
+    Mod1
+    Mod2
+    Alias = Mod3
+```
