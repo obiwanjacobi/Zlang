@@ -3,6 +3,28 @@
 #include "AstVariable.h"
 #include "AstVisitor.h"
 
+AstExpressionOperand::AstExpressionOperand(std::shared_ptr<AstExpression> expr)
+    : AstNode(AstNodeType::Operand),
+    _expression(expr)
+{
+    bool success = expr->setParent(this);
+    guard(success && "setParent failed.");
+}
+AstExpressionOperand::AstExpressionOperand(std::shared_ptr<AstNumeric> num)
+    : AstNode(AstNodeType::Operand),
+    _numeric(num)
+{
+    bool success = num->setParent(this);
+    guard(success && "setParent failed.");
+}
+AstExpressionOperand::AstExpressionOperand(std::shared_ptr<AstVariableReference> variable)
+    : AstNode(AstNodeType::Operand),
+    _variable(variable)
+{
+    bool success = variable->setParent(this);
+    guard(success && "setParent failed.");
+}
+
 void AstExpressionOperand::Accept(AstVisitor* visitor) {
     visitor->VisitExpressionOperand(this);
 }
@@ -23,31 +45,4 @@ antlr4::ParserRuleContext* AstExpressionOperand::getContext() const
     if (_litBoolCtx) return _litBoolCtx;
     if (_callCtx) return _callCtx;
     return nullptr;
-}
-
-const AstNode* AstExpressionOperand::getParent() const
-{
-    if (_expression) {
-        return _expression->getParent();
-    }
-    if (_numeric) {
-        return _numeric->getParent();
-    }
-    if (_variable) {
-        return _variable->getParent();
-    }
-    return nullptr;
-}
-
-void AstExpressionOperand::setParent(AstNode* parent)
-{
-    if (_expression) {
-        _expression->setParent(parent);
-    }
-    if (_numeric) {
-        _numeric->setParent(parent);
-    }
-    if (_variable) {
-        _variable->setParent(parent);
-    }
 }

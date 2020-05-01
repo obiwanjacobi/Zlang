@@ -31,7 +31,13 @@ public:
     AstNodeType getNodeType() const { return _nodeType; }
 
     AstNode* getParent() const { return _parent; }
-    void setParent(AstNode* parent) { _parent = parent; }
+    bool setParent(AstNode* parent) {
+        if (!_parent && parent) {
+            _parent = parent;
+            return true;
+        }
+        return false;
+    }
 
     template<class T>
     T* getParent() const { return dynamic_cast<T*>(_parent); }

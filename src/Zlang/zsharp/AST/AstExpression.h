@@ -48,7 +48,8 @@ public:
 
     bool SetTypeReference(std::shared_ptr<AstTypeReference> type) override {
         if (AstTypeReferenceSite::SetTypeReference(type)) {
-            type->setParent(this);
+            bool success = type->setParent(this);
+            guard(success && "setParent failed.");
             return true;
         }
         return false;

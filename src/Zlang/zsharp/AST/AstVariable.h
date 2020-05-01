@@ -11,7 +11,8 @@ class AstVariable : public AstCodeBlockItem, public AstIdentifierSite
 public:
     bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override {
         if (AstIdentifierSite::SetIdentifier(identifier)) {
-            identifier->setParent(this);
+            bool success = identifier->setParent(this);
+            guard(success && "setParent failed.");
             return true;
         }
         return false;
@@ -38,6 +39,15 @@ public:
     AstVariableDefinition(zsharp_parserParser::Variable_assign_autoContext* ctx)
         : _typedCtx(nullptr), _typedInitCtx(nullptr), _assignCtx(ctx)
     {}
+
+    bool SetTypeReference(std::shared_ptr<AstTypeReference> type) override {
+        if (AstTypeReferenceSite::SetTypeReference(type)) {
+            bool success = type->setParent(this);
+            guard(success && "setParent failed.");
+            return true;
+        }
+        return false;
+    }
 
     void Accept(AstVisitor* visitor) override;
     void VisitChildren(AstVisitor* visitor) override;

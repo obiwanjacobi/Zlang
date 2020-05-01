@@ -13,7 +13,8 @@ public:
 
     bool SetIdentifier(std::shared_ptr<AstIdentifier> identifier) override {
         if (AstIdentifierSite::SetIdentifier(identifier)) {
-            identifier->setParent(this);
+            bool success = identifier->setParent(this);
+            guard(success && "setParent failed.");
             return true;
         }
         return false;
@@ -125,7 +126,8 @@ public:
     bool setTypeDefinition(std::shared_ptr<AstTypeDefinition> typeDefinition) {
         if (!_typeDefinition && typeDefinition) {
             _typeDefinition = typeDefinition;
-            _typeDefinition->setParent(this);
+            // usually fails - just catches dangling definitions
+            typeDefinition->setParent(this);
             return true;
         }
         return false;
@@ -135,7 +137,8 @@ public:
     bool setTypeInferredFrom(std::shared_ptr<AstTypeReference> type) {
         if (!_inferredType && type) {
             _inferredType = type;
-            _inferredType->setParent(this);
+            // can fail if referring to an existing type ref
+            type->setParent(this);
             return true;
         }
         return false;

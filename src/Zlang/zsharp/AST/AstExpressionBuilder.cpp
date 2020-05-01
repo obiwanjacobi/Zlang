@@ -20,7 +20,6 @@ bool isOperand(zsharp_parserParser::Expression_comparisonContext* ctx)
 template<class T>
 antlrcpp::Any AstExpressionBuilder::ProcessExpression(T ctx)
 {
-
     if (ctx->PARENopen()) {
         auto expr = std::make_shared<AstExpression>(ctx);
         expr->setOperator(AstExpressionOperator::Open);
@@ -53,7 +52,7 @@ antlrcpp::Any AstExpressionBuilder::ProcessExpression(T ctx)
                     if (lowerOp->getOperator() != AstExpressionOperator::Open &&
                         lowerOp->getPrecedence() > expr->getPrecedence()) {
                         auto popExpr = PopExpression();
-                        assert(lowerOp == popExpr);
+                        guard(lowerOp == popExpr);
 
                         AddOperand(popExpr);
                     }
@@ -71,7 +70,7 @@ antlrcpp::Any AstExpressionBuilder::ProcessExpression(T ctx)
         AddOperand(expr);
 
         // open operator only used as marker - discard
-        assert(_operators.top()->getOperator() == AstExpressionOperator::Open);
+        guard(_operators.top()->getOperator() == AstExpressionOperator::Open);
         _operators.pop();
     }
 
@@ -80,19 +79,17 @@ antlrcpp::Any AstExpressionBuilder::ProcessExpression(T ctx)
 
 std::shared_ptr<AstExpression> AstExpressionBuilder::PopExpression()
 {
-    assert(_values.size() > 0);
+    guard(_values.size() > 0);
 
     std::shared_ptr<AstExpression> expr = _operators.top();
     _operators.pop();
 
     if (expr->Add(_values.top())) {
-        _values.top()->setParent(expr.get());
         _values.pop();
     }
 
     if (_values.size() > 0 &&
         expr->Add(_values.top())) {
-        _values.top()->setParent(expr.get());
         _values.pop();
     }
 

@@ -42,7 +42,8 @@ public:
         if (!item) return false;
         _items.push_back(item);
         item->setIndent(_indent);
-        item->setParent(this);
+        bool success = item->setParent(this);
+        guard(success && "setParent failed.");
         return true;
     }
 

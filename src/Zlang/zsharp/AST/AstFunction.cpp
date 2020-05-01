@@ -20,7 +20,8 @@ void AstFunctionParameter::Accept(AstVisitor* visitor) {
 bool AstFunctionParameter::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
 {
     if (AstIdentifierSite::SetIdentifier(identifier)) {
-        identifier->setParent(this);
+        bool success = identifier->setParent(this);
+        guard(success && "setParent failed.");
         return true;
     }
     return false;
@@ -29,7 +30,8 @@ bool AstFunctionParameter::SetIdentifier(std::shared_ptr<AstIdentifier> identifi
 bool AstFunction::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
 {
     if (AstIdentifierSite::SetIdentifier(identifier)) {
-        identifier->setParent(this);
+        bool success = identifier->setParent(this);
+        guard(success && "setParent failed.");
         return true;
     }
     return false;
@@ -37,7 +39,8 @@ bool AstFunction::SetIdentifier(std::shared_ptr<AstIdentifier> identifier)
 
 bool AstFunction::SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
     if (AstCodeBlockSite::SetCodeBlock(codeBlock)) {
-        codeBlock->setParent(this);
+        bool success = codeBlock->setParent(this);
+        guard(success && "setParent failed.");
         codeBlock->setIndent(1);
         AddFunctionSymbols();
         return true;

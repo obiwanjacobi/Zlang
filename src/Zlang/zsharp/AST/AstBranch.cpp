@@ -28,7 +28,8 @@ void AstBranchConditional::VisitChildren(AstVisitor* visitor) {
 
 bool AstBranchExpression::SetExpression(std::shared_ptr<AstExpression> expr) {
     if (AstExpressionSite::SetExpression(expr)) {
-        expr->setParent(this);
+        bool success = expr->setParent(this);
+        guard(success && "setParent failed.");
         return true;
     }
     return false;
@@ -37,7 +38,8 @@ bool AstBranchExpression::SetExpression(std::shared_ptr<AstExpression> expr) {
 bool AstBranchConditional::SetCodeBlock(std::shared_ptr<AstCodeBlock> codeBlock) {
     if (AstCodeBlockSite::SetCodeBlock(codeBlock)) {
         codeBlock->setIndent(getIndent() + 1);
-        codeBlock->setParent(this);
+        bool success = codeBlock->setParent(this);
+        guard(success && "setParent failed.");
         return true;
     }
     return false;
@@ -47,7 +49,8 @@ bool AstBranchConditional::AddSubBranch(std::shared_ptr<AstBranchConditional> su
 {
     if (!_subBranch && subBranch) {
         _subBranch = subBranch;
-        _subBranch->setParent(this);
+        bool success = subBranch->setParent(this);
+        guard(success && "setParent failed.");
         _subBranch->setIndent(getIndent());
         return true;
     }

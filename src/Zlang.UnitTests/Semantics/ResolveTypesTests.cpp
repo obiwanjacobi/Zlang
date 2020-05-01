@@ -60,7 +60,14 @@ TEST(ResolveTypesTests, TopVariableInferType)
     auto var = std::static_pointer_cast<AstVariableDefinition>(assign->getVariable());
     auto typeRef = var->getTypeReference();
     ASSERT_NE(typeRef, nullptr);
+    ASSERT_EQ(typeRef->getParent(), var.get());
+    auto identifier = typeRef->getIdentifier();
+    ASSERT_EQ(identifier->getParent(), typeRef.get());
+    ASSERT_STREQ(identifier->getName().c_str(), "U8");
     auto typeEntry = symbols->getEntry(typeRef->getIdentifier()->getName(), AstSymbolKind::Type);
     auto typeDef = typeRef->getTypeDefinition();
     ASSERT_NE(typeDef, nullptr);
+    identifier = typeDef->getIdentifier();
+    ASSERT_EQ(identifier->getParent(), typeDef.get());
+    ASSERT_STREQ(identifier->getName().c_str(), "U8");
 }

@@ -13,7 +13,8 @@ void AstAssignment::VisitChildren(AstVisitor* visitor) {
 bool AstAssignment::SetExpression(std::shared_ptr<AstExpression> expr)
 {
     if (AstExpressionSite::SetExpression(expr)) {
-        expr->setParent(this);
+        bool success = expr->setParent(this);
+        guard(success && "setParent failed.");
         return true;
     }
     return false;

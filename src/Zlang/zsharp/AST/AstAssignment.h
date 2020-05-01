@@ -26,7 +26,8 @@ public:
     bool SetVariable(std::shared_ptr<AstVariable> variable) {
         if (!_variable && variable) {
             _variable = variable;
-            _variable->setParent(this);
+            bool success = variable->setParent(this);
+            guard(success && "setParent failed.");
             return true;
         }
         return false;

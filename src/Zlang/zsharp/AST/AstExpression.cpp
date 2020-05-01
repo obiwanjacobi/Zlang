@@ -25,14 +25,16 @@ antlr4::ParserRuleContext* AstExpression::getContext() const
 bool AstExpression::Add(std::shared_ptr<AstExpressionOperand> op)
 {
     if (!_rhs) {
-        op->setParent(this);
+        bool success = op->setParent(this);
+        guard(success && "setParent failed.");
         _rhs = op;
         return true;
     }
 
     if (!_lhs &&
         !isOperator(AstExpressionOperator::MaskUnary)) {
-        op->setParent(this);
+        bool success = op->setParent(this);
+        guard(success && "setParent failed.");
         _lhs = op;
         return true;
     }

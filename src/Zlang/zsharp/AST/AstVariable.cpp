@@ -2,7 +2,8 @@
 #include "AstVisitor.h"
 
 void AstVariableDefinition::Accept(AstVisitor* visitor) {
-    AstCodeBlockItem::Accept(visitor);
+    if (dynamic_cast<AstCodeBlock*>(getParent()))
+        AstCodeBlockItem::Accept(visitor);
     visitor->VisitVariableDefinition(this);
 }
 void AstVariableDefinition::VisitChildren(AstVisitor* visitor) {
@@ -15,7 +16,6 @@ void AstVariableDefinition::VisitChildren(AstVisitor* visitor) {
 }
 
 void AstVariableReference::Accept(AstVisitor* visitor) {
-    AstCodeBlockItem::Accept(visitor);
     visitor->VisitVariableReference(this);
 }
 void AstVariableReference::VisitChildren(AstVisitor* visitor) {

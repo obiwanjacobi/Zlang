@@ -46,7 +46,8 @@ public:
     const std::vector<std::shared_ptr<AstFunctionParameter>>& getParameters() const { return _parameters; }
     bool AddParameter(std::shared_ptr<AstFunctionParameter> param) {
         if (param) {
-            param->setParent(this);
+            bool success = param->setParent(this);
+            guard(success && "setParent failed.");
             _parameters.push_back(param);
             return true;
         }
