@@ -14,9 +14,22 @@
 #include "../../Zlang/zsharp/AST/AstType.h"
 #include "../../Zlang/zsharp/AST/AstVariable.h"
 #include "../../Zlang/zsharp/AST/AstVisitor.h"
+#include "../../Zlang/zsharp/Semantics/ResolveTypes.h"
 #include "../../Zlang/zsharp/grammar/ZsharpParser.h"
 #include "../../Zlang/zsharp/grammar/parser/zsharp_parserParser.h"
 #include <gtest/gtest.h>
+
+
+const char* src =
+"// comment\n"
+"export MyFunction\n"
+"x = 42\n"
+"MyFunction(a: U8): Bool\n"
+"    if a = 42\n"
+"        return true\n"
+"    return a <> 0\n"
+;
+
 
 class AstParentChecker : public AstVisitor
 {
@@ -96,18 +109,8 @@ public:
     }
 };
 
-TEST(AstVisitorTests, AllParentsSetOnNodes)
+TEST(AstVisitorTests, NodesHaveParents)
 {
-    const char* src =
-        "// comment\n"
-        "export MyFunction\n"
-        "x = 42\n"
-        "MyFunction(a: U8): Bool\n"
-        "    if a = 42\n"
-        "        return true\n"
-        "    return a <> 0\n"
-        ;
-
     ZsharpParser parser;
     auto fileCtx = parser.parseFileText(src);
     ASSERT_FALSE(parser.hasErrors());
@@ -117,5 +120,90 @@ TEST(AstVisitorTests, AllParentsSetOnNodes)
     ASSERT_FALSE(uut.hasErrors());
 
     AstParentChecker checker;
+    checker.Visit(file.get());
+}
+
+
+class AstTypeChecker : public AstVisitor
+{
+public:
+    void VisitExpression(AstExpression* expression) override {
+        ASSERT_NE(expression->getTypeReference(), nullptr);
+        VisitChildren(expression);
+    }
+    void VisitExpressionOperand(AstExpressionOperand* operand) override {
+        if (!operand->getVariableReference()) {     // variable not implemented
+            ASSERT_NE(operand->getTypeReference(), nullptr);
+        }
+        VisitChildren(operand);
+    }
+    void VisitFunction(AstFunction* function) override {
+        ASSERT_NE(function->getTypeReference(), nullptr);
+        VisitChildren(function);
+    }
+    void VisitFunctionParameter(AstFunctionParameter* parameter) override {
+        ASSERT_NE(parameter->getTypeReference(), nullptr);
+        VisitChildren(parameter);
+    }
+    void VisitTypeReference(AstTypeReference* type) override {
+        ASSERT_NE(type->getTypeDefinition(), nullptr);
+        VisitChildren(type);
+    }
+    void VisitVariableDefinition(AstVariableDefinition* variable) override {
+        ASSERT_NE(variable->getTypeReference(), nullptr);
+        VisitChildren(variable);
+    }
+};
+
+
+TEST(AstVisitorTests, NodesHaveTypes)
+{
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    ResolveTypes resolver;
+    resolver.Apply(file.get());
+
+    AstTypeChecker checker;
+    checker.Visit(file.get());
+}
+
+
+
+class AstVariableChecker : public AstVisitor
+{
+public:
+    void VisitAssignment(AstAssignment* assign) override {
+        ASSERT_NE(assign->getVariable(), nullptr);
+        VisitChildren(assign);
+    }
+    void VisitExpressionOperand(AstExpressionOperand* operand) override {
+        if (!operand->getExpression() && !operand->getNumeric()) {
+            ASSERT_NE(operand->getVariableReference(), nullptr);
+        }
+        VisitChildren(operand);
+    }
+    void VisitVariableReference(AstVariableReference* variable) override {
+        //ASSERT_NE(variable->getVariableDefinition(), nullptr);
+        VisitChildren(variable);
+    }
+};
+
+TEST(AstVisitorTests, NodesHaveVariables)
+{
+    ZsharpParser parser;
+    auto fileCtx = parser.parseFileText(src);
+    ASSERT_FALSE(parser.hasErrors());
+
+    AstBuilder uut;
+    auto file = uut.BuildFile("", fileCtx);
+    ASSERT_FALSE(uut.hasErrors());
+
+    AstVariableChecker checker;
     checker.Visit(file.get());
 }

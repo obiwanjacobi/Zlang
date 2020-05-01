@@ -30,9 +30,6 @@ std::shared_ptr<AstTypeDefinition> ResolveTypes::findTypeByBitCount(uint32_t bit
     std::string typeName = sign == AstNumericSign::Signed ? "I" : "U";
 
     switch (index) {
-    case 1:
-        typeDef = findType(_globalSymbols, typeName + "8");
-        break;
     case 2:
         typeDef = findType(_globalSymbols, typeName + "16");
         break;
@@ -43,6 +40,7 @@ std::shared_ptr<AstTypeDefinition> ResolveTypes::findTypeByBitCount(uint32_t bit
         typeDef = findType(_globalSymbols, typeName + "32");
         break;
     default:
+        typeDef = findType(_globalSymbols, typeName + "8");
         break;
     }
     return typeDef;
@@ -110,6 +108,8 @@ void ResolveTypes::VisitExpression(AstExpression* expression)
 void ResolveTypes::VisitExpressionOperand(AstExpressionOperand* operand)
 {
     VisitChildren(operand);
+
+    if (operand->getTypeReference()) { return; }
 
     auto expr = operand->getExpression();
     if (expr) {
