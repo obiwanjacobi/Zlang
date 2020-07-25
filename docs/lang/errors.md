@@ -31,6 +31,18 @@ use(v)
 
 The catch keyword is specified after the function that could return the error, and it introduces a scope. This scope is where the handler code goes in case there is an error. The variable name that is used to hand the code the `Error` is specified inside the parentheses.
 
+Alternate way of handling more complex error conditions using a match expression.
+
+```csharp
+FnErr(): U8!
+    ...
+
+a = match FnErr()
+    err: Error => 0
+    custom: MyError => return custom.fld
+    n: U8 => n
+```
+
 A (predicted) common pattern is that a function will call many functions itself and as soon as one errors out, the function itself will simply stop and propagate the error to its caller. The `try` keyword is syntactic sugar for `catch(err) return err` and is specified in front of the function call. It can be used as follows:
 
 ```C#
@@ -67,13 +79,12 @@ myFunc(): Bool
 b = myFunc() catch(err)  // error! myFunc does not return errors
 ```
 
-It is not possible to return an Error from a void function - a function that has no return value.
-
-> That could be fixed by introducing a `Void` type (but I want to avoid that: noise).
+It is not possible to return an Error from a void function - a function that has no return value. It is possible to trigger a `FatalError` anywhere.
 
 ```C#
 voidFn()                    // no return value specified
     return Error("Failed")  // error! no return value
+    FatalError("Abort!")    // ok, exit program
 ```
 
 You can use the `return` keyword in a function to exit its execution of course.

@@ -9,10 +9,17 @@ Function interfaces are a prototype for a singe function. Usually used as a call
 A function interface declares only one function and does _not_ use the `self` keyword.
 
 ```C#
-FunctionInterface (p1: U16): U8 _
+FunctionInterface: (p1: U16): U8 _
 
 callFn(ptrFn: Ptr<FunctionInterface>): U8
     return ptrFn(0x4242)
+
+fnImpl: FunctionInterface
+// may repeat declaration for readability
+fnImpl: FunctionInterface (p1: U16): U8
+    return p1.U8([4..12])
+
+r = callFn(fnImpl)      // r = 0x24
 ```
 
 The function interface is simply a function declaration. It ends with a `_` to indicate it is not a function definition and contains no implementation.

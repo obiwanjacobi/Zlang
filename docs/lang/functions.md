@@ -7,7 +7,7 @@ A function has a name that identifies it uniquely. See [Identifiers](../lexical/
 It is also distinguished by the use of parenthesis `()` when declared or called. Even when the function takes no arguments, the caller still uses the '()' to mark it as function.
 
 ```C#
-MyFunction()        // function declaration
+MyFunction: ()        // function declaration
     fn_impl_here
 
 MyFunction()        // function call
@@ -16,43 +16,50 @@ MyFunction()        // function call
 A more complex example would look like this:
 
 ```C#
-repeat(count: U8, char: U8): Str
+repeat: (count: U8, char: U8): Str
     fn_impl_here
 
 s = repeat(42, 'X')
 ```
 
-Typically the names of functions (and variables) can begin with either an upper or lower case letter. There is one exception when a function is used as a type: all type names start with an upper case letter.
+Here is the full syntax of a function. Everything but the `()`'s are optional.
 
-## Pointer to a Function
-
-> I probably gonna do this differently. Make functions lower case and use a Function Interface (declaration) to have the type. Seems more consistent and concise. Does bring up an issue when auto initializing a ptr-to-a-function variable though: What would be the type of ptr? `ptr = myFunction`. Can we go look for suitable types that match the declaration of the specified function? Do we generate an anonymous function type?
-
-This exception has to do with pointers to functions, for instance when a function is passed as a parameter to another function.
-
-Here is an example of how to construct a pointer to a function. It is the same as getting a pointer to any 'object', but here the intrinsic `ptr` attribute is accessible on the type (function).
-
-```C#
-MyFunction(magic: U8)   // declaration
-    ...
-
-p = MyFunction#ptr      // p is of type Ptr<MyFunction>
-takePtr(p, 42)          // call function with ptr to function
-
-takePtr(ptr: Ptr<MyFunction>, p: U8)
-   ptr(p)            // call the MyFunction through ptr
-                     // passing in its 'magic' parameter
+```csharp
+functionName: interfaceName {captures}<types>(parameters): returnType
 ```
 
-Any function that takes parameters that represent pointer to functions must specify its (function) type up front. This function type definition contains the signature of the number of parameters and their types as well as the return type - if any.
+`functionName`: (optional) All functions except lambdas (anonymous -inline- functions) have a name. Standard [Identifier](../lexical/identifiers.md) rules apply. Only lambdas do not need a name because they are declared inline at the location they're used.
 
-`#ptr` is different from taking a pointer from a variable with `.Ptr()` in that `#ptr` only works on a function type that is known at compile time, while `.Ptr()` takes the runtime address of a variable. See also [Pointer Types](./types.md).
+`interfaceName`: (optional) When basing the type of the function of off a function interface. In that case the declaration of the `types`, `parameters` and `returnType` may be repeated for readability. The function interface name is a type name so it starts with an upper case first letter.
 
-> I want to ditch `#ptr` because just using the function name is easier and more intuitive.
+`{captures}`: (optional) This captures variables external to the function for its execution. For 'normal' function these would be global variables. For lambda's these could be function local variables that are used inside the lambda. Captures are only specified on function declarations (implementation), not on function (type) interfaces.
 
-When the code has a pointer to a function, it can be called by specifying the `()` straight after it. Any parameters the function that is pointed to requires, must be passed in at that time. The return value -if any- will be available when the function returns.
+`<types>`: (optional) Type parameters that the template function uses in its implementation.
 
-A function without implementation is called a function declaration or [Function Interfaces](interfaces.md).
+`(parameters)`: (optional) By-value parameters the function acts on.
+
+`returnType`: (optional) The Type of the function result.
+
+```csharp
+// not showing implementation
+fn: ()
+fn: (): U8
+fn: (p: U8)
+fn: (p: U8): U8
+
+fn: <T>(): T
+fn: <T>(p: T)
+fn: <T>(p: T): T
+
+// capture on fn impl
+fn: {var}<T>(p: T): Bool
+
+fn: InterfaceName
+// repeated function type decl with capture
+fn: InterfaceName {var.Ptr()}<T>(p: T): Bool
+```
+
+> How to differentiate from object construction?
 
 ## Parameters
 
@@ -63,7 +70,7 @@ That also means that if a parameter is to be passed by reference, an explicit po
 > The compiler can still use an immutable reference for optimizations. The by-value model is how you should think about it.
 
 ```C#
-byref(ptr: Ptr<U8>)     // pointer as by-ref parameter
+byref: (ptr: Ptr<U8>)     // pointer as by-ref parameter
     ...
 
 v = 42
@@ -75,9 +82,10 @@ byref(v.Ptr())            // call with ptr to value
 Optional function parameters can be specified using the optional symbol `?`.
 
 ```C#
-hasParam(p: U8?): Bool
+hasParam: (p: U8?): Bool
     return p ? true : false
     return p    // error! implicit cast not allowed
+    return p?   // but there is a special syntax
 ```
 
 ### Default Parameter Values
@@ -92,13 +100,13 @@ Having default parameter values does not explain at the calling site what is hap
 Function Parameters can be specified by name at the calling site.
 
 ```C#
-namedFn(p: U8, p2: U16)
+namedFn: (p: U8, p2: U16)
     ...
 
 namedFn(p = 42, p2 = 0x4242)    // ok, both named
 namedFn(p2 = 0x4242, p = 42)    // ok, out of order, but named
 namedFn(42, p2 = 0x4242)        // ok, p in order, rest named
-namedFn(0x4242, p = 42)         // error! cannot convert 1st to U8
+namedFn(0x4242, p = 42)         // ok, unnamed is only one left
 
 ```
 
@@ -107,7 +115,7 @@ Variable number of parameters:
 Not really supported but can fake with Array: all of same type. We don't have an 'object' type that is the basis of all. (do we need to?)
 
 ```C#
-varFunc<T>(p: U8, varP: Array<T>)
+varFunc: <T>(p: U8, varP: Array<T>)
     ...
 
 // requires (easy) syntax for specifying
@@ -120,11 +128,20 @@ Gives the caller the guarantee that the parameter will not be changed.
 Only useful for `Ptr<T>` types. All function parameters are passed by value.
 
 ```csharp
-immFn(p: Imm<Ptr<U8>>)
+immFn: (p: Ptr<Imm<U8>>)
+// shorter using type operators
+immFn: (p: ^*U8)
 ```
 
-This could get tedious. Could we have an operator for immutable?
-`^`, `@`, `$`
+## Out and ByRef Parameters
+
+> Use a mutable Pointer.
+
+```C#
+// simulated out-parameter
+Make42: (p: Ptr<U8>)
+    p() = 42
+```
 
 ## Return values
 
@@ -141,12 +158,6 @@ MyFunc(p: U8, p2: U16): MyStruct
         field2 = p2
 ```
 
-```C#
-// simulated out-parameter
-Make42(p: Ptr<U8>)
-    p() = 42
-```
-
 > Compiler will check if a ptr is returned, it is not pointing at a stack variable.
 
 Return values are also passed by value, so in the example above, two values (U8 and U16) would be copied to the caller.
@@ -154,7 +165,7 @@ Return values are also passed by value, so in the example above, two values (U8 
 The caller has to handle the return value (just like with Error). There is a syntax to explicitly ignore the return value.
 
 ```C#
-retFunc(): Bool
+retFunc: (): Bool
     ...
 
 b = retFunc()       // ok, retval caught
@@ -165,19 +176,33 @@ _ = retFunc()       // ok, explicitly not interested in retval
 
 > Could the compiler have an opinion about where the return statement is located? Only allow early exits inside and `if` and as last statement in the function. What about only one inside a loop?
 
+## Function Overloads
+
+Function overloading means that there are multiple functions with the same name but different parameter (or return) types.
+
+But in Z#, only type-bound functions can the `self` parameter be used to overload the function name. The type of `self` is the only thing allowed to change for functions with the same name.
+
+Give all other functions a unique name.
+
+```csharp
+fn(self: Struct1, p: U8)
+fn(self: Struct2, p: U8)
+fn(self: Struct1)  // error
+```
+
 ## Type Bound (Self)
 
 Using the `self` keyword on the (name of the) first parameter, a function can be bound to a type. In this example the function is bound to the MyStruct type.
 
 ```C#
-jamesBond(self: Ptr<MyStruct>)
+boundFn: (self: Ptr<MyStruct>)
     ...
 
 s = MyStruct
     ...
 
-s.jamesBond()
-jamesBond(s)
+s.boundFn()
+boundFn(s)
 ```
 
 When calling a bound function, the 'self' parameter can be used as an 'object' using a dot-notation or simply passed as a first parameter. Normal function rules apply, so for a struct it is usually a good idea to declare a `Ptr<T>` in order to avoid copying and be able to change the fields of the structure. Matching type-bound functions to their types is done as follows:
@@ -192,14 +217,16 @@ When calling a bound function, the 'self' parameter can be used as an 'object' u
 | Ptr\<T> | Ptr\<T> |
 | Imm\<T> | Imm\<T> |
 | Imm\<T> | Ptr<Imm\<T>> |
+| Ptr<Imm\<T>> | Ptr<Imm\<T>> |
 
 > This means implicit conversions => something we don't want?
+We may want this conversion in order to reduce noise of transforming self parameter types.
 
 Any type can be used, for instance Enum types:
 
 ```C#
-isMagicValue(self: MyEnum): Bool
-    return self = 42
+isMagicValue: (self: MyEnum): Bool
+    return self = MyEnum.MagicValue
 
 e = MyEnum.MagicValue
 
@@ -211,7 +238,7 @@ b = e.IsMagicValue()        // true
 ```csharp
 Struct
     ...
-fn(self: Struct)
+fn: (self: Struct)
     ...
 
 s: Struct
@@ -227,8 +254,8 @@ A local function is a function that is defined inside another function and is lo
 In other aspects they are no different from other functions.
 
 ```C#
-MyFunc(): U8
-    LocalFun(p: U8): U8
+MyFunc: (): U8
+    LocalFun: (p: U8): U8
         return p << 1;
 
     return LocalFun(42)
@@ -240,6 +267,125 @@ MyFunc(): U8
 
 > Limit on how many nesting levels?
 
+## Lambdas
+
+A lambda is a nameless function declared inline at the place where it is called, usually through a function pointer callback on another function.
+
+It follows the same makeup as a normal function except that there is no function name.
+
+It all starts with the ability to create a (typed) function pointer.
+
+```csharp
+// alternate (anonymous) function interface syntax
+// using a type (no names, just types)
+fn: Fn<(U8): U8>    // complex Type
+fn: Fn<U8, U8>      // one param, retval
+fn: Fn<U8, Str, U8> // two params, retval, etc
+fn: Act<U8>         // one param, no retval
+fn: Act<U8, Str>    // two params, no retval, etc
+```
+
+```csharp
+// typical lambda syntax
+ForEach<T>(self: Array<T>, fn: Act<T, U8>)
+
+// ptr to fn will work
+arr.ForEach(myCallback)
+// like match, but different (no capture)
+arr.ForEach((v, i) log("At {i}: {v}"))
+```
+
+```csharp
+CallBack: (p: U8) _
+Call: (fn: Ptr<Callback>)
+    ...
+
+// capture by-ref (ptr)
+Call({sum.Ptr()}(p) sum() = sum() + p)
+// use indent to allow multiple lines
+Call({sum.Ptr()}(p)
+    sum() = sum() + p
+)
+```
+
+## Coroutines
+
+Coroutines are functions that execute in parts. A different part is executed each time the function is called.
+
+The `yield` keyword indicates that a part in the function code has finished and the function should be exited. When the function is called next, execution will begin right after the yield statement that exited it last time.
+
+The `return` keyword works as normal and also resets the state of the coroutine. The next call to the function will start from the beginning.
+
+There are three types of coroutines in respect to the function return value.
+
+```C#
+// multiple calls, no result
+coroutine: (p: U8)
+    yield
+    yield
+    yield
+    return
+
+// multiple calls, one result
+coroutine: (p: U8): U16?
+    yield _
+    yield _
+    yield _
+    return p << 12
+
+// multiple calls each with result
+coroutine: (p: U8): Iter<U16>
+    yield p
+    yield p << 4
+    yield p << 8
+    return p << 12
+```
+
+The Coroutine state is kept in hidden a parameter at the call site. It is needed for the correct function of the coroutine but does not show in its declaration.
+
+```C#
+coroutine: (state: Ptr, p: U8) // hidden state param
+
+i = 42
+s1 = 0           // (hidden) coroutine call state at root-scope
+loop [0..3]
+    coroutine(i, s1.Ptr())     // ref, yield/return updates state
+    i = i + 2
+
+// multiple coroutines
+s1 = 0
+s2 = 0
+loop [0..3]
+    coroutine(42, s1.Ptr())
+    otherCoroutine(42, s2.Ptr())
+```
+
+---
+
+## Functional
+
+A pure function -without side-effects- can be recognized by the lack of mutable captures and immutable parameters. It has to have a return value.
+
+```csharp
+// has imm param but potentially writes to globalVar
+sideEffect: {globalVar.Ptr()}(p: Ptr<Imm<U8>>)
+// takes two params and produces result - no side effects
+pureFn: (x: U8, y: U8): U16
+```
+
+A higher order function is a function that returns a higher-order function.
+
+```csharp
+// a function that returns a function
+pureFn: (arr: Arr<U8>): (U8): U8
+pureFn: (arr: Arr<U8>): Fn<(U8): U8>
+    ...
+// call pureFn and call the function it returns
+v = pureFn([1,2])(42)
+```
+
+---
+
 ## Fluent Functions
 
 Fluent functions are possible with type-bound functions that return self or another types where another set of bound function is available for.
@@ -250,9 +396,9 @@ FnState1
 FnState2
     ...
 
-add(self: FnState1, v: U8): FnState2
+add: (self: FnState1, v: U8): FnState2
     ...
-build(self: FnState2): Array<U8>
+build: (self: FnState2): Array<U8>
     ...
 
 s = FnState1        // instantiate root struct
@@ -273,8 +419,8 @@ does<SomeType>().implementMethod(MethodName)
 > Allow by default using the 'fluent' self object if no return type?
 
 ```csharp
-add(self: Calc, v: U8)
-sub(self: Calc, v: U8)
+add: (self: Calc, v: U8)
+sub: (self: Calc, v: U8)
 
 c = Calc
 // only works with dot-syntax
@@ -286,15 +432,9 @@ c.add(4)
 
 > Auto-Fluent syntax? `Build(p: MyStruct)::Into(target: Stream)`
 
-## Function Overloads
+---
 
-Function overloading means that there are multiple functions with the same name but different parameter (or return) types.
-
-> This is not supported.
-
-Give function a unique name.
-
-### Double Dispatch / Visitor Pattern
+## Double Dispatch / Visitor Pattern
 
 A demonstration on function overloading and resolving them: does the visitor pattern work?
 
@@ -322,170 +462,40 @@ v = Visitor
 
 // 2 visit functions for different data structs
 // these functions could also be on an interface
-visit(self: Visitor, p: MyStruct1)
+visit: (self: Visitor, p: MyStruct1)
     ...
-visit(self: Visitor, p: MyStruct2)
+visit: (self: Visitor, p: MyStruct2)
     ...
 
 // accept a visitor
-accept(self: MyStruct, v: Visitor)
+accept: (self: MyStruct, v: Visitor)
     v.visit(field1)
     v.visit(field2)
 
 ```
 
-## Coroutines
+---
 
-Coroutines are functions that execute in parts. A different part is executed each time the function is called.
+## Captures
 
-The `yield` keyword indicates that a part in the function code has finished and the function should be exited. When the function is called next, execution will begin right after the yield statement that exited it last time.
+An additional syntax is considered for capturing dependencies of any code block. This may be a valuable feature when refactoring code.
 
-The `return` keyword works as normal and also resets the state of the coroutine. The next call to the function will start from the beginning.
-
-There are three types of coroutines in respect to the function return value.
-
-```C#
-// multiple calls, no result
-coroutine(p: U8)
-    yield
-    yield
-    yield
-    return
-
-// multiple calls, one result
-coroutine(p: U8): U16?
-    yield _
-    yield _
-    yield _
-    return p << 12
-
-// multiple calls each with result
-coroutine(p: U8): Iter<U16>
-    yield p
-    yield p << 4
-    yield p << 8
-    return p << 12
+```csharp
+v = 42
+// following code is dependent on v
+{v}
+    // use v here
 ```
 
-> Coroutine state is kept in hidden param? (has to be caller context specific)
+Captures also may be used as a synchronization mechanism for shared data. At the start of a capture a copy is made of the data and the code (function) works with that copy. The actual value may be changed (by an interrupt) in the meantime.
 
-```C#
-coroutine(p: U8) // hidden coroutine state param?
-coroutine(state, p: U8) // explicit coroutine state param?
-coroutine(self, state, p: U8) // with self?
+In case of a mutable capture, it's value is written back to the original storage when the block of code is completed.
 
-i = 42
-s1 = 0           // (hidden) coroutine call state at root-scope
-loop [0..3]
-    coroutine(i, s1.Ptr())     // ref, yield/return updates state
-    i = i + 2
-
-// multiple coroutines
-s1 = 0
-s2 = 0
-loop [0..3]
-    coroutine(42, s1.Ptr())
-    otherCoroutine(42, s2.Ptr())
-```
+> We do need a mechanism to handle conflicts when writing back captured data.
 
 ---
 
-> TBD:
-
-support recursion? Let compiler check for exit condition.
-
----
-
-anonymous functions/lambda/in-place syntax (no capture)
-
-```csharp
-// alternate (anonymous) function interface syntax
-// using a type (no names, just types)
-fn: Fn<(U8): U8>    // complex Type
-fn: Fn<U8, U8>      // one param, retval
-fn: Act<U8>         // one param, no retval
-
-// fn ptr will work
-arr.ForEach(callback)
-
-// typical lambda syntax
-ForEach<T>(self: Array<T>, fn: Act<T, U8>)
-// like match, but different (no capture)
-arr.ForEach((v, i) => log("At {i}: {v}"))
-
-sum = 0     // this must be captured => is not supported!
-arr.ForEach((v) => sum = sum + v)   // error! no capture supported
-```
-
-> Idea: Make all functions have to declare (capture) any dependencies on global vars
-
-nice tracking of global state dependencies and a way to tell of a function has side-effects
-
-```csharp
-globalVar = 42
-
-// old syntax
-fn(p: U8): Bool
-    return globalVar = p    // implicit use of global variable
-
-// new syntax (specific syntax TBD)
-fn(p: U8): Bool [globalVar] // explicit capture of global var
-    return globalVar = p    // uses global variable
-
-// do global captures have to flow?
-otherFn(p: U8): Bool        // error!: uses fn that requires global var
-    return fn(p)
-```
-
-> Alternate Syntax: \<name>: \<type> {capture} implementation.
-
-```csharp
-globalVar = 42
-anotherVar = 101
-
-fn: (p: U8): Bool {globalVar}
-    return globalVar = p
-
-otherFn(p: U8): Bool {globalVar, anotherVar}
-    return fn(p) && anotherVar <> 0
-
-```
-
-For function decls and interfaces no captures are specified. A capture is an implementation requirement.
-
----
-
-pure functions (functional) / higher order functions?
-
-> Should we name pure-functions 'functions' and side-effect routines 'procedures' (or similar)?
-
-> The compiler needs to recognize a pure function for optimization. We may need a specific syntax...?
-
-Do 'functions' always return a value? => yes. A function takes input (parameters) and produces output (return value). If it did not have a return value, a pure function (without side effects) would have no reason to exist.
-
-```csharp
-// define
-proc(p: U8): U8
-    ...
-~fn(p:U8): U8
-    ...
-// call
-a = proc(42)
-a = ~fn(42)
-```
-
-```csharp
-// a function that returns a function
-pureFn(arr: Arr<U8>): (U8): U8
-pureFn(arr: Arr<U8>): Fn<(U8): U8>
-    ...
-// call pureFn and call the function it returns
-v = pureFn([1,2])(42)
-```
-
----
-
-Piping Operator
+## Piping Operator
 
 To make nested function calls more readable. More 'functional'.
 Would make line-breaks in long statements (chains) a lot more readable?

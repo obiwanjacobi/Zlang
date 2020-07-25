@@ -118,3 +118,14 @@ e = MyEnum.opt1
 ```
 
 The data type of an enum option is the enum type itself. So `e` in the example above is of type `MyEnum` with a value of `0` (zero).
+
+When the enum type can be inferred from context it does not need repeating (optional).
+
+```csharp
+MyFunc(p1: MyEnum)
+    ...
+
+// the parameter type dictates what enum to use
+MyFunc(opt2)    // MyEnum.opt2
+MyFunc(.opt2)   // MyEnum.opt2
+```

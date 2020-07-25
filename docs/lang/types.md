@@ -1,10 +1,34 @@
 # Types
 
-## Built-in data types
+There are built-in types that define the basic data storage widths and semantics.
+
+Several flavors of custom types can be defined:
+
+- [Enumeration](./emums.md). A grouped set of named values.
+- (Custom) Data Types. Types that restrict the built-in data types further.
+- [Structures](./structures.md). A group of data fields always together.
+- Related Types. Types that are based on existing types but differ in a small way. For instance a read-only version of a structure or the common fields from multiple other types.
+
+There is a basic syntax that all types declarations follow:
+
+```csharp
+TypeName: BaseType
+    #meta = value   // data type constraints (#)
+    Enum = value    // enum named values
+    Field: Type     // struct fields
+```
+
+`TypeName`: The name of the type.
+
+`BaseType`: (optional) the name of the type this new type is based on (derives from).
+
+Then each type has its own way of specifying its implementation
+
+## Built-in Data Types
 
 The built-in data type form the basic building blocks for creating structures.
 
-> **_All type names start with a capital letter_**
+> **_All type names start with a Capital letter_**
 
 There are built-in types for integers, floating point, string and boolean.
 
@@ -87,32 +111,9 @@ Bit<4>
 
 When `Bit`s are stored, the closest fitting data type is used. So a `Bit<6>` would take up a single byte `U8`, while a `Bit<12>` would take up two bytes `U16`. `Bit`s are always interpreted as unsigned and stored in the lower bits of the storage type. The upper unused bits are reset to zero.
 
-## Optional and Error Types
+## Custom Data Types
 
-> The optional and error types can be thought of as constrained variant types.
-
-```csharp
-Opt<T>: T or Nothing _
-Err<T>: T or Error _
-```
-
-`Nothing` is an no-value indication for the compiler and is never available to the program.
-
-`Error` is discussed [here](../Types/Error.md).
-
-### Operators
-
-```csharp
-o: U8?  // optional U8
-e: U8!  // U8 or error
-x: U8!? // optional U8 or Error
-```
-
-## Data Types
-
-> Look into data types like C++ implementations of (physical) units. Make it impossible to assign kg to length - that sort of thing.
-
-(Constrained Types?)
+(Constrained Types? / Type Contraints)
 
 There is an easy way to create data types to differentiate data at a type level. By using different types the purpose of the data become even more clear.
 
@@ -131,7 +132,7 @@ a: Age = 42
 name: PersonName = "John"
 ```
 
-Use `_` to differentiate from variable declarations. Without the trailing `_` it would be variable not a Type.
+Use `_` to differentiate from variable declarations. Without the trailing `_` it could be variable with an upper case first letter. Typically local variables use lower first letters.
 
 You do have to use the explicit type on the variable declaration, using defaults will yield standard types (U8 and Str).
 
@@ -147,7 +148,7 @@ il: ImperialLength = 200    // 200 feet
 loa = ml + il               // error: cannot add different data types
 ```
 
-Operators of the underlying type can **NOT**  be used. Data Types are always more specific and restrictive than the underlying type. New operator implementations have to be created using the dedicated function names mapped to each operator. It is a compile error if such a function is not found for the operator in use.
+Operators of the underlying type can **NOT** be used. Data Types are always more specific and restrictive than the underlying type. New operator implementations have to be created using the dedicated function names mapped to each operator. It is a compile error if such a function is not found for the operator in use.
 
 ```csharp
 Age: U8 _
@@ -180,242 +181,62 @@ d.aliasFn(42)       // error! same reason
 d.typeFn(42)        // ok
 ```
 
-> Can data types cannot have any fields. A struct can be composed of fields using only data types.
-
-> It is possible to restrict the valid data for a data type. For instance `0 <= Age <= 130`. Could we use ranges? Perhaps make an `or` type with literals and or range expressions?
+> Data types cannot have any fields. A struct can be composed of fields using (only) data types.
 
 ```C#
 Age: U8
-    0
-    2..100
+    #value = 0
+    #value = 2..100
 Mode: Str
-    "A"
-    "B"
-    "C"
+    #value = "A"
+    #value = "B"
+    #value = "C"
 ```
 
 > overload/override value setter (assignment operator?) to do custom validation?
 
-## Variant Type
+## Types with Operators
 
-> Do we need a variant type?
+Some built-in types are use so often, it makes sense to provide a shorter version in the form of an operator.
 
-```C#
-funcAny(): Any
-    ...
+Type | Operator | Position
+--|--|--
+`Err<T>` | ! | Post
+`Opt<T>` | ? | Post
+`Ptr<T>` | * | Pre
+`Imm<T>` | ^ | Pre
 
-a = funcAny()   // a => Any
-v = match a
-    n: U8 => n
-    _ => Error("Unsupported")
-
-// v => U8!
-```
-
-See also Union/Constrained Variant Types.
-
-## Pointer Types
-
-The template type `Ptr<T>` is used to represent a pointer. Z# reserves characters like `*` -commonly used in other languages to indicate pointer types- for operators.
-
-> The number of bits used for a pointer into memory depends on the memory model: 16, 20, 24 ...?
-When bank switching and extended memory is worked out this number is configured for the compiler to use.
-
-```C#
-ptr: Ptr<U8>        // pointer to an U8
-```
-
-Create a pointer:
-
-```C#
-v = 42;
-ptr = v.Ptr()       // explicit call to make ptr
-```
-
-Dereferencing a pointer is done by using [Conversion](./conversion.md) functions. The pointer will be dereferenced implicitly.
-
-> TODO: do not do anything implicitly!
-
-```C#
-ptr: Ptr<U8>
-v = ptr.U8()        // conversion deref call
-```
-
-[Conversion](./conversion.md) to other types is only allowed if the target type has the exact same number of bits as the `T` of the pointer.
-
-> Do we want that? Two actions in one: deref and conversion.
-
-Assigning a new value to the pointed-to-storage:
-
-```C#
-changeByRef(Ptr<U8> ptr)
-    ptr.U8(42)          // conversion with new value
-    ptr.value(42)       // same (uses Ptr type: U8)
-    ptr.value<U8>(42)   // same, explicit
-
-    v = ptr.U8()        // v is a local copy
-    v = 42              // does NOT change ptr value!
-```
-
-> Alternate Syntax
-
-```C#
-ptr: Ptr<U8>        // must be initialized or optional
-v = ptr()           // deref? v => U8
-ptr() = 42          // change pointed to value? #1
-ptr(42)             // change pointed to value? #2
-```
-
-This does align nicely with ptr-to-fn syntax and how to call a function using a ptr-to-fn: `retval = ptr_to_fn(param1)`
-
-Template Access
-
-```C#
-changeByRef<T>(Ptr<T> ptr, val: T)
-    x = ptr.value<T>()  // compatibility checked at compile time
-    ptr.value<T>(val)
-```
-
-> TBD: pointers using operators?
+The optional and error types can be thought of as constrained variant types.
 
 ```csharp
-a = 42
-ptr: U8*    // type
-ptr = &a    // address of
-x = ^ptr    // deref
-// x = 42
+Opt<T>: T or Nothing _
+Err<T>: T or Error _
 ```
 
-### Static Ptr Helper
+`Nothing` is an no-value indication for the compiler and is never available to the program.
 
-```C#
-a = 42
-ptr = Ptr.to(a)
+`Error` is discussed in more detail [here](../Types/Error.md).
 
-ptr = Ptr.to(42)    // ptr to literal is immutable
-```
+`Ptr` is discussed in more detail [here](./pointers.md).
 
-### Optional
-
-```C#
-ptr: Ptr<U8>?       // an optional pointer to U8
-ptr: Ptr<U8?>       // pointer to an optional U8
-```
-
-> Pointer variables need to be initialized when declared or they must be made optional.
+Several convenience types are created.
 
 ```csharp
-p: Ptr<U8>      // error! must have value or be optional
-p: Ptr<U8>?     // ok, no value - so optional
-
-a = 42;
-p: Ptr<U8> = a.Ptr()    // ok, ptr has value
+ImmPtr<T> = Ptr<Imm<T>>
+OptErr<T> = Err<Opt<T>>
 ```
 
-> How does writing to an optional ptr work?
+### Operators
 
 ```csharp
-a: U8?                      // now _
-p: Ptr<U8?> = a.Ptr()
-
-// how does the instance in memory know it's no longer _ ??
-p() = 42
+o: U8?      // optional U8
+e: U8!      // U8 or error
+x: U8!?     // optional U8 or Error
+p: *U8?     // optional pointer to an U8
+i: ^*U8?     // optional immutable pointer to an U8
 ```
 
-### Pointer to Pointer
-
-Should be no different than creating that initial pointer.
-
-```C#
-pp: Ptr<Ptr<U8>>        // ptr to ptr to U8
-opp: Ptr<Ptr<U8>>?      // optional ptr to a ptr to U8
-pop: Ptr<Ptr<U8>?>      // ptr to optional ptr to U8
-
-p: Ptr<U8>              // Ptr<U8>
-pp = p.Ptr()            // Ptr<Ptr<u8>>
-```
-
-> Only two levels allowed? => yes
-
-### Pointer to Arrays
-
-The pointer to an Array is not expressed with the `Ptr<T>` type. Instead the `Slice<T>` type is used for this.
-
-> TODO: `Slice<T>`
-
-### Pointer to Immutable
-
-> TBD: A pure reference.
-
-```C#
-// literals are immutable by default
-x = 42#imm      // or x: Imm<U8> = 42
-p = x.Ptr()     // Ptr<Imm<U8>>
-p.value(101)      // error! immutable
-```
-
-### Pointer Arithmetic
-
-> There is no pointer arithmetic.
-
-Typically a `Slice<T>` should be used to index into a pointer. See Pointer to Arrays.
-
-> Do we need a generic `object` type as a 'void' pointer?
-
----
-
-> TBD: Syntax for pointing to members of structures?
-
-Needs an offset (compile time) from a runtime Ptr.
-
-```C#
-MyStruct
-    field1: U8
-    field2: U16
-
-s = MyStruct
-    ...
-p = s.Ptr()
-pFld2 = p#offset(MyStruct.field2)
-```
-
-> What about pointing to bit-field members?
-
----
-
-### Casting
-
-Type compatibility.
-
-```C#
-ptr: Ptr<U8>
-v = ptr.I8()        // ok, unsigned to signed conversion
-v = ptr.U16()       // error! U16 is too big
-b = ptr.Bit<4>([4..8])  // error! Bit<4> is too small
-```
-
-Custom structures must use the value accessor:
-
-```C#
-MyStruct : OtherStruct
-    ...
-
-ptr = Ptr<MyStruct>
-cast = ptr.value<OtherStruct>()     // ok, cast to derived type
-p = cast.value<MyStruct>()          // ok, is original type
-```
-
-```C#
-MyStruct : OtherStruct
-    ...
-MyStruct2: OtherStruct
-    ...
-ptr = Ptr<MyStruct>
-cast = ptr.value<OtherStruct>()
-p2 = cast.value<MyStruct2>()        // error, is not original type
-```
-
-If the original type is lost or cannot be determined at compile time, casting up the inheritance hierarchy will always fail.
+`Err<T>` is typically only used on function return values.
 
 ## Aliases
 
@@ -429,110 +250,75 @@ MyType: OtherType<Complex<U8>, Str> _   // _ to indicate no fields
 MyType = OtherType<Complex<U8>, Str>
 ```
 
-## Templates
-
-Templates are processed at compile time.
-
-### Template Structures
+## Constrained Variant
 
 ```C#
-MyStruct<T>
-    f: T
+OneOrTheOther: Struct1 or Struct2
+OneOfThese: Struct1 or Struct2 or Struct3 or Struct4
 
-s = MyStruct<U8>
-```
-
-> This should also work:
-
-```C#
-MyStruct<T>: T
+s: OneOfThese
     ...
 
-s = MyStruct<OtherStruct>
+v = match s
+    s1: Struct1 => s1.fld1
+    s2: Struct2 => s2.val2
+    s3: Struct3 => s3.bla
+    s4: Struct4 => s4.myfld
 ```
 
-### Template Functions
+> The type-id is stored with the instance. Access with `#varId` or something?
 
-```C#
-typedFn<T>(p: T)
-    ...
+> A Ptr should still point to the payload of the variant so perhaps store the var-type in front of the main payload.
 
-// type inferred and checked
-typedFn(42)
+A constrained variant instance cannot change type during its lifetime.
 
-// type explicit
-typedFn<U8>(42)
-// new forms of casting?
-typedFn(42: U8)
-typedFn(x: U8)
+## Type Manipulation
 
-// return values
-typedRet<T>(): T
-    ...
-
-x = typedRet<U8>()
-x = typedRet(): U8
-y: U8 = typedRet()  // type forwarding?
-z = typedRet()      // Error! cannot determine type
-```
-
-> Are template parameters simply normal parameters known at compile time?
-
-### Restricting Template Type Parameters
+Related variations can be created easily from existing types.
 
 ```C#
 MyStruct
-    ...
-OtherStruct: MyStruct       // derive from MyStruct
-    ...
+    fld1: U8
+    fld2: U16
 
-typedFn<T: MyStruct>(p: T)  // accept type (derived from) MyStruct
-    ...
+// make type optional
+MyOptionalStruct: Opt<MyStruct>
+MyOptionalStruct: MyStruct?     // language supported
+// fld1: U8?
+// fld2: U16?
 
-o = OtherStruct             // instantiate
-    ...
-
-typedFn(o)                  // type inferred and checked
-typedFn<MyStruct>(o)        // base type explicit
-typedFn<OtherStruct>(o)     // derived type explicit
+// make type read-only
+MyReadOnlyStruct: Imm<MyStruct>
+MyReadOnlyStruct: ^MyStruct
+// fld1: ^U8
+// fld2: ^U16
 ```
 
-> This too??
+Make an instance read-only:
 
-```C#
-// non-type template params?
-FixedArray<T, count: U8>
-    arr: Array<T>(count)
-// use type params?
-FixedArray<T>(count: U8)    // hard to distinguish from function
-    arr: Array<T>(count)
+```csharp
+s: MyStruct
+// using a conversion to make immutable
+r = s.Imm()
+r.fld1 = 101        // error! field is read-only
 
-// restricting on metadata?
-TemplateType<T#bits=8>  // '=' conflicts with parameter default
-    field: T
+//-or-  cast will convert
+r: MyReadOnlyStruct = s
 ```
 
-### Template Parameter Defaults
+Make an instance optional:
 
-```C#
-TemplateType<T=U8>
-    field1: T
+```csharp
+s: MyStruct
+// using a conversion to make optional
+o = s.Opt()
+o.fld1 = _        // field is 'nulled'
 
-t = TemplateType
-    field1 = 42         // U8
+//-or-  cast will convert
+o: MyOptionalStruct = s
 ```
 
-### Template Specialization
-
-```C#
-typedFn<T>(p: T)
-    ...
-typedFn<Bool>(p: Bool)  // how do we know this is a specialization of typedFn<T>? By name?
-    ...
-
-typedFn(42)         // generic typedFn<T> called
-typedFn(true)       // specialization typedFn<Bool> called
-```
+---
 
 ## TBD
 
@@ -604,102 +390,6 @@ s.structFn(42)      // the 'reference' to the structFn has to go past Struct1
 structFn(s#offset(Struct2), 42)
 ```
 
-## Type Manipulation
-
-```C#
-MyStruct
-    fld1: U8
-    fld2: U16
-
-MyOptionalStruct: MyStruct#opt
-MyOptionalStruct: MyStruct?     // language supported?
-// fld1: U8?
-// fld2: U16?
-
-// make type read-only
-MyReadOnlyStruct: MyStruct#imm
-MyReadOnlyStruct: Imm<MyStruct>
-    fld1 = 42           // have to init right away
-    fld2 = 0x4242
-```
-
-```csharp
-// make an instance read-only
-s = MyStruct
-    fld1 = 42
-    fld2 = 0x4242
-
-// using a conversion to make immutable
-r = s.Imm()
-r.fld1 = 101        // error! field is read-only
-```
-
-```csharp
-// make an instance optional
-s = MyStruct
-    fld1 = 42
-    fld2 = 0x4242
-
-// using a conversion to make optional
-r = s.Opt()
-r.fld1 = _        // field is 'nulled'
-```
-
-## Constrained Variant
-
-```C#
-OneOrTheOther: Struct1 or Struct2
-OneOfThese: Struct1 or Struct2 or Struct3 or Struct4
-
-s: OneOfThese
-    ...
-
-v = match s
-    s1: Struct1 => s1.fld1
-    s2: Struct2 => s2.val2
-    s3: Struct3 => s3.bla
-    s4: Struct4 => s4.myfld
-```
-
-> The type-id is stored with the instance. Access with `#varId` or something?
-
-A Ptr should still point to the payload of the variant so perhaps store the var-type in front of the main payload.
-
-A variant instance cannot change type during its lifetime.
-
----
-
-## Opaque Type Reference
-
-A way to export a handle to an instance of a private type.
-
-Purpose is to not expose internal structures that are allocated on behalf of clients/callers.
-
-Use a type-less `Ptr`.
-
-```csharp
-export outFn(p: U8): Ptr
-    s: MyStruct
-        ...
-    // can't be Ptr(), that would yield Ptr<MyStruct>
-    return s.Otr()  // cast/convert
-    return s.PtrNoType()    // ??
-
-export inFn(p: Ptr): U8
-    s = p.value<MyStruct>()
-    s = p.value<OtherStruct>()  // error! not the correct type
-    ...
-
-// usage
-import outFn    // pseudo
-import inFn     // pseudo
-
-o = outFn(42)   // o => Otr?
-o.x             // error! Otr does not allow member access
-
-a = inFn(o)     // Otr as parameter
-```
-
 ---
 
 ## Dynamic Type
@@ -724,6 +414,8 @@ if d.MyFunc(42)
     ...
 ```
 
+> What functions are available to which `Dyn` instances?
+
 Calling non-existent functions should raise an (runtime) Error.
 Accessing non-existing fields returns 0? -or- always requires a check in the same scope (like optional)?
 
@@ -734,3 +426,23 @@ d: Dyn
 d.prop1 = 42    // now you see it
 d.prop1 = _     // now you don't
 ```
+
+---
+
+## Variant Type
+
+> Do we need a variant type? => Don't think so.
+
+```C#
+funcAny(): Any
+    ...
+
+a = funcAny()   // a => Any
+v = match a
+    n: U8 => n
+    _ => Error("Unsupported")
+
+// v => U8!
+```
+
+See also Union/Constrained Variant Types.

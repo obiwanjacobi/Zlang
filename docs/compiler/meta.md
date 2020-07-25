@@ -58,11 +58,24 @@ MyFunction()
 MyFunction#ptr  // ok, ptr to function
 ```
 
+> Perhaps have a very short version fo `#name` for it will be used most often.
+
+```csharp
+a = 42
+#a              // 'a'
+#U8             // 'U8'
+#MyFunction     // 'MyFunction'
+```
+
+(this may be conflicting with pragmas)
+
 ## Pragmas
 
 A pragma is a directive that instructs the compiler to take some action. For instance turn off a compiler warning temporarily.
 
 A pragma is prefixed with: `#` that starts at the indent level of the current scope. It also starts a new scope.
+
+> Is the space after `#` mandatory or optional?
 
 ```C#
 # ignore("CE3091")    // compiler fn call - starts a scope!
@@ -97,7 +110,7 @@ _Any_ Z# code can be executed at compile-time. By placing a `#!` in front of it,
 m = MyStruct
     ...
 
-// this code is run at compile time
+// this code can only run at compile time
 #! compTime<T>(m: T)
     t = m#type
     t.name                      // 'MyStruct'
@@ -107,9 +120,9 @@ m = MyStruct
 #! compTime(m)
 compTime(m)     // error! `#type` attr is not available
 
-// alternate: use a #run pragma
+// alternate: use a #run pragma to run any code at compile time.
 # run
-    compTime(m)
+    runTime(m)  // can give compile error
 ```
 
 Some `#` compiler attributes may require the code to be `#!` compile time code.
@@ -121,6 +134,12 @@ anyFunc<T>(m: T)    // normal function
 #! anyFunc(m)       // called/run at compile time
 anyFunc(m)          // called/run at run time
 ```
+
+## Type Information
+
+No type information available at runtime other that the `#typeId` which can only be used as type identifier to compare equality or for use as a key in a map/table store.
+
+Full type information is only available at compile time. Are there any scenarios that would really become a problem not having type info at runtime?
 
 ## Compiler Functions
 

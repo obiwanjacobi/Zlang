@@ -34,6 +34,7 @@ The number of keywords have been kept to a minimum. Much of the language is expr
 - in
 - out
 - ref
+- use
 - any
 - asm
 - bank
