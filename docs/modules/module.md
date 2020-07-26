@@ -32,7 +32,7 @@ In a sense, the module name is also the namespace of the code in the file.
 > A way to import modules into a local scope?
 
 ```csharp
-fn()
+fn: ()
     use mod1
     s = Struct1     // from mod1
         ...

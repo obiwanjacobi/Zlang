@@ -122,7 +122,7 @@ The data type of an enum option is the enum type itself. So `e` in the example a
 When the enum type can be inferred from context it does not need repeating (optional).
 
 ```csharp
-MyFunc(p1: MyEnum)
+MyFunc: (p1: MyEnum)
     ...
 
 // the parameter type dictates what enum to use

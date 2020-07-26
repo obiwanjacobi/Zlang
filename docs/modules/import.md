@@ -25,7 +25,7 @@ By using an alias the name of the imported item can be renamed to something new.
 module alias_example
 export MyFunc
 
-MyFunc()
+MyFunc: ()
     ...
 ```
 

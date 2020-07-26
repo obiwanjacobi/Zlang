@@ -34,27 +34,27 @@ An object interface can declare one or more functions. It must have the `self` k
 
 ```C#
 ObjectInterface
-    lowByte(self, p1: U16): U8 _
-    hiByte(self, p1: U16): U8 _
+    lowByte: (self, p1: U16): U8 _
+    hiByte: (self, p1: U16): U8 _
 ```
 
 An object interface template:
 
 ```C#
 TemplateInterface<T>
-    lowByte(self, p1: U16): T _
-    hiByte(self, p1: U16): T _
+    lowByte: (self, p1: U16): T _
+    hiByte: (self, p1: U16): T _
 
 // recommended way to restrict self
 MyStruct
     ...
 RestrictedInterface<T: MyStruct>
-    lowByte(self: T, p1: U16): U8 _
-    hiByte(self: T, p1: U16): U8 _
+    lowByte: (self: T, p1: U16): U8 _
+    hiByte: (self: T, p1: U16): U8 _
 // The interface can only be implemented on MyStruct (or derived) types.
 
 CompanionInterface<T: TemplateInterface>
-    fn(self: T, p1: U8): Str _
+    fn: (self: T, p1: U8): Str _
 // The interface can only be implemented on types that also implement TemplateInterface (with any T).
 ```
 
@@ -69,7 +69,7 @@ MyInterface
     interfunc(self, p: U8) _
 
 // function must match exactly
-interfunc(self: MyStruct, p: U8)
+interfunc: (self: MyStruct, p: U8)
     ...
 
 // make struct instance

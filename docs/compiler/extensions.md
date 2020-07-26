@@ -9,23 +9,23 @@
 ```C#
 // function code attributes
 {CodeAttr}
-myFunction(p: U8) Bool
+myFunction: (p: U8) Bool
 
 // multiple code attributes
 {CodeAttr1, CodeAttr2}      // comma separated
-myFunction(p: U8) Bool
+myFunction: (p: U8) Bool
 
 {p: CodeAttr}
-myFunction(p: U8) Bool
+myFunction: (p: U8) Bool
 
 {: CodeAttr}                // : for retval
-myFunction(p: U8) Bool
+myFunction: (p: U8) Bool
 
 // full set
 {p: CodeAttr}               // order does not matter
 {: CodeAttr}
 {CodeAttr1, CodeAttr2}      // for function
-myFunction(p: U8) Bool
+myFunction: (p: U8) Bool
 ```
 
 Code attributes with parameters:
@@ -58,15 +58,15 @@ The following code constructs can be decorated:
 For each of these cases a specific decorator function signature is defined.
 
 ```C#
-Structure(self: StructureInfo)
-StructureField(self: StructureFieldInfo)
+Structure: (self: StructureInfo)
+StructureField: (self: StructureFieldInfo)
 
-Function(self: FunctionInfo)
-FunctionParameter(self: FunctionParameterInfo)
-FunctionReturn(self: FunctionReturnInfo)
+Function: (self: FunctionInfo)
+FunctionParameter: (self: FunctionParameterInfo)
+FunctionReturn: (self: FunctionReturnInfo)
 
-Enum(self: EnumInfo)
-EnumOption(self: EnumOptionInfo)
+Enum: (self: EnumInfo)
+EnumOption: (self: EnumOptionInfo)
 ```
 
 The decorator function parameters must start with the specific self type in order to be used for the specific code construct. Additionally any number of extra parameters may be added to the decorator function. Matching decorator functions to a code construct is done purely on the self parameter.
@@ -76,12 +76,12 @@ The `self` structures that are defined mainly provide type information of the de
 Decorator functions are run at compile time and should therefor use the `#!` at the implementation definition to make sure the code is compile-time execution ready and are not compiled into the binary.
 
 ```C#
-#! MyFnDecorator(self: FunctionInfo, p: U8)
+#! MyFnDecorator: (self: FunctionInfo, p: U8)
     ...
 
 // the self parameter is passed implicitly
 {MyFnDecorator(42)}
-SomeDecoratedFn()
+SomeDecoratedFn: ()
     ...
 ```
 

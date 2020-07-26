@@ -33,6 +33,7 @@ The number of keywords have been kept to a minimum. Much of the language is expr
 - errdefer
 - in
 - out
+- var
 - ref
 - use
 - any

@@ -23,7 +23,7 @@ s = MyStruct<OtherStruct>
 ## Template Functions
 
 ```C#
-typedFn<T>(p: T)
+typedFn: <T>(p: T)
     ...
 
 // type inferred and checked
@@ -36,7 +36,7 @@ typedFn(42: U8)
 typedFn(x: U8)
 
 // return values
-typedRet<T>(): T
+typedRet: <T>(): T
     ...
 
 x = typedRet<U8>()
@@ -104,9 +104,9 @@ t = TemplateType
 ## Template Specialization
 
 ```C#
-typedFn<T>(p: T)
+typedFn: <T>(p: T)
     ...
-typedFn<Bool>(p: Bool)  // how do we know this is a specialization of typedFn<T>? By name and function type.
+typedFn: <Bool>(p: Bool)  // how do we know this is a specialization of typedFn<T>? By name and function type.
     ...
 
 typedFn(42)         // generic typedFn<T> called

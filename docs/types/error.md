@@ -19,7 +19,7 @@ errorFn() catch(err)
 Its use is identified by the `!` symbol.
 
 ```C#
-couldErr(p: U8): U8!
+couldErr: (p: U8): U8!
     ...
 ```
 
@@ -28,14 +28,14 @@ The `couldErr` function returns a `U8` but could also return an `Error`. In this
 The Error type has a creator function that takes a string of text describing the error.
 
 ```C#
-Error(msg: Str): Error
-Error<T: Error>(msg: Str, err: T): T
+Error: (msg: Str): Error
+Error: <T: Error>(msg: Str, err: T): T
 ```
 
 So to return an `Error` from a function:
 
 ```C#
-couldErr(p: U8): U8!
+couldErr: (p: U8): U8!
     return Error("Failed for value {p}.");
 ```
 
@@ -55,7 +55,7 @@ MyError: Error          // derive from Error
 To use this custom Error instead of the default one:
 
 ```C#
-couldErr(p: U8): U8!
+couldErr: (p: U8): U8!
     err = MyError                   // just like any struct
         err.f1 = p
     return Error("Failed.", err)    // overrides the Error type
@@ -68,7 +68,7 @@ v = couldErr() catch(err)
 Wrap this construction code into a function for ease of use:
 
 ```C#
-MyError(msg: Str, p: U8): MyError
+MyError: (msg: Str, p: U8): MyError
     err = MyError
         err.f1 = p
     return Error(msg, err);
@@ -82,7 +82,7 @@ Using custom Error types, it is possible to make hierarchies and test on the act
 ## Nesting Errors
 
 ```C#
-errorFn(): U8!
+errorFn: (): U8!
     return Error("Failed")
 
 couldWork(): U8!
@@ -100,6 +100,6 @@ Error.NotSupported
 Error.NotImplemented
 Error.NotExpected
 
-errFun(): Bool!
+errFun: (): Bool!
     return Error(Error.Failed)
 ```

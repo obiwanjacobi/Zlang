@@ -3,7 +3,7 @@
 There is no null or null-ptr in Z#. There is a syntax to structure the case where a value may not be available. The `?` is used on the type to indicate this.
 
 ```C#
-valueMaybe(): U8?
+valueMaybe: (): U8?
     return _            // to return nothing
     return 42           // to return a value
 
@@ -21,7 +21,7 @@ else
 The type of an optional:
 
 ```C#
-valueMaybe(): U8?
+valueMaybe: (): U8?
     ...
 
 var: U8?        // initialize an optional (default = _)
@@ -33,7 +33,7 @@ It is a compiler error if you use (dereference) an optional without checking. Yo
 Optional function parameters:
 
 ```C#
-hasParam(p: U8?): Bool
+hasParam: (p: U8?): Bool
     return p ? true : false
 ```
 

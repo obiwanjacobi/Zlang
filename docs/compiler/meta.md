@@ -19,15 +19,12 @@ A special operator is used to access them: `#`
 | `#count` | The number of elements.
 | `#size` | The size in bytes the type takes up in memory.
 | `#default` | Default value for the type.
-| `#imm` | Make immutable.
 | `#mask` | Mask for retrieving a bit field value.
 | `#offset` | Byte offset from the start of a structure to a field.
 
 > `#typeid` is a U16 hash value over (part of) the module name and type name.
 
 > `#type` is only available in a compile-time function that is tagged with a `#!`.
-
-_`#imm` is still under debate. Another option would be to use a template type `Imm<T>`._
 
 Not all types support all attributes. The compiler will give an error when the code accesses an attribute that is not supported by the type in question.
 
@@ -37,14 +34,12 @@ a#size      // 1
 a#bits      // 8
 a#min       // 0
 a#max       // 255
-a#ptr       // error! use .Ptr() on instances
 a#name      // 'a'
 
 U8#size     // 1
 U8#bits     // 8
 U8#min      // 0
 U8#max      // 255
-U8#ptr      // error! not on this type
 U8#name     // 'U8'
 
 Bit<3>#size // 1
@@ -52,13 +47,9 @@ Bit<3>#bits // 3
 Bit<3>#min  // 0
 Bit<3>#max  // 7
 Bit<3>#name // 'Bit3'
-
-MyFunction()
-    ...
-MyFunction#ptr  // ok, ptr to function
 ```
 
-> Perhaps have a very short version fo `#name` for it will be used most often.
+> Perhaps have a very short version of `#name` for it will be used most often.
 
 ```csharp
 a = 42
@@ -111,7 +102,7 @@ m = MyStruct
     ...
 
 // this code can only run at compile time
-#! compTime<T>(m: T)
+#! compTime: <T>(m: T)
     t = m#type
     t.name                      // 'MyStruct'
     loop f in t.fields
@@ -128,7 +119,7 @@ compTime(m)     // error! `#type` attr is not available
 Some `#` compiler attributes may require the code to be `#!` compile time code.
 
 ```C#
-anyFunc<T>(m: T)    // normal function
+anyFunc: <T>(m: T)    // normal function
     ...
 
 #! anyFunc(m)       // called/run at compile time
@@ -169,21 +160,6 @@ MyStruct
 s = MyStruct
     ...
 
-if s#field1     // does 'field1' exist at compile time?
+if s?field1     // does 'field1' exist at compile time?
     ...
 ```
-
-Meh:
-
-```C#
-MyFunc(p1: U8, p2: U16)
-    ...
-
-pfn = MyFunct#ptr
-pfn = MyFunct
-
-if pfn#p1   // does 'p1' parameter exist?
-    ...
-```
-
----

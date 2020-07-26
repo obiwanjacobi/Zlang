@@ -62,7 +62,7 @@ b = p.U8()      // b = 42
 p.U8(101)       // a = 101, b = 42
 ```
 
-See also [Pointer Types](./types.md).
+See also [Pointers](./pointers.md).
 
 ---
 

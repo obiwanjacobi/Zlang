@@ -3,7 +3,7 @@
 Fibonacci
 
 ```csharp
-// recusrive function
+// recursive function
 fib: (f: U16): U16
     if f = 0 or f = 1
         return f
@@ -12,4 +12,3 @@ fib: (f: U16): U16
 // call 42'nd fibonacci number
 fib(42)
 ```
-

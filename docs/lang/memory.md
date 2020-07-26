@@ -61,6 +61,8 @@ s = a.Text(alloc)                // function that needs memory
 
 > How to deal with memory mapped hardware (IO)? Read, Modify, Write bits.
 
+See also [Assignment Expression](../expressions/assignment.md) (need to organize that better).
+
 ## Code Layout
 
 Assign code to memory sections (Page0) to fit hardware targets.

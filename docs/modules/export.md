@@ -17,14 +17,14 @@ Here is an example of exporting a function:
 ```C#
 export MyFunction
 
-MyFunction()
+MyFunction: ()
     implementation_here
 ```
 
 The `export` keyword can also be applied directly to the code identifier to be made publicly available:
 
 ```C#
-export MyFunction()
+export MyFunction: ()
     implementation_here
 ```
 
@@ -36,7 +36,7 @@ By using an alias the name of the exported item can be renamed to something new.
 module alias_example
 export MyNamespace.MyFunc = MyFunc
 
-MyFunc()
+MyFunc: ()
     ...
 ```
 

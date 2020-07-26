@@ -28,7 +28,7 @@ v = ptr()           // v: U8
 Assigning a new value to the pointed-to-storage:
 
 ```C#
-changeByRef(Ptr<U8> ptr)
+changeByRef: (Ptr<U8> ptr)
     ptr() = 42          // write new value
 
     v = ptr()           // read into a local copy

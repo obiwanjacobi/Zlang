@@ -36,6 +36,21 @@ if a = myFunc()      // error!
 
 ---
 
+## Conditional
+
+```csharp
+a: U8?
+a ??= 42
+// a= 42
+
+a: U8?
+a = 42
+a ??= 101
+// a= 42
+```
+
+---
+
 ## Atomic Assignment
 
 protect from (non-maskable) interrupts.
@@ -54,14 +69,13 @@ b := a              // atomic assignment
 b :=: a             // atomic exchange
 b :=: a ? a = 42    // conditional1
 b :=: a ?? a = 42   // conditional2
-b :=: a <= a = 42   // conditional3
 ```
 
 Atomic as a type
 
 ```csharp
 // assignment is easy because Atom
-a = Atom<U8> = 42
+a: Atom<U8> = 42
 a = 101
 
 b: U8   // does not need to be Atom
@@ -100,7 +114,6 @@ a: Soft<U8> = 42
 
 // like optional - but different
 // will get weird with optional/error
-a: U8^ = 42
 a: &U8 = 42
 ```
 
@@ -143,7 +156,7 @@ deconstructing an array
 Deconstructing function parameters
 
 ```C#
-func(p: U8)
+func: (p: U8)
     ...
 
 arr = [1, 2, 3, 4, 5]

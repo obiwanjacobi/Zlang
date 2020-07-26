@@ -99,7 +99,7 @@ loop [0..10]
 
 It is possible to break out of the execution of a loop at any time with the `break` keyword.
 
-> Perhaps call it `leave` instead of `break` as it sounds less dreadful.
+> Perhaps call it `leave` instead of `break` as it sounds less dreadful. Or `exit loop` and `exit if` and `exit fn`? `up` (as in up one scope/indent)?
 
 Here's an example of an endless loop that uses a conditional branch `if` to break out of the loop:
 
