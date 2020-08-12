@@ -15,7 +15,8 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 | `*` | Multiplication
 | `/` | Division
 | `%` | Remainder
-| `**` | Power
+| `**` | Power (`*2` ?? => `*3`, `*4` etc)
+| `( )` | Math Precedence
 | `=` | Equals
 | `<>` | Not Equals
 | `>` | Greater than
@@ -44,6 +45,7 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 |---|---
 | `_` | Unused / Discard
 | `.` | Members Access
+| `,` | List Separator or Line Continuation
 | `:` | (Sub)Type Specifier
 | `< >` | Type Parameter
 | `( )` | Function
@@ -58,6 +60,25 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 | `??=` | Optional variable conditional assignment
 | `#` | Pragma / Attribute Access
 | `#!` | Compile-Time Code
+
+## Type operators
+
+| Symbol | Type | Description
+|---|---|---
+| `!` | Err\<T> (post) | Error return value or T
+| `?` | Opt\<T> (post) | Optional; T or Nothing
+| `*` | Ptr\<T> (pre) | Pointer to T
+| `^` | Imm\<T> (pre) | Immutable T
+
+---
+
+## Reserved Operator Symbols
+
+| Operator | Description
+|---|---
+| `\` | reserved
+| `;` | reserved
+| `$` | reserved
 
 ---
 

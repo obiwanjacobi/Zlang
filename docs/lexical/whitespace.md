@@ -45,7 +45,7 @@ The 'conditional code' is only executed if the `if` branch is taken. The 'implem
 Names for the indentation levels that create scopes:
 
 ```C#
-global-scope
+global-scope        // exports
 <File>
     top-level (file-scope)
 
@@ -59,6 +59,15 @@ global-scope
 ## Breaking up lines
 
 As a general rule: broken up lines continue on the next line one indent further than a new (child) scope would be: a double indent.
+
+## Merging lines
+
+To merge separate lines onto a single one, use the `,` to separate each 'line'.
+
+```csharp
+fn()
+    if true, doStuff(), else, doNothing()
+```
 
 ### Literal Strings
 
@@ -78,6 +87,19 @@ The function name cannot be split. Parameters can be spread out over multiple li
 ```C#
 my_very_long_function_name_with_lots_of_parameters(
         p1: U8, p2: U16, p3: U24, p4: U32,
+        p5: Str
+)
+    ...
+```
+
+Use new-lines instead of commas.
+
+```C#
+function_with_params_but_no_commas(
+        p1: U8
+        p2: U16
+        p3: U24
+        p4: U32
         p5: Str
 )
     ...

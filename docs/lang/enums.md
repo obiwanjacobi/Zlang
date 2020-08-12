@@ -5,7 +5,7 @@ An enum is basically a value type that has its possible values predefined.
 
 > These values all have to be available at compile time, they cannot be calculated at runtime.
 
-As with all type names, the name of the enum type has to start with a capital letter. The enum declaration looks very much like the declaration of a structure, but the use of comma's (and the absence of data types) make it an enum.
+As with all type names, the name of the enum type has to start with a capital letter. The enum declaration looks very much like the declaration of a structure, but the use of the equals sign (and the absence of data types) make it an enum.
 
 Here is an intuitive declaration of an enum type.
 
@@ -14,14 +14,16 @@ MyEnum
     opt1, opt2, opt3
 ```
 
+> TBD: Comma Operator
+
 Because the values were not specifically listed, they are assigned by the compiler and start at 0 (zero) in order of declaration.
 So `opt1` would be 0, `opt2` would be 1 and `opt3` would be 2. You can assign these values specifically.
 
 ```C#
 MyEnum
-    opt1 = 0,
-    opt2 = 10,
-    opt3 = 20,    // trailing comma is ok
+    opt1 = 0
+    opt2 = 10
+    opt3 = 20
 ```
 
 The literal values can be specified using any valid format. See [Literals](../lexical/literals.md)
@@ -32,8 +34,8 @@ Here is how that would look:
 
 ```C#
 MyEnum: I8
-    opt1 = -1,      // can have negative values
-    opt2 = 0,
+    opt1 = -1      // can have negative values
+    opt2 = 0
     opt3 = 1
 ```
 
@@ -51,9 +53,9 @@ You can even specify a string:
 
 ```C#
 StrEnum: Str
-    Low = "Low_Option",
-    Mid = "Mid_Option",
-    High = "High_Option",
+    Low = "Low_Option"
+    Mid = "Mid_Option"
+    High = "High_Option"
 ```
 
 Each option has a string value. Also note that the option names may also begin with a capital letter.
@@ -62,9 +64,9 @@ Leave out the string literal values:
 
 ```C#
 StrEnum: Str
-    Low,
-    Mid,
-    High,
+    Low
+    Mid
+    High
 ```
 
 And now `StrEnum.Low` is the value `"Low"`, the same as the name of the enum option.
@@ -73,11 +75,11 @@ Lets do bits:
 
 ```C#
 MyEnum: Bit<4>      // 4-bits wide
-    opt1 = 0x1,
-    opt2 = 0x2,
-    opt3 = 0x4,
-    opt4 = 0x8,
-    optx = 0x10,    // error: too large!
+    opt1 = 0x1
+    opt2 = 0x2
+    opt3 = 0x4
+    opt4 = 0x8
+    optx = 0x10    // error: too large!
 ```
 
 Floating point types can also be used. The auto-numbering interval for floating points is `1.0`.
@@ -93,8 +95,8 @@ Or if you set a value on one option:
 
 ```C#
 MyEnum: F16
-    opt1 = 3.14,
-    op2,
+    opt1 = 3.14
+    opt2
     opt3
 ```
 

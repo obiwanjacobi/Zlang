@@ -22,13 +22,10 @@ else                  // or is it neither?
 When parenthesis are used they are always part of the expression, not of the `if` statement. There is always a space after the `if` statement - this is what sets it apart from a function call.
 
 ```csharp
-if(p: U8)       // function definition
-    ...
-
-if (21 + 21)    // if statement (+ space)
+if (42 = 42)    // if statement (+ space)
    ...
 
-if(42)          // function call
+if(42)          // function call (no space)
 ```
 
 Note that `if` is a reserved keyword and no named language element can have the same name as a reserved keyword.
