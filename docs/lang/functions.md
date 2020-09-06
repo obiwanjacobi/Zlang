@@ -59,7 +59,25 @@ fn: InterfaceName
 fn: InterfaceName {var.Ptr()}<T>(p: T): Bool
 ```
 
-> How to differentiate from object construction?
+> How to differentiate from object construction? => Has no field names.
+
+---
+
+> TBD
+
+Make the function syntax more like variable syntax? => Use an `=` to 'assign' the implementation to the function name.
+
+```csharp
+// single line, without return, use =>
+isFourtyTwo: (p: U8): Bool => p == 42
+
+// multi line, with indent and return, use =
+isFourtyTwo: (p: U8): Bool =
+    return p == 42
+
+// function declarations have no '=' sign.
+fnDecl: (p: U8)     // no _ needed
+```
 
 ## Parameters
 
@@ -176,11 +194,41 @@ _ = retFunc()       // ok, explicitly not interested in retval
 
 > Could the compiler have an opinion about where the return statement is located? Only allow early exits inside and `if` and as last statement in the function. What about only one inside a loop?
 
+### Void
+
+Z# doesn't have a Void type in the typical conventional sense. It adopts the functional `Unit` type that can have only one value (itself). That way there need to be no difference between functions that return nothing and functions that do return something. If a function has nothing to return, its return-type is implicit `Unit`.
+
+We call this Unit type `Void`.
+
+```csharp
+MyFn: (p: U8) // return Void
+    ...
+
+v = MyFn(42)    // legal: v => Unit
+// can't do anything with 'v' though
+```
+
+More useful scenario is with constrained union types.
+
+```csharp
+RetType: Void or U8
+MyFn: (p: U8): RetType    // return Void or U8
+    ...
+
+v = MyFn(42)    // v => Unit or U8
+x = match v
+    Void => 0
+    n: U8 => n
+// x = 0 when return was Void
+```
+
 ## Function Overloads
 
 Function overloading means that there are multiple functions with the same name but different parameter (or return) types.
 
 But in Z#, only type-bound functions can the `self` parameter be used to overload the function name. The type of `self` is the only thing allowed to change for functions with the same name.
+
+> Not sure if this is actually required. More that resolvement will only be based on the self parameter's Type.
 
 Give all other functions a unique name.
 
@@ -189,6 +237,8 @@ fn(self: Struct1, p: U8)
 fn(self: Struct2, p: U8)
 fn(self: Struct1)  // error
 ```
+
+One exception to this rule are the Type Constructor functions. See Also [Types](./types.md).
 
 ## Type Bound (Self)
 
@@ -282,7 +332,9 @@ fn: Fn<(U8): U8>    // complex Type
 fn: Fn<U8, U8>      // one param, retval
 fn: Fn<U8, Str, U8> // two params, retval, etc
 fn: Act<U8>         // one param, no retval
+fn: Fn<U8, Void>
 fn: Act<U8, Str>    // two params, no retval, etc
+fn: Fn<U8, Str, Void>
 ```
 
 ```csharp
@@ -307,6 +359,8 @@ Call({sum.Ptr()}(p)
     sum() = sum() + p
 )
 ```
+
+> How is the captured variable named inside the lambda? For instance: can a capture of `{sum.Ptr()}` be referred to as `sum()` and a capture of `{x}` as `x`? When we do that, we're shadowing the outer variable with the one used inside lambda...
 
 ## Coroutines
 

@@ -39,7 +39,7 @@ FnErr: (): U8!
 
 a = match FnErr()
     err: Error => 0
-    custom: MyError => return custom.fld
+    custom: MyError => return custom.fld    // return exits the function
     n: U8 => n
 ```
 
@@ -48,27 +48,16 @@ A (predicted) common pattern is that a function will call many functions itself 
 ```C#
 MyFunc: (): Bool!
     // propagate error from function
-    try b = couldWork()  // try => catch(err) return err
+    b = try couldWork()  // try => catch(err) return err
+    // b is the plain type - without the Err<> component.
     use(b)
 ```
 
 It takes away some of the noise of simple error handling.
 
-> Or do we want `try` to be default behavior and have `catch` for when the error is handled manually? Control flow is less obvious without `try`.
+The explicit keywords `catch` and `try` -and in a lesser sense `match` are explicitly chosen to make it clear how these errors are handled in the code.
 
-```C#
-MyFunc: (): Bool!
-    // auto propagate error from function
-    b = couldWork()  // => catch(err) return err
-    use(b)
-
-MyFunc: (): Bool      // no error return
-    // handle error manually from function
-    b = couldWork() catch(err)  // have to catch
-        log(err)
-        return false
-    use(b)
-```
+Note that both `catch` and `try` strip of the `Err<T>` part from the return value of the function. So variable has no `Err<T>` component/decorator type, it's just its plain Type.
 
 The `catch` and `try` keywords can only be used on functions that actually return errors.
 
@@ -77,6 +66,7 @@ myFunc: (): Bool
     ...
 
 b = myFunc() catch(err)  // error! myFunc does not return errors
+    ...
 ```
 
 It is not possible to return an Error from a void function - a function that has no return value. It is possible to trigger a `FatalError` anywhere.

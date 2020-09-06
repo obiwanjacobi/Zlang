@@ -22,9 +22,15 @@ TypeName: BaseType
 
 `BaseType`: (optional) the name of the type this new type is based on (derives from).
 
-Then each type has its own way of specifying its implementation
+Then each type has its own way of specifying its implementation:
 
-## Built-in Data Types
+`#meta` refers to a compile-time meta property that can be used in a DataType rule to restrict the value range of the defined type. See 'Custom Data Types' further down.
+
+`Enum` is used to define a named value type. It is optional to specify an explicit value. See also [Enums](enums.md).
+
+`Field` sets the defined type up as a data structure containing one or more fields. See also [Structures](structures.md).
+
+## Built-in Types
 
 The built-in data type form the basic building blocks for creating structures.
 
@@ -111,9 +117,26 @@ Bit<4>
 
 When `Bit`s are stored, the closest fitting data type is used. So a `Bit<6>` would take up a single byte `U8`, while a `Bit<12>` would take up two bytes `U16`. `Bit`s are always interpreted as unsigned and stored in the lower bits of the storage type. The upper unused bits are reset to zero.
 
+### Void
+
+A special type to allow to be explicit when there is no (function return) Type. Acts as the functional `Unit` in that it has only one value: itself and therefor holds no information.
+
+```csharp
+VoidFn: ()    // no return type: Void
+    ...
+
+v = VoidFn()    // legal: v => Void
+// you can't do anything with v, though.
+
+NoParamsFn: (Void): U8    // Error: Void not allowed here
+    ...
+```
+
+Introducing the `Void` type removes the necessity to distinguish between functions with or without a return value. See the 'Void' topic in [Functions](functions.md) for more info.
+
 ## Custom Data Types
 
-(Constrained Types? / Type Contraints)
+(Constrained Types? / Type Constraints)
 
 There is an easy way to create data types to differentiate data at a type level. By using different types the purpose of the data become even more clear.
 
@@ -187,17 +210,19 @@ d.typeFn(42)        // ok
 Age: U8
     #value = 0
     #value = 2..100
-Mode: Str
+Mode: Str       // this would be a Str-Enum...
     #value = "A"
     #value = "B"
     #value = "C"
+Length: I16
+    #value > 0
 ```
 
-> overload/override value setter (assignment operator?) to do custom validation?
+> overload/override value setter (assignment operator?) to do custom validation? Can this code be generated at compile-time by the compiler?
 
 ## Types with Operators
 
-Some built-in types are use so often, it makes sense to provide a shorter version in the form of an operator.
+Some built-in (decorator) types are use so often, it makes sense to provide a shorter version in the form of an operator.
 
 Type | Operator | Position
 --|--|--
@@ -248,6 +273,71 @@ MyType: OtherType<Complex<U8>, Str> _   // _ to indicate no fields
 
 // another name for the same type (alias)
 MyType = OtherType<Complex<U8>, Str>
+```
+
+## Constructors
+
+A type constructor is a function with the same name as the type it creates and returns.
+
+> Does the constructor function name has to be the exact same as the original Type definition or do we allow the identifier naming rules to apply?
+
+The number and types of parameters a constructor function takes have no restrictions.
+
+```csharp
+MyType
+    ...
+
+MyType: (p: U8): MyType
+    ...
+
+t = MyType(42)
+// t is an instance of MyType initialized with 42
+```
+
+Using templates
+
+```csharp
+MyType<T>
+    ...
+
+MyType: <T>(p: T): MyType<T>
+    ...
+
+t = MyType(42)
+// t is an instance of MyType initialized with 42 (T=U8)
+```
+
+A name-clash can occur when you introduce a new Type with a name that (falsely) matches an existing function as its constructor function. Unfortunately that would mean you would have to alias the existing function to a different name at the locations where it is used and that also reference the new Type. See [Import](../modules/import.md) for more on aliasing.
+
+When construction of the type is not trivial and Errors may occur the type constructor function has to have a return type of `Err<T>`.
+
+```csharp
+MyType
+    ...
+MyType: (p: U8): MyType!
+
+t = try MyType(42)
+```
+
+### Type Constructor Overloading
+
+A Type Constructor function can be overloaded - normal functions can only be overloaded based on the self parameter.
+
+At Compile-Time the correct overload will be determined and a compilation error will be generated when no suitable overload was found.
+
+```csharp
+MyType
+    ...
+
+MyType: (p1: U8): MyType
+    ...
+MyType: (p1: U8, p2: Str): MyType
+    ...
+MyType: (p1: U8, p2: Str, p3: U16): MyType
+    ...
+
+// uses overload with 3 parameters
+t = MyType(42, "42", 0x4242)
 ```
 
 ## Constrained Variant
@@ -373,7 +463,7 @@ MyStruct: Struct1 and Struct2
 
 Laid out in memory in order.
 
-> How to move the 'self' pointer?
+> How to move the 'self' pointer? All info is available at compile-time.
 
 ```csharp
 MyStruct: Struct1 and Struct2
@@ -396,11 +486,13 @@ structFn(s#offset(Struct2), 42)
 
 > Should dynamic types be taken into account? How would the syntax look and what semantics are attached?
 
+A dynamic type would require a whole runtime system that turns away from the compile-time focus currently aimed for.
+
 ```csharp
 d: Dyn              // dynamic type
 d.prop1 = 42        // creates a new field (fixed type)
 
-MyFunction(self: Dyn, p1: U8): Bool
+MyFunction: (self: Dyn, p1: U8): Bool
     // does field exist
     if self?prop1
         return self.prop1 = 42
@@ -427,11 +519,26 @@ d.prop1 = 42    // now you see it
 d.prop1 = _     // now you don't
 ```
 
+> Can functions be assigned to instances?
+
+```csharp
+MyFunction: (self: Dyn, p1: U8): Bool
+    ...
+
+d: Dyn
+d.MyFunc = MyFunction
+
+if d.MyFunc(42)
+    ...
+
+d.MyFunc = _    // function is removed
+```
+
 ---
 
 ## Variant Type
 
-> Do we need a variant type? => Don't think so.
+> Do we need a variant type? => Don't think so, we have constrained variants.
 
 ```C#
 funcAny(): Any

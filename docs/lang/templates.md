@@ -112,3 +112,14 @@ typedFn: <Bool>(p: Bool)  // how do we know this is a specialization of typedFn<
 typedFn(42)         // generic typedFn<T> called
 typedFn(true)       // specialization typedFn<Bool> called
 ```
+
+---
+
+> TBD
+
+Allow for multiple levels of type params?
+
+```csharp
+MyType<M<T>>    // requires M to have one T
+    ...         // use M and T?
+```

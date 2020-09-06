@@ -66,7 +66,7 @@ MyStruct
     ...
 
 MyInterface
-    interfunc(self, p: U8) _
+    interfunc: (self, p: U8) _
 
 // function must match exactly
 interfunc: (self: MyStruct, p: U8)
@@ -77,6 +77,7 @@ s = MyStruct
     ...
 
 // will check if MyStruct has implemented all interface functions
+// it is a 'pointer' to the interface
 a: MyInterface = s
 
 // call (both the same)
@@ -84,4 +85,4 @@ a.interfunc(42)         // because 'self'
 interfunc(a, 42)
 ```
 
-The interface implementation functions are matched based on the function name, parameter types and its return type. The `self` parameter may be derived other types must match exactly.
+The interface implementation functions are matched based on the function name, parameter types and its return type. The `self` parameter may be derived from other types but must match exactly.

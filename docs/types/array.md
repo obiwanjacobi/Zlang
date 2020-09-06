@@ -39,7 +39,7 @@ Multiple array elements are selected when using [`Range`s](range.md). These too 
 
 The resulting type of a Range operation is a `Slice`. A slice is a view into the original array bounded by the range that created it. It is continuous and sequential, just like an array. Think of it as a subset.
 
-A slice does not take up storage and therefor is not a real concrete type. It is a virtual and dynamic type that is implemented by the compiler. A slice takes on the type of the array it originated from.
+A slice does not take up storage (other than a pointer and a length) and therefor is not a real concrete type. It is a virtual and dynamic type that is implemented by the compiler. A slice takes on the type of the array it originated from.
 
 Here's an example writing values to a mutable array:
 
@@ -67,3 +67,12 @@ arr2 = arr[..]              // arr2 = all elements (not a copy!)
 ```csharp
 Array<T> : T[]     // variable length at compile time
 ```
+
+---
+
+> TBD
+
+Difference between `readonly` and `immutable`:
+
+- ReadOnly: An Immutable object that does not have any way to change it.
+- Immutable: A fixed/frozen object that performs changes by creating new representations, leaving the original immutable object intact.

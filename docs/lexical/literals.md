@@ -22,7 +22,7 @@ h = 0x8F            // hexadecimal
 The `_` character may be used to separate parts for readability. They have no meaning for the value. It can be used for any of the prefixes, so if used on a decimal, the prefix `0d` has to be present.
 
 ```C#
-b = 0x1010_01010    // still a 8-bit binary number
+b = 0b1010_01010    // still a 8-bit binary number
 d = 0d7_654_321     // 7,654,321
 h = 0xFF_FF
 ```
@@ -48,21 +48,21 @@ s = "I say 'Hello'"             // use of single quotes is ok
 s = "C:\Windows\Path\File.Ext"  // no need to escape '\'
 ```
 
-To use special characters in a literal string, you have to use the escape sequence: `\\`.
+To use special characters in a literal string, you have to use the escape sequence: ` (backtick).
 
 ```C#
-s = "Some text \\n with newlines \\n and \\"quotes\\"."
+s = "Some text `n with newlines `n and `"quotes`"."
 ```
 
 Escaped Characters
 
 Char | Note
 --|--
-\n | NewLine
-\r | Carriage Return
-\t | Tab
-\f | Line Feed
-\b | Bell
+`n | NewLine
+`r | Carriage Return
+`t | Tab
+`f | Line Feed
+`b | Bell
 
 More?
 
@@ -105,6 +105,9 @@ Using the `{}` characters as is in a string literal, requires the escape sequenc
 ```C#
 s = @"This will print {braces}"
 // This will print {braces}
+
+s = "This will print `{braces`} too"
+// This will print {braces} too
 ```
 
 It should be possible for custom types to implement custom formatting. Most likely the `"{}"` syntax will compile to format calls bound to specific types. The `format` function will be passed all the info it needs to know - like formatting parameters.

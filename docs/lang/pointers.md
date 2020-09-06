@@ -108,6 +108,7 @@ Struct
     length: U8
 p: Ptr<Struct>
 p = p + p.length    // ok, used struct field as value
+p = p + Struct#size // ok
 p = p + 42          // error, can't add random value to ptr.
 ```
 
@@ -173,18 +174,18 @@ If the original type is lost or cannot be determined at compile time, casting up
 
 ## Pointer to a Function
 
-> I probably gonna do this differently. Make functions lower case and use a Function Interface (declaration) to have the type. Seems more consistent and concise. Does bring up an issue when auto initializing a ptr-to-a-function variable though: What would be the type of ptr? `ptr = myFunction`. Can we go look for suitable types that match the declaration of the specified function? Do we generate an anonymous function type?
+A pointer to a function can be taken by assigning the function name to a variable or parameter.
 
-This exception has to do with pointers to functions, for instance when a function is passed as a parameter to another function.
+The type of a function pointer is the Function Type wrapped in a `Ptr<T>`.
 
-Here is an example of how to construct a pointer to a function. It is the same as getting a pointer to any 'object', but here the intrinsic `ptr` attribute is accessible on the type (function).
+Here is an example of how to construct a pointer to a function.
 
 ```C#
 MyFunction: (magic: U8) _   // function interface
 myFnImpl: MyFunction        // implementation
     ...
 
-p = myFnImpl            // p is of type Ptr<MyFunction>
+p = myFnImpl            // p: Ptr<MyFunction>
 takePtr(p, 42)          // call function with ptr to function
 
 takePtr: (ptr: Ptr<MyFunction>, p: U8)
@@ -192,7 +193,7 @@ takePtr: (ptr: Ptr<MyFunction>, p: U8)
                      // passing in its 'magic' param
 ```
 
-Any function that takes parameters that represent pointer to functions must specify its (function) type up front. This function type definition contains the signature of the number of parameters and their types as well as the return type - if any.
+To take a pointer from a function, it must specify its (function) Type up front. This function type definition contains the signature of the number of parameters and their types as well as the return type - if any.
 
 When the code has a pointer to a function, it can be called by specifying the `()` straight after it. Any parameters the function that is pointed to requires, must be passed in at that time. The return value -if any- will be available when the function returns.
 

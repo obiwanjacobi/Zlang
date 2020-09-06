@@ -156,12 +156,17 @@ deconstructing an array
 Deconstructing function parameters
 
 ```C#
-func: (p: U8)
-    ...
-
 arr = [1, 2, 3, 4, 5]
 
-func(...arr)    // called 5 times
+func: (p: U8)
+    ...
+func(...arr)    // called 5 times?
+
+func5: (p1: U8, p2: U8, p3: U8, p4: U8, p5: U8)
+    ...
+func5(...arr)    // or with 5 params?
+
+// what if the param count does not match array item count?
 ```
 
 Deconstructing a structure:
@@ -209,6 +214,10 @@ a: U8       // declare typed var (default init)
 a: U8 = 1   // declare typed and init
 a:= 1       // declare inferred-type and init
 a = 1       // assign - 'a' must already be declared
+
+// possible clashes
+MyVar: U8   // clash with variable with capital?
+MyAlias = U8
 ```
 
 Could this help improving variable assignments?
