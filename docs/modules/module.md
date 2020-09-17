@@ -37,3 +37,27 @@ fn: ()
     s = Struct1     // from mod1
         ...
 ```
+
+---
+
+> Should there be a way to mark a module as open/closed for extension?
+
+Because a module can be made up of multiple files, can any new file declare itself part of any module and therefor gain access to it's 'internals'?
+
+```csharp
+// explicitly declare the module as open
+module this_is_my_module, open
+extension this_is_my_module
+
+// separate user file
+module this_is_my_module    // ok, module is open
+// add to 'this_is_my_module' module
+```
+
+> What about file-scope state?
+
+```csharp
+// file-scope
+module this_is_my_module
+globalVar: U8 = 42  // accessible by all files in module?
+```

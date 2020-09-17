@@ -32,7 +32,7 @@ functionName: interfaceName {captures}<types>(parameters): returnType
 
 `interfaceName`: (optional) When basing the type of the function of off a function interface. In that case the declaration of the `types`, `parameters` and `returnType` may be repeated for readability. The function interface name is a type name so it starts with an upper case first letter.
 
-`{captures}`: (optional) This captures variables external to the function for its execution. For 'normal' function these would be global variables. For lambda's these could be function local variables that are used inside the lambda. Captures are only specified on function declarations (implementation), not on function (type) interfaces.
+`{captures}`: (optional) This captures variables external to the function for its execution. For 'normal' function these would be global variables. For lambda's these could be function local variables that are used inside the lambda. Captures are only specified on function declarations (implementation), not on function (type) interfaces. The name of the capture is also used in the function implementation.
 
 `<types>`: (optional) Type parameters that the template function uses in its implementation.
 
@@ -52,11 +52,14 @@ fn: <T>(p: T)
 fn: <T>(p: T): T
 
 // capture on fn impl
-fn: {var}<T>(p: T): Bool
+fn: {c}<T>(p: T): Bool        // by val
+fn: {c.Ptr()}<T>(p: T): Bool  // by ref
 
 fn: InterfaceName
+// interface impl with capture
+fn: {c} InterfaceName
 // repeated function type decl with capture
-fn: InterfaceName {var.Ptr()}<T>(p: T): Bool
+fn: InterfaceName {c.Ptr()}<T>(p: T): Bool
 ```
 
 > How to differentiate from object construction? => Has no field names.
@@ -78,6 +81,8 @@ isFourtyTwo: (p: U8): Bool =
 // function declarations have no '=' sign.
 fnDecl: (p: U8)     // no _ needed
 ```
+
+---
 
 ## Parameters
 
@@ -128,7 +133,7 @@ namedFn(0x4242, p = 42)         // ok, unnamed is only one left
 
 ```
 
-Variable number of parameters:
+### Variable number of parameters
 
 Not really supported but can fake with Array: all of same type. We don't have an 'object' type that is the basis of all. (do we need to?)
 
@@ -140,7 +145,7 @@ varFunc: <T>(p: U8, varP: Array<T>)
 varFunc(42, [1, 2, 3, 4, 5, 6])
 ```
 
-## Immutable Parameters
+### Immutable Parameters
 
 Gives the caller the guarantee that the parameter will not be changed.
 Only useful for `Ptr<T>` types. All function parameters are passed by value.
@@ -151,7 +156,7 @@ immFn: (p: Ptr<Imm<U8>>)
 immFn: (p: ^*U8)
 ```
 
-## Out and ByRef Parameters
+### Out and ByRef Parameters
 
 > Use a mutable Pointer.
 
@@ -194,6 +199,14 @@ _ = retFunc()       // ok, explicitly not interested in retval
 
 > Could the compiler have an opinion about where the return statement is located? Only allow early exits inside and `if` and as last statement in the function. What about only one inside a loop?
 
+### Error
+
+The return type of a function can contain an error `Err<T>`, Refer to [Errors](errors.md) for more details.
+
+### Optional
+
+The return type of a function can be optional `Opt<T>`. Refer to [Optional](optional.md) for more details.
+
 ### Void
 
 Z# doesn't have a Void type in the typical conventional sense. It adopts the functional `Unit` type that can have only one value (itself). That way there need to be no difference between functions that return nothing and functions that do return something. If a function has nothing to return, its return-type is implicit `Unit`.
@@ -208,9 +221,10 @@ v = MyFn(42)    // legal: v => Unit
 // can't do anything with 'v' though
 ```
 
-More useful scenario is with constrained union types.
+Another scenario is with constrained union types.
 
 ```csharp
+// this is actually an Opt<U8>
 RetType: Void or U8
 MyFn: (p: U8): RetType    // return Void or U8
     ...
@@ -221,6 +235,10 @@ x = match v
     n: U8 => n
 // x = 0 when return was Void
 ```
+
+The example above should be handled the same as if the return type would be an `Opt<U8>`.
+
+The true purpose is to not have to distinct between function with or without a return value, especially when taking pointers and/or lambda's (see below).
 
 ## Function Overloads
 
@@ -297,6 +315,53 @@ s.fn        // calls fn(s)
 
 Call this the poor-man's property syntax.
 
+Auto fluent-functions on self type with void return type.
+
+```csharp
+Struct
+    ...
+fn1: (self: Struct)
+    ...
+fn2: (self: Struct)
+    ...
+fn3: (self: Struct)
+    ...
+fn4: (self: Struct)
+    ...
+
+s: Struct
+s.fn1()     // normal function call
+    .fn2()  // continue with indent
+    .fn3()
+    .fn4()
+
+```
+
+If return type is not `Void`, the actual return type is used. See also Fluent Functions (below).
+
+### Typeless Self
+
+When no specific type is specified for the `self` parameter.
+
+This can be thought of an implicit (unnamed) template parameter that can be used to have a generic object parameter.
+
+The type is resolved at compile-time and errors are generated when functions or fields are called that are not available on the type.
+
+```csharp
+objFn: (self, p: U8): Bool
+    return self = p
+
+x = 42
+b = objFn(x, 42)
+// b = true
+
+s = Struct
+    ...
+b = objFn(s, 42)    // error: Struct cannot be compared to U8
+```
+
+See also [Object Interfaces](interfaces.md#Object-Interface) for use cases.
+
 ## Local Functions
 
 A local function is a function that is defined inside another function and is local to that scope - it cannot be used (seen) outside the function its defined in.
@@ -352,6 +417,7 @@ CallBack: (p: U8) _
 Call: (fn: Ptr<Callback>)
     ...
 
+sum: U16
 // capture by-ref (ptr)
 Call({sum.Ptr()}(p) sum() = sum() + p)
 // use indent to allow multiple lines
@@ -359,8 +425,6 @@ Call({sum.Ptr()}(p)
     sum() = sum() + p
 )
 ```
-
-> How is the captured variable named inside the lambda? For instance: can a capture of `{sum.Ptr()}` be referred to as `sum()` and a capture of `{x}` as `x`? When we do that, we're shadowing the outer variable with the one used inside lambda...
 
 ## Coroutines
 
@@ -416,7 +480,30 @@ loop [0..3]
 
 ---
 
-## Functional
+## Events
+
+No specific support for events. Use Function Interfaces and callback function pointers.
+
+The standard library could provide a function interface for general event handling.
+
+Example progress reporting with event callback:
+
+```csharp
+IntPercent: U8
+    #value = [0..101]   // 0-100
+ProgressEventArg
+    progress: IntPercent
+ProgressEvent: (self, arg: ProgressEventArg) _
+
+// use
+ReportProgress(self, ProgressEvent progressEvent)
+    progress = current * 100 / total
+    progressEvent(self, progress)
+```
+
+---
+
+## Pure Functional
 
 A pure function -without side-effects- can be recognized by the lack of mutable captures and immutable parameters. It has to have a return value.
 
@@ -470,16 +557,16 @@ can<SomeType>().BeCastedTo<DiffType>()
 does<SomeType>().implementMethod(MethodName)
 ```
 
-> Allow by default using the 'fluent' self object if no return type?
+Allow by default using the 'fluent' self object if no return type
 
 ```csharp
 add: (self: Calc, v: U8)
 sub: (self: Calc, v: U8)
 
 c = Calc
-// only works with dot-syntax
+// only works with self-dot-syntax
 c.add(4).sub(2)
-// with scope?
+// with scope
 c.add(4)
     .sub(2)
 ```
@@ -561,7 +648,7 @@ b = fn3(42) |> fn2() |> fn1()
 
 Evaluate LeftHandSide, parse RightHandSide and inject left result into right parse tree.
 
-Subsequent function calls (after `|>`) will have their 1st param missing. That looks a strange.
+Subsequent function calls (after `|>`) will have their 1st param missing. That looks a bit strange.
 
 Does this only work for functions? (concatenation?)
 

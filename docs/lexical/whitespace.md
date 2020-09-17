@@ -69,6 +69,22 @@ fn()
     if true, doStuff(), else, doNothing()
 ```
 
+> TBD I may want to introduce a 'single statement' rule that would also make lambda's and `match` easier. It would allow one single statement to be specified on the same line.
+
+Our example would lose a comma or two:
+
+```csharp
+fn()
+    if true doStuff(), else doNothing()
+```
+
+> Also may decide to use `;` instead of `,`
+
+```csharp
+fn()
+    if true doStuff(); else doNothing()
+```
+
 ### Literal Strings
 
 No extra quotes are required. The new-line (EOL) character(s) and the indent white-space(s) will **NOT** become part of the string.
@@ -85,7 +101,7 @@ So in this example there is a trailing space after 'demonstrate' in order to sep
 The function name cannot be split. Parameters can be spread out over multiple lines. The opening parenthesis is always next to the function name. The closing parenthesis can either be directly after the last parameter or at the beginning (same indent/scope as the function name) of a new line. Commas that separate the parameters go directly after its previous parameter and cannot be on the start of a new line (after a double indent).
 
 ```C#
-my_very_long_function_name_with_lots_of_parameters(
+my_very_long_function_name_with_lots_of_parameters: (
         p1: U8, p2: U16, p3: U24, p4: U32,
         p5: Str
 )
@@ -95,7 +111,7 @@ my_very_long_function_name_with_lots_of_parameters(
 Use new-lines instead of commas.
 
 ```C#
-function_with_params_but_no_commas(
+function_with_params_but_no_commas: (
         p1: U8
         p2: U16
         p3: U24

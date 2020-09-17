@@ -170,10 +170,10 @@ v: MyStruct1 =
 
 // structured by name
 v: MyStruct1 =
-    first = 
+    first =
         fld1 = 42
         fld2 = "42"
-    second = 
+    second =
         fld1 = 101
         fld2 = "101"
 
@@ -199,6 +199,20 @@ y = a.Fld2  // Str
 (fld1, fld2) = a
 // build tuple from vars
 b = { fld1, fld2 }
+```
+
+> We may want to line up the syntax (and semantics) with the parameters of a function call. Adopting a global rule that 'field-lists' (tuples, function params, deconstructs etc) can be build in-order or named or a combination (see function parameters).
+
+```csharp
+// no structure type, no field names
+x = (42, "42")
+// C# does this:
+x.Item1 // Error: Item1 does not exist
+
+// to use, deconstruct in order
+(n, s) = x
+// n = 42 (U8)
+// s = "42" (Str)
 ```
 
 ## Mapping

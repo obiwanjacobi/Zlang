@@ -86,7 +86,7 @@ Loop with Function?
 
 ```csharp
 loop [0..10]
-    (n) => log("Now at {n}.\n")
+    (n) => log("Now at {n}.`n")
 
 loop [0..10]
     LogInt
@@ -130,5 +130,7 @@ loop
 ```
 
 As with `break`, `continue` only works on the immediate parent loop.
+
+> Call it `skip` instead of `continue`?
 
 > Not sure if this is really needed. Seldom used?

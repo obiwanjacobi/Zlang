@@ -102,3 +102,5 @@ c: Imm<U8> = v  // ok, immutable copy of v
 Because only immutable variables can be exported, only immutable variable can be thought of as being accessible globally.
 
 The lifetime of any variable can be global, in the sense that the variable maintains its state, but always within the scope of the file it is defined in.
+
+> TBD: in file scope or module (multiple files) scope?

@@ -60,6 +60,9 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 | `??=` | Optional variable conditional assignment
 | `#` | Pragma / Attribute Access
 | `#!` | Compile-Time Code
+| `=>` | Lambda, match
+
+> Are there others like conditional assignment `??=`?
 
 ## Type operators
 
@@ -79,6 +82,20 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 | `\` | reserved
 | `;` | reserved
 | `$` | reserved
+| `<=` | map structure (also arithmetic)
+| `( )` | array/list initializer?
+| `|>` | 
+| `<|` | 
+| `+=` | 
+| `-=` | 
+| `*=` | 
+| `/=` | 
+| `?=` | 
+| `!=` | 
+| `%=` | 
+| `&=` | 
+| `$=` | 
+| `^=` | 
 
 ---
 

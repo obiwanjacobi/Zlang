@@ -15,11 +15,12 @@ The number of keywords have been kept to a minimum. Much of the language is expr
 | return | Exit a Function
 | yield | Exits a Coroutine Function
 | in | Iterating values
-| self | Indicates bound type
+| self | A bound Type
 | try | Propagate if Error
 | catch | Handle Error
+| match | Pattern matching
 
-> These keywords are reserved and cannot be used as names ([identifiers](identifiers.md)) in the code.
+> These keywords are reserved words and cannot be used as [identifiers](identifiers.md) in the code.
 
 ## Operators
 

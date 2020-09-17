@@ -76,3 +76,35 @@ Difference between `readonly` and `immutable`:
 
 - ReadOnly: An Immutable object that does not have any way to change it.
 - Immutable: A fixed/frozen object that performs changes by creating new representations, leaving the original immutable object intact.
+
+---
+
+> TBD
+
+Syntax difference between indexing/ranges and making data.
+
+You could argue that indexing is a function that looks up the value at a specific position.
+
+Should creating data use the same operator/syntax as indexing?
+
+What would the syntax look like if there were no special operators to work with an array?
+
+```csharp
+arr = { 1, 2, 3 }   // using object syntax is conflicting
+arr = ( 1, 2, 3 )   // list construction syntax?
+
+i = 1           // index
+x = arr.At(i)   // lookup function (U8)
+p = arr.Ptr(i)  // lookup pointer (Ptr<U8>)
+p = arr.PtrAt(i)  // lookup pointer (Ptr<U8>)
+p = arr.PtrTo(i)  // lookup pointer (Ptr<U8>)
+r = arr.Ref(i)  // lookup reference (Ptr<U8>)
+r = arr.RefAt(i)  // lookup reference (Ptr<U8>)
+
+arr: Array<U8> = ( 1, 2, 3)     // mutable
+arr.At(i) = 42  // At used as getter and setter?
+
+// or separate?
+x = arr.GetAt(i)
+arr.SetAt(i, 42)
+```

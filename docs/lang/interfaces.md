@@ -86,3 +86,19 @@ interfunc(a, 42)
 ```
 
 The interface implementation functions are matched based on the function name, parameter types and its return type. The `self` parameter may be derived from other types but must match exactly.
+
+---
+
+> TBD: Anonymous interface implementations?
+
+```csharp
+// interface
+PropGetFn: (self): Str
+    return self.Name
+
+// anonymous struct
+s = { Name = "MyName" }
+p = PropGetFn(s)
+```
+
+See also [Anonymous Structures](structures.md#Anonymous-Structures).

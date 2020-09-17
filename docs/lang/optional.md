@@ -8,14 +8,18 @@ valueMaybe: (): U8?
     return 42           // to return a value
 
 // fallback when there is no value
-var = valueMaybe() || 42    // more like javascript?
-var = valueMaybe() ?? 42    // more like C#?
+v = valueMaybe() ?? 42
 
 // optional can be used in a logical expression
-if var
-    use(var)
+if v
+    use(v)
 else
     // no var value
+
+// using a match expression
+v = match valueMaybe()
+    n: U8 => n
+    _ => 0
 ```
 
 The type of an optional:
@@ -24,8 +28,8 @@ The type of an optional:
 valueMaybe: (): U8?
     ...
 
-var: U8?        // initialize an optional (default = _)
-var = valueMaybe()  // assign fn result
+v: U8?        // initialize an optional (default = _)
+v = valueMaybe()  // assign fn result
 ```
 
 It is a compiler error if you use (dereference) an optional without checking. You can pass an optional value to an optional function parameter without problems.

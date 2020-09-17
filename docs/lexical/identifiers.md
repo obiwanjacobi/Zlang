@@ -6,7 +6,7 @@ Identifiers name program entities such as variable, functions and types. These n
 - Cannot contain spaces.
 - Cannot contain operator characters (+-/*).
 - Cannot start with a digit.
--
+
 - Can contain `_`.
 - Can contain alpha-numeric characters.
 - Valid characters lie in the ASCII range (no unicode).
@@ -29,7 +29,9 @@ my-type
 
 ## Case Sensitivity
 
-Type identifiers start with an upper case letter. Variables and Function Parameters must have a lower case first letter. Function names can use either.
+- Type identifiers start with an upper case letter.
+- Local Variables and Function Parameters must have a lower case first letter.
+- Function names can use either.
 
 Identifiers are the same when:
 

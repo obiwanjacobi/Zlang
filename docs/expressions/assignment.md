@@ -214,10 +214,6 @@ a: U8       // declare typed var (default init)
 a: U8 = 1   // declare typed and init
 a:= 1       // declare inferred-type and init
 a = 1       // assign - 'a' must already be declared
-
-// possible clashes
-MyVar: U8   // clash with variable with capital?
-MyAlias = U8
 ```
 
 Could this help improving variable assignments?
