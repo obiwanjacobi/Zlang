@@ -20,7 +20,7 @@ The start of the line represents the root scope. An `indent` is always placed be
 A simple example of a function and its implementation:
 
 ```C#
-MyFuncion()
+MyFuncion: ()
     implementation_here
     more_code_here
 ```
@@ -32,7 +32,7 @@ These scopes can of course be nested.
 Here is an example of a function with nested scopes.
 
 ```C#
-MyFuncion()
+MyFuncion: ()
     if true
         conditional_code_here
     implementation_here
@@ -65,7 +65,7 @@ As a general rule: broken up lines continue on the next line one indent further 
 To merge separate lines onto a single one, use the `,` to separate each 'line'.
 
 ```csharp
-fn()
+fn: ()
     if true, doStuff(), else, doNothing()
 ```
 
@@ -74,14 +74,18 @@ fn()
 Our example would lose a comma or two:
 
 ```csharp
-fn()
+fn: ()
     if true doStuff(), else doNothing()
+    // or
+    if true => doStuff(), else => doNothing()
+    // mixup with lambdas?
+    if (true) => doStuff(), else => doNothing()
 ```
 
 > Also may decide to use `;` instead of `,`
 
 ```csharp
-fn()
+fn: ()
     if true doStuff(); else doNothing()
 ```
 

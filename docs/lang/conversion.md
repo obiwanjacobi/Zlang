@@ -9,7 +9,7 @@ b = 42        // U8
 s = b.Text(alloc)   // to string "42"
 ```
 
-Because `Str` allocates memory to store its content an Allocator object is required for this conversion.
+Because `Text` allocates memory to store its content an Allocator object is required for this conversion.
 
 Type conversion from larger to smaller types need some extra help:
 
@@ -36,3 +36,18 @@ i = v.I8()      // I8: -1
 ```
 
 > Use checked functions to do bounds checking and make sure that the actual value has not changed meaning.
+
+## Optional
+
+```csharp
+v = 42
+// can assign a value to an optional
+o: Opt<U8> = v
+
+// cannot assign an optional to a value
+o: Opt<U8>
+v = o       // error: o could be nothing
+
+// without checking first
+if o => v = 0
+```

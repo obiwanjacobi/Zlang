@@ -137,7 +137,6 @@ MyStruct
     fld1: U8
     fld2: Str
 
-// use of '{}' is undecided yet!
 arr: Array<MyStruct> = [
     { fld1 = 42, fld2 = "42" },     // by name
     { 101, "101" },                 // in field order
@@ -184,9 +183,7 @@ v: MyStruct1 =
 
 Also known as Tuples.
 
-The fields are not anonymous, they must have a name.
-
-> Use `()` or `{}`?
+> Use `{}`
 
 ```csharp
 a = { Fld1 = 42, Fld2 = "42" }
@@ -201,11 +198,11 @@ y = a.Fld2  // Str
 b = { fld1, fld2 }
 ```
 
-> We may want to line up the syntax (and semantics) with the parameters of a function call. Adopting a global rule that 'field-lists' (tuples, function params, deconstructs etc) can be build in-order or named or a combination (see function parameters).
+Prefered is to use field names for tuples, but even those can be omitted but then deconstruction has to be used to unpack.
 
 ```csharp
 // no structure type, no field names
-x = (42, "42")
+x = { 42, "42" }
 // C# does this:
 x.Item1 // Error: Item1 does not exist
 
@@ -214,6 +211,8 @@ x.Item1 // Error: Item1 does not exist
 // n = 42 (U8)
 // s = "42" (Str)
 ```
+
+> We want to line up the syntax (and semantics) with the parameters of a function call. Adopting a global rule that 'field-lists' (tuples, function params, deconstructs etc) can be build in-order or named or a combination (see function parameters).
 
 ## Mapping
 

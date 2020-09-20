@@ -125,7 +125,7 @@ a: &U8 = 42
 
 ## Deconstructing
 
-> Use `[]`, `{}` or `()`?
+> Use `()`
 
 - `[]` says arrays
 - `{}` says objects/structs
@@ -141,12 +141,21 @@ a: &U8 = 42
 sum = add(a, b)
 ```
 
+> TBD: auto deconstruction?
+
+```csharp
+add: (a: U8, b: U8): U16
+    ...
+
+// deconstruct either by name or in order (types must match exactly)
+sum = add(x)    // (a, b) = x
+sum = add x     // (a, b) = x
+```
+
 deconstructing an array
 
 ```C#
-[a, b, ...rest] = [1, 2, 3, 4, 5]
 (a, b, ...rest) = [1, 2, 3, 4, 5]
-{a, b, ...rest} = [1, 2, 3, 4, 5]
 
 // a: U8 = 1
 // b: U8 = 2

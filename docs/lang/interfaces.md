@@ -33,42 +33,48 @@ Object interfaces are a template for one or more functions. Usually used as a me
 An object interface can declare one or more functions. It must have the `self` keyword as a first parameter.
 
 ```C#
-ObjectInterface
-    lowByte: (self, p1: U16): U8 _
-    hiByte: (self, p1: U16): U8 _
+ObjectInterface<S>
+    lowByte: (self: S, p1: U16): U8 _
+    hiByte: (self: S, p1: U16): U8 _
 ```
 
-An object interface template:
+The Type of `self` is set as a template parameter, for it is not known (or fixed) at this point.
+
+Also note that there is no implementation `_`.
+
+An interface can have more template parameters however:
 
 ```C#
-TemplateInterface<T>
-    lowByte: (self, p1: U16): T _
-    hiByte: (self, p1: U16): T _
+TemplateInterface<S, T>
+    lowByte: (self: S, p1: U16): T _
+    hiByte: (self: S, p1: U16): T _
+```
 
+Normal template parameter restrictions can be applied:
+
+```csharp
 // recommended way to restrict self
 MyStruct
     ...
-RestrictedInterface<T: MyStruct>
-    lowByte: (self: T, p1: U16): U8 _
-    hiByte: (self: T, p1: U16): U8 _
+RestrictedInterface<S: MyStruct>
+    lowByte: (self: S, p1: U16): U8 _
+    hiByte: (self: S, p1: U16): U8 _
 // The interface can only be implemented on MyStruct (or derived) types.
 
-CompanionInterface<T: TemplateInterface>
-    fn: (self: T, p1: U8): Str _
+CompanionInterface<S: TemplateInterface>
+    fn: (self: S, p1: U8): Str _
 // The interface can only be implemented on types that also implement TemplateInterface (with any T).
 ```
 
 How to implement an interface:
 
 ```C#
-// define
+MyInterface<S>
+    interfunc: (self: S, p: U8) _
+
 MyStruct
     ...
-
-MyInterface
-    interfunc: (self, p: U8) _
-
-// function must match exactly
+// function name must match and template parameters must satisfy restrictions (none here)
 interfunc: (self: MyStruct, p: U8)
     ...
 
@@ -76,7 +82,7 @@ interfunc: (self: MyStruct, p: U8)
 s = MyStruct
     ...
 
-// will check if MyStruct has implemented all interface functions
+// will check if all interface functions are implemented for MyStruct
 // it is a 'pointer' to the interface
 a: MyInterface = s
 
@@ -85,15 +91,19 @@ a.interfunc(42)         // because 'self'
 interfunc(a, 42)
 ```
 
-The interface implementation functions are matched based on the function name, parameter types and its return type. The `self` parameter may be derived from other types but must match exactly.
+The interface implementation functions are matched based on the function name, template parameters, function parameter types and its return type. The `self` parameter type may be derived from other types but must match exactly.
+
+A compile time error is generated when the compiler detects that an interface is not fully implemented for a specific type of `self`.
 
 ---
 
 > TBD: Anonymous interface implementations?
 
+This is more a template thing than an interface problem...
+
 ```csharp
 // interface
-PropGetFn: (self): Str
+PropGetFn: <S>(self: S): Str
     return self.Name
 
 // anonymous struct

@@ -8,6 +8,8 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 
 ## Operator Symbols
 
+Arithmetic, bitwise and logical operators.
+
 | Operator | Description
 |---|---
 | `+` | Addition
@@ -15,14 +17,14 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 | `*` | Multiplication
 | `/` | Division
 | `%` | Remainder
-| `**` | Power (`*2` ?? => `*3`, `*4` etc)
+| `**` | Power (`**2` ? => `**3`, `**4` etc?)
 | `( )` | Math Precedence
 | `=` | Equals
 | `<>` | Not Equals
 | `>` | Greater than
 | `<` | Smaller than
 | `>=` | Greater or Equal
-| `<=` | Smaller or Equal
+| `<=` | Smaller or Equal (`=<`?)
 | `? :` | Ternary Conditional
 | `and` | Logical And
 | `or` | Logical Or
@@ -36,8 +38,8 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 | `>|` | Bitwise Rotate Right
 | `|<` | Bitwise Rotate Left
 | `=` | Value Assignment
-| `..` | Range operator
-| `...` | Spread operator
+
+> Ternary operators cannot contain other ternary operators. No nesting of `? :` for readability.
 
 ## Other Symbols
 
@@ -45,22 +47,25 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 |---|---
 | `_` | Unused / Discard
 | `.` | Members Access
-| `,` | List Separator or Line Continuation
+| `..` | Range operator
+| `...` | Spread operator
+| `,` | List Separator
 | `:` | (Sub)Type Specifier
+| `;` | Line separator
 | `< >` | Type Parameter
-| `( )` | Function
+| `( )` | Function / Array/List initialization
 | `" "` | String
 | `' '` | Character
 | `@` | Disable String formatting features
-| `{ }` | String formatting parameter / Code Decorator
-| `[ ]` | Index / Slice / Range
+| `{ }` | String formatting parameter / Code Decorator / Object construction
+| `[ ]` | Index / Slice / Range / Capture
 | `!` | Possible Error (on return type)
 | `?` | Optional variable or parameter/return value
 | `??` | Optional variable assignment fallback
 | `??=` | Optional variable conditional assignment
 | `#` | Pragma / Attribute Access
 | `#!` | Compile-Time Code
-| `=>` | Lambda, match
+| `=>` | Line continuation (instead of indent)
 
 > Are there others like conditional assignment `??=`?
 
@@ -80,31 +85,39 @@ Of these wellknown functions there are two flavors: unchecked and checked implem
 | Operator | Description
 |---|---
 | `\` | reserved
-| `;` | reserved
 | `$` | reserved
+| `->` | Alternate function return type (confusing in combination with `=>`)
 | `<=` | map structure (also arithmetic)
 | `( )` | array/list initializer?
 | `|>` | 
 | `<|` | 
-| `+=` | 
-| `-=` | 
-| `*=` | 
-| `/=` | 
-| `?=` | 
-| `!=` | 
-| `%=` | 
-| `&=` | 
-| `$=` | 
-| `^=` | 
+| `:=` | reserve for variable assignment with type inference.
+
+---
+
+Not sure about these:
+
+| Operator | Description
+|---|---
+| `+=` | read (left) - add (right to left) - write (left)
+| `-=` | read - subtract - write
+| `*=` | read - multiply - write
+| `/=` | read - divide - write
+| `?=` | read - test - write (locking?)
+| `!=` | read - ?? - write
+| `%=` | read - ?? - write
+| `&=` | read - ?? - write
+| `$=` | read - ?? - write
+| `^=` | read - ?? - write
 
 ---
 
 > What if operators cause overflow (or underflow)? A bitwise shift `<<` can shift out bits - sort of the point. Does every operator determine for itself if overflow is a problem or is there a general principle?
-
-> Ternary operators cannot contain other ternary operators. No nesting of `() ? :`. For readability.
 
 ---
 
 > TBD
 
 - using two single quotes for a character `'x'` is nice and symmetrical but also redundant. Is there a shorter way to specify characters: `'x`? Only really need to address this if we want to use `'` for something else...
+
+- an operator to test for 'nothing' (optional) or 'default'?

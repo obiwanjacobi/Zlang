@@ -2,6 +2,8 @@
 
 A function is a block of code that can be called from another function. The function can take parameters and optionally return a value of any type.
 
+A program starts when its entry point (main) function is called.
+
 A function has a name that identifies it uniquely. See [Identifiers](../lexical/identifiers.md).
 
 It is also distinguished by the use of parenthesis `()` when declared or called. Even when the function takes no arguments, the caller still uses the '()' to mark it as function.
@@ -25,18 +27,18 @@ s = repeat(42, 'X')
 Here is the full syntax of a function. Everything but the `()`'s are optional.
 
 ```csharp
-functionName: interfaceName {captures}<types>(parameters): returnType
+functionName: InterfaceName [captures]<template>(parameters): returnType
 ```
 
 `functionName`: (optional) All functions except lambdas (anonymous -inline- functions) have a name. Standard [Identifier](../lexical/identifiers.md) rules apply. Only lambdas do not need a name because they are declared inline at the location they're used.
 
-`interfaceName`: (optional) When basing the type of the function of off a function interface. In that case the declaration of the `types`, `parameters` and `returnType` may be repeated for readability. The function interface name is a type name so it starts with an upper case first letter.
+`InterfaceName`: (optional) When basing the type of the function of off a function interface. In that case the declaration of the `types`, `parameters` and `returnType` may be repeated for readability. The function interface name is a type name so it starts with an upper case first letter.
 
-`{captures}`: (optional) This captures variables external to the function for its execution. For 'normal' function these would be global variables. For lambda's these could be function local variables that are used inside the lambda. Captures are only specified on function declarations (implementation), not on function (type) interfaces. The name of the capture is also used in the function implementation.
+`[captures]`: (optional) This captures variables external to the function for its execution. For 'normal' function these would be global variables. For lambda's these could be function local variables that are used inside the lambda. Captures are only specified on function declarations (implementation), not on function (type) interfaces. The name of the capture refers to a variable (or parameter) and that name is also used in the function's implementation. Comma separated.
 
-`<types>`: (optional) Type parameters that the template function uses in its implementation.
+`<template>`: (optional) Template Parameters that the template function uses in its implementation. Comma separated.
 
-`(parameters)`: (optional) By-value parameters the function acts on.
+`(parameters)`: (optional) By-value parameters the function acts on. Comma separated.
 
 `returnType`: (optional) The Type of the function result.
 
@@ -49,17 +51,17 @@ fn: (p: U8): U8
 
 fn: <T>(): T
 fn: <T>(p: T)
-fn: <T>(p: T): T
+fn: <T, R>(p: T): R
 
 // capture on fn impl
-fn: {c}<T>(p: T): Bool        // by val
-fn: {c.Ptr()}<T>(p: T): Bool  // by ref
+fn: [c]<T>(p: T): Bool        // by val
+fn: [c.Ptr()]<T>(p: T): Bool  // by ref
 
 fn: InterfaceName
 // interface impl with capture
-fn: {c} InterfaceName
+fn: [c] InterfaceName
 // repeated function type decl with capture
-fn: InterfaceName {c.Ptr()}<T>(p: T): Bool
+fn: InterfaceName [c.Ptr()]<T>(p: T): Bool
 ```
 
 > How to differentiate from object construction? => Has no field names.
@@ -72,11 +74,11 @@ Make the function syntax more like variable syntax? => Use an `=` to 'assign' th
 
 ```csharp
 // single line, without return, use =>
-isFourtyTwo: (p: U8): Bool => p == 42
+isFourtyTwo: (p: U8): Bool => p = 42
 
 // multi line, with indent and return, use =
 isFourtyTwo: (p: U8): Bool =
-    return p == 42
+    return p = 42
 
 // function declarations have no '=' sign.
 fnDecl: (p: U8)     // no _ needed
@@ -301,7 +303,7 @@ e = MyEnum.MagicValue
 b = e.IsMagicValue()        // true
 ```
 
-> TBD: Allow leaving of `()` when no bound function has no other parameters?
+> TBD: Allow leaving of `()` when bound function has no other parameters?
 
 ```csharp
 Struct
@@ -313,7 +315,7 @@ s: Struct
 s.fn        // calls fn(s)
 ```
 
-Call this the poor-man's property syntax.
+We call this the poor-man's property syntax.
 
 Auto fluent-functions on self type with void return type.
 
@@ -334,33 +336,9 @@ s.fn1()     // normal function call
     .fn2()  // continue with indent
     .fn3()
     .fn4()
-
 ```
 
 If return type is not `Void`, the actual return type is used. See also Fluent Functions (below).
-
-### Typeless Self
-
-When no specific type is specified for the `self` parameter.
-
-This can be thought of an implicit (unnamed) template parameter that can be used to have a generic object parameter.
-
-The type is resolved at compile-time and errors are generated when functions or fields are called that are not available on the type.
-
-```csharp
-objFn: (self, p: U8): Bool
-    return self = p
-
-x = 42
-b = objFn(x, 42)
-// b = true
-
-s = Struct
-    ...
-b = objFn(s, 42)    // error: Struct cannot be compared to U8
-```
-
-See also [Object Interfaces](interfaces.md#Object-Interface) for use cases.
 
 ## Local Functions
 
@@ -376,7 +354,16 @@ MyFunc: (): U8
     return LocalFun(42)
 ```
 
-> Not sure if local variables of the containing function can be captured in the local function...
+Local variables (or function parameters) can be captured by local functions using the capture `[ ]` syntax.
+
+```csharp
+OuterFn: (p: U8)
+    localFn: [p](c: U8): Bool
+        return p = c
+
+    if localFn(42)  // use
+        ...
+```
 
 > Can Local Functions be declared at the end of the containing function?
 
@@ -409,7 +396,7 @@ ForEach<T>(self: Array<T>, fn: Act<T, U8>)
 // ptr to fn will work
 arr.ForEach(myCallback)
 // like match, but different (no capture)
-arr.ForEach((v, i) log("At {i}: {v}"))
+arr.ForEach((v, i) => log("At {i}: {v}"))
 ```
 
 ```csharp
@@ -419,10 +406,11 @@ Call: (fn: Ptr<Callback>)
 
 sum: U16
 // capture by-ref (ptr)
-Call({sum.Ptr()}(p) sum() = sum() + p)
+Call([sum.Ptr()](p) => sum() = sum() + p)
 // use indent to allow multiple lines
-Call({sum.Ptr()}(p)
+Call([sum.Ptr()](p)
     sum() = sum() + p
+    ...
 )
 ```
 
@@ -505,11 +493,11 @@ ReportProgress(self, ProgressEvent progressEvent)
 
 ## Pure Functional
 
-A pure function -without side-effects- can be recognized by the lack of mutable captures and immutable parameters. It has to have a return value.
+A pure function -without side-effects- can be recognized by the lack of mutable captures and the presence of immutable parameters. It also has to have a return value.
 
 ```csharp
 // has imm param but potentially writes to globalVar
-sideEffect: {globalVar.Ptr()}(p: Ptr<Imm<U8>>)
+sideEffect: [globalVar.Ptr()](p: Ptr<Imm<U8>>)
 // takes two params and produces result - no side effects
 pureFn: (x: U8, y: U8): U16
 ```
@@ -518,7 +506,6 @@ A higher order function is a function that returns a higher-order function.
 
 ```csharp
 // a function that returns a function
-pureFn: (arr: Arr<U8>): (U8): U8
 pureFn: (arr: Arr<U8>): Fn<(U8): U8>
     ...
 // call pureFn and call the function it returns
@@ -624,7 +611,7 @@ An additional syntax is considered for capturing dependencies of any code block.
 ```csharp
 v = 42
 // following code is dependent on v
-{v}
+[v]
     // use v here
 ```
 

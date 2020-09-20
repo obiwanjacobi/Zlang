@@ -45,6 +45,8 @@ The type names have been shortened to an absolute minimum. First:
 - U - unsigned integer
 - I - signed integer
 
+> Or should we use 'S' for signed integers?
+
 followed by the width in the number of bits.
 
 - 8
@@ -117,6 +119,32 @@ Bit<4>
 
 When `Bit`s are stored, the closest fitting data type is used. So a `Bit<6>` would take up a single byte `U8`, while a `Bit<12>` would take up two bytes `U16`. `Bit`s are always interpreted as unsigned and stored in the lower bits of the storage type. The upper unused bits are reset to zero.
 
+### Function Type
+
+The function type `Fn<T>` is used when the type of a function is used in code but no [Function Interface](interfaces.md#Function-Interface) is available.
+
+```csharp
+// returns a void function (fn: ())
+makeFn(p: U8): Fn
+    ...
+
+f = makeFn(42)
+f()         // call returned function
+```
+
+Note that the type of a function has a specific syntax:
+
+`(parameter-types): return-type`
+
+```csharp
+// returns a function that takes one param (U8) and returns a Str
+makeFn(p: U8): Fn<(U8): Str>
+// returns a function that takes two params (Str and U8) and returns a Bool
+makeFn(p: U8): Fn<(Str, U8): Bool>
+// returns a function that takes one param (U8) and has no return
+makeFn(p: U8): Fn<(U8)>
+```
+
 ### Void
 
 A special type to allow to be explicit when there is no (function return) Type. Acts as the functional `Unit` in that it has only one value: itself and therefor holds no information.
@@ -166,7 +194,7 @@ MetricLength: U16 _
 ImperialLength: U16 _
 
 ml: MetricLength = 200      // 200 meter
-il: ImperialLength = 200    // 200 feet
+il: ImperialLength = 200    // 200 yards
 
 loa = ml + il               // error: cannot add different data types
 ```
@@ -211,7 +239,7 @@ Custom Data types cannot have any fields. A struct can be composed of fields usi
 ```C#
 Age: U8
     #value = 0
-    #value = [2, 101]   // Range syntax
+    #value = [2..101]   // Range syntax
 Mode: Str       // this would be a Str-Enum...
     #value = "A"
     #value = "B"
@@ -233,7 +261,6 @@ By default the specified rules are ANDed together in that all the specified rule
 ```csharp
 CustomDataType: U8
     #value > 10 or #value = 0
-    #value > 10, #value = 0 // conflict with line-continuation
 ```
 
 > Support ranges as constraint values.
@@ -302,14 +329,14 @@ o: U8?      // optional U8
 e: U8!      // U8 or error
 x: U8!?     // optional U8 or Error
 p: *U8?     // optional pointer to an U8
-i: ^*U8?     // optional immutable pointer to an U8
+i: ^*U8?    // optional immutable pointer to an U8
 ```
 
-`Err<T>` is typically only used on function return values.
+`Err<T>` is typically (only) used on function return values.
 
-## Aliases
+## Type Alias
 
-Same as declaring a new type, just without any additions.
+Provides a new name for an existing type. Similar to declaring a new type, just without any additions.
 
 ```C#
 // a real new type (struct)
@@ -319,7 +346,11 @@ MyType: OtherType<Complex<U8>, Str> _   // _ to indicate no fields
 MyType = OtherType<Complex<U8>, Str>
 ```
 
+During compilation type aliases are replaced with their original types.
+
 ## Constructors
+
+> Factory?
 
 A type constructor is a function with the same name as the type it creates and returns.
 
@@ -458,24 +489,55 @@ o: MyOptionalStruct = s
 
 Ideas...
 
+The `|`, `&` and `^` operators act on the memory of a type (sort of).
+
+`and` and `or` operate on the logical type.
+
+> In no case can a type ever be empty.
+
+What about marker interfaces?
+
 ### Unions
 
 > How are shared fields (locations) initialized when two structs have different default values? Or simply init to zero-always.
 
-> What happens if -part of- a field is accessed through another -incompatible- type? For instance: `Str|U8` write `Str="42"` and read through `U8`. (also a problem in C)
+> What happens if -part of- a field is accessed through another -incompatible- type? For instance: `Str|U8` write `Str="42"` and read through `U8`. (also a problem in C).
+COM-interop (.NET) disallows this.
 
 ```C#
-MyStruct: Struct1 | Struct2
+MyUnion1: Struct1 | Struct2
+MyUnion2: Struct1 | Struct2 | Struct3
 
 MyUnion             // all fields share the same memory
     fld1: U8 |
     fld2: U16 |
-    fld3: Str |     // trailing | ok?
+    fld3: Str |     // trailing | ok
 ```
 
-> Because there is no `union` keyword, anonymous unions are not possible.
+> Because there is no `union` keyword, anonymous or inline unions are not possible.
 
-### Type commonality
+A union can be used with any type or struct.
+
+```csharp
+Union1
+    fld1: U8 |
+    fld2: U16
+Union2
+    prop1: Str |
+    prop2: Bool
+
+// one big union
+Union3
+    un1: Union1 |
+    un2: Union2
+
+// struct with 2 unions
+Struct1
+    un1: Union1
+    un2: Union2
+```
+
+### Type Commonality
 
 Common fields in all types.
 
@@ -483,7 +545,7 @@ Common fields in all types.
 MyStruct: Struct1 & Struct2
 ```
 
-Error if no fields are common?
+A compiler error is generated if no fields are common - the type defined is empty.
 
 ### Type difference
 
@@ -493,9 +555,11 @@ Think of this as an inverse union.
 Difference: Struct1 ^ Struct2
 ```
 
-The `|`, `&` and `^` operators act on the memory of a type (sort of).
+> Can the `|`, `&` and `^` be combined in one declaration? What is the precedence of these operators?
 
-`and` and `or` operate on the logical type.
+```csharp
+MyStruct: (Struct1 & Struct2) | (Struct3 ^ Struct4)
+```
 
 ### Multiple Inheritance
 
@@ -505,9 +569,9 @@ Type addition.
 MyStruct: Struct1 and Struct2
 ```
 
-Laid out in memory in order.
+Laid out in memory in order of definition.
 
-> How to move the 'self' pointer? All info is available at compile-time.
+> How to move the 'self' pointer? => All info is available at compile-time.
 
 ```csharp
 MyStruct: Struct1 and Struct2
@@ -531,6 +595,8 @@ structFn(s#offset(Struct2), 42)
 > Should dynamic types be taken into account? How would the syntax look and what semantics are attached?
 
 A dynamic type would require a whole runtime system that turns away from the compile-time focus currently aimed for.
+Dynamic types may be required when doing a REPL interface..?
+But that would be more of an implementation detail of the REPL itself.
 
 ```csharp
 d: Dyn              // dynamic type
@@ -538,11 +604,11 @@ d.prop1 = 42        // creates a new field (fixed type)
 
 MyFunction: (self: Dyn, p1: U8): Bool
     // does field exist
-    if self?prop1
+    if self?#prop1
         return self.prop1 = 42
 
     // does function exist
-    if self?getMagicValue
+    if self?#getMagicValue
         return self.getMagicValue() = 42
     return false
 
@@ -570,6 +636,7 @@ MyFunction: (self: Dyn, p1: U8): Bool
     ...
 
 d: Dyn
+// depend on dot-syntax here!
 d.MyFunc = MyFunction
 
 if d.MyFunc(42)
