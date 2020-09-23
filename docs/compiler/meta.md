@@ -66,6 +66,8 @@ A pragma is a directive that instructs the compiler to take some action. For ins
 
 A pragma is prefixed with: `#` that starts at the indent level of the current scope. It also starts a new scope.
 
+> TBD: A new scope is not always practical. How to make the dev choose?
+
 > Is the space after `#` mandatory or optional?
 
 ```C#
@@ -93,42 +95,54 @@ At the end of the scope the options are `pop`ed automatically and previous setti
 # pop() _
 ```
 
+| Pragma | Description
+|--|--
+| module | Assigning code to a module
+| import | Importing code from a module
+| export | Making code public
+| push | Pushing compiler configuration onto the (compile-time) stack
+| pop | Popping compiler configuration from the (compile-time) stack
+| enable | Enable a compiler feature (checks)
+| ignore | Disable a compiler warning
+
+---
+
 ## Compile-Time Code
 
-_Any_ Z# code can be executed at compile-time. By placing a `#!` in front of it, the compiler knows it is not to be included in the binary. The use of this symbol does not introduce an extra scope.
+_Any_ Z# code can be executed at compile-time. By placing a `#!` in front of the function, the compiler knows it is not to be included in the binary. The use of this symbol does not introduce an extra scope.
 
 ```C#
 m = MyStruct
     ...
 
-// this code can only run at compile time
-#! compTime: <T>(m: T)
+// this code can only run at compile time and is not included in the binary
+#! compTimeFn: <T>(m: T)
     t = m#type
     t.name                      // 'MyStruct'
     loop f in t.fields
         "field: {f.name} of type {f.type.name}"
 
-#! compTime(m)
-compTime(m)     // error! `#type` attr is not available
+#! compTimeFn(m)  // ok, call at compile time
+compTimeFn(m)     // error! cannot call a compile-time function at runtime. It is not in the binary.
+
+// normal runtime function included in the binary
+runtimeFn: <T>(m: T)
+    ...
+
+#! runtimeFn(m) // call at compile time. Error if function body cannot be run at compile-time.
+runtimeFn(m)      // call at runtime.
 
 // alternate: use a #run pragma to run any code at compile time.
 # run
-    runTime(m)  // can give compile error
+    runTimeFn(m)    // can give compile error
+    compTimeFn(m)   // run after previous
 ```
 
-Some `#` compiler attributes may require the code to be `#!` compile time code.
-
-```C#
-anyFunc: <T>(m: T)    // normal function
-    ...
-
-#! anyFunc(m)       // called/run at compile time
-anyFunc(m)          // called/run at run time
-```
+> Some `#` compiler attributes may require the code to be `#!` compile time code. An example is the full `#type` information which is only available at compile time.
 
 ## Type Information
 
-No type information available at runtime other that the `#typeId` which can only be used as type identifier to compare equality or for use as a key in a map/table store.
+No type information is available at runtime other than the `#typeId` which can only be used as type identifier to compare equality or for use as a key in a map/table store.
 
 Full type information is only available at compile time. Are there any scenarios that would really become a problem not having type info at runtime?
 
@@ -137,7 +151,7 @@ Full type information is only available at compile time. Are there any scenarios
 The compiler supplies a set of functions that allows interaction with- and modification of the generated code. There is also contextual information available for formatting diagnostic messages.
 
 | Function | Note
-|-|-
+|--|--
 | line() | the current source code line number
 | file() | the current source code file name
 | module() | the current module the source code is part of
@@ -161,5 +175,6 @@ s = MyStruct
     ...
 
 if s?field1     // does 'field1' exist at compile time?
+if s?#field1
     ...
 ```

@@ -1,8 +1,8 @@
-# export
+# Export
 
 By default all code in a file is private to that file. One could think of it as being inside an anonymous namespace.
 
-The `export` keyword publishes the code identified by the name to be used by other code files / modules.
+The `export` pragma publishes the code identified by the name to be used by other code files / modules.
 
 The following types of identifiers can be exported:
 
@@ -15,16 +15,20 @@ The following types of identifiers can be exported:
 Here is an example of exporting a function:
 
 ```C#
-export MyFunction
+# export
+    MyFunction
+    // more functions here...
+// -or-
+# export MyFunction
 
 MyFunction: ()
     implementation_here
 ```
 
-The `export` keyword can also be applied directly to the code identifier to be made publicly available:
+The `export` pragma can also be applied directly to the code identifier to be made publicly available:
 
 ```C#
-export MyFunction: ()
+# export MyFunction: ()
     implementation_here
 ```
 
@@ -33,15 +37,15 @@ export MyFunction: ()
 By using an alias the name of the exported item can be renamed to something new. It can also be a way to simulate namespaces.
 
 ```C#
-module alias_example
-export MyNamespace.MyFunc = MyFunc
+# module alias_example
+# export MyNamespace.MyFunc = MyFunc
 
 MyFunc: ()
     ...
 ```
 
 ```C#
-import alias_example
+# import alias_example
 
 MyNamespace.MyFunc()
 ```

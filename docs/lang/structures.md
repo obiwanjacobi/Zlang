@@ -124,6 +124,30 @@ MyStruct: U16
     other: U8           // error! only bit fields
 ```
 
+## Nested Declaration
+
+Structures can be declared in a nested fashion:
+
+```csharp
+Struct
+    nested: NestedStruct
+        fld1: U8
+        fld2: Str
+    name: Str
+```
+
+How ever the `NestedStruct` type is not available outside the structure it was declared in.
+
+> TBD: Can the nested type be anonymous?
+
+```csharp
+Struct
+    nested      // use {} here?
+        fld1: U8
+        fld2: Str
+    name: Str
+```
+
 ## Memory Layout
 
 The fields of a structure are layed out in the order of their definition starting at the base structure type. No alignment or filler bytes are added.
@@ -198,7 +222,7 @@ y = a.Fld2  // Str
 b = { fld1, fld2 }
 ```
 
-Prefered is to use field names for tuples, but even those can be omitted but then deconstruction has to be used to unpack.
+Preferred is to use field names for tuples, but even those can be omitted but then deconstruction has to be used to unpack.
 
 ```csharp
 // no structure type, no field names

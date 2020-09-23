@@ -36,7 +36,9 @@ if a = myFunc()      // error!
 
 ---
 
-## Conditional
+## Conditional Assignment
+
+Instead of an `if` statement, use the `??=` operator for use with optional values.
 
 ```csharp
 a: U8?
@@ -81,7 +83,7 @@ a = 101
 b: U8   // does not need to be Atom
 // supply function on Atom
 a.Exchange(b.Ptr())
-a.ExchangeIf(b.Ptr(), a = 42)
+a.ExchangeIf(a = 42, b.Ptr())
 ```
 
 Atomic locking requires guaranteed unlocking... (defer keyword)
@@ -97,6 +99,8 @@ a = 101
 // end of scope unlocks
 ```
 
+### Volatile
+
 Volatile is used when the contents of a variable (memory location) can be changed from outside the program (memory mapped IO/hardware registers) or outside the compiler's field of view (interrupt service routines).
 
 If we are able to tag ISR's in the language, we can automatically tag all used variables as volatile.
@@ -108,6 +112,7 @@ Memory mapped IO is harder to auto detect.
 // we may want to save IO for language supported Input/Output instructions.
 a: IO<U8> = 42
 a: Volatile<U8> = 42    // too long?
+a: Vol<U8> = 42         // unclear?
 a: Weak<U8> = 42        // save for ptrs?
 a: Alt<U8> = 42         // alternate
 a: Soft<U8> = 42
@@ -133,7 +138,7 @@ a: &U8 = 42
 
 > This is not the same as a tuple!
 
-> Deconstruction is _copying_ the value into a variable. But referencing could be an optimization - but that would also make it more complex.
+> Deconstruction is _copying_ the value into a variable. But referencing (using the var as an alias to the original source) could be an optimization - but that would also make it more complex (for the compiler).
 
 ```csharp
 (a, b) = ...
@@ -149,12 +154,14 @@ add: (a: U8, b: U8): U16
 
 // deconstruct either by name or in order (types must match exactly)
 sum = add(x)    // (a, b) = x
-sum = add x     // (a, b) = x
+// use spread operator to make deconstruction clear?
+sum = add(...x) // (a, b) = x
 ```
 
 deconstructing an array
 
 ```C#
+// spread operator ...
 (a, b, ...rest) = [1, 2, 3, 4, 5]
 
 // a: U8 = 1

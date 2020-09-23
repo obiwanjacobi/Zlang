@@ -56,7 +56,6 @@ s = a.Text(alloc)                // function that needs memory
 
 > Construct individual structs into a pre-allocated memory space. For instance to layout an array or variable-length types.
 
-
 ## Volatile ??
 
 > How to deal with memory mapped hardware (IO)? Read, Modify, Write bits.

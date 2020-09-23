@@ -3,10 +3,7 @@
 The number of keywords have been kept to a minimum. Much of the language is expressed through context. Keywords are always lower case.
 
 | Keyword | Description
-|---|----
-| module | Assigning code to a module
-| import | Importing code from a module
-| export | Making code public
+|--|--
 | loop | Loop statement
 | break | Break out of a loop
 | continue | Skip to next iteration
@@ -19,6 +16,8 @@ The number of keywords have been kept to a minimum. Much of the language is expr
 | try | Propagate if Error
 | catch | Handle Error
 | match | Pattern matching
+
+---
 
 > These keywords are reserved words and cannot be used as [identifiers](identifiers.md) in the code.
 

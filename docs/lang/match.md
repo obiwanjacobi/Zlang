@@ -49,6 +49,16 @@ a = match s
 // a = "The Answer (Str)
 ```
 
+> How to detect an optional value?
+
+```csharp
+o: Opt<U8>  // nothing
+
+a = match o
+    ?? => "Nothing"
+    _ => o.Str()
+```
+
 When more comprehensive logic is required to compute the result a function can be called to yield that result.
 
 > The result is always of one type only (unless perhaps when we support union (||) types or compound (or) types) where only optional `?` or Error '!' can be added by other branches.
@@ -75,6 +85,7 @@ s = match a
     < 10 => "Smaller than 10"                   // `<` operator
     >= 10 and <= 100 => "between 10 and 100"    // logical and
     > 100 "bigger than 100"                     // `>` operator
+    // don't need an _ case, we've covered all numbers
 ```
 
 The two patterns for `MyStruct` differ in filter. That is why this works.

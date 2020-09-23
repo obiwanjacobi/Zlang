@@ -4,13 +4,13 @@ These operators are used to compare to values in different ways. The result is a
 
 | Operator | Function
 |-------|------
-| = | Equal to
-| <> | Not Equal to
-| > | Greater than
-| < | Smaller than
-| >= | Greater or Equal
-| <= | Smaller Equal
-| ? : | Ternary Comparison
+| `=` | Equal to
+| `<>` | Not Equal to
+| `>` | Greater than
+| `<` | Smaller than
+| `>=` | Greater or Equal
+| `<=` | Smaller or Equal (TBD: '`=<`' ?)
+| `? :` | Ternary Comparison
 
 Here is an example of using several comparison expressions combined into a logical expression to build the condition of an `if` statement.
 

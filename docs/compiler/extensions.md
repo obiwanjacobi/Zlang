@@ -54,10 +54,14 @@ The following code constructs can be decorated:
   - Type
   - Parameters
   - Return value
+- Module
 
 For each of these cases a specific decorator function signature is defined.
 
 ```C#
+Enum: (self: EnumInfo)
+EnumOption: (self: EnumOptionInfo)
+
 Structure: (self: StructureInfo)
 StructureField: (self: StructureFieldInfo)
 
@@ -65,8 +69,7 @@ Function: (self: FunctionInfo)
 FunctionParameter: (self: FunctionParameterInfo)
 FunctionReturn: (self: FunctionReturnInfo)
 
-Enum: (self: EnumInfo)
-EnumOption: (self: EnumOptionInfo)
+Module: (self: ModuleInfo)
 ```
 
 The decorator function parameters must start with the specific self type in order to be used for the specific code construct. Additionally any number of extra parameters may be added to the decorator function. Matching decorator functions to a code construct is done purely on the self parameter.

@@ -102,6 +102,8 @@ v = 42
 byref(v.Ptr())            // call with ptr to value
 ```
 
+> TBD: it would be nice to be able to see if a variable or parameter was an literal value. Then specific logic could be applied in these cases. For instance, when a parameter is a literal, the result of the function could be made immutable?
+
 ### Optional Parameters
 
 Optional function parameters can be specified using the optional symbol `?`.

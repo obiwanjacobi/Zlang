@@ -334,9 +334,42 @@ i: ^*U8?    // optional immutable pointer to an U8
 
 `Err<T>` is typically (only) used on function return values.
 
+### Immutable Types
+
+Any type can be made immutable wrapping it in a `Imm<T>` type.
+
+```csharp
+a: U8   // mutable
+a = 42  // ok, a = 42
+
+// immutable has to be initialized on declaration
+b: Imm<U8> = 42     // init with 42
+b = 101             // error! type is immutable
+```
+
+> TBD: `with` in some other languages. Mutations on an immutable type results in a new instance.
+
+```csharp
+s: Imm<Struct>
+    ...         //   init struct
+
+// s2 is copy of s with changed field
+// what syntax?
+s2 = s => { fld1 = 42 }     // object construction
+s2 = s.Mut({ fld1 = 42 })   // explicit function call1
+s2 = s.Clone({ fld1 = 42 }) // explicit function call2
+s2 = s + { fld1 = 42 }      // special operator1
+s2 = s & { fld1 = 42 }      // special operator2
+s2 = s <= { fld1 = 42 }     // special operator3
+```
+
+> TBD: type validation after construction? This is a general issue...
+
+In all these cases the period of time that the new instance is mutable (when a new instance is created and the old and the new values are copied in) is managed by the compiler and shielded from the developer.
+
 ## Type Alias
 
-Provides a new name for an existing type. Similar to declaring a new type, just without any additions.
+Provides a new name for an existing type. Similar to declaring a new type but without any additions.
 
 ```C#
 // a real new type (struct)
@@ -346,11 +379,11 @@ MyType: OtherType<Complex<U8>, Str> _   // _ to indicate no fields
 MyType = OtherType<Complex<U8>, Str>
 ```
 
-During compilation type aliases are replaced with their original types.
+During compilation all references to type aliases are replaced with their original types. Compiler-issues _are_ reported using the original type alias name.
 
-## Constructors
+## Type Constructors
 
-> Factory?
+> Any function can be a factory (function). Type constructors are checked specifically by the compiler to make sure they return new instances of a type.
 
 A type constructor is a function with the same name as the type it creates and returns.
 
@@ -416,6 +449,8 @@ t = MyType(42, "42", 0x4242)
 ```
 
 ## Constrained Variant
+
+Also known as Discriminated Unions.
 
 ```C#
 OneOrTheOther: Struct1 or Struct2
@@ -664,3 +699,10 @@ v = match a
 ```
 
 See also Union/Constrained Variant Types.
+
+---
+
+> Other types that need close integration with the compiler?
+
+- Buffer / RingBuffer
+- Stream

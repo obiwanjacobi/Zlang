@@ -199,6 +199,40 @@ When the code has a pointer to a function, it can be called by specifying the `(
 
 A function without implementation is called a function declaration or [Function Interface](interfaces.md).
 
+### Function Pointers in Structures
+
+Use function pointers in a structure fields as a way to simulate an (OO) object (by hand).
+
+Normal (data) fields can still be added - but are publicly accessible.
+
+```csharp
+// function interfaces
+OpenFn: (path: Str): Ptr _
+CloseFn: (file: Ptr) _
+
+// structure with function pointers
+File
+    open: Ptr<OpenFn>
+    close: Ptr<CloseFn>
+
+// function interface implementations
+MyOpen: OpenFn
+    ...
+MyClose: MyClose
+    ...
+
+// init the struct (instance)
+f: File
+    open = MyOpen
+    close = MyClose
+
+// call functions through pointers
+p = f.open("path/to/file.txt")
+f.close(p)
+```
+
+Could be used to make virtual functions (by hand) and implement polymorphism at the object level.
+
 ## Untyped Pointer
 
 Opaque Type Reference.
@@ -230,6 +264,18 @@ o.x             // error! Ptr does not allow member access
 
 a = inFn(o)     // Ptr as parameter
 ```
+
+It is also possible to make a 'typed' typeless pointer:
+
+```csharp
+Handle: Ptr _
+createFn: (p: U8): Handle
+    ...
+openFn: (h: Handle): Stream
+    ...
+```
+
+`Handle` is still a typeless pointer but made specific to a set of functions. This way you can direct the user of your API to not use any typeless pointer, but the specific one you designed. It makes you API clearer.
 
 ### Static Ptr Helper
 

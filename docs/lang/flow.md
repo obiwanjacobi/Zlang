@@ -17,6 +17,19 @@ else                  // or is it neither?
 
 > No assignment is permitted inside the `if` conditional expression.
 
+Alternate / inline `if`:
+
+```csharp
+if true     // conventional if statement
+    ...
+else
+    ...
+
+true ? ... : ...    // ternary operator
+
+true ? ...          // ternary without 'else'
+```
+
 ### Parenthesis
 
 When parenthesis are used they are always part of the expression, not of the `if` statement. There is always a space after the `if` statement - this is what sets it apart from a function call.
