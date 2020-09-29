@@ -148,6 +148,21 @@ Struct
     name: Str
 ```
 
+Nested inside a function?
+
+```csharp
+someFn: (p: U8)
+    LocalStruct     // only visible inside this function
+        fld1: U8
+        fld2: Str
+    
+    s = LocalStruct     // use it
+        fld1 = 42
+        fld2 = "42"
+
+    ...
+```
+
 ## Memory Layout
 
 The fields of a structure are layed out in the order of their definition starting at the base structure type. No alignment or filler bytes are added.
@@ -238,6 +253,17 @@ x.Item1 // Error: Item1 does not exist
 
 > We want to line up the syntax (and semantics) with the parameters of a function call. Adopting a global rule that 'field-lists' (tuples, function params, deconstructs etc) can be build in-order or named or a combination (see function parameters).
 
+> TBD: What is the syntax (type) for an anonymous structure?
+
+```csharp
+anoStructFn: (s)        // no type
+anoStructFn: (s: Any)   // suggest passing a Str is valid
+anoStructFn: (s: Dyn)   // indicates the runtime aspect of discovering fields
+anoStructFn: (s: Struct)    // must be a struct
+anoStructFn: (s: Record)    // other name for struct?
+anoStructFn: (s: {U8, Str}) // tuple like
+```
+
 ## Mapping
 
 > TBD
@@ -255,4 +281,20 @@ s2: Struct2
 
 // by convention
 s2: Struct2 <= s1
+```
+
+Transform using a custom Type and rules/constraints?
+
+```csharp
+// Transform would be a compiler supported type.
+MapS1ToS2: Transform<Struct1, Struct2>
+    #Struct2.fld1 = #Struct1.x
+    #Struct2.fld2 = #Struct1.y
+
+s2 = MapS1ToS2(s1)
+s2 = s1.Transform()
+
+// Transform could support all kinds of hooks (overrides)
+afterTransform: (self: MapS1ToS2)
+    self.Target.fld3 = self.Source.z.Str()
 ```

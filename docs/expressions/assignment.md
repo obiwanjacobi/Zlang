@@ -34,6 +34,24 @@ if a = myFunc()      // error!
     ...
 ```
 
+## Chaining
+
+The assignment can be chained across multiple variables (left operand) that all get assigned the same value (right operand). Type inference works as expected and the inferred type is applied to all untyped vars.
+
+```csharp
+// all var types are inferred
+a = b = c = 42
+// a: U8 = 42
+// b: U8 = 42
+// c: U8 = 42
+
+b: U16
+a = b = c: U24 = 42
+// a: U8 = 42
+// b: U16 = 42
+// c: U24 = 42
+```
+
 ---
 
 ## Conditional Assignment
@@ -97,6 +115,20 @@ defer a.Unlock()    // defer keyword
 a = 101
 
 // end of scope unlocks
+```
+
+Using `Atom<T>` also allows to manage access to structs that are larger than a single primitive data type.
+
+> TBD: Syntax to set multiple fields under lock?
+
+```csharp
+Struct
+    fld1: U8
+    fld2: Str
+
+s: Atom<Struct>
+// using object notation?
+s = {fld1: 42, fld2: "42"}  // Atom overrides = operator
 ```
 
 ### Volatile

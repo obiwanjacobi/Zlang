@@ -31,16 +31,12 @@ typedFn(42)
 
 // type explicit
 typedFn<U8>(42)
-// new forms of casting?
-typedFn(42: U8)
-typedFn(x: U8)
 
 // return values
 typedRet: <T>(): T
     ...
 
 x = typedRet<U8>()
-x = typedRet(): U8
 y: U8 = typedRet()  // type forwarding?
 z = typedRet()      // Error! cannot determine type
 ```
@@ -90,6 +86,24 @@ TemplateType<T#bits=8>  // '=' conflicts with parameter default
     field: T
 ```
 
+### Type Template Parameter Inference
+
+Type parameters can be inferred from the context they're used in.
+
+```csharp
+templateFn: <S, T, R>(s: S, p: T): R
+    ...
+
+// try partial ? => Error
+r = templateFn<U16, U8>(42, 101)    // unclear what types are specified
+
+// parameters inferred, return type specified?
+r = templateFn<U16>(42, 101)
+
+// specified explicitly
+r = templateFn<U8, U8, U16>(42, 101)
+```
+
 ### Non-Type Template Parameters
 
 Although template parameters are usually types, it can be anything.
@@ -112,7 +126,7 @@ t = TemplateType
     field1 = 42         // U8
 ```
 
-### Variable Number of Type Parameters
+### Variable Number of Template Parameters
 
 > Not supported.
 
@@ -133,6 +147,17 @@ typedFn(42)         // generic typedFn<T> called
 typedFn(true)       // specialization typedFn<Bool> called
 ```
 
+Partial specialization
+
+```csharp
+templateFn: <S, T>(s: S, t: T): Str
+    ...
+
+// specialized for first parameter of Bool.
+templateFn:<Bool, T>(s: Bool, t: T): Str
+    ...
+```
+
 ---
 
 > TBD
@@ -149,3 +174,27 @@ With restrictions:
 ```csharp
 MyType<M: Struct<T: OtherStruct>>
 ```
+
+---
+
+Have a code block be substituted for a template parameter.
+For that we need a compile-time code reference / function pointer.
+
+The goal is to insert code into a template that is compiled as one new entity.
+
+```csharp
+// takes a void-function with an U8 param 'as code' (#)
+repeatFn: <#Fn<Void, U8>>(c: U8)
+    loop n in [0..c]
+        #T(n)           // <= syntax to be determined
+
+// this is the custom function that is inserted into the template
+doThisFn: (p: U8)
+    ...             // <= body is inserted into the template
+
+// compiled as a new function (body)
+repeat<doThisFn>(42);
+// will execute doThisFn (body) 42 times (p=0-41)
+```
+
+The special syntax `#` (TBD) makes a distinction between passing in a function pointer (`Fn<T>`) -resulting in a function call- and copying in the code (`#Fn<T>`) which is basically inlining explicitly. Inlining allows the compiler to optimize the resulting code as a whole.

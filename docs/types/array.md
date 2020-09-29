@@ -68,6 +68,20 @@ arr2 = arr[..]              // arr2 = all elements (not a copy!)
 Array<T> : T[]     // variable length at compile time
 ```
 
+## Array Pointers
+
+To avoid copying over the complete array for a function call, it has to be passed by reference (pointer).
+
+What will the syntax be when accessing (dereferencing) an array pointer?
+
+```csharp
+arrayFn: (Ptr<Array<U8>> arr)
+    first = arr()[0]
+
+arr = [12, 23, 34, 45, 56, 67]
+arrayFn(arr.Ptr())
+```
+
 ---
 
 > TBD
@@ -77,11 +91,19 @@ Difference between `readonly` and `immutable`:
 - ReadOnly: An Immutable object that does not have any way to change it.
 - Immutable: A fixed/frozen object that performs changes by creating new representations, leaving the original immutable object intact.
 
+```csharp
+arr = [1, 2, 3, 4, 5]   // readonly
+arr[0] = 42             // error: array is readonly
+
+arr: Imm<Array<U8>> = [1, 2, 3, 4, 5]   // immutable
+arr2 = arr.SetAt(i, 42) // returns a new array with changed value at index 'i'
+```
+
 ---
 
 > TBD
 
-Syntax difference between indexing/ranges and making data.
+Introduce a syntax difference between indexing/ranges `[]` and making data `()`?
 
 You could argue that indexing is a function that looks up the value at a specific position.
 
@@ -94,12 +116,9 @@ arr = { 1, 2, 3 }   // using object syntax is conflicting
 arr = ( 1, 2, 3 )   // list construction syntax?
 
 i = 1           // index
-x = arr.At(i)   // lookup function (U8)
-p = arr.Ptr(i)  // lookup pointer (Ptr<U8>)
-p = arr.PtrAt(i)  // lookup pointer (Ptr<U8>)
+x = arr.At(i)   // lookup value (U8)
 p = arr.PtrTo(i)  // lookup pointer (Ptr<U8>)
-r = arr.Ref(i)  // lookup reference (Ptr<U8>)
-r = arr.RefAt(i)  // lookup reference (Ptr<U8>)
+s = arr.PtrTo(i, 2) // sub-array (Slice<U8, 2>)
 
 arr: Array<U8> = ( 1, 2, 3)     // mutable
 arr.At(i) = 42  // At used as getter and setter?
@@ -108,3 +127,5 @@ arr.At(i) = 42  // At used as getter and setter?
 x = arr.GetAt(i)
 arr.SetAt(i, 42)
 ```
+
+Are Slices the single way to return references into an array (or list)? Overhead for single values, meant for sub-ranges...

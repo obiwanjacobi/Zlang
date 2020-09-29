@@ -97,6 +97,35 @@ A compile time error is generated when the compiler detects that an interface is
 
 ---
 
+> How to determine at runtime if an 'object' implements a specific interface?
+
+The compiler has to check if the specified `self` type has implementation for all the functions of the interface.
+
+```csharp
+MyInterface<S>
+    interfunc: (self: S, p: U8) _
+
+s: Struct
+    ...
+
+// use interface type name as cast/convert? (retval: Opt<T>)
+i = s.MyInterface<Struct>() // s => self AND <T> (Struct) !
+i = s.MyInterface()         // s => self (infer T=Struct)
+
+// use builtin functions?
+b = s.Is<MyInterface<Struct>>()     // retval: Bool
+i = s.As<MyInterface<Struct>>()     // cast/convert (Opt<T>)
+
+// use some kind of operator as cast/convert?
+i = s &= MyInterface<Struct>
+b = s ?= MyInterface<Struct>    // retval: Bool
+
+// use some kind of intrinsic/pragma?
+b = s?#MyInterface<Struct>  // similar to check if field exists
+```
+
+---
+
 > TBD: Anonymous interface implementations?
 
 This is more a template thing than an interface problem...

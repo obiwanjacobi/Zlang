@@ -15,6 +15,22 @@
 rng = Rng(1, 6)     // ??
 ```
 
+## Step
+
+A third optional parameter for a range is the step the value takes on each iteration.
+
+```csharp
+// forward
+[0..5]
+[0..5, 1]   // same
+[5..0, 1]   // does not iterate.
+
+// backward
+[5..0, -1]
+```
+
+If no step is specified it is always 1. This means that ranges with start > end, will not iterate - a behavior that is most useful/common/expected I think.
+
 ## Static
 
 ```C#

@@ -161,6 +161,28 @@ The compiler supplies a set of functions that allows interaction with- and modif
 msg = "Error in '{#file()}' at line {#line()}: {#name()} is invalid."
 ```
 
+> What syntax/operator to use? `#` is a pragma and not a compiler function. `!#` is compile-time execution but the name could collide with custom functions. Using `@` could be good alternative?
+
+```csharp
+msg = "Error in '{@file()}' at line {@line()}: {@name()} is invalid."
+```
+
+---
+
+Hints to the compiler how to compile code...
+
+```csharp
+#inline     // pragma (hint)
+@inline()   // compiler function
+{inline}    // extension/decorator
+inlineFn: (p: U8): Bool => p = 42
+```
+
+| Hint | Description
+|--|--
+| `inline` | duplicate function body at each call site
+| `align x` | line struct up at a memory address that is a multiple of specified value
+
 ---
 
 > TBD

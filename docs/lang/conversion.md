@@ -2,7 +2,7 @@
 
 ## Built-in Types
 
-The allowed conversions are all explicitly represented by a function. The name of the function is the target type.
+The allowed conversions are all explicitly represented by a function. The name of the function is the target type. There is no implicit conversion on assignment or anywhere, ever.
 
 ```C#
 b = 42        // U8
@@ -19,7 +19,7 @@ b = v.U8()          // error: loss of data!
 b = v.U8([8..16])   // using a Range to extract the bits
 ```
 
-Alternative Syntax
+Alternative Syntax?
 
 ```C#
 v = 42: U16         // v => U16
@@ -36,6 +36,8 @@ i = v.I8()      // I8: -1
 ```
 
 > Use checked functions to do bounds checking and make sure that the actual value has not changed meaning.
+
+> Should we have specific conversion functions that explicitly state the conversion could be unsafe? `v.unsafeI8()`
 
 ## Optional
 

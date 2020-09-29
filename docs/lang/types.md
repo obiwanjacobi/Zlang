@@ -45,7 +45,7 @@ The type names have been shortened to an absolute minimum. First:
 - U - unsigned integer
 - I - signed integer
 
-> Or should we use 'S' for signed integers?
+> TBD: Or should we use 'S' for signed integers?
 
 followed by the width in the number of bits.
 
@@ -59,7 +59,7 @@ U8 U16 U24 U32
 I8 I16 I24 I32
 ```
 
-`U8` is default for when the integer data type is not explicitly specified.
+> TBD: Do we want an autoscaling `Int`eger type?
 
 ### Floating Point
 
@@ -77,9 +77,39 @@ A 'string' of characters of text.
 Str
 ```
 
-A string is an `Array` of characters. There is no character data type, so `U8` is used as a character byte. Assumed here is that characters are ASCII based.
+A string is an `Array` of characters. There is no character data type, so `U8` is used as a character byte. Assumed here is that characters are ASCII based (see note below).
 
 An `Array` is fixed length, therefor `Str`'s are also fixed length, meaning that when a `Str` is constructed its length is known.
+
+---
+
+> String Encoding is skipped over at this moment and ASCII is assumed. However eventually it _has_ to be addressed.
+
+I am thinking of making each encoding available in a dedicated type which can be converted to one another.
+
+```csharp
+StrUtf7
+StrUtf8     // most common
+StrUtf16
+StrWin1251
+StrWin1252
+StrIso8859
+```
+
+Similar types would exist for `Text`.
+
+Encoding (decoding) is the act of interpreting an array of bytes into a string of characters using a specific set of rules (UTF8 etc).
+
+```csharp
+buffer: Array<U8>   // byte array
+// interpret at UTF8
+str = StrUtf8.Encode(buffer)    // option #1
+str = buffer.ToUtf8()           // option #2
+// str: StrUtf8
+
+// do we need allocation?
+str = buffer.ToUtf8(alloc)      // option #2
+```
 
 ### Text
 
@@ -96,6 +126,8 @@ Text
 > We could introduce a type that holds concatenated strings/texts as separate parts and read them using an iterator appearing to be one continuous text. That way no extra memory allocation is required putting the parts together - only some extra processing during read. An additional 'build' function could do all the allocations and return a single text at any point in time.
 
 > Zero terminated strings provide different advantages as to a pointer-length one. Zero-terminated requires less housekeeping and the zero-sentinel is well established. A pointer-length may be very convenient for sub-strings and splitting parts. If there would be a way to transparently use one or the other - interchangeably.
+
+---
 
 ### Boolean
 
@@ -136,6 +168,8 @@ Note that the type of a function has a specific syntax:
 
 `(parameter-types): return-type`
 
+> Templates?
+
 ```csharp
 // returns a function that takes one param (U8) and returns a Str
 makeFn(p: U8): Fn<(U8): Str>
@@ -161,6 +195,18 @@ NoParamsFn: (Void): U8    // Error: Void not allowed here
 ```
 
 Introducing the `Void` type removes the necessity to distinguish between functions with or without a return value. See the 'Void' topic in [Functions](functions.md) for more info.
+
+## Literal Numerical Values
+
+Literal values are commonly use in programs and by default the compiler will assign the smallest data type to fit the literal numerical value. There are times when you want to override that, however.
+
+```csharp
+a = 42          // a: U8
+b = U16(42)     // b: U16
+c: U24 = 42     // c: U24
+```
+
+We are simply calling a dedicated constructor function with the literal value.
 
 ## Custom Data Types
 
@@ -210,6 +256,12 @@ a: Age = 42
 u = a.U8()      // u: U8
 ```
 
+> What result type promotion will there be for arithmetic operators on custom data types? Will simply the return type of the operator-function determine the result type?
+
+Based on the rules of a Custom Data Type, the value range of the result can be determined at compile time and an appropriate (smallest) return type can be chosen.
+
+Note that numerical literals could also be thought of restricted custom data types (in a way). A constant value of 2 only has a small impact on the number of extra bytes needed for the result after an arithmetic operation.
+
 The way data types differ from using aliases is in the use of type-bound functions.
 
 ```csharp
@@ -250,6 +302,32 @@ Length: I16
 
 > overload/override value setter (assignment operator?) to do custom validation? Can this code be generated at compile-time by the compiler?
 
+### Literal Values
+
+Make a literal value have a custom data type.
+
+```csharp
+MyType: U16 _
+
+a = MyType(42)  // passes all rules
+```
+
+```csharp
+SmallType: U8
+    #value = [0..4]     // 0,1,2,3
+
+a = SmallType(42)       // Error: does not pass rules
+```
+
+```csharp
+MidType: U8 _
+
+// does not fit into base type
+a = MidType(275)        // Error: does not pass rules
+```
+
+Again, we're simply calling dedicated construct functions.
+
 ### Custom Data Constraints
 
 The rules that can be defined after the type declaration narrow the value range based on its base-type - in a declarative manner.
@@ -288,6 +366,29 @@ CustomDataType: Str
 CustomDataType: Str
     #length <= 100, "Too long"
 ```
+
+### Custom Data Type Conversion
+
+Any conversion to or from a custom data type must be hand written. The compiler cannot know how/what to convert when/where.
+
+```csharp
+// custom types
+Hour: U8 _
+Minute: U16 _
+Second: U16 _
+
+// conversion functions
+Minutes: (self: Hour): Minute => self * 60
+Seconds: (self: Minute): Second => self * 60
+Seconds: (self: Hour): Second => self * 3600
+
+h: Hour = 2
+m = h.Minutes()     // m = 120
+s = m.Seconds()     // s = 7200
+s = h.Seconds()     // s = 7200
+```
+
+---
 
 ## Types with Operators
 

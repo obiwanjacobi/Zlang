@@ -104,6 +104,8 @@ byref(v.Ptr())            // call with ptr to value
 
 > TBD: it would be nice to be able to see if a variable or parameter was an literal value. Then specific logic could be applied in these cases. For instance, when a parameter is a literal, the result of the function could be made immutable?
 
+Allow function overloads with some sort of special syntax for literal values?
+
 ### Optional Parameters
 
 Optional function parameters can be specified using the optional symbol `?`.
@@ -261,6 +263,27 @@ fn(self: Struct1)  // error
 ```
 
 One exception to this rule are the Type Constructor functions. See Also [Types](./types.md).
+
+## Recursive Functions
+
+A recursive function is a function that (eventually) calls itself.
+
+Recursive functions are supported although small memory/stack machines will have to be careful of not overflowing the stack.
+
+> TBD: Allow to specify a maximum depth?
+
+> Can the compile analyze how deep the recursion will go?
+
+> TBD: add explicit syntax to allow a function to be called recursively. Add syntax for calling `fn` in body of `fn` to guard against accidental type or function name mismatches. Can happen easily when overloading on self and calling the 'base'...
+
+```csharp
+{Recursive}     // decorator
+#recursive      // pragma
+recurseFn: (p: U8): U8
+        // exit condition here...
+        return recurseFn(p)     // no extra syntax
+        return @recurseFn(p)    // specific syntax
+```
 
 ## Type Bound (Self)
 
