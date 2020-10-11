@@ -31,7 +31,6 @@ TEST(ResolveTypesTests, TopVariableTypeDef)
     auto var = cb->getItemAt<AstVariableDefinition>(0);
     auto typeRef = var->getTypeReference();
     ASSERT_NE(typeRef, nullptr);
-    auto typeEntry = symbols->getEntry(typeRef->getIdentifier()->getName(), AstSymbolKind::Type);
     auto typeDef = typeRef->getTypeDefinition();
     ASSERT_NE(typeDef, nullptr);
 }

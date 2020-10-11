@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AstAssignment" Collapsed="true">
+    <Position X="5.75" Y="9.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AYBAAQAAAAEAAIAAAAAAAAQAAAABAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>zsharp\AST\AstAssignment.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstCodeBlockItem" Collapsed="true">
+    <Position X="5.75" Y="6" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAEAABAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>zsharp\AST\AstCodeBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstNode" Collapsed="true">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAgAAEAAAAAAAAAAQAAACAAAAAAQAAAhAAAA=</HashCode>
+      <FileName>zsharp\AST\AstNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstBranch" Collapsed="true">
+    <Position X="8.5" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AYQAAEAACAAACAAAAAAAAgQBAAAgAAAAAAAAAAAAACA=</HashCode>
+      <FileName>zsharp\AST\AstBranch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstBranchExpression" Collapsed="true">
+    <Position X="8.5" Y="10" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AYAAAAAAAAAAAAAAAAAAAAIAAAAAAAAggAIAAAAAAAA=</HashCode>
+      <FileName>zsharp\AST\AstBranch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstBranchConditional" Collapsed="true">
+    <Position X="8.5" Y="12.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAACAAAAAAAAAAAAACAACAAgAAAAQAgAAUIAAgIAA=</HashCode>
+      <FileName>zsharp\AST\AstBranch.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstCodeBlock" Collapsed="true">
+    <Position X="10.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAEAABAAAAAAAAAIAAAAAgBABAAAAgAIAAACgAAg=</HashCode>
+      <FileName>zsharp\AST\AstCodeBlock.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstSymbolTableSiteImpl" Collapsed="true">
+    <Position X="9.25" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAQBAAA=</HashCode>
+      <FileName>zsharp\AST\AstSymbolTable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstExpression" Collapsed="true">
+    <Position X="9.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIcAEAAAIAACgAAAAEUEgAAAAAAEAAAAgCIAAAAgAAA=</HashCode>
+      <FileName>zsharp\AST\AstExpression.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstExpressionOperand" Collapsed="true">
+    <Position X="3" Y="6" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AKAAAAAAgAEAAACAAAAAgACAAAAAAAAQgBABgAAgEAA=</HashCode>
+      <FileName>zsharp\AST\AstExpressionOperand.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstFile" Collapsed="true">
+    <Position X="8.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEAAAQAAAAAAAAAAAAAAAgQAAEQQAKgEAAAAAhAAA=</HashCode>
+      <FileName>zsharp\AST\AstFile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstFunctionParameter" Collapsed="true">
+    <Position X="13" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAABCgAAAAAAAAAAAAAAAgAAAAAQAA=</HashCode>
+      <FileName>zsharp\AST\AstFunction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstFunction" Collapsed="true">
+    <Position X="3.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIgAACAAAAAEBAAABAAAAAACAAAAAACAgEAAAAAhACA=</HashCode>
+      <FileName>zsharp\AST\AstFunction.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstIdentifier" Collapsed="true">
+    <Position X="16.25" Y="2.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAQEACQgAAAAAAQQAAABAAAAEAAAAIBA=</HashCode>
+      <FileName>zsharp\AST\AstIdentifier.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstIdentifierIntrinsic" Collapsed="true">
+    <Position X="16" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAQAAAAAAAAAAQAAAAAAAAAEAAAAAhA=</HashCode>
+      <FileName>zsharp\AST\AstIdentifier.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstModule" Collapsed="true">
+    <Position X="11.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIAAIAAAAAAAAAIAIAAAAAABAABAAAAAgAAEAAAAEAA=</HashCode>
+      <FileName>zsharp\AST\AstModule.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstNumeric" Collapsed="true">
+    <Position X="14.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAgICAEAAAAAAAAAIAAAAAAAAAAAAAAQgAAABgAAA=</HashCode>
+      <FileName>zsharp\AST\AstNumeric.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstType" Collapsed="true">
+    <Position X="14" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAhAAABQAAAAAAAAABAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>zsharp\AST\AstType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstTypeDefinition" Collapsed="true">
+    <Position X="13" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAAAgAAAABAAAAAAAAAAAAAAAAEAIAAAAAAAAAAA=</HashCode>
+      <FileName>zsharp\AST\AstType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstTypeReference" Collapsed="true">
+    <Position X="15.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAUABAAAAAAIAIQAIAAIAEEAAAEAAgBABBKAAAAA=</HashCode>
+      <FileName>zsharp\AST\AstType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstTypeIntrinsic" Collapsed="true">
+    <Position X="13" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>zsharp\AST\AstType.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstVariable" Collapsed="true">
+    <Position X="10.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>zsharp\AST\AstVariable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstVariableDefinition" Collapsed="true">
+    <Position X="14" Y="11.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAIAIAAAQgAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>zsharp\AST\AstVariable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AstVariableReference" Collapsed="true">
+    <Position X="11" Y="11.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAQAAAAAAAIAAAAAAAAAAAAAAQAgAAAAAAAAAA=</HashCode>
+      <FileName>zsharp\AST\AstVariable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

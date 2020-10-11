@@ -67,6 +67,8 @@ Arithmetic, bitwise and logical operators.
 | `#!` | Compile-Time Code
 | `=>` | Line continuation (instead of indent)
 
+> TBD: `=>` should perhaps be `->` so we can use `=>` for some 'assignment' variant?
+
 > Are there others like conditional assignment `??=`?
 
 ## Type operators
@@ -92,6 +94,7 @@ Arithmetic, bitwise and logical operators.
 | `|>` | 
 | `<|` | 
 | `:=` | reserve for variable assignment with type inference.
+| `<=>` | Swap operator (`><`?)
 
 ---
 

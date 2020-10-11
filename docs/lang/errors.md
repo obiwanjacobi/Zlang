@@ -13,7 +13,7 @@ errorFn: (): U8!
     return Error("Failed")
 ```
 
-Notice the `!` after the return type of the function. This indicates that you should pay attention, because this function can return an error!
+This indicates that you should pay attention, because this function can return an error!
 
 Details on using the `Error` type can be read [here]('../types/error.md')
 
@@ -31,7 +31,9 @@ use(v)
 
 The catch keyword is specified after the function that could return the error, and it introduces a scope. This scope is where the handler code goes in case there is an error. The variable name that is used to hand the code the `Error` is specified inside the parentheses.
 
-Alternate way of handling more complex error conditions using a match expression.
+> TBD: use a more lambda-like syntax: `v = fn() catch => (err)`? That would align more with [Error Handlers](#Error-Handlers).
+
+Alternate way of handling more complex error conditions using a `match` expression.
 
 ```csharp
 FnErr: (): U8!
@@ -43,12 +45,12 @@ a = match FnErr()
     n: U8 => n
 ```
 
-A (predicted) common pattern is that a function will call many functions itself and as soon as one errors out, the function itself will simply stop and propagate the error to its caller. The `try` keyword is syntactic sugar for `catch(err) return err` and is specified in front of the function call. It can be used as follows:
+A (predicted) common pattern is that a function will call many functions itself and as soon as one errors out, the function itself will simply stop and propagate the error to its caller. The `try` keyword is syntactic sugar for '`catch(err) return err`' and is specified in front of the function call. It can be used as follows:
 
 ```C#
 MyFunc: (): Bool!
     // propagate error from function
-    b = try couldWork()  // try => catch(err) return err
+    b = try couldWork() // try => catch(err) return err
     // b is the plain type - without the Err<> component.
     use(b)
 ```
@@ -69,29 +71,35 @@ b = myFunc() catch(err)  // error! myFunc does not return errors
     ...
 ```
 
-It is not possible to return an Error from a void function - a function that has no return value. It is possible to trigger a `FatalError` anywhere.
+It is also possible to return an Error from a `Void` function - a function that has no return value.
 
 ```C#
-voidFn: ()                  // no return value specified
-    return Error("Failed")  // error! no return value
+voidFn: (): Void!       // Void with Err
+    return Error("Failed")  // ok, exit function
+
+// handle error on Void! fn
+voidFn() catch(err)
+    // handle error
+    ...
+```
+
+It is also possible to trigger a `FatalError` anywhere.
+
+```C#
+noErrorFn: ()       // no Err return value specified
+    return Error("Failed")  // error! no error return type
     FatalError("Abort!")    // ok, exit program
 ```
 
 You can use the `return` keyword in a function to exit its execution of course.
 
-## Error Trace
-
-When an error is returned from a function and it naturally bubbles up the call stack, a trace can be made of all the code sites it visits.
-
-This diagnostic information can be useful for tracking down problems.
-
 ---
 
-> How to access standard errors (make a list of standard errors?)?
+## Error Handlers
 
-Use catch with a handler function instead of an inline handler? Function Interface needed for the error-handler function.
+Use `catch` with a handler function instead of an inline handler? Function Interface needed for the error-handler function.
 
-How can the handler-function direct control-flow?
+> How can the handler-function direct control-flow?
 
 ```C#
 errorHandler: (err: Error): Bool!
@@ -124,11 +132,20 @@ v = errorFn(42) catch(err)
     // control flow: using typeid
     if err#typeId = MyError#typeId
         ...
+
+v = errorFn(42) catch(err)
     // value: match
     a = match err
         myErr: MyError => ...
         _ => ...
+
+v = match errorFn(42)
+    n: U8 => // use normal return value
+    myErr: MyError => ...
+    _ => ...
 ```
+
+---
 
 ## Fatal Errors
 
@@ -143,3 +160,15 @@ FatalError("panic!", err)
 ```
 
 > What errors are fatal? DivideByZero, StackOverflow, OutOfMemory, ... ??
+
+---
+
+## Error Trace
+
+When an error is returned from a function and it naturally bubbles up the call stack, a trace can be made of all the code sites it visits.
+
+This diagnostic information can be useful for tracking down problems.
+
+---
+
+> How to access standard errors (make a list of standard errors?)?

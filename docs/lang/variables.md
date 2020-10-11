@@ -33,7 +33,7 @@ a: U8 = "zlang" // error! Str cannot be 'converted' to U8
 The names of a variable must be unique inside the root scope they're used in:
 
 ```C#
-myFunc()            // root scope
+myFunc: ()          // root scope
     a: U8           // ok, a
     if true
         a: U8       // error! a is shadowed
@@ -41,7 +41,9 @@ myFunc()            // root scope
 
 Root scopes are usually function-scope or for 'global' variables it is file-scope.
 
-## Pointers
+---
+
+## Pointer Variables
 
 A pointer variable contains a memory location of the thing it points to.
 
@@ -57,9 +59,9 @@ A pointer of any variable can be obtained by using the `Ptr()` conversion functi
 ```C#
 a = 42          // U8
 p = a.Ptr()     // p of type Ptr<U8> points to a
-b = p.U8()      // b = 42
+b = p()         // b = 42
 
-p.U8(101)       // a = 101, b = 42
+p() = 101       // a = 101, b = 42
 ```
 
 See also [Pointers](./pointers.md).
@@ -68,24 +70,9 @@ See also [Pointers](./pointers.md).
 
 ## Immutable Variables
 
-When variables are immutable they cannot be changed during the execution of the program.
-
-```C#
-c = 10#imm  // c has value 10 and cannot be changed
-
-c = 42      // error! cannot change value
-a = c       // a is NOT immutable
-
-v = 42      // mutable U8
-c = v#imm   // ok, immutable copy of v
-
-x: U8       // mutable U8 (value is 0)
-x = v#imm   // error, immutable values cannot be assigned
-```
+When variables are immutable they cannot be changed during their lifetime - their value is constant.
 
 An immutable variable is initialized when declared (not assigned to later).
-
-> Or use `Imm<T>`??
 
 ```C#
 c: Imm<U8> = 10  // c has value 10 and cannot be changed
@@ -96,6 +83,10 @@ a = c           // now a is immutable as well (??)
 v = 42          // mutable U8
 c: Imm<U8> = v  // ok, immutable copy of v
 ```
+
+See also [Immutable Types](types.md#Immutable-Types).
+
+---
 
 ## Global Variables
 

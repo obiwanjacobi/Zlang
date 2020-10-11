@@ -9,9 +9,10 @@ MyStruct<T>
     f: T
 
 s = MyStruct<U8>
+    f = 42
 ```
 
-> This should also work:
+This will also work:
 
 ```C#
 MyStruct<T>: T
@@ -20,18 +21,21 @@ MyStruct<T>: T
 s = MyStruct<OtherStruct>
 ```
 
+---
+
 ## Template Functions
 
 ```C#
 typedFn: <T>(p: T)
     ...
 
-// type inferred and checked
+// type inferred
 typedFn(42)
-
 // type explicit
 typedFn<U8>(42)
+```
 
+```csharp
 // return values
 typedRet: <T>(): T
     ...
@@ -41,9 +45,11 @@ y: U8 = typedRet()  // type forwarding?
 z = typedRet()      // Error! cannot determine type
 ```
 
+---
+
 ## Template Parameters
 
-Template parameters are applied at compile time. A parameter name _MUST_ be capitalized when it is used as a Type.
+Template parameters are applied at compile time. A parameter name (first char) _MUST_ be capitalized when it is used as a Type.
 
 ### Restricting Template Parameters
 
@@ -81,8 +87,19 @@ Restrict the template parameter based on metadata.
 
 ```csharp
 // restricting on metadata?
-// Type rules? See Custom Data Types
+// Type rules syntax? See Custom Data Types
 TemplateType<T#bits=8>  // '=' conflicts with parameter default
+    field: T
+
+// in combination with parameter default
+TemplateType<T#bits(8)=U8>  // not same as type rules syntax
+    field: T
+
+// special custom data type syntax?
+ParamType: _
+    #bits = 8
+// apply rules to T and have parameter default (U8)
+TemplateType<T: ParamType=U8>
     field: T
 ```
 
@@ -114,6 +131,30 @@ FixedArray<T, count: U8>
     arr: Array<T>(count)
 ```
 
+### Code Template Parameters (inlining)
+
+Have a code block be substituted for a template parameter.
+For that we need a compile-time code reference / function pointer.
+
+The goal is to insert code into a template that is compiled as a new whole.
+
+```csharp
+// takes a void-function with an U8 param 'as code' (#)
+repeatFn: <#Fn<Void, U8>>(c: U8)
+    loop n in [0..c]
+        #T(n)           // <= syntax to be determined
+
+// use #! to not emit the fn in the binary
+#! doThisFn: (p: U8)
+    ...             // <= body is inserted into the template
+
+// compiled as a new function (body)
+repeat<doThisFn>(42);
+// will execute doThisFn (body) 42 times (p=0-41)
+```
+
+The special syntax `#` (TBD) on the template parameter makes a distinction between passing in a function pointer (`Fn<T>`) -resulting in a function call- and copying in the code (`#Fn<T>`) which is basically inlining explicitly. Inlining allows the compiler to optimize the resulting code as a whole.
+
 ### Template Parameter Defaults
 
 As with function parameters, template parameters can be set to a default value that can be overridden at the 'call site'.
@@ -122,15 +163,24 @@ As with function parameters, template parameters can be set to a default value t
 TemplateType<T=U8>
     field1: T
 
+// use default
 t = TemplateType
     field1 = 42         // U8
+
+// override default
+t = TemplateType<Str>
+    field1 = "42"       // Str
 ```
+
+> Note: Inconsistency with function parameter defaults => which are not supported. Should we support both or neither?
 
 ### Variable Number of Template Parameters
 
 > Not supported.
 
 We really want to keep this as simple as possible.
+
+---
 
 ## Template Specialization
 
@@ -139,7 +189,7 @@ When use of specific template parameter values require specific code.
 ```C#
 typedFn: <T>(p: T)
     ...
-// Identified to be a specialization by name and type.
+// Identified to be a specialization by name and function type (pattern).
 typedFn: <Bool>(p: Bool)
     ...
 
@@ -147,7 +197,7 @@ typedFn(42)         // generic typedFn<T> called
 typedFn(true)       // specialization typedFn<Bool> called
 ```
 
-Partial specialization
+### Partial Specialization
 
 ```csharp
 templateFn: <S, T>(s: S, t: T): Str
@@ -174,27 +224,3 @@ With restrictions:
 ```csharp
 MyType<M: Struct<T: OtherStruct>>
 ```
-
----
-
-Have a code block be substituted for a template parameter.
-For that we need a compile-time code reference / function pointer.
-
-The goal is to insert code into a template that is compiled as one new entity.
-
-```csharp
-// takes a void-function with an U8 param 'as code' (#)
-repeatFn: <#Fn<Void, U8>>(c: U8)
-    loop n in [0..c]
-        #T(n)           // <= syntax to be determined
-
-// this is the custom function that is inserted into the template
-doThisFn: (p: U8)
-    ...             // <= body is inserted into the template
-
-// compiled as a new function (body)
-repeat<doThisFn>(42);
-// will execute doThisFn (body) 42 times (p=0-41)
-```
-
-The special syntax `#` (TBD) makes a distinction between passing in a function pointer (`Fn<T>`) -resulting in a function call- and copying in the code (`#Fn<T>`) which is basically inlining explicitly. Inlining allows the compiler to optimize the resulting code as a whole.

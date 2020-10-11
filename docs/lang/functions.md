@@ -74,10 +74,10 @@ Make the function syntax more like variable syntax? => Use an `=` to 'assign' th
 
 ```csharp
 // single line, without return, use =>
-isFourtyTwo: (p: U8): Bool => p = 42
+isFortyTwo: (p: U8): Bool => p = 42
 
 // multi line, with indent and return, use =
-isFourtyTwo: (p: U8): Bool =
+isFortyTwo: (p: U8): Bool =
     return p = 42
 
 // function declarations have no '=' sign.
@@ -88,7 +88,7 @@ fnDecl: (p: U8)     // no _ needed
 
 ## Parameters
 
-There is no other way of passing parameters to functions than by value. That means, that the parameter value is copied from the caller site into the context of the function.
+There is no other way of passing parameters to functions than by value. That means, that the parameter value is _copied_ from the caller site into the context of the function.
 
 That also means that if a parameter is to be passed by reference, an explicit pointer to that value has to be constructed and passed to the function.
 
@@ -124,6 +124,8 @@ hasParam: (p: U8?): Bool
 Functions should have unique names with well-defined parameters.
 Having default parameter values does not explain at the calling site what is happening.
 
+> See note in [Template Parameters](./templates.md#Template-Parameter-Defaults) about supporting a default value for (template) parameters.
+
 ### Named Parameter
 
 Function Parameters can be specified by name at the calling site.
@@ -136,12 +138,11 @@ namedFn(p = 42, p2 = 0x4242)    // ok, both named
 namedFn(p2 = 0x4242, p = 42)    // ok, out of order, but named
 namedFn(42, p2 = 0x4242)        // ok, p in order, rest named
 namedFn(0x4242, p = 42)         // ok, unnamed is only one left
-
 ```
 
 ### Variable number of parameters
 
-Not really supported but can fake with Array: all of same type. We don't have an 'object' type that is the basis of all. (do we need to?)
+Not really supported but you can fake it with an Array: all of same type. We don't have an 'object' type that is the basis of all. (do we need to?)
 
 ```C#
 varFunc: <T>(p: U8, varP: Array<T>)
@@ -171,6 +172,34 @@ immFn: (p: ^*U8)
 Make42: (p: Ptr<U8>)
     p() = 42
 ```
+
+### Illegal Parameter Types
+
+> TBD: playing with the idea of making `Bool` an illegal parameter type for an exported function.
+
+```csharp
+illegalFn(b: Bool)
+    ...
+
+// use
+illegalFn(true)     // doesn't say much on intent
+illegalFn(false)
+```
+
+Perhaps allow it but demand naming the parameter?
+
+```csharp
+allowedFn(editable: Bool)
+    ...
+
+// use with named parameter
+allowedFn(editable = true)
+allowedFn(editable = false)
+```
+
+> Another potential problem is passing `Bit<n>` as parameter in that the number of bits will be rounded up to a byte boundary.
+
+---
 
 ## Return values
 
@@ -223,7 +252,7 @@ We call this Unit type `Void`.
 MyFn: (p: U8) // return Void
     ...
 
-v = MyFn(42)    // legal: v => Unit
+v = MyFn(42)    // legal: v => Void
 // can't do anything with 'v' though
 ```
 
@@ -246,6 +275,8 @@ The example above should be handled the same as if the return type would be an `
 
 The true purpose is to not have to distinct between function with or without a return value, especially when taking pointers and/or lambda's (see below).
 
+---
+
 ## Function Overloads
 
 Function overloading means that there are multiple functions with the same name but different parameter (or return) types.
@@ -263,6 +294,10 @@ fn(self: Struct1)  // error
 ```
 
 One exception to this rule are the Type Constructor functions. See Also [Types](./types.md).
+
+> TBD: should we also support covariant return types?
+
+---
 
 ## Recursive Functions
 
@@ -284,6 +319,8 @@ recurseFn: (p: U8): U8
         return recurseFn(p)     // no extra syntax
         return @recurseFn(p)    // specific syntax
 ```
+
+---
 
 ## Type Bound (Self)
 
@@ -365,6 +402,8 @@ s.fn1()     // normal function call
 
 If return type is not `Void`, the actual return type is used. See also Fluent Functions (below).
 
+---
+
 ## Local Functions
 
 A local function is a function that is defined inside another function and is local to that scope - it cannot be used (seen) outside the function its defined in.
@@ -393,6 +432,8 @@ OuterFn: (p: U8)
 > Can Local Functions be declared at the end of the containing function?
 
 > Limit on how many nesting levels?
+
+---
 
 ## Lambdas
 
@@ -438,6 +479,8 @@ Call([sum.Ptr()](p)
     ...
 )
 ```
+
+---
 
 ## Coroutines
 
@@ -646,6 +689,8 @@ In case of a mutable capture, it's value is written back to the original storage
 
 > We do need a mechanism to handle conflicts when writing back captured data.
 
+> Perhaps as an optimization, immutable captures (in general) could be passed as references to a parent stack frame?
+
 ---
 
 ## Piping Operator
@@ -704,5 +749,3 @@ tag interrupt service routines (for analysis - volatile) as a simplified interfa
 functions that do not return?
 
 intrinsic functions (operator implementations) - extensions?
-
-inlining (compiler)

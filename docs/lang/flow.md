@@ -1,5 +1,7 @@
 # Flow Control
 
+Constructs to direct the flow of program execution.
+
 ## Conditional branching
 
 The basic if statement works as expected, but the condition is not enclosed in `()`. There can only be a conditional expression following the `if`, so parsing of the condition stops when a newline is encountered or a comment.
@@ -42,6 +44,8 @@ if(42)          // function call (no space)
 ```
 
 Note that `if` is a reserved keyword and no named language element can have the same name as a reserved keyword.
+
+---
 
 ## Loops
 
@@ -105,6 +109,8 @@ loop [0..10]
     LogInt
 ```
 
+---
+
 ## Break
 
 It is possible to break out of the execution of a loop at any time with the `break` keyword.
@@ -131,6 +137,8 @@ loop                  // loop #1
             break     // this will exit loop #2
 ```
 
+---
+
 ## Continue
 
 The opposite of `break`, the `continue` keyword will allow you to skip one iteration of the loop:
@@ -144,6 +152,40 @@ loop
 
 As with `break`, `continue` only works on the immediate parent loop.
 
-> Call it `skip` instead of `continue`?
+---
 
-> Not sure if this is really needed. Seldom used?
+## Exit
+
+> TBD: use `exit` as a keyword to replace `break`, `continue`, `yield` and `return`?
+
+```csharp
+exit()              // exits program
+exit(fn)            // exits function (return)
+exit(co)            // exits coroutine (yield)
+exit(iter)          // exits current iteration (continue)
+exit(loop)          // exits loop (break)
+exit(..)            // exits current scope (1 up)
+```
+
+Or this syntax? (_ is discard...)
+
+```csharp
+exit_app
+exit_fn
+exit_co
+exit_iter
+exit_loop
+exit
+```
+
+```csharp
+fn: (p: U8): U8
+    if p == 0 => exit()     // abort program
+    c: U8
+    loop n in [0..p]
+        if p == 42 => exit(iter)    // continue
+        if p == 101 => exit(loop)   // break
+        c += 1
+
+    exit(fn) c  // return c
+```

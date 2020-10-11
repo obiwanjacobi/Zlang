@@ -4,9 +4,9 @@ Identifiers name program entities such as variable, functions and types. These n
 
 - Cannot be empty.
 - Cannot contain spaces.
-- Cannot contain operator characters (+-/*).
-- Cannot start with a digit.
-
+- Cannot contain 'special' characters (;,.:<>{}() etc).
+- Cannot contain operator characters (+-/*) (*TBD).
+- Cannot start with a digit (*TBD).
 - Can contain `_`.
 - Can contain alpha-numeric characters.
 - Valid characters lie in the ASCII range (no unicode).
@@ -27,6 +27,8 @@ some variable
 my-type
 ```
 
+> TBD: I don't see any objection to add '`-`' (minus sign) as a valid character for an identifier...? Or start an identifier with a digit? The parser should be able to match that correctly.
+
 ## Case Sensitivity
 
 - Type identifiers start with an upper case letter.
@@ -41,7 +43,7 @@ Identifiers are the same when:
 
 ### Discard
 
-Using a discard `_` in an identifier is ignored during matching.
+Using a discard `_` in an identifier is ignored during matching. This includes cases where an identifier starts or ends with a discard.
 
 ```csharp
 My_Function(p: U8)
@@ -57,16 +59,14 @@ Myfunction(p: U8)
 My_Function(42)  // calls Myfunction
 ```
 
-When an identifier starts with a discard `_` it indicates the symbol is not used.
+When an identifier only consists of a discard `_` it indicates it is not used.
 
 ```csharp
-myFn(_p: U8): U8    // param p not used
+myFn(_: U8): U8    // param not used
     ...
-_a = myFn(42)       // return value named but not used
+_ = myFn(42)        // return value not used
 
 ```
-
-Or when it ends with an `_`? => Invalid?
 
 ## Fully Qualified Names
 

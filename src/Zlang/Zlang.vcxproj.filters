@@ -58,6 +58,7 @@
     <None Include="zsharp\LLVM\readme.md" />
     <None Include="zsharp\grammar\readme.md" />
     <None Include="zsharp\readme.md" />
+    <None Include="zsharp\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="zsharp\grammar\ZsharpParser.h" />

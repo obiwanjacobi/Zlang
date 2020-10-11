@@ -36,6 +36,8 @@ if a = myFunc()      // error!
 
 ## Chaining
 
+> FIX: CLashes with comparison is equal!
+
 The assignment can be chained across multiple variables (left operand) that all get assigned the same value (right operand). Type inference works as expected and the inferred type is applied to all untyped vars.
 
 ```csharp
@@ -50,6 +52,22 @@ a = b = c: U24 = 42
 // a: U8 = 42
 // b: U16 = 42
 // c: U24 = 42
+```
+
+### Structure Assignment
+
+Assigning structures works the same as primitve values. A new copy is made for the target.
+
+```csharp
+s: Struct
+    fld1 = 42
+    fld2 = "42"
+
+// this will make a new copy of Struct
+x = s
+x.fld1 = 101    // only changes x, not s
+
+b = s.fld1 = 42 // b = true
 ```
 
 ---

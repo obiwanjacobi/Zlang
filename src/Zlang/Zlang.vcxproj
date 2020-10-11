@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="zsharp\ClassDiagram.cd" />
     <None Include="zsharp\grammar\parser\zsharp_parser.tokens" />
     <None Include="zsharp\grammar\parser\zsharp_parserLexer.tokens" />
     <None Include="zsharp\grammar\readme.md" />
