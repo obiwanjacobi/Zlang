@@ -1,3 +1,5 @@
+**This Project is Archived!**
+
 # Zlang
 
 Zlang is the name of the compiler for the Z# (Zee-Sharp) language.
